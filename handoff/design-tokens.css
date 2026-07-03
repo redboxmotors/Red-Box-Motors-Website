@@ -1,0 +1,132 @@
+/* ============================================================
+   Red Box Motors — design tokens (CSS custom properties)
+   Framework-agnostic foundation for the production rebuild.
+   These mirror the literal values used across the prototypes.
+   Import once at the root. Pair with tailwind.config snippet
+   in design-tokens.tailwind.js if using Tailwind.
+   ============================================================ */
+
+:root {
+  /* —— Color: neutrals (dark → light) —— */
+  --rb-black:        #000000;
+  --rb-bg:           #050505;  /* page background */
+  --rb-surface:      #0A0A0A;  /* cards, tiles */
+  --rb-surface-2:    #0C0C0C;
+  --rb-surface-3:    #0D0D0D;
+  --rb-surface-4:    #0E0E0E;
+  --rb-raised:       #111111;  /* hover/raised surface */
+  --rb-raised-2:     #131313;
+  --rb-raised-3:     #161616;
+
+  /* stripe placeholder (use until real photos) */
+  --rb-stripe-a:     #171717;
+  --rb-stripe-b:     #101010;
+
+  /* —— Color: hairlines / borders —— */
+  --rb-line:         #1A1A1A;
+  --rb-line-2:       #1C1C1C;
+  --rb-border:       #222222;
+  --rb-border-2:     #2A2A2A;
+  --rb-border-3:     #333333;
+
+  /* —— Color: text —— */
+  --rb-text:         #FFFFFF;
+  --rb-text-2:       #DCDCDC;
+  --rb-text-3:       #CCCCCC;
+  --rb-text-mute:    #AAAAAA;
+  --rb-text-mute-2:  #888888;
+  --rb-text-mute-3:  #777777;
+  --rb-text-faint:   #666666;
+  --rb-text-faint-2: #555555;
+  --rb-text-ghost:   #3A3A3A;
+
+  /* —— Accent —— */
+  --rb-red:          #CC0000;
+  --rb-red-glow:     rgba(204, 0, 0, 0.35);
+
+  /* —— Type —— */
+  --rb-font: 'Archivo', system-ui, sans-serif;
+  --rb-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  /* weights: 300 / 400 / 500 / 600 / 700 — bold/thick direction.
+     Roles: hero 600–700 · titles 600 · labels 700 · body 500 (never thin). */
+
+  /* —— Spacing seams —— */
+  --rb-seam:        2px;   /* tile grid gap */
+  --rb-seam-mosaic: 6px;   /* homepage mosaic gap */
+  --rb-seam-lift:   8px;   /* gap on grids that lift on hover */
+  --rb-grid-pad:    12px;  /* inner pad so lifts don't clip */
+
+  /* —— Motion —— */
+  --rb-ease:        cubic-bezier(.2, .8, .2, 1);  /* the one curve */
+  --rb-dur-tile:    240ms;
+  --rb-dur-btn:     220ms;
+  --rb-dur-enter:   500ms;
+
+  /* —— Shadows —— */
+  --rb-shadow-card:    0 30px 70px rgba(0,0,0,.55), 0 8px 24px rgba(0,0,0,.45);
+  --rb-shadow-card-lg: 0 40px 90px rgba(0,0,0,.60), 0 12px 32px rgba(0,0,0,.45);
+  --rb-shadow-box:     0 18px 44px rgba(0,0,0,.55), 0 6px 16px rgba(0,0,0,.45);
+  --rb-shadow-hover:   0 22px 44px rgba(0,0,0,.62), 0 8px 18px rgba(0,0,0,.50);
+  --rb-shadow-btn:     0 12px 26px rgba(0,0,0,.50);
+  --rb-shadow-btn-red: 0 16px 34px rgba(204,0,0,.36);
+}
+
+/* —— Canonical hover interactions ——
+   Apply these intents in the rebuild (Tailwind variants, styled
+   components, or plain classes). Values, not selectors, are the
+   contract. */
+
+/* TILE / CARD hover */
+.rb-tile {
+  transition: transform var(--rb-dur-tile) var(--rb-ease),
+              box-shadow var(--rb-dur-tile) var(--rb-ease),
+              filter var(--rb-dur-tile) var(--rb-ease);
+}
+.rb-tile:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: var(--rb-shadow-hover);
+  filter: brightness(1.14);
+  z-index: 5;
+}
+.rb-tile:active { transform: translateY(0) scale(.98); }
+
+/* BUTTON — outline/ghost */
+.rb-btn {
+  transition: transform var(--rb-dur-btn) var(--rb-ease),
+              box-shadow var(--rb-dur-btn) var(--rb-ease),
+              background var(--rb-dur-btn) ease,
+              border-color var(--rb-dur-btn) ease;
+}
+.rb-btn:hover { transform: translateY(-2px); box-shadow: var(--rb-shadow-btn); }
+.rb-btn:active { transform: translateY(0) scale(.98); }
+
+/* BUTTON — red CTA */
+.rb-btn-red { transition: transform var(--rb-dur-btn) var(--rb-ease),
+                          box-shadow var(--rb-dur-btn) var(--rb-ease),
+                          filter var(--rb-dur-btn) ease; }
+.rb-btn-red:hover { transform: translateY(-3px); box-shadow: var(--rb-shadow-btn-red); filter: brightness(1.12); }
+.rb-btn-red:active { transform: translateY(0) scale(.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-tile, .rb-btn, .rb-btn-red { transition: none; }
+  .rb-tile:hover { transform: none; }
+  .rb-btn:hover, .rb-btn-red:hover { transform: none; }
+}
+
+/* —— Fixed blurred background (detail/utility pages) —— */
+.rb-bg-photo {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 0;
+  filter: blur(30px) brightness(.62) saturate(1.08);
+  transform: scale(1.12); pointer-events: none;
+}
+.rb-bg-dim {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(6,6,6,.32), rgba(6,6,6,.62));
+}
+
+/* —— Photo-tile scrim (text over photo, bottom-left) —— */
+.rb-tile-scrim {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 64%;
+  background: linear-gradient(transparent, rgba(0,0,0,.55) 45%, rgba(0,0,0,.93));
+}

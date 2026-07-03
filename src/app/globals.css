@@ -1,0 +1,385 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Red Box Motors — global foundation
+   Ported from handoff/design-tokens.css. Literal values from the
+   approved prototypes — keep them exact.
+   ============================================================ */
+
+:root {
+  /* —— Color: neutrals (dark → light) —— */
+  --rb-black: #000000;
+  --rb-bg: #050505; /* page background */
+  --rb-surface: #0a0a0a; /* cards, tiles */
+  --rb-surface-2: #0c0c0c;
+  --rb-surface-3: #0d0d0d;
+  --rb-surface-4: #0e0e0e;
+  --rb-raised: #111111; /* hover/raised surface */
+  --rb-raised-2: #131313;
+  --rb-raised-3: #161616;
+
+  /* stripe placeholder (until real photos land from the CMS) */
+  --rb-stripe-a: #171717;
+  --rb-stripe-b: #101010;
+
+  /* —— Color: hairlines / borders —— */
+  --rb-line: #1a1a1a;
+  --rb-line-2: #1c1c1c;
+  --rb-border: #222222;
+  --rb-border-2: #2a2a2a;
+  --rb-border-3: #333333;
+
+  /* —— Color: text —— */
+  --rb-text: #ffffff;
+  --rb-text-2: #dcdcdc;
+  --rb-text-3: #cccccc;
+  --rb-text-mute: #aaaaaa;
+  --rb-text-mute-2: #888888;
+  --rb-text-mute-3: #777777;
+  --rb-text-faint: #666666;
+  --rb-text-faint-2: #555555;
+  --rb-text-ghost: #3a3a3a;
+
+  /* —— Accent —— */
+  --rb-red: #cc0000;
+  --rb-red-glow: rgba(204, 0, 0, 0.35);
+
+  /* —— Type —— */
+  --rb-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* —— Spacing seams —— */
+  --rb-seam: 2px; /* tile grid gap */
+  --rb-seam-mosaic: 6px; /* homepage mosaic gap */
+  --rb-seam-lift: 8px; /* gap on grids that lift on hover */
+  --rb-grid-pad: 12px; /* inner pad so lifts don't clip */
+
+  /* —— Motion —— */
+  --rb-ease: cubic-bezier(0.2, 0.8, 0.2, 1); /* the one curve */
+  --rb-dur-tile: 240ms;
+  --rb-dur-btn: 220ms;
+  --rb-dur-enter: 500ms;
+
+  /* —— Shadows —— */
+  --rb-shadow-card: 0 30px 70px rgba(0, 0, 0, 0.55), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --rb-shadow-card-lg: 0 40px 90px rgba(0, 0, 0, 0.6), 0 12px 32px rgba(0, 0, 0, 0.45);
+  --rb-shadow-box: 0 18px 44px rgba(0, 0, 0, 0.55), 0 6px 16px rgba(0, 0, 0, 0.45);
+  --rb-shadow-hover: 0 22px 44px rgba(0, 0, 0, 0.62), 0 8px 18px rgba(0, 0, 0, 0.5);
+  --rb-shadow-btn: 0 12px 26px rgba(0, 0, 0, 0.5);
+  --rb-shadow-btn-red: 0 16px 34px rgba(204, 0, 0, 0.36);
+}
+
+html {
+  background-color: var(--rb-bg);
+}
+
+body {
+  background-color: var(--rb-bg);
+  color: var(--rb-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+p,
+h1,
+h2,
+h3 {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--rb-red);
+  color: #ffffff;
+}
+
+/* ============================================================
+   Canonical hover interactions (design-language.md §7)
+   ============================================================ */
+
+@layer components {
+  /* TILE / CARD hover — lift, shadow bloom, brighten, float above neighbors */
+  .rb-tile {
+    transition:
+      transform var(--rb-dur-tile) var(--rb-ease),
+      box-shadow var(--rb-dur-tile) var(--rb-ease),
+      filter var(--rb-dur-tile) var(--rb-ease);
+  }
+  .rb-tile:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: var(--rb-shadow-hover);
+    filter: brightness(1.14);
+    z-index: 5;
+  }
+  .rb-tile:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* BUTTON — outline/ghost */
+  .rb-btn {
+    transition:
+      transform var(--rb-dur-btn) var(--rb-ease),
+      box-shadow var(--rb-dur-btn) var(--rb-ease),
+      background var(--rb-dur-btn) ease,
+      border-color var(--rb-dur-btn) ease;
+  }
+  .rb-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--rb-shadow-btn);
+  }
+  .rb-btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* BUTTON — red CTA */
+  .rb-btn-red {
+    transition:
+      transform var(--rb-dur-btn) var(--rb-ease),
+      box-shadow var(--rb-dur-btn) var(--rb-ease),
+      filter var(--rb-dur-btn) ease;
+  }
+  .rb-btn-red:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--rb-shadow-btn-red);
+    filter: brightness(1.12);
+  }
+  .rb-btn-red:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Small uppercase section / field labels (labels are heavy: 700) */
+  .rb-label {
+    @apply text-[11px] font-bold uppercase tracking-label text-rb-tx-mute-2;
+  }
+
+  /* Mono caption — photo counts, spec tags, [ placeholder ] art labels */
+  .rb-mono-caption {
+    font-family: var(--rb-mono);
+    @apply text-[10px] tracking-wide text-rb-tx-faint;
+  }
+
+  /* Striped placeholder art — where CMS photos land */
+  .rb-stripe {
+    background: repeating-linear-gradient(
+      135deg,
+      var(--rb-stripe-a) 0,
+      var(--rb-stripe-a) 10px,
+      var(--rb-stripe-b) 10px,
+      var(--rb-stripe-b) 20px
+    );
+  }
+}
+
+/* ============================================================
+   Background system (design-language.md §6)
+   ============================================================ */
+
+/* Fixed blurred photo (detail/utility pages) */
+.rb-bg-photo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: blur(30px) brightness(0.62) saturate(1.08);
+  transform: scale(1.12);
+  pointer-events: none;
+}
+.rb-bg-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(6, 6, 6, 0.32), rgba(6, 6, 6, 0.62));
+}
+
+/* Photo-tile scrim (text over photo, bottom-left) */
+.rb-tile-scrim {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64%;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55) 45%, rgba(0, 0, 0, 0.93));
+}
+
+/* ============================================================
+   Site-wide motion layer (design-language.md — motion layer)
+   ============================================================ */
+
+/* Universal reveals — [data-reveal] elements fade/translate in when the
+   IntersectionObserver (RevealOnScroll) marks them revealed. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--rb-dur-enter) var(--rb-ease),
+    transform var(--rb-dur-enter) var(--rb-ease);
+}
+[data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Film grain — fixed SVG-noise overlay above content */
+.rb-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Nav underline — a[data-nav-u] animates a 1px #CC0000 bar ([data-nav-bar])
+   sweeping in from the left on hover, exiting right; active bar stays on. */
+a[data-nav-u] {
+  position: relative;
+  transition:
+    color var(--rb-dur-btn) ease,
+    transform var(--rb-dur-btn) var(--rb-ease);
+}
+a[data-nav-u]:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+a[data-nav-u] [data-nav-bar] {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: var(--rb-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--rb-dur-btn) var(--rb-ease);
+}
+a[data-nav-u]:hover [data-nav-bar] {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+a[data-nav-u]:not(:hover) [data-nav-bar] {
+  transform-origin: right;
+}
+a[data-nav-u][data-active='1'] [data-nav-bar] {
+  transform: scaleX(1);
+}
+
+/* ============================================================
+   Hero + scroll-shell keyframes (page prototypes' shared set)
+   ============================================================ */
+@keyframes rbmLine {
+  from {
+    transform: translateY(120%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes heroImgIn {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes scrollGlideDown {
+  0% {
+    top: -15px;
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    top: 33px;
+    opacity: 0;
+  }
+}
+
+/* Intro loader (full reload / external entry only — design-language.md) */
+@keyframes rbmBoxIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes rbmBarGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes rbmLoaderLift {
+  0%,
+  55% {
+    clip-path: inset(0 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/* Hidden scrollbars on the snap container + inner box (prototype parity) */
+.rb-noscrollbar {
+  scrollbar-width: none;
+}
+.rb-noscrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-hero-line,
+  .rb-hero-in,
+  .rb-hero-img {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   Reduced motion — drop lifts, scrubs, reveals, marquees
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .rb-tile,
+  .rb-btn,
+  .rb-btn-red,
+  a[data-nav-u],
+  a[data-nav-u] [data-nav-bar] {
+    transition: none;
+  }
+  .rb-tile:hover,
+  .rb-btn:hover,
+  .rb-btn-red:hover,
+  a[data-nav-u]:hover {
+    transform: none;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-rb-fade-up,
+  .animate-rb-panel-in {
+    animation: none;
+  }
+}

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html,body{background:#000;margin:0;}</style>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#050505;}
+  *{box-sizing:border-box;}
+  *::-webkit-scrollbar{width:0;height:0;}
+  @keyframes panelIn{from{opacity:0;transform:scale(0.985);}to{opacity:1;transform:scale(1);}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  input,textarea{font-family:'Archivo',sans-serif;}
+  input::placeholder,textarea::placeholder{color:#3a3a3a;}
+  textarea{resize:none;}
+  #rbm-loader{position:fixed;inset:0;z-index:1000;background:#000;font-family:'Archivo',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;will-change:clip-path;animation:rbmLoaderLift .375s cubic-bezier(.76,0,.24,1) forwards;animation-delay:.34s;}
+  #rbm-loader .rbm-loader-badge{display:flex;align-items:center;gap:15px;animation:rbmBoxIn .375s cubic-bezier(.2,.8,.2,1) both;}
+  #rbm-loader .rbm-loader-track{width:210px;height:2px;background:#171717;overflow:hidden;}
+  #rbm-loader .rbm-loader-bar{height:100%;background:#CC0000;transform-origin:left center;transform:scaleX(0);animation:rbmBarGrow .5s cubic-bezier(.45,0,.1,1) forwards;}
+  :root[data-nav="full"] #rbm-loader{animation-duration:.95s;animation-delay:1.5s;}
+  :root[data-nav="full"] #rbm-loader .rbm-loader-badge{animation-duration:.8s;}
+  :root[data-nav="full"] #rbm-loader .rbm-loader-bar{animation-duration:1.5s;}
+  @keyframes rbmBoxIn{0%{opacity:0;transform:scale(0.6);}45%{opacity:1;}100%{opacity:1;transform:scale(1);}}
+  @keyframes rbmBarGrow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+  @keyframes rbmLoaderLift{0%,55%{clip-path:inset(0 0 0 0);}100%{clip-path:inset(0 0 100% 0);}}
+  :root[data-nav="quick"] #rbm-loader{display:none!important;}
+  @media (prefers-reduced-motion: reduce){#rbm-loader{display:none!important;}}
+  :root[data-embed="1"] #rbm-loader{display:none!important;}
+  :root[data-embed="1"] [data-rb-bg]{display:none!important;}
+  :root[data-embed="1"] [data-nav-wrap]{display:none!important;}
+  :root[data-embed="1"] [data-panel]{padding:0!important;min-height:auto!important;}
+  :root[data-embed="1"] [data-root]{min-height:auto!important;background:transparent!important;}
+  :root[data-embed="1"] html,:root[data-embed="1"] body{background:transparent!important;}
+</style>
+<script>(function(){var f='full';try{var n=performance.getEntriesByType('navigation')[0];var t=n?n.type:'navigate';var same=document.referrer&&document.referrer.indexOf(location.origin)===0;f=(t==='reload'||!same)?'full':'quick';}catch(e){}document.documentElement.setAttribute('data-nav',f);try{if(/[?&]embed=1/.test(location.search))document.documentElement.setAttribute('data-embed','1');}catch(e){}})();</script>
+<script src="assets/motion.js"></script>
+</helmet>
+  <!-- ===================== INTRO LOADER ===================== -->
+  <div id="rbm-loader">
+    <div class="rbm-loader-badge">
+      <span style="display:inline-flex;background:#CC0000;padding:13px 18px;"><span style="font-size:15px;font-weight:800;letter-spacing:4px;color:#fff;">RBM</span></span>
+      <span style="font-size:12px;font-weight:600;letter-spacing:6px;color:#666;text-transform:uppercase;">Red Box Motors</span>
+    </div>
+    <div class="rbm-loader-track"><div class="rbm-loader-bar"></div></div>
+  </div>
+
+<div data-root style="font-family:'Archivo',sans-serif;background:#050505;color:#fff;min-height:100vh;width:100%;position:relative;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;">
+
+  <!-- ===================== SHARED FIXED BACKGROUND ===================== -->
+  <img src="assets/hero-lineup.jpeg" alt="" data-rb-bg style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 56%;z-index:0;filter:blur(30px) brightness(0.62) saturate(1.08);transform:scale(1.12);pointer-events:none;" />
+  <div data-rb-bg style="position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(6,6,6,0.32),rgba(6,6,6,0.62));pointer-events:none;"></div>
+
+  <!-- ===================== GLOBAL NAV ===================== -->
+  <div data-nav-wrap>
+  <dc-import name="Site Nav" current="contact" hint-size="100%,64px"></dc-import>
+  </div>
+
+  <!-- ===================== CONTACT PANEL ===================== -->
+  <div data-panel style="flex:1;display:flex;align-items:center;justify-content:center;padding:104px 2.5vw 48px;position:relative;z-index:1;">
+    <div data-card style="width:100%;max-width:1280px;background:#0a0a0a;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,0.6),0 12px 32px rgba(0,0,0,0.45);animation:panelIn 500ms ease both;">
+
+      <div style="display:flex;align-items:baseline;gap:14px;padding:20px 28px;border-bottom:1px solid #1a1a1a;">
+        <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">Get in Touch</span>
+        <span style="font-size:11px;color:#666;">We reply within one business day</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:2px;background:#000;">
+
+        <!-- LEFT — details -->
+        <div style="background:#0d0d0d;padding:48px 46px;display:flex;flex-direction:column;justify-content:center;animation:fadeUp 500ms ease both;">
+          <div style="font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05;color:#fff;margin-bottom:18px;">Let's talk<br>about the car.</div>
+          <p style="font-size:15px;color:#9a9a9a;line-height:1.65;max-width:420px;margin:0 0 40px;">Sales, cosmetics or collection management — reach out and the right person will get back to you.</p>
+
+          <div style="display:flex;flex-direction:column;">
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid #1c1c1c;padding:16px 0;">
+              <span style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;">Email</span>
+              <span style="font-size:14px;color:#eee;letter-spacing:0.2px;">hello@redboxmotors.com</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid #1c1c1c;padding:16px 0;">
+              <span style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;">Phone</span>
+              <span style="font-size:14px;color:#eee;letter-spacing:0.2px;">(512) 555-0123</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid #1c1c1c;padding:16px 0;">
+              <span style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;">Location</span>
+              <span style="font-size:14px;color:#eee;letter-spacing:0.2px;">Austin, TX · near COTA</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid #1c1c1c;border-bottom:1px solid #1c1c1c;padding:16px 0;">
+              <span style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;">Hours</span>
+              <span style="font-size:14px;color:#eee;letter-spacing:0.2px;">By appointment · Mon–Sat</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT — form -->
+        <div style="background:#0A0A0A;padding:48px 46px;display:flex;flex-direction:column;justify-content:center;animation:fadeUp 500ms ease 90ms both;">
+          <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px;">
+            <div style="{{ nameBox }}">
+              <div style="font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:9px;">Name</div>
+              <input ref="{{ setName }}" data-k="name" onInput="{{ onType }}" type="text" autocomplete="name" placeholder="Your name" style="width:100%;background:transparent;border:none;outline:none;color:#fff;font-size:14px;letter-spacing:0.2px;padding:0;caret-color:#CC0000;" />
+              <sc-if value="{{ err.name }}"><div style="font-size:10px;letter-spacing:0.5px;color:#CC0000;margin-top:8px;">{{ err.name }}</div></sc-if>
+            </div>
+            <div style="{{ emailBox }}">
+              <div style="font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:9px;">Email</div>
+              <input ref="{{ setEmail }}" data-k="email" onInput="{{ onType }}" type="email" autocomplete="email" placeholder="you@email.com" style="width:100%;background:transparent;border:none;outline:none;color:#fff;font-size:14px;letter-spacing:0.2px;padding:0;caret-color:#CC0000;" />
+              <sc-if value="{{ err.email }}"><div style="font-size:10px;letter-spacing:0.5px;color:#CC0000;margin-top:8px;">{{ err.email }}</div></sc-if>
+            </div>
+          </div>
+          <div style="{{ interestBox }}">
+            <div style="font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:9px;">Interested In</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <sc-for list="{{ chips }}" as="chip" hint-placeholder-count="3">
+                <div onClick="{{ chip.onClick }}" style="{{ chip.style }}" style-active="transform:scale(0.96)">{{ chip.label }}</div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ err.interest }}"><div style="font-size:10px;letter-spacing:0.5px;color:#CC0000;margin-top:10px;">{{ err.interest }}</div></sc-if>
+          </div>
+          <div style="{{ messageBox }}">
+            <div style="font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:9px;">Message</div>
+            <textarea ref="{{ setMsg }}" data-k="message" onInput="{{ onType }}" rows="3" placeholder="Tell us about the car or the project…" style="width:100%;background:transparent;border:none;outline:none;color:#fff;font-size:14px;line-height:1.5;letter-spacing:0.2px;padding:0;caret-color:#CC0000;min-height:70px;"></textarea>
+            <sc-if value="{{ err.message }}"><div style="font-size:10px;letter-spacing:0.5px;color:#CC0000;margin-top:8px;">{{ err.message }}</div></sc-if>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;">
+            <span style="font-size:11px;letter-spacing:0.5px;color:#666;">We reply within one business day.</span>
+            <div onClick="{{ submit }}" style="display:inline-flex;align-items:center;gap:10px;background:#CC0000;color:#fff;cursor:pointer;padding:15px 28px;font-size:13px;letter-spacing:0.5px;white-space:nowrap;transition:filter 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1);" style-hover="filter:brightness(1.12);transform:translateY(-3px);box-shadow:0 16px 34px rgba(204,0,0,0.36)" style-active="transform:translateY(0) scale(0.98)">
+              Send Message
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" stroke-width="1.4"/></svg>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:360px;animation:fadeUp 400ms ease both;">
+            <div style="width:46px;height:46px;background:#CC0000;display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5L10 17.5L19 7" stroke="#fff" stroke-width="2"/></svg>
+            </div>
+            <div style="font-size:30px;font-weight:600;letter-spacing:-0.02em;color:#fff;margin-bottom:12px;">Message sent.</div>
+            <p style="font-size:15px;color:#9a9a9a;line-height:1.6;max-width:380px;margin:0 0 32px;">Thanks — we'll get back to you within one business day.</p>
+            <div onClick="{{ reset }}" style="display:inline-flex;align-items:center;gap:9px;border:1px solid #2a2a2a;color:#fff;cursor:pointer;padding:13px 22px;font-size:12.5px;letter-spacing:1px;transition:background 200ms ease,border-color 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1);" style-hover="background:#161616;border-color:#444;transform:translateY(-2px)" style-active="transform:translateY(0) scale(0.98)">Send another</div>
+          </div>
+          </sc-if>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">class Component extends DCLogic {
+  state = { interest: null, errors: {}, sent: false };
+
+  componentDidMount() {
+    import('./data/bg.js').then((b) => { const i = document.querySelector('[data-rb-bg]'); if (i) i.src = b.pickHero(); }).catch(() => {});
+  }
+
+  setName = (el) => { this._name = el; };
+  setEmail = (el) => { this._email = el; };
+  setMsg = (el) => { this._msg = el; };
+
+  selectInterest = (k) => this.setState((s) => ({ interest: k, errors: { ...s.errors, interest: undefined } }));
+
+  onType = (e) => {
+    const k = e.target.getAttribute('data-k');
+    if (k && this.state.errors[k]) this.setState((s) => ({ errors: { ...s.errors, [k]: undefined } }));
+  };
+
+  submit = () => {
+    const name = (this._name && this._name.value || '').trim();
+    const email = (this._email && this._email.value || '').trim();
+    const message = (this._msg && this._msg.value || '').trim();
+    const { interest } = this.state;
+    const errors = {};
+    if (!name) errors.name = 'Enter your name';
+    if (!email) errors.email = 'Enter your email';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Enter a valid email';
+    if (!interest) errors.interest = 'Pick one';
+    if (!message) errors.message = 'Add a short message';
+    if (Object.keys(errors).length) { this.setState({ errors }); return; }
+    this.setState({ sent: true, errors: {} });
+  };
+
+  reset = () => {
+    if (this._name) this._name.value = '';
+    if (this._email) this._email.value = '';
+    if (this._msg) this._msg.value = '';
+    this.setState({ sent: false, interest: null, errors: {} });
+  };
+
+  fieldBox(hasErr) {
+    return {
+      background: '#0d0d0d', border: '1px solid', borderColor: hasErr ? '#CC0000' : '#1c1c1c',
+      padding: '16px 18px', transition: 'border-color 150ms ease',
+    };
+  }
+  chipStyle(active) {
+    return {
+      fontSize: '11px', letterSpacing: '0.5px', padding: '7px 13px', cursor: 'pointer', whiteSpace: 'nowrap',
+      border: '1px solid', borderColor: active ? '#CC0000' : '#2a2a2a', color: active ? '#fff' : '#aaa',
+      background: active ? 'rgba(204,0,0,0.10)' : 'transparent', transition: 'border-color 150ms ease, color 150ms ease, background 150ms ease',
+    };
+  }
+
+  renderVals() {
+    const { interest, errors, sent } = this.state;
+    const interests = ['Cosmetics', 'Buying / Selling', 'Collection'];
+    return {
+      sent, notSent: !sent,
+      err: errors,
+      nameBox: this.fieldBox(!!errors.name),
+      emailBox: this.fieldBox(!!errors.email),
+      interestBox: { ...this.fieldBox(!!errors.interest), marginBottom: '2px' },
+      messageBox: { ...this.fieldBox(!!errors.message), minHeight: '118px' },
+      chips: interests.map((it) => ({ label: it, style: this.chipStyle(interest === it), onClick: () => this.selectInterest(it) })),
+      setName: this.setName, setEmail: this.setEmail, setMsg: this.setMsg,
+      onType: this.onType, submit: this.submit, reset: this.reset,
+    };
+  }
+}</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html,body{background:#000;margin:0;}</style>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @keyframes vfPanelIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes vfGlideUp{0%{transform:translateY(36px);opacity:0;}30%{opacity:1;}80%{opacity:1;}100%{transform:translateY(-2px);opacity:0;}}
+</style>
+</helmet>
+<section data-screen-label="FAQ & Location" style="position:relative;z-index:1;background:transparent;display:flex;align-items:stretch;justify-content:center;font-family:'Archivo',sans-serif;color:#fff;-webkit-font-smoothing:antialiased;">
+
+  <div style="width:100%;background:#0a0a0a;display:flex;flex-direction:column;overflow:hidden;animation:vfPanelIn 500ms ease both;">
+
+    <div style="display:flex;align-items:baseline;gap:14px;padding:24px 48px;border-bottom:1px solid #1a1a1a;">
+      <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">Questions &amp; Location</span>
+      <span style="font-size:11px;color:#666;">Everything else</span>
+    </div>
+
+    <!-- ALIGNED 2×2 GRID -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#000;align-items:stretch;">
+
+      <!-- Location (row 1 · col 1) -->
+      <div style="background:#0A0A0A;display:flex;flex-direction:column;justify-content:center;">
+        <div style="padding:22px 28px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><span style="width:7px;height:7px;background:#CC0000;flex:none;"></span><span style="font-family:monospace;font-size:11px;letter-spacing:3px;color:#CC0000;text-transform:uppercase;">Location</span></div>
+          <div style="font-size:26px;font-weight:600;letter-spacing:-0.02em;color:#fff;margin-bottom:6px;">Austin, Texas</div>
+          <p style="font-size:13px;color:#888;line-height:1.6;margin:0 0 14px;">Minutes from Circuit of the Americas.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #1c1c1c;padding:11px 0;"><span style="font-size:12.5px;color:#ccc;">Sales &amp; Acquisitions</span><span style="font-family:monospace;font-size:10.5px;color:#777;letter-spacing:1px;">NATIONWIDE</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #1c1c1c;padding:11px 0;"><span style="font-size:12.5px;color:#ccc;">Cosmetics · Collection · Concierge</span><span style="font-family:monospace;font-size:10.5px;color:#777;letter-spacing:1px;">LOCAL · AUSTIN</span></div>
+        </div>
+      </div>
+
+      <!-- FAQ (row 1 · col 2) -->
+      <div style="background:#0A0A0A;position:relative;z-index:2;display:flex;flex-direction:column;">
+        <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="5">
+          <div style="position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;border-top:1px solid #1a1a1a;padding:14px 28px;cursor:pointer;transition:background 140ms ease;" style-hover="background:#0e0e0e" onClick="{{ faq.onToggle }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;">
+              <span style="font-size:14px;color:#e8e8e8;letter-spacing:-0.01em;">{{ faq.q }}</span>
+              <span style="font-size:20px;color:#CC0000;font-weight:600;line-height:1;flex:none;width:16px;text-align:center;">{{ faq.sign }}</span>
+            </div>
+            <div style="{{ faq.answerStyle }}">
+              <span style="font-size:12.5px;color:#9a9a9a;line-height:1.6;display:block;">{{ faq.a }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- Talk to a person (row 2 · col 1) -->
+      <div style="background:#0d0d0d;padding:22px 32px;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <span style="width:7px;height:7px;background:#CC0000;flex:none;"></span>
+          <span style="font-family:monospace;font-size:11px;letter-spacing:3px;color:#CC0000;text-transform:uppercase;">Talk to a person</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:24px;">
+          <div style="display:flex;align-items:flex-start;gap:46px;flex-wrap:wrap;">
+            <a href="tel:+15125550199" style="text-decoration:none;display:block;border-bottom:1px solid transparent;padding-bottom:5px;transition:border-color 150ms ease;" style-hover="border-bottom-color:#CC0000">
+              <div style="font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:9px;">Call</div>
+              <div style="font-size:21px;font-weight:600;color:#fff;letter-spacing:-0.015em;">(512) 555-0199</div>
+            </a>
+            <a href="mailto:hello@redboxmotors.com" style="text-decoration:none;display:block;border-bottom:1px solid transparent;padding-bottom:5px;transition:border-color 150ms ease;" style-hover="border-bottom-color:#CC0000">
+              <div style="font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:9px;">Email</div>
+              <div style="font-size:21px;font-weight:600;color:#fff;letter-spacing:-0.015em;">hello@redboxmotors.com</div>
+            </a>
+            <a href="#" style="text-decoration:none;display:block;border-bottom:1px solid transparent;padding-bottom:5px;transition:border-color 150ms ease;" style-hover="border-bottom-color:#CC0000">
+              <div style="font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;margin-bottom:9px;">Instagram</div>
+              <div style="font-size:21px;font-weight:600;color:#fff;letter-spacing:-0.015em;">@redboxmotors</div>
+            </a>
+          </div>
+          <a href="Contact.dc.html" style="display:inline-flex;align-items:center;gap:11px;background:#CC0000;color:#fff;text-decoration:none;padding:18px 34px;font-size:15px;letter-spacing:0.5px;white-space:nowrap;transition:filter 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1);" style-hover="filter:brightness(1.12);transform:translateY(-3px);box-shadow:0 16px 34px rgba(204,0,0,0.36)" style-active="transform:translateY(0) scale(0.98)">Start a Conversation <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" stroke-width="1.4"/></svg></a>
+        </div>
+      </div>
+
+      <!-- Service tiles (row 2 · col 2) — the OTHER two divisions -->
+      <div style="display:flex;gap:2px;background:#000;position:relative;z-index:1;">
+        <sc-for list="{{ tiles }}" as="tile" hint-placeholder-count="2">
+          <a href="{{ tile.href }}" style="flex:1;position:relative;overflow:hidden;min-height:140px;background:#0A0A0A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-decoration:none;cursor:pointer;padding:24px 16px;transition:filter 240ms ease,transform 260ms cubic-bezier(.2,.8,.2,1),box-shadow 260ms cubic-bezier(.2,.8,.2,1);z-index:1;" style-hover="filter:brightness(1.16);transform:translateY(-5px) scale(1.02);box-shadow:0 22px 46px rgba(0,0,0,0.6);z-index:6" style-active="transform:translateY(0) scale(0.99)">
+            <img src="{{ tile.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%;filter:blur(7px) brightness(0.55) saturate(1.05);transform:scale(1.08);" />
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,8,0.45) 0%,rgba(8,8,8,0.65) 100%);"></div>
+            <div style="position:relative;width:34px;height:34px;background:#CC0000;display:flex;align-items:center;justify-content:center;flex:none;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" stroke-width="1.5"/></svg></div>
+            <div style="position:relative;text-align:center;">
+              <div style="font-size:13px;letter-spacing:3px;color:#fff;text-transform:uppercase;margin-bottom:7px;">{{ tile.label }}</div>
+              <div style="font-size:11px;color:#c4c4c4;letter-spacing:0.3px;">{{ tile.sub }}</div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+
+    </div>
+
+    <!-- FEATURED MARQUEE -->
+    <dc-import name="Feature Bar" hint-size="100%,210px"></dc-import>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;},&quot;division&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;dealer&quot;,&quot;cosmetics&quot;,&quot;collection&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { openFaq: null };
+
+  renderVals() {
+    const division = this.props.division || 'all';
+
+    const ALL = [
+      { key: 'dealer',     href: 'Dealer.dc.html',                 img: 'assets/dealer-garage.jpeg',     label: 'Dealer',     sub: 'Buy · Sell · Source · Consign' },
+      { key: 'cosmetics',  href: 'Cosmetics.dc.html',              img: 'assets/cosmetics-garage.jpeg',  label: 'Cosmetics',  sub: 'PPF · Ceramic · Vinyl · Wheels' },
+      { key: 'collection', href: 'Collection%20Management.dc.html', img: 'assets/collection-p1.jpeg',     label: 'Collection', sub: 'Concierge · Maintenance · Transport' },
+    ];
+    const tiles = ALL.filter((t) => t.key !== division);
+
+    const FAQ = [
+      { q: 'How does consignment work?', a: 'We handle valuation, detailing, marketing, buyer vetting and the full transaction. You set the reserve — we do the rest.' },
+      { q: 'What does it cost to sell?', a: 'A flat consignment fee agreed up front, disclosed before anything is signed. No surprises.' },
+      { q: 'Do you buy cars outright?', a: 'Yes. If you want a clean, fast exit we will make a direct offer and close on your timeline.' },
+      { q: 'Can you sell or source nationwide?', a: 'Sales and acquisitions are nationwide. Transport is arranged door to door and fully insured.' },
+      { q: 'Where are you located?', a: 'Austin, Texas — minutes from Circuit of the Americas. Cosmetics, collection and concierge are local; sales are national.' },
+    ];
+
+    const open = this.state.openFaq;
+    const faqs = FAQ.map((f, i) => ({
+      q: f.q, a: f.a, sign: open === i ? '–' : '+',
+      onToggle: () => this.setState((s) => ({ openFaq: s.openFaq === i ? null : i })),
+      answerStyle: open === i
+        ? { position: 'absolute', top: '100%', left: '0', right: '0', zIndex: 9, background: '#131313', padding: '15px 28px 18px', boxShadow: '0 26px 48px rgba(0,0,0,0.62)', borderTop: '2px solid #CC0000', opacity: 1, transform: 'translateY(0)', pointerEvents: 'auto', transition: 'opacity 200ms ease, transform 200ms ease' }
+        : { position: 'absolute', top: '100%', left: '0', right: '0', zIndex: 9, background: '#131313', padding: '15px 28px 18px', borderTop: '2px solid #CC0000', opacity: 0, transform: 'translateY(-6px)', pointerEvents: 'none', transition: 'opacity 140ms ease, transform 140ms ease' },
+    }));
+
+    return { tiles, faqs };
+  }
+}
+</script>
+</body>
+</html>

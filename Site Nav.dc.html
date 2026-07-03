@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html,body{background:#000;margin:0;}</style>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 44px;font-family:'Archivo',sans-serif;pointer-events:none;animation:rbmNavIn .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:.15s;">
+  <a href="Red%20Box%20Motors%20Homepage%20-%20Showcase.dc.html" style="display:inline-flex;align-items:center;background:#CC0000;padding:7px 11px;text-decoration:none;pointer-events:auto;transition:transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1),filter 200ms ease;" style-hover="transform:translateY(-2px);box-shadow:0 10px 24px rgba(204,0,0,0.35);filter:brightness(1.1)" style-active="transform:translateY(0) scale(0.98)">
+    <span style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#fff;white-space:nowrap;">RED BOX MOTORS</span>
+  </a>
+  <div style="display:flex;align-items:flex-start;gap:24px;pointer-events:auto;">
+    <sc-for list="{{ links }}" as="link" hint-placeholder-count="5">
+      <div style="position:relative;" onMouseEnter="{{ link.onEnter }}" onMouseLeave="{{ link.onLeave }}">
+        <a data-nav-u href="{{ link.href }}" style="{{ link.style }}" style-hover="color:#fff;transform:translateY(-1px)"><span style="{{ link.dotStyle }}"></span><span style="position:relative;display:inline-block;padding-bottom:3px;">{{ link.label }}<span data-nav-bar data-active="{{ link.activeFlag }}" style="{{ link.barStyle }}"></span></span></a>
+        <sc-if value="{{ link.hasChildren }}" hint-placeholder-val="{{ true }}">
+          <div style="{{ link.panelStyle }}">
+            <div style="min-width:236px;background:#0A0A0A;box-shadow:0 24px 60px rgba(0,0,0,0.7);padding:8px;">
+              <sc-for list="{{ link.children }}" as="child" hint-placeholder-count="3">
+                <a href="{{ child.href }}" style="display:flex;align-items:center;gap:12px;text-decoration:none;padding:11px 13px;transition:background 180ms ease;" style-hover="background:#161616">
+                  <span style="width:5px;height:5px;flex:none;background:#CC0000;"></span>
+                  <span style="display:flex;flex-direction:column;gap:2px;">
+                    <span style="font-size:12.5px;font-weight:500;letter-spacing:0.4px;color:#fff;">{{ child.label }}</span>
+                    <span style="font-size:10.5px;letter-spacing:0.6px;color:#777;">{{ child.desc }}</span>
+                  </span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;64px&quot;},&quot;current&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;cosmetics&quot;,&quot;dealer&quot;,&quot;collection&quot;,&quot;about&quot;,&quot;contact&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const LINKS = [
+  { key: 'dealer', label: 'Dealer', href: 'Dealer.dc.html', children: [
+    { label: 'Inventory', desc: 'Cars currently for sale', href: 'Dealer%20Inventory.dc.html' },
+    { label: 'Sold', desc: 'Cars we\u2019ve sold', href: 'Sold.dc.html' },
+    { label: 'Sourced', desc: 'Cars we found for clients', href: 'Sourced.dc.html' },
+  ] },
+  { key: 'cosmetics', label: 'Cosmetics', href: 'Cosmetics.dc.html', children: [
+    { label: 'Recent Work', desc: 'Project gallery', href: 'Recent%20Work.dc.html' },
+    { label: 'Paint Protection Film', desc: 'STEK PPF', href: 'PPF.dc.html' },
+    { label: 'Ceramic & Correction', desc: 'Coatings & polish', href: 'Ceramic%20%26%20Correction.dc.html' },
+    { label: 'Vinyl', desc: 'Wraps & color change', href: 'Vinyl.dc.html' },
+    { label: 'Wheels', desc: 'Refinish & powder coat', href: 'Wheels.dc.html' },
+    { label: 'Custom Builds', desc: 'Bespoke transformations', href: 'Custom%20Builds.dc.html' },
+  ] },
+  { key: 'collection', label: 'Collection', href: 'Collection%20Management.dc.html' },
+  { key: 'about', label: 'About', href: 'About%20Red%20Box%20Motors.dc.html' },
+  { key: 'contact', label: 'Contact', href: 'Contact.dc.html' },
+];
+
+class Component extends DCLogic {
+  state = { open: '' };
+  renderVals() {
+    const cur = this.props.current || '';
+    const open = this.state.open;
+    const links = LINKS.map((l) => {
+      const active = l.key === cur;
+      const isOpen = this.state.open === l.key;
+      return {
+        href: l.href,
+        label: l.label,
+        activeFlag: active ? '1' : '0',
+        hasChildren: (l.children && l.children.length) ? true : false,
+        children: l.children || [],
+        onEnter: () => this.setState({ open: l.key }),
+        onLeave: () => this.setState((s) => (s.open === l.key ? { open: '' } : null)),
+        style: {
+          display: 'inline-flex', alignItems: 'center', gap: '8px',
+          fontSize: '12px', letterSpacing: '1.5px', textDecoration: 'none',
+          color: (active || isOpen) ? '#fff' : '#9a9a9a', transition: 'color 150ms ease, transform 180ms cubic-bezier(.2,.8,.2,1)',
+        },
+        dotStyle: {
+          width: '5px', height: '5px', flex: 'none',
+          background: active ? '#CC0000' : 'transparent',
+        },
+        barStyle: {
+          position: 'absolute', left: 0, right: 0, bottom: 0, height: '1px',
+          background: '#CC0000', transform: (active || isOpen) ? 'scaleX(1)' : 'scaleX(0)',
+          transformOrigin: 'left center', transition: 'transform 240ms cubic-bezier(.2,.8,.2,1)',
+        },
+        panelStyle: {
+          position: 'absolute', top: '100%', left: '-13px', paddingTop: '16px',
+          opacity: isOpen ? 1 : 0,
+          transform: isOpen ? 'translateY(0)' : 'translateY(6px)',
+          visibility: isOpen ? 'visible' : 'hidden',
+          pointerEvents: isOpen ? 'auto' : 'none',
+          transition: 'opacity 220ms cubic-bezier(.2,.8,.2,1), transform 220ms cubic-bezier(.2,.8,.2,1), visibility 220ms',
+        },
+      };
+    });
+    return { links };
+  }
+}
+</script>
+</body>
+</html>

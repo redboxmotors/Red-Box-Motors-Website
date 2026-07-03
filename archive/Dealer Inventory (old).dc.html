@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#050505;}
+  *{box-sizing:border-box;}
+  *::-webkit-scrollbar{width:0;height:0;}
+  @keyframes pageIn{from{opacity:0;}to{opacity:1;}}
+  #rbm-loader{position:fixed;inset:0;z-index:1000;background:#000;font-family:'Archivo',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;will-change:clip-path;animation:rbmLoaderLift .375s cubic-bezier(.76,0,.24,1) forwards;animation-delay:.34s;}
+  #rbm-loader .rbm-loader-badge{display:flex;align-items:center;gap:15px;animation:rbmBoxIn .375s cubic-bezier(.2,.8,.2,1) both;}
+  #rbm-loader .rbm-loader-track{width:210px;height:2px;background:#171717;overflow:hidden;}
+  #rbm-loader .rbm-loader-bar{height:100%;background:#CC0000;transform-origin:left center;transform:scaleX(0);animation:rbmBarGrow .5s cubic-bezier(.45,0,.1,1) forwards;}
+  :root[data-nav="full"] #rbm-loader{animation-duration:.95s;animation-delay:1.5s;}
+  :root[data-nav="full"] #rbm-loader .rbm-loader-badge{animation-duration:.8s;}
+  :root[data-nav="full"] #rbm-loader .rbm-loader-bar{animation-duration:1.5s;}
+  @keyframes rbmBoxIn{0%{opacity:0;transform:scale(0.6);}45%{opacity:1;}100%{opacity:1;transform:scale(1);}}
+  @keyframes rbmBarGrow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+  @keyframes rbmLoaderLift{0%,55%{clip-path:inset(0 0 0 0);}100%{clip-path:inset(0 0 100% 0);}}
+  :root[data-nav="quick"] #rbm-loader{display:none!important;}
+  @media (prefers-reduced-motion: reduce){#rbm-loader{display:none!important;}}
+  #rbm-contact-modal{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:24px;font-family:'Archivo',sans-serif;}
+  :root[data-contact-open="1"] #rbm-contact-modal{display:flex;}
+  @keyframes rbmModalIn{from{opacity:0;transform:translateY(18px) scale(.98);}to{opacity:1;transform:none;}}
+  @keyframes rbmFadeIn{from{opacity:0;}to{opacity:1;}}
+</style>
+<script>(function(){var f='full';try{var n=performance.getEntriesByType('navigation')[0];var t=n?n.type:'navigate';var same=document.referrer&&document.referrer.indexOf(location.origin)===0;f=(t==='reload'||!same)?'full':'quick';}catch(e){}document.documentElement.setAttribute('data-nav',f);})();</script>
+<script>(function(){function isC(a){if(!a)return false;var h=(a.getAttribute('href')||'').split('#')[0].split('?')[0].replace(/%20/g,' ');return /(^|\/)Contact(\.dc)?\.html$/i.test(h);}function op(){var m=document.getElementById('rbm-contact-modal');if(!m)return;var f=document.getElementById('rbm-contact-frame');if(f)f.src='Contact.dc.html?embed=1&t='+Date.now();document.documentElement.setAttribute('data-contact-open','1');}function cl(){document.documentElement.removeAttribute('data-contact-open');}document.addEventListener('click',function(e){var t=e.target;if(!t||!t.closest)return;var a=t.closest('a[href]');if(a&&isC(a)){e.preventDefault();op();return;}if(t.closest('[data-rbm-close]')){e.preventDefault();cl();}},true);document.addEventListener('keydown',function(e){if(e.key==='Escape')cl();});})();</script>
+<script src="assets/motion.js"></script>
+</helmet>
+  <!-- ===================== INTRO LOADER ===================== -->
+  <div id="rbm-loader">
+    <div class="rbm-loader-badge">
+      <span style="display:inline-flex;background:#CC0000;padding:13px 18px;"><span style="font-size:15px;font-weight:800;letter-spacing:4px;color:#fff;">RBM</span></span>
+      <span style="font-size:12px;font-weight:600;letter-spacing:6px;color:#666;text-transform:uppercase;">Red Box Motors</span>
+    </div>
+    <div class="rbm-loader-track"><div class="rbm-loader-bar"></div></div>
+  </div>
+  <!-- ===================== CONTACT MODAL ===================== -->
+  <div id="rbm-contact-modal">
+    <div data-rbm-close style="position:absolute;inset:0;background:rgba(6,6,6,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:rbmFadeIn .3s ease both;"></div>
+    <div style="position:relative;z-index:1;width:100%;max-width:1180px;animation:rbmModalIn .38s cubic-bezier(.2,.8,.2,1) both;">
+      <button data-rbm-close aria-label="Close" style="position:absolute;top:-16px;right:-16px;z-index:2;width:42px;height:42px;background:#CC0000;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.55);">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3L13 13M13 3L3 13" stroke="#fff" stroke-width="1.6"/></svg>
+      </button>
+      <div style="width:100%;max-height:88vh;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;box-shadow:0 40px 120px rgba(0,0,0,0.7);">
+        <dc-import name="Contact Form" hint-size="100%,640px"></dc-import>
+      </div>
+    </div>
+  </div>
+
+
+<div style="font-family:'Archivo',sans-serif;background:#050505;color:#fff;width:100%;position:relative;-webkit-font-smoothing:antialiased;">
+
+  <!-- ===================== SHARED FIXED BACKGROUND ===================== -->
+  <img src="assets/hero-lineup.jpeg" alt="" data-rb-bg style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 56%;z-index:0;filter:blur(30px) brightness(0.62) saturate(1.08);transform:scale(1.12);pointer-events:none;" />
+  <div style="position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(6,6,6,0.32),rgba(6,6,6,0.62));pointer-events:none;"></div>
+
+  <div data-scroll-container style="height:100vh;overflow-y:auto;scroll-snap-type:y proximity;scrollbar-width:none;position:relative;z-index:1;">
+    <section style="height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;padding:26px 28px;overflow:hidden;animation:pageIn 500ms ease both;">
+
+  <!-- ===================== HEADER ===================== -->
+  <div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 2px 22px;">
+    <div style="display:flex;align-items:center;gap:20px;">
+      <a href="Red%20Box%20Motors%20Homepage.dc.html#dashboard" style="display:flex;align-items:center;gap:9px;color:#888;text-decoration:none;font-size:13px;letter-spacing:0.5px;transition:color 150ms ease;" style-hover="color:#fff">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.3"/></svg>
+        Dashboard
+      </a>
+      <div style="width:1px;height:18px;background:#222;"></div>
+      <div style="display:inline-flex;align-items:center;background:#CC0000;padding:7px 11px;">
+        <span style="font-size:11px;font-weight:700;letter-spacing:2.5px;color:#fff;white-space:nowrap;">RED BOX MOTORS</span>
+      </div>
+      <span style="font-size:13px;letter-spacing:1px;color:#666;">Dealer · Inventory</span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:22px;">
+      <span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#555;">{{ countLabel }}</span>
+      <div style="display:flex;border:1px solid #222;">
+        <div onClick="{{ selectA }}" style="{{ aStyle }}" style-active="transform:scale(0.97)">Roster</div>
+        <div onClick="{{ selectB }}" style="{{ bStyle }}" style-active="transform:scale(0.97)">Showcase</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PANEL ===================== -->
+  <div data-screen-label="Inventory" style="flex:1;min-height:0;position:relative;">
+
+    <!-- ---------- OPTION A — ROSTER GRID ---------- -->
+    <sc-if value="{{ isA }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;">
+
+        <!-- FILTER + SORT BAR -->
+        <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 2px 14px;">
+          <div style="display:flex;align-items:center;gap:7px;overflow-x:auto;scrollbar-width:none;min-width:0;">
+            <sc-for list="{{ makeChips }}" as="chip" hint-placeholder-count="6">
+              <div onClick="{{ chip.onClick }}" style="{{ chip.style }}" style-active="transform:scale(0.96)">{{ chip.label }}</div>
+            </sc-for>
+          </div>
+          <div style="flex:none;display:flex;align-items:center;gap:11px;">
+            <span style="font-family:monospace;font-size:10px;letter-spacing:2px;color:#555;text-transform:uppercase;">Sort</span>
+            <div style="display:flex;border:1px solid #222;">
+              <sc-for list="{{ sortChips }}" as="s" hint-placeholder-count="4">
+                <div onClick="{{ s.onClick }}" style="{{ s.style }}" style-active="transform:scale(0.97)">{{ s.label }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;">
+        <!-- ROSTER CARD -->
+        <sc-if value="{{ hasRoster }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#000;box-shadow:0 18px 44px rgba(0,0,0,0.55),0 6px 16px rgba(0,0,0,0.45);overflow:hidden;padding:12px;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#000;">
+          <sc-for list="{{ carsA }}" as="car" hint-placeholder-count="9">
+            <div style="{{ car.cardStyle }}" onMouseEnter="{{ car.onEnter }}" onMouseLeave="{{ car.onLeave }}" onClick="{{ car.onOpen }}">
+              <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,#171717 0,#171717 11px,#101010 11px,#101010 22px);display:flex;align-items:center;justify-content:center;">
+                <span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#383838;">[ {{ car.tag }} ]</span>
+              </div>
+              <div style="position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(transparent,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.92));"></div>
+
+              <div style="{{ car.countStyle }}"><span style="font-family:monospace;font-size:10px;letter-spacing:1px;color:#777;">{{ car.photos }} PHOTOS</span></div>
+              <div style="{{ car.viewStyle }}">VIEW<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" stroke-width="1.3"/></svg></div>
+
+              <div style="{{ car.specStyle }}">
+                <div style="display:flex;flex-direction:column;gap:3px;"><span style="font-size:9px;letter-spacing:1.5px;color:#666;">YEAR</span><span style="font-size:12.5px;color:#ddd;">{{ car.year }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:3px;"><span style="font-size:9px;letter-spacing:1.5px;color:#666;">MILES</span><span style="font-size:12.5px;color:#ddd;">{{ car.miles }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:3px;"><span style="font-size:9px;letter-spacing:1.5px;color:#666;">POWER</span><span style="font-size:12.5px;color:#ddd;white-space:nowrap;">{{ car.hp }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:3px;"><span style="font-size:9px;letter-spacing:1.5px;color:#666;">DRIVE</span><span style="font-size:12.5px;color:#ddd;">{{ car.drive }}</span></div>
+              </div>
+
+              <div style="position:absolute;left:0;right:0;bottom:0;padding:16px 18px;display:flex;align-items:flex-end;justify-content:space-between;">
+                <div style="min-width:0;flex:1;">
+                  <div style="font-size:10px;letter-spacing:2px;color:#888;text-transform:uppercase;margin-bottom:4px;">{{ car.make }}</div>
+                  <div style="font-size:19px;font-weight:500;letter-spacing:-0.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ car.name }}</div>
+                </div>
+                <div style="font-family:monospace;font-size:13px;color:#fff;letter-spacing:0.5px;white-space:nowrap;">{{ car.price }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ noMatches }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:60px 24px;text-align:center;">
+            <div style="font-size:16px;color:#888;letter-spacing:0.3px;margin-bottom:6px;">No vehicles match this filter.</div>
+            <div style="font-size:13px;color:#555;">Try a different make.</div>
+          </div>
+        </sc-if>
+        <!-- /ROSTER CARD -->
+
+        <!-- COMING SOON CARD -->
+        <sc-if value="{{ hasComingSoon }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#000;box-shadow:0 18px 44px rgba(0,0,0,0.55),0 6px 16px rgba(0,0,0,0.45);overflow:hidden;margin-top:18px;padding:26px 24px 28px;">
+          <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;">
+            <span style="font-size:12px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">Coming Soon</span>
+            <span style="font-size:11px;color:#666;letter-spacing:0.5px;">Arriving inventory</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:8px;background:#000;">
+            <sc-for list="{{ comingSoon }}" as="car" hint-placeholder-count="3">
+              <div style="{{ car.cardStyle }}" style-hover="transform:translateY(-6px) scale(1.03);box-shadow:0 22px 44px rgba(0,0,0,0.62),0 8px 18px rgba(0,0,0,0.5);filter:brightness(1.14);z-index:5">
+                <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,#171717 0,#171717 11px,#101010 11px,#101010 22px);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#383838;">[ {{ car.tag }} ]</span>
+                </div>
+                <div style="position:absolute;inset:0;background:rgba(5,5,5,0.38);"></div>
+                <div style="position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(transparent,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.92));"></div>
+                <div style="position:absolute;top:16px;left:16px;border:1px solid #444;padding:5px 9px;"><span style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#999;">COMING SOON</span></div>
+                <div style="position:absolute;left:0;right:0;bottom:0;padding:16px 18px;display:flex;align-items:flex-end;justify-content:space-between;">
+                  <div style="min-width:0;flex:1;">
+                    <div style="font-size:10px;letter-spacing:2px;color:#888;text-transform:uppercase;margin-bottom:4px;">{{ car.make }}</div>
+                    <div style="font-size:19px;font-weight:500;letter-spacing:-0.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ car.model }}</div>
+                  </div>
+                  <div style="font-family:monospace;font-size:11px;color:#888;letter-spacing:0.5px;white-space:nowrap;">{{ car.eta }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- SOLD CARD -->
+        <sc-if value="{{ hasSold }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#000;box-shadow:0 18px 44px rgba(0,0,0,0.55),0 6px 16px rgba(0,0,0,0.45);overflow:hidden;margin-top:18px;padding:26px 24px 28px;">
+          <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;">
+            <span style="font-size:12px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">Sold</span>
+            <span style="font-size:11px;color:#666;letter-spacing:0.5px;">Recently placed</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:8px;background:#000;">
+            <sc-for list="{{ sold }}" as="car" hint-placeholder-count="5">
+              <div style="{{ car.cardStyle }}" style-hover="transform:translateY(-6px) scale(1.03);box-shadow:0 22px 44px rgba(0,0,0,0.62),0 8px 18px rgba(0,0,0,0.5);filter:grayscale(1) brightness(0.85);z-index:5">
+                <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,#171717 0,#171717 11px,#101010 11px,#101010 22px);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#383838;">[ {{ car.tag }} ]</span>
+                </div>
+                <div style="position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(transparent,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.92));"></div>
+                <div style="position:absolute;top:16px;left:16px;border:1px solid #555;padding:5px 9px;"><span style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#bbb;">SOLD</span></div>
+                <div style="position:absolute;left:0;right:0;bottom:0;padding:16px 18px;display:flex;align-items:flex-end;justify-content:space-between;">
+                  <div style="min-width:0;flex:1;">
+                    <div style="font-size:10px;letter-spacing:2px;color:#888;text-transform:uppercase;margin-bottom:4px;">{{ car.make }}</div>
+                    <div style="font-size:19px;font-weight:500;letter-spacing:-0.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ car.model }}</div>
+                  </div>
+                  <div style="font-family:monospace;font-size:11px;color:#777;letter-spacing:1px;white-space:nowrap;">SOLD</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+        <!-- /SOLD CARD -->
+
+        <!-- CTA BANNER (above FAQ) -->
+        <div style="background:#0A0A0A;box-shadow:0 18px 44px rgba(0,0,0,0.55),0 6px 16px rgba(0,0,0,0.45);overflow:hidden;margin-top:18px;display:flex;flex-wrap:wrap;align-items:stretch;">
+          <div style="flex:1.1;min-width:280px;position:relative;overflow:hidden;min-height:220px;">
+            <img src="assets/consignment.jpeg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 52%;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,0.15) 0%,rgba(10,10,10,0.5) 62%,rgba(10,10,10,0.95) 100%);"></div>
+            <div style="position:absolute;left:0;bottom:0;padding:22px 26px;"><div style="font-family:monospace;font-size:11px;letter-spacing:3px;color:#cfcfcf;text-transform:uppercase;">Buy · Sell · Source · Nationwide</div></div>
+          </div>
+          <div style="flex:1;min-width:300px;display:flex;flex-direction:column;justify-content:center;padding:40px 44px;">
+            <div style="font-family:monospace;font-size:11px;letter-spacing:4px;color:#CC0000;text-transform:uppercase;margin-bottom:16px;">— Don't see it here?</div>
+            <div style="font-size:clamp(26px,2.6vw,38px);font-weight:700;letter-spacing:-0.03em;line-height:1.02;color:#fff;margin-bottom:14px;">The floor changes weekly.</div>
+            <p style="font-size:14.5px;color:#9a9a9a;line-height:1.65;max-width:460px;margin:0 0 26px;">Selling a car you care about, or hunting something specific? Tell us what you're after — off-market, pre-allocation, nationwide — and we'll track it down or place yours with the right owner.</p>
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+              <a href="Contact.dc.html" style="display:inline-flex;align-items:center;gap:11px;background:#CC0000;color:#fff;text-decoration:none;padding:15px 26px;font-size:13.5px;font-weight:600;letter-spacing:0.5px;transition:filter 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1);" style-hover="filter:brightness(1.12);transform:translateY(-3px);box-shadow:0 16px 34px rgba(204,0,0,0.36)" style-active="transform:translateY(0) scale(0.98)">Start a conversation <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" stroke-width="1.5"/></svg></a>
+              <a href="Sourced.dc.html" style="font-size:12.5px;letter-spacing:1.5px;color:#aaa;text-decoration:none;transition:color 150ms ease;" style-hover="color:#fff">See what we've sourced →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISIT & FAQ -->
+        <div style="margin-top:18px;">
+          <dc-import name="Visit and FAQ" division="dealer" hint-size="100%,900px"></dc-import>
+        </div>
+
+      </div>
+      </div>
+    </sc-if>
+
+    <!-- ---------- OPTION B — SHOWCASE SELECTOR ---------- -->
+    <sc-if value="{{ isB }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;inset:0;display:flex;gap:2px;background:#000;box-shadow:0 18px 44px rgba(0,0,0,0.55),0 6px 16px rgba(0,0,0,0.45);">
+
+        <!-- LEFT — focused preview -->
+        <div style="flex:1.55;min-width:0;position:relative;background:#0A0A0A;overflow:hidden;">
+          <div style="{{ focus.bgStyle }}"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <span style="font-family:monospace;font-size:13px;letter-spacing:2px;color:#3a3a3a;">[ {{ focus.tag }} ]</span>
+          </div>
+          <div style="position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(transparent,rgba(0,0,0,0.6) 50%,rgba(0,0,0,0.95));pointer-events:none;"></div>
+
+          <!-- photo indicator -->
+          <div style="position:absolute;top:24px;right:26px;display:flex;align-items:center;gap:12px;">
+            <span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#888;">{{ focus.photoLabel }}</span>
+            <div style="display:flex;gap:5px;">
+              <sc-for list="{{ focus.dots }}" as="dot" hint-placeholder-count="4">
+                <div style="{{ dot.style }}"></div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="position:absolute;top:24px;left:26px;font-family:monospace;font-size:10px;letter-spacing:2px;color:#555;">NOW VIEWING</div>
+
+          <!-- focused info -->
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:32px 34px;">
+            <div style="font-size:11px;letter-spacing:2.5px;color:#999;text-transform:uppercase;margin-bottom:8px;">{{ focus.make }}</div>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;">
+              <div style="font-size:40px;font-weight:600;letter-spacing:-0.025em;color:#fff;line-height:1;white-space:nowrap;">{{ focus.name }}</div>
+              <div style="font-family:monospace;font-size:18px;color:#fff;white-space:nowrap;">{{ focus.price }}</div>
+            </div>
+            <div style="display:flex;gap:34px;margin-top:24px;">
+              <div style="display:flex;flex-direction:column;gap:5px;"><span style="font-size:9px;letter-spacing:2px;color:#666;">YEAR</span><span style="font-size:15px;color:#e6e6e6;font-weight:600;">{{ focus.year }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:5px;"><span style="font-size:9px;letter-spacing:2px;color:#666;">MILES</span><span style="font-size:15px;color:#e6e6e6;font-weight:600;">{{ focus.miles }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:5px;"><span style="font-size:9px;letter-spacing:2px;color:#666;">POWER</span><span style="font-size:15px;color:#e6e6e6;font-weight:600;white-space:nowrap;">{{ focus.hp }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:5px;"><span style="font-size:9px;letter-spacing:2px;color:#666;">DRIVE</span><span style="font-size:15px;color:#e6e6e6;font-weight:600;">{{ focus.drive }}</span></div>
+            </div>
+            <div onClick="{{ focus.onOpen }}" style="margin-top:28px;display:inline-flex;align-items:center;gap:10px;border:1px solid #333;padding:13px 22px;cursor:pointer;font-size:13px;letter-spacing:1px;color:#fff;transition:background 200ms ease,border-color 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1);" style-hover="background:#161616;border-color:#555;transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,0.5)" style-active="transform:translateY(0) scale(0.985)">
+              <span style="white-space:nowrap;">View this car</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" stroke-width="1.3"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT — list -->
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;background:#000;">
+          <div style="flex:none;padding:18px 22px 14px;border-bottom:1px solid #161616;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;font-weight:700;letter-spacing:2px;color:#888;text-transform:uppercase;">All Vehicles</span>
+            <span style="font-family:monospace;font-size:10px;letter-spacing:1px;color:#555;">SORT · PRICE</span>
+          </div>
+          <div style="flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;">
+            <sc-for list="{{ carsB }}" as="car" hint-placeholder-count="12">
+              <div style="{{ car.rowStyle }}" onMouseEnter="{{ car.onFocus }}" onClick="{{ car.onOpen }}">
+                <div style="{{ car.thumbStyle }}"></div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:9px;letter-spacing:1.5px;color:#777;text-transform:uppercase;margin-bottom:3px;">{{ car.make }}</div>
+                  <div style="font-size:15px;font-weight:500;color:#fff;letter-spacing:-0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ car.name }}</div>
+                  <div style="{{ car.metaStyle }}"><span style="font-family:monospace;font-size:10.5px;color:#888;letter-spacing:0.5px;">{{ car.year }} · {{ car.miles }} mi · {{ car.hp }}</span></div>
+                </div>
+                <div style="font-family:monospace;font-size:12.5px;color:#cfcfcf;white-space:nowrap;">{{ car.price }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+      </div>
+    </sc-if>
+
+  </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
+const CARS = [
+  { id:'gt3rs', slug:'911-gt3-rs', name:'911 GT3 RS', make:'Porsche', year:2023, price:'$329,000', miles:'1,250', hp:'518 hp', drive:'RWD', tag:'992 gt3 rs', photos:5 },
+  { id:'pista', slug:'488-pista', name:'488 Pista', make:'Ferrari', year:2020, price:'$405,000', miles:'3,900', hp:'711 hp', drive:'RWD', tag:'488 pista', photos:4 },
+  { id:'p1', slug:'mclaren-p1', name:'P1', make:'McLaren', year:2015, price:'$1,250,000', miles:'2,100', hp:'903 hp', drive:'RWD', tag:'mclaren p1', photos:5 },
+  { id:'svj', slug:'aventador-svj', name:'Aventador SVJ', make:'Lamborghini', year:2021, price:'$598,000', miles:'1,800', hp:'759 hp', drive:'AWD', tag:'aventador svj', photos:4 },
+  { id:'amggt', slug:'amg-gt-black-series', name:'AMG GT Black Series', make:'Mercedes', year:2022, price:'$425,000', miles:'2,600', hp:'720 hp', drive:'RWD', tag:'amg gt bs', photos:4 },
+  { id:'gt2rs', slug:'911-gt2-rs', name:'911 GT2 RS', make:'Porsche', year:2019, price:'$359,000', miles:'4,400', hp:'690 hp', drive:'RWD', tag:'991 gt2 rs', photos:5 },
+  { id:'r8', slug:'r8-v10', name:'R8 V10 Performance', make:'Audi', year:2021, price:'$182,000', miles:'7,200', hp:'602 hp', drive:'AWD', tag:'r8 v10', photos:3 },
+  { id:'lt', slug:'765lt', name:'765LT', make:'McLaren', year:2021, price:'$489,000', miles:'1,500', hp:'755 hp', drive:'RWD', tag:'765 lt', photos:4 },
+  { id:'f8', slug:'f8-tributo', name:'F8 Tributo', make:'Ferrari', year:2021, price:'$329,000', miles:'3,100', hp:'710 hp', drive:'RWD', tag:'f8 tributo', photos:4 },
+  { id:'sto', slug:'huracan-sto', name:'Huracán STO', make:'Lamborghini', year:2022, price:'$415,000', miles:'990', hp:'631 hp', drive:'RWD', tag:'huracan sto', photos:5 },
+  { id:'nismo', slug:'gtr-nismo', name:'GT-R NISMO', make:'Nissan', year:2020, price:'$215,000', miles:'5,800', hp:'600 hp', drive:'AWD', tag:'r35 nismo', photos:3 },
+  { id:'gtspeed', slug:'continental-gt-speed', name:'Continental GT Speed', make:'Bentley', year:2023, price:'$289,000', miles:'2,300', hp:'650 hp', drive:'AWD', tag:'gt speed', photos:4 },
+];
+const STRIPE = 'repeating-linear-gradient(135deg,#171717 0,#171717 11px,#101010 11px,#101010 22px)';
+const COMING_SOON = [
+  { make: 'Lamborghini', model: 'Revuelto', eta: 'Summer', tag: 'revuelto' },
+  { make: 'Ferrari', model: 'SF90 Stradale', eta: 'July', tag: 'sf90' },
+  { make: 'Porsche', model: '911 S/T', eta: 'In transit', tag: '911 s/t' },
+];
+const SOLD_LIST = [
+  { make: 'McLaren', model: 'Senna', tag: 'senna' },
+  { make: 'Ferrari', model: 'Enzo', tag: 'enzo' },
+  { make: 'Porsche', model: '918 Spyder', tag: '918 spyder' },
+  { make: 'Lamborghini', model: 'Huracán STO', tag: 'huracan sto' },
+  { make: 'Aston Martin', model: 'Vantage', tag: 'vantage' },
+];
+
+class Component extends DCLogic {
+  state = { option: 'A', hoverA: null, focusB: CARS[0].id, photo: 0, makeFilter: 'All', sortKey: 'price-desc' };
+
+  componentDidMount() {
+    import('./data/bg.js').then((b) => { const i = document.querySelector('[data-rb-bg]'); if (i) i.src = b.pickHero(); }).catch(() => {});
+    this._t = setInterval(() => {
+      if (this.state.option === 'B') this.setState((s) => ({ photo: s.photo + 1 }));
+    }, 1100);
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+
+  open(id) {
+    const c = CARS.find((x) => x.id === id);
+    if (c) location.href = 'Car%20Detail.dc.html?slug=' + c.slug;
+  }
+
+  saveBtnStyle_REMOVED(saved) {
+    return {};
+  }
+  savedChipStyle_REMOVED(active) {
+    return {
+      flex: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '7px 13px',
+      fontSize: '11px', letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', whiteSpace: 'nowrap',
+      border: '1px solid', borderColor: active ? '#CC0000' : '#222', color: active ? '#fff' : '#888',
+      background: active ? '#161616' : 'transparent', transition: 'border-color 150ms ease, color 150ms ease, background 150ms ease',
+    };
+  }
+
+  segStyle(active) {
+    return {
+      padding: '9px 18px', fontSize: '12px', letterSpacing: '1px', cursor: 'pointer',
+      transition: 'background 150ms ease, color 150ms ease',
+      color: active ? '#fff' : '#777',
+      background: active ? '#181818' : 'transparent',
+    };
+  }
+
+  makeChipStyle(active) {
+    return {
+      flex: 'none', padding: '7px 13px', fontSize: '11px', letterSpacing: '1.5px', textTransform: 'uppercase',
+      cursor: 'pointer', whiteSpace: 'nowrap', border: '1px solid',
+      borderColor: active ? '#fff' : '#222', color: active ? '#fff' : '#888',
+      background: active ? '#161616' : 'transparent',
+      transition: 'border-color 150ms ease, color 150ms ease, background 150ms ease',
+    };
+  }
+
+  sortChipStyle(active, first) {
+    return {
+      padding: '8px 13px', fontSize: '11px', letterSpacing: '0.5px', cursor: 'pointer', whiteSpace: 'nowrap',
+      borderLeft: first ? 'none' : '1px solid #1a1a1a',
+      color: active ? '#fff' : '#777', background: active ? '#181818' : 'transparent',
+      transition: 'background 150ms ease, color 150ms ease',
+    };
+  }
+
+  renderVals() {
+    const { option, hoverA, focusB, photo, makeFilter, sortKey } = this.state;
+    const isA = option === 'A';
+
+    // —— functional filter + sort ——
+    const num = (s) => parseInt(String(s).replace(/[^0-9]/g, ''), 10) || 0;
+    const makes = ['All', ...Array.from(new Set(CARS.map((c) => c.make)))];
+    const sorters = {
+      'price-desc': (a, b) => num(b.price) - num(a.price),
+      'price-asc': (a, b) => num(a.price) - num(b.price),
+      'year-desc': (a, b) => b.year - a.year,
+      'miles-asc': (a, b) => num(a.miles) - num(b.miles),
+    };
+    const filtered = CARS
+      .filter((c) => (makeFilter === 'All' || c.make === makeFilter))
+      .sort(sorters[sortKey] || sorters['price-desc']);
+
+    const makeChips = makes.map((m) => ({
+      label: m,
+      style: this.makeChipStyle(makeFilter === m),
+      onClick: () => this.setState({ makeFilter: m }),
+    }));
+    const sortDefs = [
+      { key: 'price-desc', label: 'Price \u2193' },
+      { key: 'price-asc', label: 'Price \u2191' },
+      { key: 'year-desc', label: 'Year' },
+      { key: 'miles-asc', label: 'Miles' },
+    ];
+    const sortChips = sortDefs.map((s, i) => ({
+      label: s.label,
+      style: this.sortChipStyle(sortKey === s.key, i === 0),
+      onClick: () => this.setState({ sortKey: s.key }),
+    }));
+    const countLabel = makeFilter === 'All'
+      ? CARS.length + ' vehicles'
+      : filtered.length + ' of ' + CARS.length + ' vehicles';
+    const noMatches = filtered.length === 0;
+
+    const carsA = filtered.map((c) => {
+      const h = hoverA === c.id;
+      return {
+        ...c,
+        cardStyle: {
+          position: 'relative', height: '310px', background: '#0A0A0A', overflow: 'hidden', cursor: 'pointer',
+          transform: h ? 'translateY(-6px) scale(1.03)' : 'translateY(0) scale(1)', filter: h ? 'brightness(1.14)' : 'brightness(1)',
+          boxShadow: h ? '0 22px 44px rgba(0,0,0,0.62), 0 8px 18px rgba(0,0,0,0.5)' : '0 0 0 rgba(0,0,0,0)',
+          zIndex: h ? 5 : 1, transition: 'transform 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms cubic-bezier(.2,.8,.2,1), filter 240ms ease',
+        },
+        specStyle: {
+          position: 'absolute', left: 0, right: 0, bottom: '66px', padding: '0 18px', display: 'flex', gap: '20px',
+          transform: h ? 'translateY(0)' : 'translateY(10px)', opacity: h ? 1 : 0, transition: 'transform 180ms ease, opacity 180ms ease',
+        },
+        viewStyle: {
+          position: 'absolute', top: '16px', right: '16px', display: 'flex', alignItems: 'center', gap: '6px',
+          color: '#fff', fontSize: '11px', letterSpacing: '1.5px',
+          opacity: h ? 1 : 0, transform: h ? 'translateX(0)' : 'translateX(-6px)', transition: 'transform 180ms ease, opacity 180ms ease',
+        },
+        countStyle: {
+          position: 'absolute', top: '16px', right: '16px', opacity: h ? 0 : 1, transition: 'opacity 140ms ease',
+        },
+        onEnter: () => this.setState({ hoverA: c.id }),
+        onLeave: () => this.setState((s) => (s.hoverA === c.id ? { hoverA: null } : null)),
+        onOpen: () => this.open(c.id),
+      };
+    });
+
+    const focusCar = CARS.find((c) => c.id === focusB) || CARS[0];
+    const activeIdx = ((photo % focusCar.photos) + focusCar.photos) % focusCar.photos;
+    const pad2 = (n) => String(n).padStart(2, '0');
+    const focus = {
+      ...focusCar,
+      photoLabel: pad2(activeIdx + 1) + ' / ' + pad2(focusCar.photos),
+      bgStyle: {
+        position: 'absolute', inset: 0, backgroundImage: STRIPE, backgroundSize: '220% 100%',
+        backgroundPosition: (focusCar.photos > 1 ? (activeIdx / (focusCar.photos - 1)) * 100 : 0) + '% 0',
+        transition: 'background-position 600ms cubic-bezier(.4,0,.2,1)',
+      },
+      dots: Array.from({ length: focusCar.photos }, (_, i) => ({
+        style: {
+          width: i === activeIdx ? '16px' : '6px', height: '3px',
+          background: i === activeIdx ? '#fff' : '#444', transition: 'width 300ms ease, background 300ms ease',
+        },
+      })),
+      onOpen: () => this.open(focusCar.id),
+    };
+
+    const carsB = CARS.map((c) => {
+      const f = c.id === focusB;
+      return {
+        ...c,
+        rowStyle: {
+          display: 'flex', alignItems: 'center', gap: '15px', padding: f ? '15px 22px' : '13px 22px',
+          paddingLeft: f ? '26px' : '22px', cursor: 'pointer', borderBottom: '1px solid #0e0e0e',
+          background: f ? '#121212' : 'transparent', boxShadow: f ? 'inset 2px 0 0 #CC0000' : 'inset 0 0 0 #CC0000',
+          transition: 'background 160ms ease, padding 160ms ease',
+        },
+        thumbStyle: {
+          flex: '0 0 auto', width: '64px', height: '40px', backgroundImage: STRIPE,
+          filter: f ? 'brightness(1.25)' : 'brightness(1)', transition: 'filter 160ms ease',
+        },
+        metaStyle: {
+          maxHeight: f ? '20px' : '0', opacity: f ? 1 : 0, overflow: 'hidden', marginTop: f ? '4px' : '0',
+          transition: 'max-height 200ms ease, opacity 200ms ease, margin-top 200ms ease',
+        },
+        onFocus: () => { if (this.state.focusB !== c.id) this.setState({ focusB: c.id, photo: 0 }); },
+        onOpen: () => this.open(c.id),
+      };
+    });
+
+    const flatCard = { position: 'relative', height: '244px', background: '#0A0A0A', overflow: 'hidden', cursor: 'pointer', transition: 'transform 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms cubic-bezier(.2,.8,.2,1), filter 240ms ease' };
+    const matchMake = (c) => (makeFilter === 'All' || c.make === makeFilter);
+    const comingSoon = COMING_SOON.filter(matchMake).map((c) => ({ ...c, cardStyle: { ...flatCard } }));
+    const sold = SOLD_LIST.filter(matchMake).map((c) => ({ ...c, cardStyle: { ...flatCard, filter: 'grayscale(1) brightness(0.6)' } }));
+
+    return {
+      isA, isB: !isA,
+      comingSoon, sold,
+      hasComingSoon: comingSoon.length > 0, hasSold: sold.length > 0,
+      makeChips, sortChips, countLabel, noMatches,
+      hasRoster: !noMatches,
+      selectA: () => this.setState({ option: 'A' }),
+      selectB: () => this.setState({ option: 'B', photo: 0 }),
+      aStyle: this.segStyle(isA),
+      bStyle: this.segStyle(!isA),
+      carsA, carsB, focus,
+    };
+  }
+}
+</script>
+</body>
+</html>

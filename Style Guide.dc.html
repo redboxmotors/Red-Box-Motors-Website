@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html,body{background:#000;margin:0;}</style>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#050505;}
+  *{box-sizing:border-box;}
+  *::-webkit-scrollbar{width:8px;height:8px;}
+  *::-webkit-scrollbar-thumb{background:#1a1a1a;}
+</style>
+<script src="assets/motion.js"></script>
+</helmet>
+<div style="font-family:'Archivo',sans-serif;background:#050505;color:#fff;min-height:100vh;width:100%;-webkit-font-smoothing:antialiased;">
+
+  <!-- ===================== HEADER ===================== -->
+  <div style="max-width:1120px;margin:0 auto;padding:64px 32px 0;">
+    <div style="display:flex;align-items:center;gap:18px;margin-bottom:34px;">
+      <span style="display:inline-flex;align-items:center;background:#CC0000;padding:9px 13px;"><span style="font-size:12px;font-weight:600;letter-spacing:2.5px;color:#fff;">RED BOX MOTORS</span></span>
+      <span style="font-size:12px;letter-spacing:1px;color:#666;">Design System · Living Reference</span>
+    </div>
+    <h1 style="font-size:64px;font-weight:700;letter-spacing:-0.04em;line-height:1;margin:0;">The look, in one place.</h1>
+    <p style="font-size:16px;font-weight:500;color:#9a9a9a;line-height:1.65;max-width:620px;margin:20px 0 0;text-wrap:pretty;">Every token, type style and interaction below is the real thing pulled from the prototypes. Hover anything. Build the production components to match these exactly.</p>
+  </div>
+
+  <!-- ===================== COLOR ===================== -->
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid #1a1a1a;padding-top:22px;margin-bottom:28px;">
+      <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">01 · Color</span>
+      <span style="font-size:12px;color:#666;">Near-black neutrals, one red accent — never a new hue</span>
+    </div>
+
+    <div style="font-size:10px;font-weight:600;letter-spacing:2px;color:#888;text-transform:uppercase;margin-bottom:14px;">Surfaces</div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:28px;">
+      <div style="background:#000;height:88px;border:1px solid #1a1a1a;"></div>
+      <div style="background:#050505;height:88px;border:1px solid #1a1a1a;"></div>
+      <div style="background:#0A0A0A;height:88px;border:1px solid #1a1a1a;"></div>
+      <div style="background:#0D0D0D;height:88px;border:1px solid #1a1a1a;"></div>
+      <div style="background:#111;height:88px;border:1px solid #1a1a1a;"></div>
+      <div style="background:#161616;height:88px;border:1px solid #1a1a1a;"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:36px;font-family:monospace;font-size:10px;letter-spacing:0.5px;color:#777;">
+      <div>#000000</div><div>#050505 · bg</div><div>#0A0A0A · card</div><div>#0D0D0D</div><div>#111111 · raised</div><div>#161616</div>
+    </div>
+
+    <div style="font-size:10px;font-weight:600;letter-spacing:2px;color:#888;text-transform:uppercase;margin-bottom:14px;">Text &amp; lines</div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:28px;">
+      <div style="background:#fff;height:64px;"></div>
+      <div style="background:#aaa;height:64px;"></div>
+      <div style="background:#888;height:64px;"></div>
+      <div style="background:#666;height:64px;"></div>
+      <div style="background:#333;height:64px;border:1px solid #222;"></div>
+      <div style="background:#222;height:64px;border:1px solid #2a2a2a;"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:40px;font-family:monospace;font-size:10px;letter-spacing:0.5px;color:#777;">
+      <div>#FFFFFF · primary</div><div>#AAAAAA</div><div>#888888</div><div>#666666 · muted</div><div>#333333</div><div>#222222 · border</div>
+    </div>
+
+    <div style="display:flex;align-items:stretch;gap:2px;">
+      <div style="flex:none;width:200px;background:#CC0000;height:120px;display:flex;align-items:flex-end;padding:16px;"><span style="font-size:12px;font-weight:800;letter-spacing:2px;color:#fff;">ACCENT</span></div>
+      <div style="flex:1;background:#0A0A0A;height:120px;border:1px solid #1a1a1a;display:flex;flex-direction:column;justify-content:center;padding:0 26px;gap:8px;">
+        <div style="font-family:monospace;font-size:13px;color:#fff;letter-spacing:1px;">#CC0000</div>
+        <div style="font-size:13px;color:#9a9a9a;line-height:1.5;">A spice, not a sauce — logo block, active indicators, one emphasis per view, primary CTAs. Never a large red fill beyond a button.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TYPE ===================== -->
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid #1a1a1a;padding-top:22px;margin-bottom:30px;">
+      <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">02 · Type</span>
+      <span style="font-size:12px;color:#666;">Archivo · weights 300 / 400 / 500 / 600</span>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <div style="border-top:1px solid #1c1c1c;padding:22px 0;display:flex;align-items:baseline;justify-content:space-between;gap:24px;">
+        <span style="font-size:64px;font-weight:700;letter-spacing:-0.04em;line-height:1;color:#fff;">Finish First</span>
+        <span style="flex:none;font-family:monospace;font-size:10px;letter-spacing:0.5px;color:#666;">Hero H1 · 64–78px · 300 · -0.035em</span>
+      </div>
+      <div style="border-top:1px solid #1c1c1c;padding:22px 0;display:flex;align-items:baseline;justify-content:space-between;gap:24px;">
+        <span style="font-size:40px;font-weight:600;letter-spacing:-0.03em;line-height:1.05;color:#fff;">Track-Ready Armor</span>
+        <span style="flex:none;font-family:monospace;font-size:10px;letter-spacing:0.5px;color:#666;">Page title · 30–48px · 300</span>
+      </div>
+      <div style="border-top:1px solid #1c1c1c;padding:22px 0;display:flex;align-items:baseline;justify-content:space-between;gap:24px;">
+        <span style="font-size:21px;font-weight:600;letter-spacing:-0.02em;color:#fff;">911 GT3 RS</span>
+        <span style="flex:none;font-family:monospace;font-size:10px;letter-spacing:0.5px;color:#666;">Card title · 19–22px · 400–500</span>
+      </div>
+      <div style="border-top:1px solid #1c1c1c;padding:22px 0;display:flex;align-items:baseline;justify-content:space-between;gap:24px;">
+        <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">Specifications</span>
+        <span style="flex:none;font-family:monospace;font-size:10px;letter-spacing:0.5px;color:#666;">Section label · 11–13px · 500 · 2–3px · UPPER</span>
+      </div>
+      <div style="border-top:1px solid #1c1c1c;padding:22px 0;display:flex;align-items:baseline;justify-content:space-between;gap:24px;">
+        <span style="font-size:16px;font-weight:500;color:#ccc;line-height:1.7;max-width:560px;">Precision-cut film wraps the surfaces that take the hits — rock chips and swirls stop at the film, not the paint.</span>
+        <span style="flex:none;font-family:monospace;font-size:10px;letter-spacing:0.5px;color:#666;">Body · 13–16px · 400 · 1.5–1.8</span>
+      </div>
+      <div style="border-top:1px solid #1c1c1c;border-bottom:1px solid #1c1c1c;padding:22px 0;display:flex;align-items:baseline;justify-content:space-between;gap:24px;">
+        <span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#9a9a9a;">05 / 05 · GT3 RS · PPF</span>
+        <span style="flex:none;font-family:monospace;font-size:10px;letter-spacing:0.5px;color:#666;">Mono caption · 9–11px · technical only</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TILES ===================== -->
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid #1a1a1a;padding-top:22px;margin-bottom:10px;">
+      <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">03 · Tiles</span>
+      <span style="font-size:12px;color:#666;">The signature element — photo, scrim, text bottom-left. Hover to feel the lift.</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 0 0;">
+      <div style="position:relative;height:300px;background:#0A0A0A;overflow:hidden;cursor:pointer;transition:transform 240ms cubic-bezier(.2,.8,.2,1),box-shadow 240ms cubic-bezier(.2,.8,.2,1),filter 240ms ease;" style-hover="transform:translateY(-6px) scale(1.03);box-shadow:0 24px 50px rgba(0,0,0,0.62);filter:brightness(1.14);z-index:5">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,#171717 0,#171717 11px,#101010 11px,#101010 22px);display:flex;align-items:center;justify-content:center;"><span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#383838;">[ gt3 rs ]</span></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(transparent,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.93));"></div>
+        <div style="position:absolute;top:16px;left:16px;border:1px solid #2e2e2e;padding:5px 9px;background:rgba(0,0,0,0.35);"><span style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">PPF</span></div>
+        <div style="position:absolute;top:16px;right:16px;color:#fff;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" stroke-width="1.2"/></svg></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 20px;"><div style="font-size:10px;font-weight:600;letter-spacing:2px;color:#aaa;text-transform:uppercase;margin-bottom:5px;">Porsche</div><div style="font-size:21px;font-weight:600;letter-spacing:-0.02em;color:#fff;">911 GT3 RS</div></div>
+      </div>
+      <div style="position:relative;height:300px;background:#0A0A0A;overflow:hidden;cursor:pointer;transition:transform 240ms cubic-bezier(.2,.8,.2,1),box-shadow 240ms cubic-bezier(.2,.8,.2,1),filter 240ms ease;" style-hover="transform:translateY(-6px) scale(1.03);box-shadow:0 24px 50px rgba(0,0,0,0.62);filter:brightness(1.14);z-index:5">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,#171717 0,#171717 11px,#101010 11px,#101010 22px);display:flex;align-items:center;justify-content:center;"><span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#383838;">[ rs6 · wrap ]</span></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(transparent,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.93));"></div>
+        <div style="position:absolute;top:16px;left:16px;border:1px solid #2e2e2e;padding:5px 9px;background:rgba(0,0,0,0.35);"><span style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">Vinyl</span></div>
+        <div style="position:absolute;top:16px;right:16px;color:#fff;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" stroke-width="1.2"/></svg></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 20px;"><div style="font-size:10px;font-weight:600;letter-spacing:2px;color:#aaa;text-transform:uppercase;margin-bottom:5px;">Audi</div><div style="font-size:21px;font-weight:600;letter-spacing:-0.02em;color:#fff;">Nardo Transformation</div></div>
+      </div>
+      <div style="position:relative;height:300px;background:#0A0A0A;overflow:hidden;cursor:pointer;transition:transform 240ms cubic-bezier(.2,.8,.2,1),box-shadow 240ms cubic-bezier(.2,.8,.2,1),filter 240ms ease;" style-hover="transform:translateY(-6px) scale(1.03);box-shadow:0 24px 50px rgba(0,0,0,0.62);filter:brightness(1.14);z-index:5">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,#171717 0,#171717 11px,#101010 11px,#101010 22px);display:flex;align-items:center;justify-content:center;"><span style="font-family:monospace;font-size:11px;letter-spacing:1px;color:#383838;">[ sf90 · ceramic ]</span></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(transparent,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.93));"></div>
+        <div style="position:absolute;top:16px;left:16px;border:1px solid #2e2e2e;padding:5px 9px;background:rgba(0,0,0,0.35);"><span style="font-family:monospace;font-size:9px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">Ceramic</span></div>
+        <div style="position:absolute;top:16px;right:16px;color:#fff;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" stroke-width="1.2"/></svg></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 20px;"><div style="font-size:10px;font-weight:600;letter-spacing:2px;color:#aaa;text-transform:uppercase;margin-bottom:5px;">Ferrari</div><div style="font-size:21px;font-weight:600;letter-spacing:-0.02em;color:#fff;">Mirror Correction</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== BUTTONS ===================== -->
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid #1a1a1a;padding-top:22px;margin-bottom:26px;">
+      <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">04 · Buttons</span>
+      <span style="font-size:12px;color:#666;">Lift on hover, settle on press. Hover to feel it.</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+      <a href="#" style="display:inline-flex;align-items:center;gap:10px;background:#CC0000;color:#fff;text-decoration:none;padding:15px 28px;font-size:13px;letter-spacing:0.5px;transition:filter 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1);" style-hover="filter:brightness(1.12);transform:translateY(-3px);box-shadow:0 16px 34px rgba(204,0,0,0.36)" style-active="transform:translateY(0) scale(0.98)">Request a Quote <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" stroke-width="1.4"/></svg></a>
+      <a href="#" style="display:inline-flex;align-items:center;gap:9px;border:1px solid #222;color:#fff;text-decoration:none;padding:14px 22px;font-size:12.5px;letter-spacing:1px;transition:background 200ms ease,border-color 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1);" style-hover="background:#161616;border-color:#444;transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,0.5)" style-active="transform:translateY(0) scale(0.98)"><span style="width:6px;height:6px;background:#CC0000;flex:none;"></span>See more work</a>
+      <a href="#" style="display:inline-flex;align-items:center;gap:9px;color:#888;text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;transition:color 150ms ease;" style-hover="color:#fff"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.3"/></svg>Back link</a>
+    </div>
+  </div>
+
+  <!-- ===================== MOTION + SHADOW ===================== -->
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid #1a1a1a;padding-top:22px;margin-bottom:26px;">
+      <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">05 · Motion &amp; Shadow</span>
+      <span style="font-size:12px;color:#666;">One curve · cubic-bezier(.2, .8, .2, 1)</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;justify-content:space-between;border-top:1px solid #1c1c1c;padding:13px 0;"><span style="font-size:13.5px;color:#ccc;">Tile / card lift</span><span style="font-family:monospace;font-size:11px;color:#888;">translateY(-6px) · scale(1.03) · 240ms</span></div>
+        <div style="display:flex;justify-content:space-between;border-top:1px solid #1c1c1c;padding:13px 0;"><span style="font-size:13.5px;color:#ccc;">Button lift</span><span style="font-family:monospace;font-size:11px;color:#888;">translateY(-3px) · red glow · 220ms</span></div>
+        <div style="display:flex;justify-content:space-between;border-top:1px solid #1c1c1c;padding:13px 0;"><span style="font-size:13.5px;color:#ccc;">Press / active</span><span style="font-family:monospace;font-size:11px;color:#888;">translateY(0) · scale(0.98)</span></div>
+        <div style="display:flex;justify-content:space-between;border-top:1px solid #1c1c1c;border-bottom:1px solid #1c1c1c;padding:13px 0;"><span style="font-size:13.5px;color:#ccc;">Entrance</span><span style="font-family:monospace;font-size:11px;color:#888;">fadeUp / panelIn · once on mount</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:center;background:#0A0A0A;border:1px solid #1a1a1a;padding:40px;">
+        <div style="width:140px;height:90px;background:#0E0E0E;box-shadow:0 18px 44px rgba(0,0,0,0.55),0 6px 16px rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 240ms cubic-bezier(.2,.8,.2,1),box-shadow 240ms cubic-bezier(.2,.8,.2,1);" style-hover="transform:translateY(-8px) scale(1.04);box-shadow:0 30px 60px rgba(0,0,0,0.7)"><span style="font-family:monospace;font-size:10px;letter-spacing:2px;color:#666;text-transform:uppercase;">Hover me</span></div>
+        <span style="font-size:11px;color:#555;letter-spacing:0.5px;">Floating box · shadow blooms as it rises</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SCROLL BOX + TINT BANDS ===================== -->
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid #1a1a1a;padding-top:22px;margin-bottom:24px;">
+      <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">07 · Scroll Box &amp; Tint Bands</span>
+      <span style="font-size:12px;color:#666;">The signature page shell</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+      <div>
+        <div style="font-size:13.5px;color:#9a9a9a;line-height:1.7;margin-bottom:16px;">Division &amp; service pages end in a floating <span style="color:#ddd;">#0A0A0A</span> box that expands from 90% to full-bleed as you scroll into it (shadow fades out), then stays full. Inside, content sections <span style="color:#ddd;">alternate background</span> so they don't blend:</div>
+        <div style="display:flex;flex-direction:column;gap:2px;border:1px solid #1a1a1a;">
+          <div style="background:#0A0A0A;padding:16px 18px;"><span style="font-size:12px;color:#888;">Base band</span> <span style="font-family:monospace;font-size:11px;color:#666;">#0A0A0A</span></div>
+          <div style="background:#101010;padding:16px 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);"><span style="font-size:12px;color:#aaa;">Tint band</span> <span style="font-family:monospace;font-size:11px;color:#777;">#101010 + inset top highlight</span></div>
+          <div style="background:#0A0A0A;padding:16px 18px;"><span style="font-size:12px;color:#888;">Base band</span> <span style="font-family:monospace;font-size:11px;color:#666;">#0A0A0A</span></div>
+          <div style="background:#101010;padding:16px 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);"><span style="font-size:12px;color:#aaa;">Tint band</span> <span style="font-family:monospace;font-size:11px;color:#777;">#101010</span></div>
+        </div>
+      </div>
+      <div style="background:#0A0A0A;box-shadow:0 30px 70px rgba(0,0,0,0.55);overflow:hidden;">
+        <div style="position:relative;height:120px;overflow:hidden;">
+          <img src="assets/hero-lineup.jpeg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 52%;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.1),rgba(10,10,10,0.9) 92%,#0A0A0A);"></div>
+          <div style="position:absolute;left:0;bottom:0;padding:0 20px 14px;"><div style="font-size:10px;letter-spacing:3px;color:#CC0000;text-transform:uppercase;">Faded mini-hero</div></div>
+        </div>
+        <div style="padding:22px 20px;"><div style="font-size:12px;color:#999;line-height:1.6;">Base section — lead prose sits on #0A0A0A.</div></div>
+        <div style="padding:22px 20px;background:#101010;box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);"><div style="font-size:12px;color:#aaa;line-height:1.6;">Tint section — #101010 lifts it just enough to separate.</div></div>
+        <div style="padding:22px 20px;"><div style="font-size:12px;color:#999;line-height:1.6;">Base section again — photos &amp; CTA split-bands act as natural separators between.</div></div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:#666;line-height:1.6;margin-top:18px;">Reveal-on-scroll via <span style="font-family:monospace;color:#888;">[data-reveal]</span> (IntersectionObserver rooted on the box). Service pages + About use this with <span style="color:#aaa;">no hero</span> — straight into the box.</div>
+  </div>
+
+  <!-- ===================== BACKGROUND SYSTEM ===================== -->
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 96px;">
+    <div style="display:flex;align-items:baseline;gap:14px;border-top:1px solid #1a1a1a;padding-top:22px;margin-bottom:24px;">
+      <span style="font-size:13px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;">08 · Background System</span>
+      <span style="font-size:12px;color:#666;">Floating card over a blurred, dimmed photo</span>
+    </div>
+    <div style="position:relative;height:340px;overflow:hidden;border:1px solid #1a1a1a;">
+      <img src="assets/hero-lineup.jpeg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 56%;filter:blur(30px) brightness(0.62) saturate(1.08);transform:scale(1.12);" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,6,0.32),rgba(6,6,6,0.62));"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:34px;">
+        <div style="width:100%;max-width:560px;background:#0A0A0A;box-shadow:0 40px 90px rgba(0,0,0,0.6),0 12px 32px rgba(0,0,0,0.45);padding:34px 38px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#CC0000;text-transform:uppercase;margin-bottom:12px;">Floating card · no border</div>
+          <div style="font-size:26px;font-weight:600;letter-spacing:-0.025em;color:#fff;margin-bottom:10px;">Content sits above the blur.</div>
+          <div style="font-size:13.5px;color:#9a9a9a;line-height:1.6;">A fixed photo (random per load) at blur(30px) brightness(.62), dimmed with a vertical gradient. The page content rides on a z-index:1 layer with a big soft shadow and sharp edges.</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:40px;border-top:1px solid #1a1a1a;padding-top:22px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+      <span style="font-size:12px;color:#555;letter-spacing:0.5px;">Red Box Motors · internal reference — see <span style="font-family:monospace;color:#888;">handoff/</span> for the full spec.</span>
+      <span style="display:inline-flex;align-items:center;background:#CC0000;padding:7px 11px;"><span style="font-size:10px;font-weight:600;letter-spacing:2.5px;color:#fff;">RED BOX MOTORS</span></span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}"></script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html,body{background:#000;margin:0;}</style>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#0A0A0A;}
+  *{box-sizing:border-box;}
+  *::-webkit-scrollbar{width:0;height:0;}
+  #rbm-loader{position:fixed;inset:0;z-index:1000;background:#000;font-family:'Archivo',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;will-change:clip-path;animation:rbmLoaderLift .375s cubic-bezier(.76,0,.24,1) forwards;animation-delay:.34s;}
+  #rbm-loader .rbm-loader-badge{display:flex;align-items:center;gap:15px;animation:rbmBoxIn .375s cubic-bezier(.2,.8,.2,1) both;}
+  #rbm-loader .rbm-loader-track{width:210px;height:2px;background:#171717;overflow:hidden;}
+  #rbm-loader .rbm-loader-bar{height:100%;background:#CC0000;transform-origin:left center;transform:scaleX(0);animation:rbmBarGrow .5s cubic-bezier(.45,0,.1,1) forwards;}
+  :root[data-nav="full"] #rbm-loader{animation-duration:.95s;animation-delay:1.5s;}
+  :root[data-nav="full"] #rbm-loader .rbm-loader-badge{animation-duration:.8s;}
+  :root[data-nav="full"] #rbm-loader .rbm-loader-bar{animation-duration:1.5s;}
+  @keyframes rbmBoxIn{0%{opacity:0;transform:scale(0.6);}45%{opacity:1;}100%{opacity:1;transform:scale(1);}}
+  @keyframes rbmBarGrow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+  @keyframes rbmLoaderLift{0%,55%{clip-path:inset(0 0 0 0);}100%{clip-path:inset(0 0 100% 0);}}
+  :root[data-nav="quick"] #rbm-loader{display:none!important;}
+  @media (prefers-reduced-motion: reduce){#rbm-loader{display:none!important;}}
+  #rbm-contact-modal{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:24px;font-family:'Archivo',sans-serif;}
+  :root[data-contact-open="1"] #rbm-contact-modal{display:flex;}
+  @keyframes rbmModalIn{from{opacity:0;transform:translateY(18px) scale(.98);}to{opacity:1;transform:none;}}
+  @keyframes rbmFadeIn{from{opacity:0;}to{opacity:1;}}
+</style>
+<script>(function(){var f='full';try{var n=performance.getEntriesByType('navigation')[0];var t=n?n.type:'navigate';var same=document.referrer&&document.referrer.indexOf(location.origin)===0;f=(t==='reload'||!same)?'full':'quick';}catch(e){}document.documentElement.setAttribute('data-nav',f);})();</script>
+<script>(function(){function isC(a){if(!a)return false;var h=(a.getAttribute('href')||'').split('#')[0].split('?')[0].replace(/%20/g,' ');return /(^|\/)Contact(\.dc)?\.html$/i.test(h);}function op(){var m=document.getElementById('rbm-contact-modal');if(!m)return;var f=document.getElementById('rbm-contact-frame');if(f)f.src='Contact.dc.html?embed=1&t='+Date.now();document.documentElement.setAttribute('data-contact-open','1');}function cl(){document.documentElement.removeAttribute('data-contact-open');}document.addEventListener('click',function(e){var t=e.target;if(!t||!t.closest)return;var a=t.closest('a[href]');if(a&&isC(a)){e.preventDefault();op();return;}if(t.closest('[data-rbm-close]')){e.preventDefault();cl();}},true);document.addEventListener('keydown',function(e){if(e.key==='Escape')cl();});})();</script>
+<script src="assets/motion.js"></script>
+</helmet>
+  <!-- ===================== INTRO LOADER ===================== -->
+  <div id="rbm-loader">
+    <div class="rbm-loader-badge">
+      <span style="display:inline-flex;background:#CC0000;padding:13px 18px;"><span style="font-size:15px;font-weight:800;letter-spacing:4px;color:#fff;">RBM</span></span>
+      <span style="font-size:12px;font-weight:600;letter-spacing:6px;color:#666;text-transform:uppercase;">Red Box Motors</span>
+    </div>
+    <div class="rbm-loader-track"><div class="rbm-loader-bar"></div></div>
+  </div>
+  <!-- ===================== CONTACT MODAL ===================== -->
+  <div id="rbm-contact-modal">
+    <div data-rbm-close style="position:absolute;inset:0;background:rgba(6,6,6,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:rbmFadeIn .3s ease both;"></div>
+    <div style="position:relative;z-index:1;width:100%;max-width:1180px;animation:rbmModalIn .38s cubic-bezier(.2,.8,.2,1) both;">
+      <button data-rbm-close aria-label="Close" style="position:absolute;top:-16px;right:-16px;z-index:2;width:42px;height:42px;background:#CC0000;border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.55);">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3L13 13M13 3L3 13" stroke="#fff" stroke-width="1.6"/></svg>
+      </button>
+      <div style="width:100%;max-height:88vh;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;box-shadow:0 40px 120px rgba(0,0,0,0.7);">
+        <dc-import name="Contact Form" hint-size="100%,640px"></dc-import>
+      </div>
+    </div>
+  </div>
+
+
+<div style="font-family:'Archivo',sans-serif;background:#050505;color:#fff;position:relative;-webkit-font-smoothing:antialiased;">
+
+  <img src="assets/cosmetics-garage.jpeg" alt="" data-rb-bg style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 56%;z-index:0;filter:blur(30px) brightness(0.62) saturate(1.08);transform:scale(1.12);pointer-events:none;" />
+  <div style="position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(6,6,6,0.32),rgba(6,6,6,0.62));pointer-events:none;"></div>
+
+  <dc-import name="Site Nav" current="cosmetics" hint-size="100%,64px"></dc-import>
+
+  <div data-scroll-container ref="{{ setContainer }}" style="height:100vh;overflow-y:auto;scroll-snap-type:y proximity;scrollbar-width:none;background:transparent;position:relative;z-index:1;">
+
+    <section data-screen-label="PPF Overview" ref="{{ setBoxSection }}" style="height:100vh;scroll-snap-align:start;background:transparent;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden;transition:padding 200ms cubic-bezier(.2,.8,.2,1);">
+
+      <div style="position:absolute;right:calc(4vw - 18px);top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:14px;pointer-events:none;">
+        <span style="font-family:monospace;font-size:9.5px;letter-spacing:3px;color:#cfcfcf;text-transform:uppercase;writing-mode:vertical-rl;">Scroll</span>
+        <div style="width:2px;height:150px;background:rgba(255,255,255,0.14);position:relative;overflow:hidden;"><div ref="{{ setBoxProg }}" style="position:absolute;top:0;left:0;width:2px;height:0%;background:#CC0000;transition:height 90ms linear;"></div></div>
+        <span ref="{{ setBoxPct }}" style="font-family:monospace;font-size:9.5px;letter-spacing:1px;color:#777;">00</span>
+      </div>
+
+      <div ref="{{ setBox }}" style="width:90%;height:90%;background:#0A0A0A;box-shadow:0 40px 90px rgba(0,0,0,0.7),0 8px 30px rgba(0,0,0,0.55);overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative;z-index:1;transition:width 200ms cubic-bezier(.2,.8,.2,1),height 200ms cubic-bezier(.2,.8,.2,1),box-shadow 200ms ease;">
+
+        <!-- HERO with spec ribbon -->
+        <div style="position:relative;height:480px;overflow:hidden;">
+          <img src="assets/ppf-coverage.jpg" alt="Porsche GT2 RS protected with paint protection film, Austin TX" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.15) 0%,rgba(10,10,10,0.05) 34%,rgba(10,10,10,0.6) 72%,rgba(10,10,10,0.94) 92%,#0A0A0A 100%);"></div>
+          <div style="position:absolute;left:0;right:0;top:0;padding:34px 52px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+            <div style="font-family:monospace;font-size:11px;letter-spacing:4px;color:#CC0000;text-transform:uppercase;">— Cosmetics · Paint Protection Film</div>
+            <a href="Cosmetics.dc.html" style="display:inline-flex;align-items:center;gap:9px;color:#aaa;text-decoration:none;font-size:12.5px;letter-spacing:1.5px;white-space:nowrap;transition:color 150ms ease;" style-hover="color:#fff"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.3"/></svg>Cosmetics overview</a>
+          </div>
+          <div style="position:absolute;left:0;right:0;bottom:56px;padding:0 52px;">
+            <div style="font-size:clamp(40px,5.4vw,74px);font-weight:700;letter-spacing:-0.045em;line-height:0.94;color:#fff;">Invisible armor<br/>for your paint.</div>
+            <p style="font-size:15px;color:#c4c4c4;letter-spacing:0.2px;max-width:600px;line-height:1.6;margin:20px 0 0;text-shadow:0 1px 20px rgba(0,0,0,0.7);">STEK self-healing paint protection film — precision-cut and installed in Austin, Texas, minutes from Circuit of the Americas.</p>
+          </div>
+          <div style="position:absolute;left:0;right:0;bottom:0;border-top:1px solid rgba(255,255,255,0.1);background:rgba(8,8,8,0.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;grid-template-columns:repeat(4,1fr);">
+            <div style="padding:15px 24px;border-right:1px solid rgba(255,255,255,0.07);font-family:monospace;font-size:10.5px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">Self-healing</div>
+            <div style="padding:15px 24px;border-right:1px solid rgba(255,255,255,0.07);font-family:monospace;font-size:10.5px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">High-impact</div>
+            <div style="padding:15px 24px;border-right:1px solid rgba(255,255,255,0.07);font-family:monospace;font-size:10.5px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">Hydrophobic</div>
+            <div style="padding:15px 24px;font-family:monospace;font-size:10.5px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">Optically clear</div>
+          </div>
+        </div>
+
+        <!-- STATEMENT -->
+        <div data-reveal style="opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start;padding:60px 52px 56px;">
+          <h2 style="font-size:clamp(28px,3.8vw,54px);font-weight:700;letter-spacing:-0.035em;line-height:1.02;color:#fff;margin:0;max-width:16ch;">The single best thing you can do for a car you actually drive.</h2>
+          <div style="padding-top:6px;">
+            <p style="font-size:16px;color:#a8a8a8;line-height:1.75;margin:0 0 18px;">Paint protection film is a tough, optically clear urethane layer that takes the rock chips, road rash, bug etching and wash marring that would otherwise scar your paint — while its self-healing top coat erases light swirls with heat from the sun or warm water.</p>
+            <p style="font-size:16px;color:#a8a8a8;line-height:1.75;margin:0;">We install STEK PPF, precision-cut for every panel with wrapped edges wherever possible — so the protection is there without ever changing how the car looks.</p>
+          </div>
+        </div>
+
+        <!-- PROPERTIES INDEX -->
+        <div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);border-top:1px solid #1a1a1a;padding:56px 52px 60px;background:#0C0C0C;">
+          <div style="font-family:monospace;font-size:11px;letter-spacing:4px;color:#CC0000;text-transform:uppercase;margin-bottom:38px;">— Why the film works</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#1a1a1a;border:1px solid #1a1a1a;">
+            <div style="background:#0C0C0C;padding:30px 28px 34px;">
+              <div style="font-size:clamp(40px,4.6vw,56px);font-weight:700;color:#CC0000;letter-spacing:-0.04em;line-height:1;margin-bottom:20px;">01</div>
+              <div style="font-size:17px;font-weight:700;letter-spacing:-0.01em;color:#fff;margin-bottom:11px;">Self-healing</div>
+              <p style="font-size:13.5px;color:#8f8f8f;line-height:1.65;margin:0;">The elastomeric top coat closes light swirls and wash marring on its own with heat from the sun or warm water.</p>
+            </div>
+            <div style="background:#0C0C0C;padding:30px 28px 34px;">
+              <div style="font-size:clamp(40px,4.6vw,56px);font-weight:700;color:#CC0000;letter-spacing:-0.04em;line-height:1;margin-bottom:20px;">02</div>
+              <div style="font-size:17px;font-weight:700;letter-spacing:-0.01em;color:#fff;margin-bottom:11px;">High-impact</div>
+              <p style="font-size:13.5px;color:#8f8f8f;line-height:1.65;margin:0;">A thick urethane layer absorbs rock chips, road rash and bug etching before they ever reach the clear coat.</p>
+            </div>
+            <div style="background:#0C0C0C;padding:30px 28px 34px;">
+              <div style="font-size:clamp(40px,4.6vw,56px);font-weight:700;color:#CC0000;letter-spacing:-0.04em;line-height:1;margin-bottom:20px;">03</div>
+              <div style="font-size:17px;font-weight:700;letter-spacing:-0.01em;color:#fff;margin-bottom:11px;">Hydrophobic</div>
+              <p style="font-size:13.5px;color:#8f8f8f;line-height:1.65;margin:0;">The surface sheds water, dirt and road film and resists chemical and bug staining — the car stays cleaner, longer.</p>
+            </div>
+            <div style="background:#0C0C0C;padding:30px 28px 34px;">
+              <div style="font-size:clamp(40px,4.6vw,56px);font-weight:700;color:#CC0000;letter-spacing:-0.04em;line-height:1;margin-bottom:20px;">04</div>
+              <div style="font-size:17px;font-weight:700;letter-spacing:-0.01em;color:#fff;margin-bottom:11px;">Optically clear</div>
+              <p style="font-size:13.5px;color:#8f8f8f;line-height:1.65;margin:0;">Precision-cut with wrapped edges — no lifting, no seams, nothing that reads as anything but factory paint.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- COVERAGE — spec sheet with blended photo -->
+        <div style="border-top:1px solid #1a1a1a;">
+          <div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);position:relative;height:400px;overflow:hidden;">
+            <img src="assets/ppf-hero.jpg" alt="Paint protection film install at Red Box Motors, Austin TX" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.35) 0%,rgba(10,10,10,0.1) 34%,rgba(10,10,10,0.55) 68%,rgba(10,10,10,0.92) 90%,#0A0A0A 100%);"></div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:0 52px 36px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+              <div>
+                <div style="font-family:monospace;font-size:11px;letter-spacing:4px;color:#CC0000;text-transform:uppercase;margin-bottom:16px;">— Packages</div>
+                <h2 style="font-size:clamp(34px,4.6vw,62px);font-weight:700;letter-spacing:-0.04em;line-height:0.98;color:#fff;margin:0;">Coverage for how you drive.</h2>
+              </div>
+              <span style="font-family:monospace;font-size:11px;color:#999;letter-spacing:1px;max-width:30ch;text-align:right;text-shadow:0 1px 12px rgba(0,0,0,0.8);">Every panel mapped with you — mix and match as needed.</span>
+            </div>
+          </div>
+
+          <div data-reveal style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.2,.8,.2,1) .1s,transform .9s cubic-bezier(.2,.8,.2,1) .1s;padding:12px 52px 12px;">
+            <div style="display:grid;grid-template-columns:320px 1fr;gap:36px;padding:38px 0;border-bottom:1px solid #171717;align-items:start;">
+              <div>
+                <div style="font-family:monospace;font-size:11px;letter-spacing:2.5px;color:#CC0000;text-transform:uppercase;margin-bottom:12px;">01 · Front-end</div>
+                <div style="font-size:29px;font-weight:600;letter-spacing:-0.02em;color:#fff;margin-bottom:9px;">High-impact</div>
+                <p style="font-size:13px;color:#8f8f8f;line-height:1.55;margin:0;">The daily-driver essential — the zones that take the chips.</p>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;padding-top:4px;">
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Front bumper</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Hood (partial / full)</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Fenders</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Mirrors</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Headlights</span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:320px 1fr;gap:36px;padding:38px 0;border-bottom:1px solid #171717;align-items:start;">
+              <div>
+                <div style="font-family:monospace;font-size:11px;letter-spacing:2.5px;color:#CC0000;text-transform:uppercase;margin-bottom:12px;">02 · Track</div>
+                <div style="font-size:29px;font-weight:600;letter-spacing:-0.02em;color:#fff;margin-bottom:9px;">Extended coverage</div>
+                <p style="font-size:13px;color:#8f8f8f;line-height:1.55;margin:0;">Front-end plus the surfaces that catch debris at speed.</p>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;padding-top:4px;">
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#777;border:1px solid #222;padding:6px 11px;">Everything in Front-end</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Rocker panels</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">A-pillars</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Roof leading edge</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Lower doors</span>
+                <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 11px;">Rear arches</span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:320px 1fr;gap:36px;padding:38px 0 42px;align-items:start;">
+              <div>
+                <div style="font-family:monospace;font-size:11px;letter-spacing:2.5px;color:#CC0000;text-transform:uppercase;margin-bottom:12px;">03 · Full-body</div>
+                <div style="font-size:29px;font-weight:600;letter-spacing:-0.02em;color:#fff;margin-bottom:9px;">Total protection</div>
+                <p style="font-size:13px;color:#8f8f8f;line-height:1.55;margin:0;">Every painted surface wrapped — the most protection, completely invisible.</p>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;padding-top:4px;align-items:center;">
+                <span style="display:inline-flex;align-items:center;gap:8px;font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#fff;border:1px solid #CC0000;background:rgba(204,0,0,0.08);padding:6px 12px;"><span style="width:5px;height:5px;background:#CC0000;flex:none;"></span>Every painted panel, wrapped edge to edge</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DISASSEMBLY -->
+        <div data-reveal style="opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.8,.2,1) .12s,transform .9s cubic-bezier(.2,.8,.2,1) .12s;border-top:1px solid #1a1a1a;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;">
+          <div style="position:relative;min-height:440px;overflow:hidden;">
+            <img src="assets/ppf-disassembly.jpg" alt="Ford Raptor disassembled for paint protection film install" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 50%;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,0) 0%,rgba(10,10,10,0.2) 58%,rgba(10,10,10,0.85) 100%);"></div>
+            <div style="position:absolute;left:0;bottom:0;padding:22px 26px;"><span style="font-family:monospace;font-size:10px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">In the bay · panels off</span></div>
+          </div>
+          <div style="padding:60px 52px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:monospace;font-size:11px;letter-spacing:3px;color:#CC0000;text-transform:uppercase;margin-bottom:16px;">— How we install</div>
+            <h3 style="font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-0.03em;line-height:1.05;color:#fff;margin:0 0 20px;max-width:16ch;">We take the car apart to wrap it right.</h3>
+            <p style="font-size:15px;color:#a4a4a4;line-height:1.75;margin:0 0 16px;">A seamless install can't happen with everything bolted on. We disassemble the car so the film tucks behind every edge instead of stopping at it — removing badges and emblems, lights, mirror caps, trim and grilles, and pulling bumpers, spoilers and panels where the wrap needs to wrap.</p>
+            <p style="font-size:15px;color:#a4a4a4;line-height:1.75;margin:0 0 28px;">With the parts off, edges are wrapped, gaps are tucked and relief cuts stay hidden — then everything goes back together torqued to spec. The result reads as factory paint: no lifting, no visible seams, nothing to catch a fingernail.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;">
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;">Badges &amp; emblems</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;">Lights</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;">Mirror caps</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;">Trim &amp; grilles</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;">Bumpers</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;">Spoilers</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLOR-CHANGE PPF -->
+        <div data-reveal style="opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.8,.2,1) .12s,transform .9s cubic-bezier(.2,.8,.2,1) .12s;border-top:1px solid #1a1a1a;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;">
+          <div style="padding:60px 52px;display:flex;flex-direction:column;justify-content:center;">
+            <div style="font-family:monospace;font-size:11px;letter-spacing:3px;color:#CC0000;text-transform:uppercase;margin-bottom:16px;">— Color-change PPF</div>
+            <h3 style="font-size:clamp(24px,3vw,40px);font-weight:700;letter-spacing:-0.03em;line-height:1.05;color:#fff;margin:0 0 20px;max-width:15ch;">Change the color. Keep the protection.</h3>
+            <p style="font-size:15px;color:#a4a4a4;line-height:1.75;margin:0 0 16px;">STEK colored and finish-changing paint protection film transforms the look of the car and armors it at the same time — one film doing two jobs. Go gloss to satin or matte, shift to a whole new color, or add a brushed or color-flip finish, all over the same self-healing, chip-resistant urethane.</p>
+            <p style="font-size:15px;color:#a4a4a4;line-height:1.75;margin:0 0 28px;">Because it's film, not paint, the factory finish stays untouched underneath and the change is fully reversible — ideal for a lease, a resale plan, or simply a new look without committing to a respray.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;">
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;text-transform:uppercase;">Gloss</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;text-transform:uppercase;">Satin</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;text-transform:uppercase;">Matte</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;text-transform:uppercase;">Brushed</span>
+              <span style="font-family:monospace;font-size:11px;letter-spacing:0.5px;color:#cfcfcf;border:1px solid #2a2a2a;padding:6px 12px;text-transform:uppercase;">Color-shift</span>
+            </div>
+          </div>
+          <div style="position:relative;min-height:420px;overflow:hidden;">
+            <img src="assets/cosmetics-wash.jpeg" alt="Color-change paint protection film" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 54%;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,0.85) 0%,rgba(10,10,10,0.2) 42%,rgba(10,10,10,0) 100%);"></div>
+            <div style="position:absolute;left:0;bottom:0;padding:22px 26px;"><span style="font-family:monospace;font-size:10px;letter-spacing:2px;color:#cfcfcf;text-transform:uppercase;">STEK · protect + transform · reversible</span></div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="border-top:1px solid #1a1a1a;display:flex;background:#101010;flex-wrap:wrap;">
+          <div style="flex:1.05;min-width:280px;position:relative;overflow:hidden;min-height:460px;">
+            <img src="assets/get-in-touch.jpeg" alt="Book paint protection film" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 64%;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,16,16,0) 55%,rgba(16,16,16,0.55) 82%,rgba(16,16,16,0.95) 100%);"></div>
+            <div style="position:absolute;left:0;bottom:0;padding:26px 30px;"><div style="font-family:monospace;font-size:11px;letter-spacing:3px;color:#cfcfcf;text-transform:uppercase;">Austin, TX · Near COTA</div></div>
+          </div>
+          <div style="flex:1;min-width:300px;display:flex;flex-direction:column;justify-content:center;padding:72px 56px;">
+            <div style="font-family:monospace;font-size:11px;letter-spacing:4px;color:#CC0000;text-transform:uppercase;margin-bottom:24px;">— Protect it</div>
+            <h2 style="font-size:clamp(34px,4.4vw,64px);font-weight:800;letter-spacing:-0.04em;line-height:0.96;color:#fff;margin:0;max-width:13ch;">Armor it before the first chip.</h2>
+            <p style="font-size:16px;font-weight:500;color:#aaa;line-height:1.7;max-width:440px;margin:26px 0 0;">Tell us the car and how you drive it, and we'll map the right STEK coverage — front-end, track or full-body.</p>
+            <div style="display:flex;align-items:center;gap:18px;margin-top:36px;flex-wrap:wrap;">
+              <a href="Contact.dc.html" style="display:inline-flex;align-items:center;gap:12px;background:#CC0000;color:#fff;text-decoration:none;padding:16px 28px;font-size:14px;font-weight:600;letter-spacing:0.5px;transition:filter 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1);" style-hover="filter:brightness(1.12);transform:translateY(-3px);box-shadow:0 18px 38px rgba(204,0,0,0.38)" style-active="transform:translateY(0) scale(0.98)">Request a quote <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" stroke-width="1.5"/></svg></a>
+              <a href="Ceramic%20%26%20Correction.dc.html" style="font-size:13px;letter-spacing:1.5px;color:#aaa;text-decoration:none;transition:color 150ms ease;" style-hover="color:#fff">Add ceramic →</a>
+            </div>
+            <div style="display:flex;align-items:center;gap:11px;margin-top:52px;padding-top:26px;border-top:1px solid #1a1a1a;">
+              <span style="display:inline-flex;background:#CC0000;padding:7px 10px;"><span style="font-size:10px;font-weight:800;letter-spacing:2px;color:#fff;">RBM</span></span>
+              <span style="font-size:11px;letter-spacing:2px;color:#666;text-transform:uppercase;">Red Box Motors · Cosmetics</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #1a1a1a;">
+          <dc-import name="Visit and FAQ" division="cosmetics" hint-size="100%,1100px"></dc-import>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <a href="Contact.dc.html" style="position:fixed;bottom:26px;right:26px;z-index:40;display:flex;align-items:center;gap:11px;background:#0A0A0A;border:1px solid #2a2a2a;padding:13px 18px;text-decoration:none;transition:border-color 200ms ease,background 200ms ease,transform 220ms cubic-bezier(.2,.8,.2,1),box-shadow 220ms cubic-bezier(.2,.8,.2,1);" style-hover="border-color:#555;background:#111;transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,0,0,0.55)" style-active="transform:translateY(0) scale(0.98)">
+    <span style="width:7px;height:7px;background:#CC0000;flex:none;"></span>
+    <span style="font-size:12px;letter-spacing:1.5px;color:#fff;">Contact</span>
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#888" stroke-width="1.3"/></svg>
+  </a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
+class Component extends DCLogic {
+  setContainer = (el) => { this._c = el; };
+  setBox = (el) => { this._box = el; if (el) el.addEventListener('scroll', this.onBoxScroll, { passive: true }); };
+  setBoxSection = (el) => { this._boxSection = el; };
+  setBoxProg = (el) => { this._boxProg = el; };
+  setBoxPct = (el) => { this._boxPct = el; };
+
+  onBoxScroll = () => {
+    const b = this._box;
+    if (!b) return;
+    const max = b.scrollHeight - b.clientHeight;
+    const p = max > 0 ? Math.max(0, Math.min(1, b.scrollTop / max)) : 0;
+    if (this._boxProg) this._boxProg.style.height = (p * 100).toFixed(1) + '%';
+    if (this._boxPct) this._boxPct.textContent = String(Math.round(p * 100)).padStart(2, '0');
+    const T = 220;
+    const e = Math.max(0, Math.min(1, b.scrollTop / T));
+    if (this._lastE === undefined || Math.abs(e - this._lastE) > 0.005) {
+      this._lastE = e;
+      const sz = (90 + 10 * e).toFixed(2) + '%';
+      b.style.width = sz; b.style.height = sz;
+      b.style.boxShadow = '0 40px 90px rgba(0,0,0,' + (0.7 * (1 - e)).toFixed(3) + '),0 8px 30px rgba(0,0,0,' + (0.55 * (1 - e)).toFixed(3) + ')';
+      if (this._boxSection) this._boxSection.style.padding = (16 * (1 - e)).toFixed(1) + 'px';
+    }
+  };
+
+  componentDidMount() {
+    const setupBoxIO = () => {
+      if (!this._box) { requestAnimationFrame(setupBoxIO); return; }
+      try {
+        this._boxIO = new IntersectionObserver((ents) => {
+          ents.forEach((en) => { if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'none'; this._boxIO.unobserve(en.target); } });
+        }, { root: this._box, threshold: 0.12 });
+        this._box.querySelectorAll('[data-reveal]').forEach((el) => this._boxIO.observe(el));
+      } catch (_) {
+        this._box.querySelectorAll('[data-reveal]').forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; });
+      }
+    };
+    requestAnimationFrame(setupBoxIO);
+  }
+
+  componentWillUnmount() {
+    if (this._boxIO) this._boxIO.disconnect();
+    if (this._box) this._box.removeEventListener('scroll', this.onBoxScroll);
+  }
+
+  renderVals() {
+    return { setContainer: this.setContainer, setBox: this.setBox, setBoxSection: this.setBoxSection, setBoxProg: this.setBoxProg, setBoxPct: this.setBoxPct };
+  }
+}
+</script>
+</body>
+</html>

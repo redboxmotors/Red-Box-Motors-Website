@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html,body{background:#000;margin:0;}</style>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @keyframes featSlide{from{transform:translateX(0);}to{transform:translateX(-1456px);}}
+</style>
+</helmet>
+<div style="border-top:1px solid #1a1a1a;background:#0A0A0A;font-family:'Archivo',sans-serif;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 28px 11px;">
+    <span style="font-size:13px;font-weight:700;letter-spacing:2px;color:#888;text-transform:uppercase;">Featured</span>
+    <span style="font-family:monospace;font-size:11px;color:#555;letter-spacing:1px;">for sale + recent work</span>
+  </div>
+  <div style="overflow:hidden;background:#000;" style-hover="--pause:paused">
+    <div style="display:flex;gap:2px;width:max-content;animation:featSlide 52s linear infinite;animation-play-state:var(--pause,running);">
+      <sc-for list="{{ marquee }}" as="car" hint-placeholder-count="8">
+        <a href="{{ car.href }}" style="flex:0 0 180px;height:158px;position:relative;display:block;background:#0E0E0E;cursor:pointer;overflow:hidden;text-decoration:none;color:inherit;transition:filter 150ms ease;" style-hover="filter:brightness(1.2)">
+          <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,#161616 0,#161616 9px,#101010 9px,#101010 18px);"></div>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0) 38%,rgba(8,8,8,0.6) 70%,rgba(6,6,6,0.94) 100%);"></div>
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:10px 12px 11px;">
+            <div style="font-size:12.5px;font-weight:500;color:#fff;letter-spacing:-0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ car.name }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;">
+              <span style="font-family:monospace;font-size:10px;color:#9a9a9a;letter-spacing:0.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ car.spec }}</span>
+              <div style="{{ car.labelStyle }}">{{ car.label }}</div>
+            </div>
+          </div>
+          <div style="position:absolute;top:11px;right:11px;color:#fff;"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" stroke-width="1.2"/></svg></div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;150px&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const fs = (v) => ({ label: 'FOR SALE', labelStyle: { flex: 'none', fontFamily: 'monospace', fontSize: '8px', letterSpacing: '1.5px', color: '#fff', background: '#CC0000', padding: '4px 7px', whiteSpace: 'nowrap' }, ...v });
+    const rw = (v) => ({ label: 'RECENT WORK', labelStyle: { flex: 'none', fontFamily: 'monospace', fontSize: '8px', letterSpacing: '1.5px', color: '#cfcfcf', border: '1px solid #444', padding: '3px 6px', whiteSpace: 'nowrap' }, ...v });
+    const mbase = [
+      fs({ name: 'Porsche 911 GT3 RS', spec: '2023 · 4,100 mi', href: 'Car%20Detail.dc.html?slug=911-gt3-rs' }),
+      rw({ name: 'Track-Ready Armor', spec: 'GT3 RS · PPF', href: 'Project%20Detail.dc.html?slug=track-armor-gt3rs' }),
+      fs({ name: 'Ferrari 488 Pista', spec: '2020 · 3,900 mi', href: 'Car%20Detail.dc.html?slug=488-pista' }),
+      rw({ name: 'Nardo Transformation', spec: 'RS6 · Wrap', href: 'Project%20Detail.dc.html?slug=nardo-wrap-rs6' }),
+      fs({ name: 'McLaren 765LT', spec: '2021 · 1,500 mi', href: 'Car%20Detail.dc.html?slug=765lt' }),
+      rw({ name: 'Mirror Correction', spec: 'SF90 · Ceramic', href: 'Project%20Detail.dc.html?slug=mirror-correction-sf90' }),
+      fs({ name: 'Lamborghini Huracán STO', spec: '2022 · 990 mi', href: 'Car%20Detail.dc.html?slug=huracan-sto' }),
+      rw({ name: 'Widebody Commission', spec: 'GT-R · Build', href: 'Project%20Detail.dc.html?slug=widebody-gtr' }),
+    ];
+    return { marquee: [...mbase, ...mbase] };
+  }
+}
+</script>
+</body>
+</html>
