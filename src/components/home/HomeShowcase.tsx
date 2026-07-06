@@ -138,7 +138,7 @@ export function HomeShowcase({
   visitAndFaq: React.ReactNode;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const bgRef = useRef<HTMLImageElement>(null);
+  const bgRef = useRef<HTMLVideoElement>(null);
   const dimRef = useRef<HTMLDivElement>(null);
   const topbarRef = useRef<HTMLDivElement>(null);
   const mosaicRef = useRef<HTMLDivElement>(null);
@@ -157,6 +157,16 @@ export function HomeShowcase({
     if (!sc) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let raf: number | null = null;
+
+    // Video backdrop: hold on the poster for reduced-motion users; otherwise
+    // make sure muted autoplay actually starts (React can drop the muted
+    // attribute in SSR markup, which blocks autoplay policies).
+    const vid = bgRef.current;
+    if (vid) {
+      vid.muted = true;
+      if (reduced) vid.pause();
+      else vid.play().catch(() => {});
+    }
 
     const update = () => {
       const vh = sc.clientHeight;
@@ -297,17 +307,22 @@ export function HomeShowcase({
       </div>
       <SiteNav />
 
-      {/* shared fixed background */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      {/* shared fixed background — Brabus trailer loop (muted, 19s,
+          compressed to ~2.7MB). Poster frame paints before the video streams
+          in; the scroll scrub blurs/dims it exactly like the old photo. */}
+      <video
         ref={bgRef}
-        src="/assets/hero-lineup.jpeg"
-        alt=""
-        fetchPriority="high"
-        decoding="async"
+        src="/assets/hero-brabus.mp4"
+        poster="/assets/hero-brabus-poster.jpg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden
         className="fixed inset-0 z-0 h-full w-full object-cover"
         style={{
-          objectPosition: 'center 56%',
+          objectPosition: 'center 50%',
           filter: 'brightness(1.04) saturate(1.02)',
           transform: 'scale(1.06)',
           transition: 'filter 140ms linear, transform 140ms linear',

@@ -82,7 +82,13 @@
       "Bash(npx --yes lighthouse --version)",
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/hero-lineup.jpeg)",
       "Bash(pkill -f \"next start -p 3222\")",
-      "Bash(echo \"exit: $?\")"
+      "Bash(echo \"exit: $?\")",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,duration,codec_name -of csv=p=0 '/Users/user/Desktop/VIDEOS/3 Brabus Trailer.mp4')",
+      "Bash(ffprobe -v error -show_entries format=duration,size,bit_rate -of csv=p=0 '/Users/user/Desktop/VIDEOS/3 Brabus Trailer.mp4')",
+      "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -hide_banner -i '/Users/user/Desktop/VIDEOS/3 Brabus Trailer.mp4')",
+      "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -y -hide_banner -loglevel error -i '/Users/user/Desktop/VIDEOS/3 Brabus Trailer.mp4' -vf scale=1920:-2 -c:v libx264 -preset slow -crf 28 -pix_fmt yuv420p -profile:v high -movflags +faststart -an public/assets/hero-brabus.mp4)",
+      "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -y -hide_banner -loglevel error -ss 1.5 -i public/assets/hero-brabus.mp4 -frames:v 1 -q:v 3 public/assets/hero-brabus-poster.jpg)",
+      "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -hide_banner -i public/assets/hero-brabus.mp4)"
     ]
   }
 }

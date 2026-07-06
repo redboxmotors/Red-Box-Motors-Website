@@ -20,10 +20,10 @@ export default async function HomePage() {
   const settings = await getSettings();
   return (
     <>
-      {/* Preload the shared hero background so it paints with the first frame
-          instead of popping in mid-animation on refresh (Next hoists this
-          into <head>). */}
-      <link rel="preload" as="image" href="/assets/hero-lineup.jpeg" fetchPriority="high" />
+      {/* Preload the hero video's poster frame so the backdrop paints with the
+          first frame while the video streams in (Next hoists this into
+          <head>). */}
+      <link rel="preload" as="image" href="/assets/hero-brabus-poster.jpg" fetchPriority="high" />
       <SchemaScript schema={localBusinessSchema(settings)} />
       <HomeShowcase featured={featured} visitAndFaq={<VisitAndFAQ division="all" />} />
     </>
