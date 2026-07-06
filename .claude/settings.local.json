@@ -88,7 +88,8 @@
       "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -hide_banner -i '/Users/user/Desktop/VIDEOS/3 Brabus Trailer.mp4')",
       "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -y -hide_banner -loglevel error -i '/Users/user/Desktop/VIDEOS/3 Brabus Trailer.mp4' -vf scale=1920:-2 -c:v libx264 -preset slow -crf 28 -pix_fmt yuv420p -profile:v high -movflags +faststart -an public/assets/hero-brabus.mp4)",
       "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -y -hide_banner -loglevel error -ss 1.5 -i public/assets/hero-brabus.mp4 -frames:v 1 -q:v 3 public/assets/hero-brabus-poster.jpg)",
-      "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -hide_banner -i public/assets/hero-brabus.mp4)"
+      "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -hide_banner -i public/assets/hero-brabus.mp4)",
+      "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/9dd06760-0dd7-4552-9d2b-9fec46dadd58/scratchpad/node_modules/@ffmpeg-installer/darwin-arm64/ffmpeg -y -hide_banner -loglevel error -i '/Users/user/Desktop/VIDEOS/3 Brabus Trailer.mp4' -filter_complex '[0:v]split=2[a][b];[a]trim=start=0.75,setpts=PTS-STARTPTS[main];[b]trim=start=0:end=0.75,setpts=PTS-STARTPTS[head];[main][head]xfade=transition=fade:duration=0.75:offset=17.56,scale=2560:-2[v]' -map [v] -c:v libx264 -preset slow -crf 22 -pix_fmt yuv420p -profile:v high -movflags +faststart -an public/assets/hero-brabus.mp4)"
     ]
   }
 }
