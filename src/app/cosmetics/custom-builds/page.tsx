@@ -14,6 +14,8 @@ import { serviceSchema, jsonLd } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  // Unpublished (owner revision) — unlinked from nav/sitemap, kept for later restore.
+  robots: { index: false, follow: false },
   title: 'Custom Builds & Modifications',
   description: 'Custom builds, aero, wheels and modifications, executed end to end in Austin, TX.',
   openGraph: {
@@ -152,7 +154,7 @@ export default function CustomBuildsPage() {
                   style={{ letterSpacing: '0.2px', textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
                 >
                   Widebody kits, wheels, interiors, audio and exhaust — planned as one car and
-                  executed under one roof in Austin, minutes from COTA.
+                  executed under one roof in Austin, Texas.
                 </p>
               </div>
               <Link
@@ -279,7 +281,7 @@ export default function CustomBuildsPage() {
                   </h2>
                   <p className="mb-4 mt-0 text-[15px] leading-[1.75] text-[#a4a4a4]">
                     Red Box Motors builds complete, ground-up custom cars at our Austin, Texas shop,
-                    minutes from Circuit of the Americas. From bolt-on aero to full Liberty Walk,
+                    From bolt-on aero to full Liberty Walk,
                     Brabus and LART widebody conversions, every kit is fitted and blended into the
                     bodywork, refinished in-house and protected — never simply screwed on and handed
                     back.
@@ -351,7 +353,7 @@ export default function CustomBuildsPage() {
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,16,16,0)_55%,rgba(16,16,16,0.55)_82%,rgba(16,16,16,0.95)_100%)]" />
               <div className="absolute bottom-0 left-0 px-[30px] py-[26px]">
                 <div className="font-mono text-[11px] uppercase tracking-[3px] text-[#cfcfcf]">
-                  Austin, TX · Near COTA
+                  Austin, TX
                 </div>
               </div>
             </div>

@@ -13,6 +13,8 @@ import { serviceSchema, jsonLd } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  // Unpublished (owner revision) — unlinked from nav/sitemap, kept for later restore.
+  robots: { index: false, follow: false },
   title: 'Wheel Refinishing & Powder Coat Austin',
   description: 'Strip, powder coat and custom wheel finishes in Austin, TX.',
   openGraph: {
@@ -162,8 +164,7 @@ export default function WheelsPage() {
                 className="mb-0 mt-5 max-w-[600px] text-[15px] leading-relaxed text-[#c4c4c4]"
                 style={{ letterSpacing: '0.2px', textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
               >
-                Wheel repair, custom colors and powder-coat finishes — Austin, Texas, minutes from
-                Circuit of the Americas.
+                Wheel repair, custom colors and powder-coat finishes — Austin, Texas.
               </p>
             </div>
             <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 border-t border-white/10 bg-[rgba(8,8,8,0.5)] backdrop-blur-[6px] md:grid-cols-4">
@@ -392,7 +393,7 @@ export default function WheelsPage() {
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_55%,rgba(10,10,10,0.55)_82%,rgba(10,10,10,0.95)_100%)]" />
               <div className="absolute bottom-0 left-0 px-[30px] py-[26px]">
                 <div className="font-mono text-[11px] uppercase tracking-[3px] text-[#cfcfcf]">
-                  Austin, TX · Near COTA
+                  Austin, TX
                 </div>
               </div>
             </div>

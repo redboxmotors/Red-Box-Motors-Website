@@ -71,40 +71,65 @@ export function ContactModalProvider({ children }: { children: React.ReactNode }
           aria-modal="true"
           aria-label="Contact Red Box Motors"
         >
-          {/* backdrop — blurred + dimmed, click to close */}
+          {/* backdrop — blurred + heavily dimmed so the panel pops, click to close */}
           <button
             type="button"
             aria-label="Close contact form"
             onClick={close}
-            className="absolute inset-0 animate-rb-fade cursor-default bg-black/70 backdrop-blur-md"
+            className="absolute inset-0 animate-rb-fade cursor-default bg-black/80 backdrop-blur-lg"
           />
-          {/* panel */}
+          {/* panel — CTA moment: photo flank + big heading + red accent */}
           <div
             ref={panelRef}
             tabIndex={-1}
-            className="rb-noscrollbar relative z-[1] max-h-[90vh] w-full max-w-[560px] animate-rb-panel-in overflow-y-auto bg-rb-surface shadow-rb-card-lg outline-none"
+            className="relative z-[1] flex max-h-[92vh] w-full max-w-[960px] animate-rb-panel-in overflow-hidden bg-rb-surface outline-none"
+            style={{ boxShadow: '0 60px 140px rgba(0,0,0,0.9), 0 10px 40px rgba(0,0,0,0.6)' }}
           >
-            <div className="sticky top-0 z-[1] flex items-baseline justify-between gap-3.5 border-b border-rb-line bg-rb-surface px-7 py-5">
-              <div className="flex items-baseline gap-3.5">
-                <span className="text-[13px] font-bold uppercase tracking-[3px] text-white">
-                  Get in Touch
-                </span>
-                <span className="hidden text-[11px] text-rb-tx-faint sm:inline">
-                  We reply within one business day
-                </span>
+            {/* red signature strip */}
+            <span aria-hidden className="absolute inset-x-0 top-0 z-[2] h-1 bg-rb-red" />
+
+            {/* photo flank (md+) */}
+            <div className="relative hidden w-[320px] flex-none md:block lg:w-[380px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/get-in-touch.jpeg"
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: 'center 64%' }}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,17,17,0)_55%,rgba(17,17,17,0.45)_84%,#111_100%)]" />
+              <div className="absolute bottom-0 left-0 px-7 py-6">
+                <div className="font-mono text-[10.5px] uppercase tracking-[3px] text-[#e0e0e0]">
+                  Red Box Motors
+                  <br />
+                  Austin, Texas
+                </div>
               </div>
+            </div>
+
+            {/* form column */}
+            <div className="rb-noscrollbar relative min-w-0 flex-1 overflow-y-auto px-6 pb-9 pt-9 sm:px-9 md:px-11 md:pb-11">
               <button
                 type="button"
                 onClick={close}
                 aria-label="Close"
-                className="rb-btn -mr-2 flex h-9 w-9 flex-none items-center justify-center text-rb-tx-mute hover:text-white"
+                className="rb-btn absolute right-4 top-4 z-[2] flex h-10 w-10 flex-none items-center justify-center bg-rb-raised-3 text-rb-tx-2 hover:bg-rb-raised hover:text-white"
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden>
                   <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" strokeWidth="1.4" />
                 </svg>
               </button>
-            </div>
-            <div className="px-7 py-7 md:px-8">
+
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
+                — Get in touch
+              </div>
+              <div className="pr-12 text-[30px] font-extrabold leading-[1.02] tracking-[-0.03em] text-white sm:text-[36px]">
+                Tell us about your car.
+              </div>
+              <p className="mb-8 mt-3.5 max-w-[440px] text-[14.5px] leading-[1.6] text-rb-tx-mute">
+                Buying, selling, protecting or transforming — we reply within one business day.
+              </p>
+
               <ContactForm
                 sourcePage={pathname ?? '/'}
                 listingSlug={opts.listingSlug}

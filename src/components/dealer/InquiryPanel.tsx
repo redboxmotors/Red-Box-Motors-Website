@@ -222,6 +222,7 @@ export function InquiryPanel({
           <FieldLabel>Message</FieldLabel>
           <textarea
             rows={2}
+            aria-label="Message"
             value={message}
             onChange={(e) => {
               setMessage(e.target.value);

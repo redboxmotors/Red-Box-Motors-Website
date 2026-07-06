@@ -444,7 +444,7 @@ export function ServiceScrollPage({
               />
               <div className="absolute bottom-0 left-0 px-[30px] py-[26px]">
                 <div className="font-mono text-[11px] uppercase tracking-[3px] text-[#cfcfcf]">
-                  Austin, TX · Near COTA
+                  Austin, TX
                 </div>
               </div>
             </div>

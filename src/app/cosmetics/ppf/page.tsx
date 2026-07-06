@@ -9,13 +9,15 @@ import { serviceSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  // Unpublished (owner revision) — unlinked from nav/sitemap, kept for later restore.
+  robots: { index: false, follow: false },
   title: 'Paint Protection Film (PPF) Austin',
   description:
     'Self-healing STEK paint protection film — full-body and high-impact packages in Austin, TX.',
 };
 
 const content: ServicePageContent = {
-  bg: { src: '/assets/cosmetics-garage.jpeg', alt: '', position: 'center 56%' },
+  bg: { src: '/assets/ppf-hero.jpg', alt: '', position: 'center 56%' },
   kicker: '— Cosmetics · Paint Protection Film',
   hero: {
     src: '/assets/ppf-coverage.jpg',
@@ -23,7 +25,7 @@ const content: ServicePageContent = {
     position: 'center 42%',
   },
   titleLines: ['Invisible armor', 'for your paint.'],
-  sub: 'STEK self-healing paint protection film — precision-cut and installed in Austin, Texas, minutes from Circuit of the Americas.',
+  sub: 'STEK self-healing paint protection film — precision-cut and installed in Austin, Texas.',
   ribbon: ['Self-healing', 'High-impact', 'Hydrophobic', 'Optically clear'],
   statement: {
     heading: 'The single best thing you can do for a car you actually drive.',
@@ -125,7 +127,7 @@ const content: ServicePageContent = {
     {
       photoSide: 'right',
       photo: {
-        src: '/assets/cosmetics-wash.jpeg',
+        src: '/assets/placeholders/detail-bay.jpg',
         alt: 'Color-change paint protection film',
         position: 'center 54%',
       },

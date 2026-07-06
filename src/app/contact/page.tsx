@@ -15,9 +15,10 @@ import { contactPageSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/contact' },
   title: { absolute: 'Contact — Red Box Motors | Austin, TX' },
   description:
-    'Reach Red Box Motors for cosmetics, buying/selling or collection management in Austin, TX.',
+    'Reach Red Box Motors about buying, selling, consignment, protection or customization in Austin, TX.',
 };
 
 function DetailRow({ label, value, href, last = false }: { label: string; value: string; href?: string; last?: boolean }) {
@@ -71,7 +72,7 @@ export default async function ContactPage({
                 about the car.
               </h1>
               <p className="mb-10 max-w-[420px] text-[15px] leading-[1.65] text-[#9a9a9a]">
-                Sales, cosmetics or collection management — reach out and the right person will get
+                Buying, selling, protection or customization — reach out and the right person will get
                 back to you.
               </p>
 
@@ -82,7 +83,7 @@ export default async function ContactPage({
                   value={settings.phone ?? ''}
                   href={`tel:${(settings.phone ?? '').replace(/[^+\d]/g, '')}`}
                 />
-                <DetailRow label="Location" value="Austin, TX · near COTA" />
+                <DetailRow label="Location" value={settings.address_line ?? 'Austin, TX'} />
                 <DetailRow label="Hours" value="By appointment · Mon–Sat" last />
               </div>
             </div>

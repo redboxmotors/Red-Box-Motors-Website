@@ -10,6 +10,8 @@ import { serviceSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  // Unpublished (owner revision) — unlinked from nav/sitemap, kept for later restore.
+  robots: { index: false, follow: false },
   title: 'Ceramic Coating & Paint Correction Austin',
   description:
     'Multi-stage paint correction and Carbon Collective ceramic coatings in Austin, TX.',
@@ -24,7 +26,7 @@ const content: ServicePageContent = {
     position: 'center 50%',
   },
   titleLines: ['Correct it.', 'Then lock it in.'],
-  sub: 'Multi-stage paint correction and Carbon Collective ceramic coatings — Austin, Texas, minutes from Circuit of the Americas.',
+  sub: 'Multi-stage paint correction and Carbon Collective ceramic coatings — Austin, Texas.',
   ribbon: ['Hydrophobic', 'Chemical-resistant', 'UV-resistant', 'Self-cleaning'],
   statement: {
     heading: 'A mirror finish is made in the paint, then sealed.',
@@ -56,7 +58,7 @@ const content: ServicePageContent = {
   },
   packages: {
     photo: {
-      src: '/assets/cosmetics-garage.jpeg',
+      src: '/assets/ppf-hero.jpg',
       alt: 'Paint correction under inspection lighting',
       position: 'center 52%',
     },

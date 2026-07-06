@@ -9,7 +9,7 @@ const HEROES = [
   '/assets/hero-lineup.jpeg',
   '/assets/trust-gt3rs.jpeg',
   '/assets/collection-lineup.jpeg',
-  '/assets/cosmetics-garage.jpeg',
+  '/assets/ppf-hero.jpg',
   '/assets/dealer-garage.jpeg',
   '/assets/collection-garage.jpeg',
 ];

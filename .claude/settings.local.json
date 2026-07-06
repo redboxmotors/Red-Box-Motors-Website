@@ -63,7 +63,26 @@
       "Bash(git diff *)",
       "Bash(grep -v '^$')",
       "Bash(git remote *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "mcp__claude_ai_Vercel__list_teams",
+      "mcp__claude_ai_Supabase__list_organizations",
+      "Bash(cp '/Users/user/Downloads/RBR_Fin-03.png' public/assets/brand/rbm-logo.png)",
+      "Bash(sips -g pixelWidth -g pixelHeight -g hasAlpha public/assets/brand/rbm-logo.png)",
+      "Bash(sips -Z 160 public/assets/brand/rbm-logo.png --out public/assets/brand/rbm-logo-header.png)",
+      "Bash(sed -i '' -e 's/Austin, TX · near COTA/Austin, TX/' app/contact/page.tsx)",
+      "Bash(sed -i '' -e 's/ — Austin, Texas, minutes from Circuit of the Americas\\\\./ — Austin, Texas./' app/cosmetics/ceramic-correction/page.tsx app/cosmetics/ppf/page.tsx app/cosmetics/vinyl/page.tsx)",
+      "Bash(sed -i '' -e 's/executed under one roof in Austin, minutes from COTA\\\\./executed under one roof in Austin, Texas./' -e 's/minutes from Circuit of the Americas\\\\. From bolt-on aero to full Liberty Walk,/From bolt-on aero to full Liberty Walk,/' -e 's/Austin, TX · Near COTA/Austin, TX/' app/cosmetics/custom-builds/page.tsx)",
+      "Bash(sed -i '' -e 's/Austin, TX · Near COTA/Austin, TX/' app/cosmetics/wheels/page.tsx components/cosmetics/ServiceScrollPage.tsx)",
+      "Bash(sed -i '' -e 's/ in Austin, Texas — minutes from the Circuit of the Americas\\\\./ in Austin, Texas./' app/cosmetics/work/[slug]/page.tsx)",
+      "Bash(sed -i '' -e 's|src=\"/assets/cosmetics-garage.jpeg\"|src=\"/assets/tell-us-car.jpg\"|' -e 's|src=\"/assets/cosmetics-wash.jpeg\"|src=\"/assets/placeholders/detail-bay.jpg\"|' app/cosmetics/work/page.tsx)",
+      "Bash(sed -i '' -e \"s|'/assets/cosmetics-garage.jpeg'|'/assets/ppf-hero.jpg'|\" components/site/RandomBackdrop.tsx)",
+      "Bash(sed -i '' -e 's|'\\\\''/assets/cosmetics-garage.jpeg'\\\\''|'\\\\''/assets/ppf-hero.jpg'\\\\''|g' -e 's|'\\\\''/assets/cosmetics-wash.jpeg'\\\\''|'\\\\''/assets/placeholders/detail-bay.jpg'\\\\''|g' components/cosmetics/ServiceTiles.tsx app/cosmetics/ppf/page.tsx app/cosmetics/vinyl/page.tsx app/cosmetics/ceramic-correction/page.tsx)",
+      "Bash(sed -i '' -e 's/— Dealer · Inventory/— Sales \\\\&amp; Consignment · Inventory/' -e 's/Dealer overview/Sales \\\\&amp; Consignment overview/' -e 's/Red Box Motors · Dealer · Austin, Texas/Red Box Motors · Sales \\\\&amp; Consignment · Austin, Texas/' app/dealer/inventory/page.tsx)",
+      "mcp__claude_ai_Supabase__execute_sql",
+      "Bash(npx --yes lighthouse --version)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/hero-lineup.jpeg)",
+      "Bash(pkill -f \"next start -p 3222\")",
+      "Bash(echo \"exit: $?\")"
     ]
   }
 }

@@ -9,9 +9,10 @@ import { getSettings } from '@/lib/public/content';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: { absolute: 'Red Box Motors — All Things Automotive | Austin, TX' },
+  alternates: { canonical: '/' },
+  title: { absolute: 'Red Box Motors — Exceptional Cars. Fully Managed. | Austin, TX' },
   description:
-    'Cosmetics, sales and collection management for serious cars in Austin, Texas — minutes from Circuit of the Americas.',
+    'Exotic and collector vehicle sales, consignment, protection and customization — under one roof in Austin, Texas.',
 };
 
 export default async function HomePage() {

@@ -9,21 +9,23 @@ import { serviceSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  // Unpublished (owner revision) — unlinked from nav/sitemap, kept for later restore.
+  robots: { index: false, follow: false },
   title: 'Vinyl Wrap & Color Change Austin',
   description:
     'Color-change and custom vinyl wraps — reversible and paint-safe, in Austin, TX.',
 };
 
 const content: ServicePageContent = {
-  bg: { src: '/assets/cosmetics-wash.jpeg', alt: '', position: 'center 56%' },
+  bg: { src: '/assets/placeholders/detail-bay.jpg', alt: '', position: 'center 56%' },
   kicker: '— Cosmetics · Vinyl Wrap',
   hero: {
-    src: '/assets/cosmetics-wash.jpeg',
+    src: '/assets/placeholders/detail-bay.jpg',
     alt: 'Vinyl wrap install, Austin TX',
     position: 'center 50%',
   },
   titleLines: ['A whole new look.', 'Fully reversible.'],
-  sub: 'STEK color-change and finish films — installed in Austin, Texas, minutes from Circuit of the Americas.',
+  sub: 'STEK color-change and finish films — installed in Austin, Texas.',
   ribbon: ['Color-change', 'Reversible', 'Any finish', 'Hand-laid'],
   statement: {
     heading: 'Change everything, without touching the paint.',

@@ -17,6 +17,8 @@ import { collectionPageSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  // Unpublished (owner revision) — unlinked from nav/sitemap, kept for later restore.
+  robots: { index: false, follow: false },
   title: "Cars We've Sold",
   description:
     'A record of past placements — cars sold and consigned by Red Box Motors, Austin, TX, to vetted owners.',
@@ -158,7 +160,7 @@ export default async function SoldPage() {
                 <ContactLink
                   className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-4 text-[14px] font-semibold tracking-[0.5px] text-white"
                 >
-                  Start a conversation
+                  Sell Your Vehicle
                   <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
                     <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" />
                   </svg>

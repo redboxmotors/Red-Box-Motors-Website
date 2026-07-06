@@ -31,7 +31,7 @@ function storyParas(p: Project): string[] {
   const opener = `${p.title} is a ${p.vehicle} ${lc(p.category)} project completed by Red Box Motors in ${location}.`;
   const first = p.summary ? `${opener} ${p.summary}` : opener;
 
-  const close = `Book ${lc(p.category)} and other cosmetic work at Red Box Motors in Austin, Texas — minutes from the Circuit of the Americas.`;
+  const close = `Book ${lc(p.category)} and other cosmetic work at Red Box Motors in Austin, Texas.`;
   let second: string;
   if (p.year != null && p.coverage && p.finish && p.duration && p.services.length > 0) {
     // All fields present → the prototype's exact sentence shape.
@@ -86,10 +86,12 @@ export async function generateMetadata({
   return {
     title: { absolute: `${p.title} — ${p.vehicle} | Red Box Motors` },
     description,
+    alternates: { canonical: `/cosmetics/work/${p.slug}` },
     openGraph: {
       title: `${p.title} — ${p.vehicle}`,
       description,
       type: 'article',
+      url: `/cosmetics/work/${p.slug}`,
       ...(images[0] ? { images: [images[0].url] } : {}),
     },
   };
@@ -174,7 +176,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                     <span className="h-[5px] w-[5px] flex-none bg-rb-red" />
                   </div>
                   <span className="text-[12px] tracking-[0.3px] text-rb-tx-mute-3">
-                    @redboxmotors · Cosmetics
+                    @redboxmotors · Red Box Restoration
                   </span>
                 </div>
                 <div className="ml-auto flex-none text-right">
@@ -357,7 +359,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                     <ContactLink
                       className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-6 py-3.5 text-[13px] tracking-[0.5px] text-white"
                     >
-                      Start a Conversation
+                      Request an Estimate
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
                         <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.4" />
                       </svg>

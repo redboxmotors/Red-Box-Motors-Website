@@ -28,10 +28,16 @@ import { itemListSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/dealer/inventory' },
   title: 'Inventory for Sale',
   description:
-    'Browse exceptional cars for sale at Red Box Motors, Austin, TX. Sales and acquisitions nationwide.',
+    'Browse exceptional cars for sale at Red Box Motors, Austin, TX. Sales and consignment nationwide.',
 };
+
+// Sold/sourced pipeline rows are unpublished (owner revision) — flip to
+// restore. Data still flows; only rendering is gated.
+const SHOW_SOLD_PIPELINE = false;
+const SHOW_SOURCED_PIPELINE = false;
 
 const SORT_KEYS: SortKey[] = ['price-desc', 'price-asc', 'year-desc', 'miles-asc'];
 
@@ -252,7 +258,10 @@ export default async function DealerInventoryPage({
     ...sourcedShown.map((s) => ({ type: 'sourced' as const, id: s.id })),
   ]);
 
-  const hasPipeline = soldShown.length > 0 || sourcedShown.length > 0 || comingShown.length > 0;
+  const hasPipeline =
+    (SHOW_SOLD_PIPELINE && soldShown.length > 0) ||
+    (SHOW_SOURCED_PIPELINE && sourcedShown.length > 0) ||
+    comingShown.length > 0;
 
   return (
     <main className="relative bg-rb-bg text-white">
@@ -278,7 +287,7 @@ export default async function DealerInventoryPage({
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-12 pb-[34px]">
               <div>
                 <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Dealer · Inventory
+                  — Sales &amp; Consignment · Inventory
                 </div>
                 <h1
                   className="m-0 font-bold text-white"
@@ -302,7 +311,7 @@ export default async function DealerInventoryPage({
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
                   <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.3" />
                 </svg>
-                Dealer overview
+                Sales &amp; Consignment overview
               </Link>
             </div>
           </div>
@@ -359,7 +368,7 @@ export default async function DealerInventoryPage({
                     className="m-0 font-bold leading-none text-white"
                     style={{ fontSize: 'clamp(28px,3.2vw,48px)', letterSpacing: '-0.03em' }}
                   >
-                    Sold, sourced &amp; arriving
+                    Arriving soon
                   </h2>
                 </div>
                 <span className="font-mono text-[11px] tracking-[1px] text-rb-tx-faint">
@@ -367,7 +376,7 @@ export default async function DealerInventoryPage({
                 </span>
               </div>
 
-              {soldShown.length > 0 && (
+              {SHOW_SOLD_PIPELINE && soldShown.length > 0 && (
                 <>
                   <SectionHeader
                     label="Recently sold"
@@ -400,7 +409,7 @@ export default async function DealerInventoryPage({
                 </>
               )}
 
-              {sourcedShown.length > 0 && (
+              {SHOW_SOURCED_PIPELINE && sourcedShown.length > 0 && (
                 <>
                   <SectionHeader
                     label="Found for clients"
@@ -469,9 +478,9 @@ export default async function DealerInventoryPage({
             </div>
           )}
 
-          {/* —— CTA —— */}
-          <div data-reveal className="flex flex-wrap border-t border-rb-line bg-[#101010]">
-            <div className="relative min-h-[420px] min-w-[280px] flex-[1.05] overflow-hidden">
+          {/* —— CTA — clearly separated from the pipeline above —— */}
+          <div data-reveal className="mt-20 flex flex-wrap border-t border-rb-line bg-[#101010] md:mt-28">
+            <div className="relative min-h-[480px] min-w-[280px] flex-[1.05] overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/keys-handoff.jpg"
@@ -482,51 +491,44 @@ export default async function DealerInventoryPage({
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,16,16,0)_55%,rgba(16,16,16,0.55)_82%,rgba(16,16,16,0.95)_100%)]" />
               <div className="absolute bottom-0 left-0 px-[30px] py-[26px]">
                 <div className="font-mono text-[11px] uppercase tracking-[3px] text-[#cfcfcf]">
-                  Buy · Sell · Source · Nationwide
+                  Buy · Sell · Consign · Nationwide
                 </div>
               </div>
             </div>
-            <div className="flex min-w-[300px] flex-1 flex-col justify-center px-14 py-16">
+            <div className="flex min-w-[300px] flex-1 flex-col justify-center px-6 py-20 md:px-16 md:py-[100px]">
               <div className="mb-[22px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
                 — Don&rsquo;t see it here?
               </div>
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
                 style={{
-                  fontSize: 'clamp(30px,3.6vw,52px)',
+                  fontSize: 'clamp(38px,5vw,72px)',
                   letterSpacing: '-0.04em',
-                  lineHeight: 0.98,
+                  lineHeight: 0.96,
                 }}
               >
                 The floor changes weekly.
               </h2>
-              <p className="mb-0 mt-6 max-w-[460px] text-[15px] font-medium leading-[1.7] text-rb-tx-mute">
-                Selling a car you care about, or hunting something specific? Tell us what
-                you&rsquo;re after — off-market, pre-allocation, nationwide — and we&rsquo;ll track
-                it down or place yours with the right owner.
+              <p className="mb-0 mt-7 max-w-[500px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute">
+                Selling a car you care about? We professionally prepare, market and represent
+                vehicles to qualified buyers nationwide — tell us about yours.
               </p>
-              <div className="mt-[34px] flex flex-wrap items-center gap-[18px]">
+              <div className="mt-11 flex flex-wrap items-center gap-[22px]">
                 <ContactLink
-                  className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-4 text-[14px] font-semibold tracking-[0.5px] text-white"
+                  className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
                 >
-                  Start a conversation
-                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+                  Sell Your Vehicle
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                     <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" />
                   </svg>
                 </ContactLink>
-                <Link
-                  href="/dealer/sourced"
-                  className="text-[13px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
-                >
-                  See what we&rsquo;ve sourced →
-                </Link>
               </div>
               <div className="mt-12 flex items-center gap-[11px] border-t border-rb-line pt-[26px]">
                 <span className="inline-flex bg-rb-red px-2.5 py-[7px]">
                   <span className="text-[10px] font-extrabold tracking-[2px] text-white">RBM</span>
                 </span>
                 <span className="text-[11px] uppercase tracking-[2px] text-rb-tx-faint">
-                  Red Box Motors · Dealer · Austin, Texas
+                  Red Box Motors · Sales &amp; Consignment · Austin, Texas
                 </span>
               </div>
             </div>

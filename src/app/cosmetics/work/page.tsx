@@ -18,9 +18,10 @@ import { collectionPageSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: { absolute: 'Recent Work — Cosmetics | Red Box Motors' },
+  alternates: { canonical: '/cosmetics/work' },
+  title: { absolute: 'Recent Work — Red Box Restoration | Red Box Motors' },
   description:
-    'Recent PPF, ceramic, wrap, wheel and custom-build projects from Red Box Motors, Austin, TX.',
+    'Recent paint protection film, ceramic coating, paint correction, wrap and wheel projects from Red Box Restoration, Austin, TX.',
 };
 
 // Placeholder-art label until a photo lands ("[ gt3 rs · ppf ]" style).
@@ -48,7 +49,7 @@ export default async function RecentWorkPage() {
 
   return (
     <main className="relative bg-rb-bg text-white">
-      <SchemaScript schema={collectionPageSchema('Recent Work', 'Recent PPF, ceramic, wrap, wheel and custom-build projects from Red Box Motors, Austin, TX.', '/cosmetics/work')} />
+      <SchemaScript schema={collectionPageSchema('Recent Work', 'Recent paint protection film, ceramic coating, paint correction, wrap and wheel projects from Red Box Restoration, Austin, TX.', '/cosmetics/work')} />
       <RandomBackdrop />
       <SiteNav current="cosmetics" />
 
@@ -63,7 +64,7 @@ export default async function RecentWorkPage() {
           <div className="relative h-[400px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/cosmetics-garage.jpeg"
+              src="/assets/tell-us-car.jpg"
               alt="Recent work by Red Box Motors, Austin TX"
               className="absolute inset-0 h-full w-full object-cover"
               style={{ objectPosition: 'center 54%' }}
@@ -72,7 +73,7 @@ export default async function RecentWorkPage() {
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-6 pb-[34px] md:px-12">
               <div>
                 <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Cosmetics · Recent Work
+                  — Red Box Restoration · Recent Work
                 </div>
                 <div
                   className="font-bold text-white"
@@ -85,7 +86,7 @@ export default async function RecentWorkPage() {
                   style={{ textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
                 >
                   Every project here came through our Austin shop — paint protection, ceramic,
-                  correction, wraps, wheels and full custom builds. Documented panel by panel so you
+                  correction, wraps and wheels. Documented panel by panel so you
                   can judge the standard before you drop a car off.
                 </p>
               </div>
@@ -96,7 +97,7 @@ export default async function RecentWorkPage() {
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
                   <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.3" />
                 </svg>
-                Cosmetics overview
+                Restoration overview
               </Link>
             </div>
           </div>
@@ -110,10 +111,10 @@ export default async function RecentWorkPage() {
             style={{ background: '#101010', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03)' }}
           >
             <div className="flex flex-wrap items-stretch">
-              <div className="relative min-h-[420px] min-w-[300px] flex-[1.05] overflow-hidden">
+              <div className="relative min-h-[480px] min-w-[300px] flex-[1.05] overflow-hidden md:min-h-[620px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/assets/cosmetics-wash.jpeg"
+                  src="/assets/placeholders/detail-bay.jpg"
                   alt="Start a project with Red Box Motors"
                   className="absolute inset-0 h-full w-full object-cover"
                   style={{ objectPosition: 'center 54%' }}
@@ -125,21 +126,20 @@ export default async function RecentWorkPage() {
                   </div>
                 </div>
               </div>
-              <div className="flex min-w-[320px] flex-1 flex-col justify-center px-6 py-16 md:px-14">
+              <div className="flex min-w-[320px] flex-1 flex-col justify-center px-6 py-20 md:px-16 md:py-[100px]">
                 <div className="mb-[22px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
                   — Start a project
                 </div>
                 <h2
                   className="m-0 max-w-[15ch] font-extrabold text-white"
-                  style={{ fontSize: 'clamp(30px,3.6vw,52px)', letterSpacing: '-0.04em', lineHeight: 0.98 }}
+                  style={{ fontSize: 'clamp(38px,5vw,72px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
                 >
                   Bring us the car.
                 </h2>
-                <p className="m-0 mt-6 max-w-[480px] text-[15px] font-medium leading-[1.7] text-rb-tx-mute">
+                <p className="m-0 mt-7 max-w-[500px] text-[16.5px] font-medium leading-[1.7] text-rb-tx-mute">
                   Tell us what you&rsquo;re protecting or transforming — paint protection, ceramic,
-                  correction, wrap, wheels or a full custom build. We&rsquo;ll walk you through the
-                  right approach for your car and handle it under one roof, minutes from Circuit of
-                  the Americas.
+                  correction, wrap, wheels or specialty work. We&rsquo;ll walk you through the
+                  right approach for your car and handle it under one roof in Austin.
                 </p>
 
                 <div className="mt-[30px] grid grid-cols-1 gap-0.5 bg-rb-raised-3 sm:grid-cols-2">
@@ -147,7 +147,7 @@ export default async function RecentWorkPage() {
                     { h: 'Protection', d: 'STEK self-healing PPF — front-end to full-body coverage.' },
                     { h: 'Finish', d: 'Carbon Collective ceramics over a proper paint correction.' },
                     { h: 'Transformation', d: 'Color-change wraps, wheel refinishing and custom finishes.' },
-                    { h: 'Builds', d: 'Ground-up custom builds and modifications, end to end.' },
+                    { h: 'Specialty', d: 'Wheels, tint, detailing and one-off specialty projects.' },
                   ].map((cell) => (
                     <div key={cell.h} className="bg-rb-surface px-[22px] py-5">
                       <div className="mb-1.5 text-[13px] font-bold tracking-[0.3px] text-white">
@@ -158,12 +158,12 @@ export default async function RecentWorkPage() {
                   ))}
                 </div>
 
-                <div className="mt-[34px] flex flex-wrap items-center gap-[18px]">
+                <div className="mt-10 flex flex-wrap items-center gap-[22px]">
                   <ContactLink
-                    className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-4 text-[14px] font-semibold tracking-[0.5px] text-white"
+                    className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
                   >
                     Book a service
-                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                       <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" />
                     </svg>
                   </ContactLink>

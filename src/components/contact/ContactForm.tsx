@@ -10,7 +10,14 @@ import { TurnstileWidget } from '@/components/site/TurnstileWidget';
 // #CC0000 hairline on the field box + small red error text, never an alert
 // box. Valid submit swaps in the quiet "Message sent." state.
 
-const INTERESTS = ['Cosmetics', 'Buying / Selling', 'Collection'] as const;
+// Submitted VALUES are unchanged (the leads API validates against them —
+// pipeline untouched); only the customer-facing labels are renamed. The
+// 'Collection' option is unpublished (owner revision) — restore by adding
+// { value: 'Collection', label: 'Collection' } back.
+const INTERESTS = [
+  { value: 'Cosmetics', label: 'Protection & Customization' },
+  { value: 'Buying / Selling', label: 'Buying / Selling' },
+] as const;
 
 type FieldKey = 'name' | 'email' | 'interest' | 'message';
 type Errors = Partial<Record<FieldKey, string>>;
@@ -124,15 +131,15 @@ export function ContactForm({
   const fieldBox = (hasErr: boolean): React.CSSProperties => ({
     background: '#0d0d0d',
     border: '1px solid',
-    borderColor: hasErr ? '#CC0000' : '#1c1c1c',
-    padding: '16px 18px',
+    borderColor: hasErr ? '#CC0000' : '#242424',
+    padding: '18px 20px',
     transition: 'border-color 150ms ease',
   });
 
   const inputClass =
-    'w-full bg-transparent p-0 text-[14px] tracking-[0.2px] text-white outline-none placeholder:text-rb-tx-ghost';
-  const labelClass = 'mb-[9px] block text-[10px] uppercase tracking-[2px] text-rb-tx-faint';
-  const errClass = 'mt-2 text-[10px] tracking-[0.5px] text-rb-red';
+    'w-full bg-transparent p-0 text-[15.5px] tracking-[0.2px] text-white outline-none placeholder:text-rb-tx-ghost';
+  const labelClass = 'mb-2.5 block text-[11px] font-semibold uppercase tracking-[2px] text-[#8f8f8f]';
+  const errClass = 'mt-2 text-[11px] tracking-[0.5px] text-rb-red';
 
   if (sent) {
     return (
@@ -245,15 +252,15 @@ export function ContactForm({
         </div>
         <div className="flex flex-wrap gap-2">
           {INTERESTS.map((it, i) => {
-            const active = interest === it;
+            const active = interest === it.value;
             return (
               <button
-                key={it}
+                key={it.value}
                 ref={i === 0 ? chipRef : undefined}
                 type="button"
                 aria-pressed={active}
-                onClick={() => selectInterest(it)}
-                className="whitespace-nowrap px-[13px] py-[7px] text-[11px] tracking-[0.5px] active:scale-[0.96]"
+                onClick={() => selectInterest(it.value)}
+                className="whitespace-nowrap px-4 py-2.5 text-[12.5px] font-medium tracking-[0.5px] active:scale-[0.96]"
                 style={{
                   border: '1px solid',
                   borderColor: active ? '#CC0000' : '#2a2a2a',
@@ -262,7 +269,7 @@ export function ContactForm({
                   transition: 'border-color 150ms ease, color 150ms ease, background 150ms ease',
                 }}
               >
-                {it}
+                {it.label}
               </button>
             );
           })}
@@ -323,17 +330,17 @@ export function ContactForm({
         </p>
       )}
 
-      <div className="mt-[22px] flex items-center justify-between gap-4">
-        <span className="text-[11px] tracking-[0.5px] text-rb-tx-faint">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+        <span className="text-[12px] tracking-[0.5px] text-rb-tx-faint">
           We reply within one business day.
         </span>
         <button
           type="submit"
           disabled={pending}
-          className="rb-btn-red inline-flex items-center gap-2.5 whitespace-nowrap bg-rb-red px-7 py-[15px] text-[13px] tracking-[0.5px] text-white disabled:opacity-60"
+          className="rb-btn-red inline-flex items-center gap-3 whitespace-nowrap bg-rb-red px-9 py-[17px] text-[14.5px] font-semibold tracking-[0.5px] text-white disabled:opacity-60"
         >
           {pending ? 'Sending…' : 'Send Message'}
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
             <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.4" />
           </svg>
         </button>

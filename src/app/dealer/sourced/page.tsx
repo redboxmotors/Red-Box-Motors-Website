@@ -17,6 +17,8 @@ import { collectionPageSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  // Unpublished (owner revision) — unlinked from nav/sitemap, kept for later restore.
+  robots: { index: false, follow: false },
   title: 'Cars We Found for Clients',
   description:
     "Off-market and pre-allocation cars we've sourced and acquired for buyers nationwide.",

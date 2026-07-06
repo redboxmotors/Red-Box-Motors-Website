@@ -6,27 +6,152 @@ import { ScrollShell } from '@/components/site/ScrollShell';
 import { HeroSection, HeroBadge } from '@/components/site/Hero';
 import { ExpandingScrollBox } from '@/components/site/ExpandingScrollBox';
 import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
-import { ServiceTiles, ServicePicker } from '@/components/cosmetics/ServiceTiles';
 import { BuildsGrid } from '@/components/cosmetics/BuildsGrid';
 import { getSurfaceCards } from '@/lib/public/content';
 import { SchemaScript } from '@/components/site/SchemaScript';
 import { serviceSchema } from '@/lib/seo/schema';
+import type { Faq } from '@/components/site/FaqAccordion';
 
-// Cosmetics division landing (Cosmetics.dc.html): scroll-scrub hero over the
-// garage photo, then the expanding boxed overview — service tiles, SEO copy,
-// builds preview, "Bring us the car" CTA and Visit & FAQ. Copy verbatim.
+// Red Box Restoration — the consolidated protection/restoration/customization
+// page (formerly "Cosmetics"; the /cosmetics URL is kept to avoid routing
+// churn). All services live here as anchored sections; the old per-service
+// subpages still exist but are unlinked. Recent Work remains its own
+// portfolio page. Custom builds are folded into the specialty-work copy —
+// Red Box is not positioned as a ground-up custom builder.
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: { absolute: 'Cosmetics — PPF, Ceramic, Vinyl & Wheels | Red Box Motors' },
+  alternates: { canonical: '/cosmetics' },
+  title: { absolute: 'Red Box Restoration — Vehicle Protection, Restoration & Customization | Red Box Motors' },
   description:
-    'Paint protection, ceramic coating, paint correction, vinyl wrap and wheel refinishing in Austin, TX.',
+    'Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint, detailing and wheel services in Austin, TX.',
 };
 
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
 
 const eyebrowCls = 'font-mono text-[11px] uppercase tracking-[4px] text-rb-red';
+
+// The seven service sections. STEK and Carbon Collective are the confirmed
+// brand partners — no invented numeric claims. Every section carries a photo:
+// real assets where we have a suitable one, named placeholder slots
+// (/assets/placeholders/*, "Photography coming soon") where we don't —
+// same filename = drop-in swap when real photography lands.
+const SERVICES: {
+  id: string;
+  num: string;
+  title: string;
+  tags: string[];
+  paras: string[];
+  img: { src: string; alt: string; pos?: string; placeholder?: boolean };
+}[] = [
+  {
+    id: 'ppf',
+    num: '01',
+    title: 'Paint Protection Film',
+    tags: ['STEK', 'Self-healing', 'High-impact', 'Optically clear'],
+    paras: [
+      'A tough, optically clear urethane layer that takes the rock chips, road rash and bug etching that would otherwise scar your paint — while its self-healing top coat erases light swirls with heat.',
+      'We install STEK PPF, precision-cut for every panel with wrapped edges wherever possible, from high-impact front-end packages to full-body coverage.',
+    ],
+    img: { src: '/assets/ppf-coverage.jpg', alt: 'Porsche GT2 RS protected with paint protection film', pos: 'center 42%' },
+  },
+  {
+    id: 'correction',
+    num: '02',
+    title: 'Paint Correction',
+    tags: ['Multi-stage', 'Swirl removal', 'Machine polish'],
+    paras: [
+      'Swirls, holograms and wash marring are leveled by machine, stage by stage, until the paint reads flat and deep. Correction is the foundation under every coating and film we install — and a service on its own for paint that has lost its edge.',
+    ],
+    img: {
+      src: '/assets/placeholders/paint-correction.jpg',
+      alt: 'Multi-stage machine paint correction at Red Box Restoration',
+      placeholder: true,
+    },
+  },
+  {
+    id: 'coatings',
+    num: '03',
+    title: 'Ceramic Coatings',
+    tags: ['Carbon Collective', 'Gloss', 'Chemical resistance'],
+    paras: [
+      'Carbon Collective ceramic coatings applied over a proper correction. The finish sheds water, resists fading and chemicals, and stays dramatically easier to keep clean — long after the car leaves the bay.',
+    ],
+    img: {
+      src: '/assets/mclaren-p1.jpg',
+      alt: 'Deep gloss finish on a McLaren P1 — ceramic-coated paint',
+      pos: 'center 60%',
+    },
+  },
+  {
+    id: 'wraps',
+    num: '04',
+    title: 'Vinyl Wraps, Graphics & Liveries',
+    tags: ['Color change', 'Graphics', 'Fully reversible'],
+    paras: [
+      'Color-change wraps, satin and gloss finishes, racing liveries and commercial graphics — a complete transformation without touching the factory paint, and fully reversible when you are ready to go back.',
+    ],
+    img: {
+      src: '/assets/placeholders/vinyl-wrap.jpg',
+      alt: 'Color-change vinyl wrap installation at Red Box Restoration',
+      placeholder: true,
+    },
+  },
+  {
+    id: 'tint',
+    num: '05',
+    title: 'Window Tint',
+    tags: ['Heat rejection', 'UV protection', 'Clean edges'],
+    paras: [
+      'Precision-cut window film for heat rejection, UV protection and a finished look — installed with the same edge discipline as our film work.',
+    ],
+    img: {
+      src: '/assets/placeholders/window-tint.jpg',
+      alt: 'Window tint installation at Red Box Restoration',
+      placeholder: true,
+    },
+  },
+  {
+    id: 'detailing',
+    num: '06',
+    title: 'Detailing & Vehicle Care',
+    tags: ['Wash & decon', 'Interior', 'Maintenance'],
+    paras: [
+      'Detailing is where Red Box started. Proper wash and decontamination, interior care and maintenance details that protect the work — and the value — already in the car.',
+    ],
+    // Real wash-bay photo (replaces the wash-bay.jpg placeholder slot). Note:
+    // includes a team member — swap back to /assets/placeholders/wash-bay.jpg
+    // if a people-free shot is preferred.
+    img: {
+      src: '/assets/cosmetics-wash.jpeg',
+      alt: 'Foam wash in the Red Box Restoration detailing bay, Austin TX',
+      pos: 'center 55%',
+    },
+  },
+  {
+    id: 'wheels',
+    num: '07',
+    title: 'Wheels, Tires & Calipers',
+    tags: ['Refinishing', 'Powder coat', 'Fitment'],
+    paras: [
+      'Wheels stripped, repaired and refinished in custom colors and powder-coat finishes; caliper refinishing and tire sourcing and fitment handled in the same visit. We also take on specialty automotive projects — from suspension and stance to one-off cosmetic work — without positioning ourselves as a ground-up custom builder.',
+    ],
+    img: {
+      src: '/assets/ppf-disassembly.jpg',
+      alt: 'Lifted truck on aftermarket wheels and tires in the Red Box shop',
+      pos: 'center 62%',
+    },
+  },
+];
+
+// Detailed service questions live here (moved off the homepage).
+const RESTORATION_FAQ: Faq[] = [
+  { q: 'How do I get an estimate?', a: 'Tell us the vehicle and what you want to protect or change — we will walk you through options and put together a written estimate. Photos help; an in-person look is even better.' },
+  { q: 'What PPF coverage do you offer?', a: 'From high-impact front-end packages to full-body coverage, precision-cut per panel with wrapped edges wherever possible, in STEK clear and color films.' },
+  { q: 'Does ceramic coating require paint correction?', a: 'Coatings lock in whatever is under them, so we correct the paint to the agreed level first — that is what gives the finish its depth.' },
+  { q: 'Are vinyl wraps reversible?', a: 'Yes. A properly installed and removed wrap protects the factory paint underneath and returns the car to original when you are ready.' },
+];
 
 function Arrow({ size = 14, width = 1.5 }: { size?: number; width?: number }) {
   return (
@@ -36,40 +161,46 @@ function Arrow({ size = 14, width = 1.5 }: { size?: number; width?: number }) {
   );
 }
 
-export default async function CosmeticsPage() {
+export default async function RestorationPage() {
   const builds = await getSurfaceCards('cosmetics_builds_preview', 8);
 
   return (
-    <ScrollShell bg="/assets/cosmetics-garage.jpeg" bgPosition="center 58%">
-      <SchemaScript schema={serviceSchema('Automotive Cosmetics', 'Paint protection, ceramic coating, paint correction, vinyl wrap and wheel refinishing in Austin, TX.', '/cosmetics')} />
+    <ScrollShell bg="/assets/ppf-hero.jpg" bgPosition="center 55%">
+      <SchemaScript
+        schema={serviceSchema(
+          'Vehicle Protection, Restoration & Customization',
+          'Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint, detailing and wheel services in Austin, TX.',
+          '/cosmetics',
+        )}
+      />
       <SiteNav current="cosmetics" />
 
       {/* ——— 1 · HERO ——— */}
       <HeroSection>
-        <HeroBadge>Red Box Motors · Cosmetics</HeroBadge>
+        <HeroBadge>Red Box Motors · Red Box Restoration</HeroBadge>
         <h1
-          className="relative z-[2] m-0 whitespace-nowrap font-extrabold text-white"
+          className="relative z-[2] m-0 font-extrabold text-white"
           style={{
-            fontSize: 'clamp(38px, 4.8vw, 72px)',
+            fontSize: 'clamp(30px, 3.8vw, 60px)',
             letterSpacing: '-0.03em',
-            lineHeight: 0.94,
+            lineHeight: 1.0,
             textShadow: '0 1px 3px rgba(0,0,0,0.45)',
           }}
         >
-          <span className="inline-block overflow-hidden align-bottom">
+          <span className="block overflow-hidden">
             <span
               className="rb-hero-line block"
               style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .28s` }}
             >
-              Finish&nbsp;
+              Vehicle Protection,
             </span>
           </span>
-          <span className="inline-block overflow-hidden align-bottom">
+          <span className="block overflow-hidden">
             <span
               className="rb-hero-line block"
               style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .41s` }}
             >
-              First
+              Restoration &amp; Customization
             </span>
           </span>
         </h1>
@@ -81,20 +212,34 @@ export default async function CosmeticsPage() {
             animation: `fadeUp .9s ${EASE} forwards .9s`,
           }}
         >
-          Paint protection, correction, ceramic coating, vinyl wrap and wheel refinishing.
-          <br />
-          Austin, Texas · minutes from COTA.
+          Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint,
+          detailing and wheels — Red Box Restoration, Austin, Texas.
         </p>
+        <div
+          className="rb-hero-in relative z-[2] mt-8 flex flex-wrap items-center gap-3.5"
+          style={{ opacity: 0, animation: `fadeUp .9s ${EASE} forwards 1.05s` }}
+        >
+          <ContactLink className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-[24px] py-[14px] text-[12.5px] font-semibold tracking-[1px] text-white">
+            Request an Estimate
+            <Arrow size={13} />
+          </ContactLink>
+          <Link
+            href="/cosmetics/work"
+            className="rb-btn inline-flex items-center gap-2.5 border border-rb-red bg-transparent px-[22px] py-[13px] text-[12.5px] font-semibold tracking-[1px] text-rb-red transition-colors duration-[180ms] hover:bg-rb-red hover:text-white"
+          >
+            See Recent Work
+          </Link>
+        </div>
       </HeroSection>
 
       {/* ——— 2 · BOXED OVERVIEW ——— */}
       <ExpandingScrollBox>
-        {/* photo header */}
+        {/* photo header — PPF prep in progress */}
         <div className="relative h-[400px] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/cosmetics-scroll-header.jpg"
-            alt="Red Box Motors cosmetics bay"
+            src="/assets/bring-us-car.jpg"
+            alt="Red Box Restoration bay — vehicle prepared for paint protection film"
             className="absolute inset-0 h-full w-full object-cover"
             style={{ objectPosition: 'center 46%' }}
           />
@@ -104,7 +249,7 @@ export default async function CosmeticsPage() {
         {/* manifesto / lead */}
         <div className="px-6 pt-[52px] md:px-[52px]">
           <div data-reveal className={`mb-7 ${eyebrowCls}`}>
-            — Cosmetics · Austin, Texas
+            — Red Box Restoration · Austin, Texas
           </div>
           <h2
             className="m-0 max-w-[18ch] font-bold text-white"
@@ -119,83 +264,85 @@ export default async function CosmeticsPage() {
           </h2>
           <p
             data-reveal
-            className="mb-0 mt-9 max-w-[620px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute"
+            className="mb-0 mt-9 max-w-[640px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute"
             style={{ transitionDelay: '.24s' }}
           >
-            Red Box Motors is an Austin cosmetics shop for owners who care how a car looks and how
-            that finish holds up. Paint protection, ceramic coating, paint correction, vinyl wrap,
-            wheel refinishing and full custom builds — handled under one roof, minutes from Circuit
-            of the Americas.
+            Red Box Restoration is where the company started — protecting, correcting and
+            transforming enthusiast and collector vehicles in Austin, Texas. Every service below
+            runs through the same bay, the same obsessive prep and the same standard.
           </p>
         </div>
 
-        {/* service tiles */}
-        <ServiceTiles />
-
-        {/* SEO body — two columns of written detail */}
-        <div className="pb-[52px]" style={{ background: 'linear-gradient(180deg,#0A0A0A 0px,#151515 160px)' }}>
-          <div
-            data-reveal
-            className="grid gap-11 px-6 pt-[52px] md:grid-cols-2 md:px-[52px]"
-            style={{ transitionDelay: '.14s' }}
-          >
-            <div>
-              <h3 className="mb-3.5 mt-0 text-[14px] font-semibold uppercase tracking-[1px] text-white">
-                Paint protection &amp; ceramic
-              </h3>
-              <p className="mb-[18px] mt-0 text-[14.5px] leading-[1.75] text-[#999]">
-                Our paint protection film is built around STEK self-healing PPF — clear and color
-                films that absorb rock chips, road rash and track debris while staying optically
-                invisible. Coverage runs from high-impact front-end packages to full-body wraps, cut
-                and installed for the panels that actually take the hits.
-              </p>
-              <p className="m-0 text-[14.5px] leading-[1.75] text-[#999]">
-                For gloss and chemical resistance we coat with Carbon Collective ceramics over a
-                proper paint correction. We level swirls, holograms and wash marring first, then
-                seal the finish so it sheds water, resists fading and stays easier to keep clean —
-                long after the car leaves the bay.
-              </p>
-            </div>
-            <div>
-              <h3 className="mb-3.5 mt-0 text-[14px] font-semibold uppercase tracking-[1px] text-white">
-                Wrap, wheels &amp; builds
-              </h3>
-              <p className="mb-[18px] mt-0 text-[14.5px] leading-[1.75] text-[#999]">
-                Vinyl wrap changes the entire look of a car without touching the factory paint —
-                color-change, satin, gloss and custom finishes that stay fully reversible.
-                It&rsquo;s the cleanest way to transform a daily, a track car or a collectible and
-                return it to original when you&rsquo;re ready.
-              </p>
-              <p className="m-0 text-[14.5px] leading-[1.75] text-[#999]">
-                Wheels are stripped, repaired and refinished in custom colors and powder-coat
-                finishes, and our build bay takes on ground-up custom builds and modifications end
-                to end. Whatever the project, the same obsessive standard runs through every panel,
-                every edge and every reveal line.
-              </p>
-            </div>
-          </div>
-
-          {/* facts row (no invented numbers) */}
-          <div
-            data-reveal
-            className="flex flex-wrap gap-12 px-6 pt-[52px] md:px-[52px]"
-            style={{ transitionDelay: '.2s' }}
-          >
-            {[
-              { fact: 'STEK', sub: 'PPF & films' },
-              { fact: 'Carbon Collective', sub: 'Ceramic coatings' },
-              { fact: 'Austin, TX', sub: 'Near COTA' },
-            ].map((f) => (
-              <div key={f.fact}>
-                <div className="text-[30px] font-bold tracking-tight text-white">{f.fact}</div>
-                <div className="mt-1.5 text-[11px] uppercase tracking-[2px] text-rb-tx-faint">{f.sub}</div>
+        {/* ——— SERVICES ——— */}
+        <div id="services" className="px-6 pb-6 pt-14 md:px-[52px]">
+          {SERVICES.map((svc) => (
+            <div
+              key={svc.id}
+              id={svc.id}
+              data-reveal
+              className="grid gap-8 border-t border-rb-line py-16 md:grid-cols-[84px_minmax(0,1fr)]"
+              style={{ scrollMarginTop: '90px' }}
+            >
+              <div
+                className="text-[52px] font-extrabold text-rb-red"
+                style={{ lineHeight: 0.8, letterSpacing: '-0.04em' }}
+              >
+                {svc.num}
               </div>
-            ))}
-          </div>
+              <div className="grid gap-9 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+                <div>
+                  <h3
+                    className="m-0 font-bold text-white"
+                    style={{ fontSize: 'clamp(26px,2.8vw,38px)', letterSpacing: '-0.025em', lineHeight: 1.05 }}
+                  >
+                    {svc.title}
+                  </h3>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {svc.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="border border-rb-line-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[1.5px] text-[#b0b0b0]"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  {svc.paras.map((p) => (
+                    <p key={p.slice(0, 24)} className="mb-0 mt-6 max-w-[620px] text-[15.5px] leading-[1.78] text-[#a6a6a6]">
+                      {p}
+                    </p>
+                  ))}
+                  <ContactLink className="mt-7 inline-flex items-center gap-[7px] text-[13.5px] font-semibold tracking-[0.5px] text-rb-red transition-[gap,color] duration-200 hover:gap-3 hover:text-white">
+                    Request an Estimate
+                    <Arrow size={14} width={1.3} />
+                  </ContactLink>
+                </div>
+                <div className="relative min-h-[260px] overflow-hidden bg-rb-surface-4 md:min-h-[300px]">
+                  {/* Placeholder slots live in /public/assets/placeholders/ —
+                      replacing the file (same filename) swaps the photo in. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={svc.img.src}
+                    alt={svc.img.alt}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    style={{ objectPosition: svc.img.pos ?? 'center' }}
+                    loading="lazy"
+                  />
+                  {svc.img.placeholder && (
+                    <div className="absolute inset-x-0 bottom-0 px-4 py-3">
+                      <span className="font-mono text-[9px] uppercase tracking-[2px] text-[#555]">
+                        Photography coming soon
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* builds & transformations */}
-        <div className="pb-[52px]" style={{ background: 'linear-gradient(180deg,#151515 0px,#0A0A0A 160px)' }}>
+        {/* recent work preview */}
+        <div className="pb-[52px]" style={{ background: 'linear-gradient(180deg,#0A0A0A 0px,#151515 160px)' }}>
           <div className="pt-14">
             <div
               data-reveal
@@ -207,7 +354,7 @@ export default async function CosmeticsPage() {
                   className="m-0 font-bold leading-none text-white"
                   style={{ fontSize: 'clamp(28px, 3.6vw, 52px)', letterSpacing: '-0.03em' }}
                 >
-                  Builds &amp; transformations
+                  From the shop floor
                 </h2>
               </div>
               <Link
@@ -223,59 +370,24 @@ export default async function CosmeticsPage() {
               className="mb-[30px] mt-0 max-w-[680px] px-6 text-[14.5px] leading-[1.75] text-[#999] md:px-[52px]"
               style={{ transitionDelay: '.1s' }}
             >
-              Every car that comes through the shop tells the story best. These are recent paint
-              protection, ceramic, vinyl wrap, wheel and full custom-build projects — daily drivers,
-              track cars and collectibles transformed and protected at our Austin facility. Each one
-              is documented panel by panel so you can see exactly the finish and standard you can
-              expect on your own car.
+              Recent paint protection, correction, coating, wrap and wheel projects — documented
+              panel by panel so you can see exactly the finish and standard you can expect on your
+              own car.
             </p>
 
             <BuildsGrid cards={builds} />
-
-            {/* prose below builds */}
-            <div
-              data-reveal
-              className="px-6 pb-10 pt-[60px] md:px-[52px]"
-              style={{ transitionDelay: '.16s' }}
-            >
-              <div className="max-w-[900px]">
-                <div className={`mb-4 ${eyebrowCls}`}>— The standard</div>
-                <h2
-                  className="m-0 max-w-[20ch] font-bold text-white"
-                  style={{ fontSize: 'clamp(20px, 2.2vw, 30px)', letterSpacing: '-0.025em', lineHeight: 1.08 }}
-                >
-                  Protected to last, finished to show.
-                </h2>
-              </div>
-              <div className="mt-[34px] grid gap-11 md:grid-cols-2">
-                <p className="m-0 text-[15px] leading-[1.8] text-[#a2a2a2]">
-                  Whether a car needs full-body STEK paint protection film, a Carbon Collective
-                  ceramic coating over a multi-stage correction, a color-change vinyl wrap or a set
-                  of refinished wheels, every project runs through the same Austin bay and the same
-                  obsessive prep. The result is a finish that looks show-ready and holds up to real
-                  driving — sun, rock chips, track days and daily use.
-                </p>
-                <p className="m-0 text-[15px] leading-[1.8] text-[#a2a2a2]">
-                  We document each build panel by panel so you can see the standard before you ever
-                  hand over the keys, and because sales, protection and detailing live under one
-                  roof, a car can move from purchase to protection to delivery without leaving the
-                  shop. One team, one facility near Circuit of the Americas, from the first quote to
-                  the final reveal.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* bring us the car */}
+        {/* estimate CTA */}
         <div style={{ background: 'linear-gradient(180deg,#151515 0px,#0A0A0A 220px)' }}>
           <div className="flex flex-col md:flex-row">
             {/* photo side */}
-            <div className="relative min-h-[280px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[480px]">
+            <div className="relative min-h-[340px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[600px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/bring-us-car.jpg"
-                alt="Red Box Motors cosmetics bay"
+                src="/assets/trust-gt3rs.jpeg"
+                alt="Porsche GT3 RS at Red Box Restoration, Austin TX"
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ objectPosition: 'center 56%' }}
                 loading="lazy"
@@ -283,47 +395,42 @@ export default async function CosmeticsPage() {
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_55%,rgba(10,10,10,0.55)_82%,rgba(10,10,10,0.95)_100%)]" />
               <div className="absolute bottom-0 left-0 px-[30px] py-[26px]">
                 <div className="font-mono text-[11px] uppercase tracking-[3px] text-[#cfcfcf]">
-                  Austin, TX · Near COTA
+                  Austin, TX
                 </div>
               </div>
             </div>
             {/* copy side */}
-            <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-14 md:px-14 md:py-16">
+            <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-20 md:px-16 md:py-[110px]">
               <div className={`mb-[22px] ${eyebrowCls}`}>— Start a project</div>
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
-                style={{ fontSize: 'clamp(32px, 4vw, 58px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
+                style={{ fontSize: 'clamp(40px, 5.4vw, 80px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
               >
                 Bring us the car.
               </h2>
-              <p className="mb-0 mt-[22px] max-w-[440px] text-[16px] font-medium leading-[1.7] text-rb-tx-mute">
-                Tell us what you&rsquo;re protecting or transforming. Pick a service to start, or
-                reach out and we&rsquo;ll walk you through the right approach for your car.
+              <p className="mb-0 mt-7 max-w-[480px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute">
+                Tell us what you&rsquo;re protecting or transforming and we&rsquo;ll walk you
+                through the right approach for your car.
               </p>
 
-              <ServicePicker />
-
-              <div className="mt-[34px] flex flex-wrap items-center gap-[18px]">
-                <ContactLink
-                  className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-4 text-[14px] font-semibold tracking-[0.5px] text-white"
-                >
-                  Book a service
-                  <Arrow size={15} />
+              <div className="mt-11 flex flex-wrap items-center gap-[22px]">
+                <ContactLink className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white">
+                  Request an Estimate
+                  <Arrow size={16} />
                 </ContactLink>
                 <Link
                   href="/cosmetics/work"
-                  className="inline-flex items-center gap-2 border border-rb-red bg-transparent px-[26px] py-[15px] text-[13px] font-semibold tracking-[0.5px] text-rb-red transition-[background,color,transform] duration-[220ms] ease-rb hover:-translate-y-0.5 hover:bg-rb-red hover:text-white active:translate-y-0 active:scale-[0.98]"
+                  className="inline-flex items-center gap-2 border border-rb-red bg-transparent px-[30px] py-[17px] text-[14px] font-semibold tracking-[0.5px] text-rb-red transition-[background,color,transform] duration-[220ms] ease-rb hover:-translate-y-0.5 hover:bg-rb-red hover:text-white active:translate-y-0 active:scale-[0.98]"
                 >
                   See recent work
-                  <Arrow size={14} />
+                  <Arrow size={15} />
                 </Link>
               </div>
-              <div className="mt-11 flex items-center gap-[11px] border-t border-rb-line pt-6">
-                <span className="inline-flex bg-rb-red px-2.5 py-[7px]">
-                  <span className="text-[10px] font-extrabold tracking-[2px] text-white">RBM</span>
-                </span>
+              <div className="mt-14 flex items-center gap-[11px] border-t border-rb-line pt-6">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/brand/rbm-logo-header.png" alt="" className="h-[24px] w-[24px]" />
                 <span className="text-[11px] uppercase tracking-[2px] text-rb-tx-faint">
-                  Red Box Motors · Cosmetics
+                  Red Box Motors · Red Box Restoration
                 </span>
               </div>
             </div>
@@ -332,7 +439,7 @@ export default async function CosmeticsPage() {
 
         {/* visit & FAQ */}
         <div style={{ background: 'linear-gradient(180deg,#151515 0px,#0A0A0A 130px)' }}>
-          <VisitAndFAQ division="cosmetics" />
+          <VisitAndFAQ division="cosmetics" faqs={RESTORATION_FAQ} />
         </div>
       </ExpandingScrollBox>
     </ScrollShell>

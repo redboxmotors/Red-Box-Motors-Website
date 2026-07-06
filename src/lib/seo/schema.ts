@@ -11,16 +11,22 @@ export function localBusinessSchema(settings: SiteSettings) {
   return {
     '@context': 'https://schema.org',
     '@type': 'AutoDealer',
+    '@id': `${SITE}/#dealer`,
     name: 'Red Box Motors',
     url: SITE,
+    logo: `${SITE}/assets/brand/rbm-logo.png`,
+    image: `${SITE}/assets/hero-lineup.jpeg`,
     ...(settings.phone ? { telephone: settings.phone } : {}),
     ...(settings.email ? { email: settings.email } : {}),
     address: {
       '@type': 'PostalAddress',
+      streetAddress: '8408 Annalise Dr Suite 130',
       addressLocality: 'Austin',
       addressRegion: 'TX',
+      postalCode: '78744',
       addressCountry: 'US',
     },
+    sameAs: ['https://www.instagram.com/redboxmotors/'],
     areaServed: 'Austin, TX',
   };
 }
@@ -74,10 +80,12 @@ export function itemListSchema(listings: Listing[], imageByListing?: Map<string,
 }
 
 export function carSchema(listing: Listing, imageUrls: string[], withContext = true) {
+  const url = `${SITE}/dealer/inventory/${listing.slug}`;
   return {
     ...(withContext ? { '@context': 'https://schema.org' } : {}),
     '@type': 'Car',
     name: listingTitle(listing),
+    url,
     brand: { '@type': 'Brand', name: listing.make },
     model: listing.model,
     ...(listing.engine ? { vehicleEngine: { '@type': 'EngineSpecification', name: listing.engine } } : {}),
@@ -93,10 +101,11 @@ export function carSchema(listing: Listing, imageUrls: string[], withContext = t
       ? {
           offers: {
             '@type': 'Offer',
+            url,
             price: listing.price,
             priceCurrency: 'USD',
             availability: 'https://schema.org/InStock',
-            seller: { '@type': 'AutoDealer', name: 'Red Box Motors' },
+            seller: { '@type': 'AutoDealer', '@id': `${SITE}/#dealer`, name: 'Red Box Motors' },
           },
         }
       : {}),

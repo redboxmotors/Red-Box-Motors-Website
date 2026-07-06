@@ -12,6 +12,8 @@ export const revalidate = 60;
 
 // seo-map.md: /collection
 export const metadata: Metadata = {
+  // Unpublished (owner revision) — unlinked from nav/sitemap, kept for later restore.
+  robots: { index: false, follow: false },
   title: 'Collection Management — Concierge & Maintenance | Red Box Motors',
   description:
     'Concierge, maintenance coordination, transport and track prep for collections in Austin, TX.',

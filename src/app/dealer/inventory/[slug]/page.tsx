@@ -39,9 +39,20 @@ export async function generateMetadata({
   ]
     .filter(Boolean)
     .join(', ');
+  const description = `${title} for sale at Red Box Motors, Austin, TX${detail ? ` — ${detail}` : ''}. Inquire today.`;
+  const path = `/dealer/inventory/${listing.slug}`;
+  const images = await getImagesFor('listing', listing.id);
   return {
     title: `${title} for Sale`,
-    description: `${title} for sale at Red Box Motors, Austin, TX${detail ? ` — ${detail}` : ''}. Inquire today.`,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title: `${title} for Sale — Red Box Motors`,
+      description,
+      type: 'website',
+      url: path,
+      ...(images[0] ? { images: [images[0].url] } : {}),
+    },
   };
 }
 

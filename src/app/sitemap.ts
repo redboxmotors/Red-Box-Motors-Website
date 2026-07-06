@@ -5,22 +5,17 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
 export const revalidate = 3600;
 
+// Unpublished routes (kept in code but unlinked + noindexed, restorable):
+// /collection, /dealer/sold, /dealer/sourced, /cosmetics/{ppf,
+// ceramic-correction, vinyl, wheels, custom-builds}.
 const STATIC_ROUTES = [
   '/',
   '/about',
   '/contact',
   '/dealer',
   '/dealer/inventory',
-  '/dealer/sourced',
-  '/dealer/sold',
   '/cosmetics',
-  '/cosmetics/ppf',
-  '/cosmetics/ceramic-correction',
-  '/cosmetics/vinyl',
-  '/cosmetics/wheels',
-  '/cosmetics/custom-builds',
   '/cosmetics/work',
-  '/collection',
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

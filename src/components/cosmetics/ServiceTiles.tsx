@@ -18,7 +18,7 @@ const TILES: ServiceTile[] = [
     href: '/cosmetics/ppf',
     title: 'Paint Protection',
     desc: 'Self-healing STEK film — full-body and high-impact coverage.',
-    img: '/assets/cosmetics-garage.jpeg',
+    img: '/assets/ppf-hero.jpg',
     position: 'center 55%',
     icon: (
       <svg width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -35,7 +35,7 @@ const TILES: ServiceTile[] = [
     href: '/cosmetics/ceramic-correction',
     title: 'Ceramic & Correction',
     desc: 'Correct the swirls, seal the gloss with Carbon Collective coatings.',
-    img: '/assets/cosmetics-wash.jpeg',
+    img: '/assets/placeholders/detail-bay.jpg',
     position: 'center 50%',
     icon: (
       <svg width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -79,7 +79,7 @@ const TILES: ServiceTile[] = [
     href: '/cosmetics/custom-builds',
     title: 'Custom Builds',
     desc: 'Ground-up builds and modifications, executed end to end.',
-    img: '/assets/cosmetics-garage.jpeg',
+    img: '/assets/ppf-hero.jpg',
     position: 'center 40%',
     icon: (
       <svg width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>

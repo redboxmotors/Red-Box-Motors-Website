@@ -325,9 +325,9 @@ export type SiteSettings = Pick<Settings, 'phone' | 'email' | 'address_line' | '
 };
 
 export const SETTINGS_FALLBACK: SiteSettings = {
-  phone: '(512) 555-0199',
-  email: 'hello@redboxmotors.com',
-  address_line: 'Austin, Texas — minutes from Circuit of the Americas',
+  phone: '(512) 365-4818',
+  email: 'info@redboxmotors.com',
+  address_line: '8408 Annalise Dr Suite 130, Austin, TX 78744',
   map_embed_url: null,
   hours_json: {},
 };
