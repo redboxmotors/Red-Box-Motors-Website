@@ -113,15 +113,15 @@ function MosaicArrow({ size = 20 }: { size?: number }) {
 const tileCls =
   'relative block overflow-hidden bg-rb-surface cursor-pointer z-[1] transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.014] hover:shadow-[0_24px_50px_rgba(0,0,0,0.62)] hover:brightness-[1.16] active:translate-y-0 active:scale-[0.992]';
 
-// Gradient quick-link buttons that live beside the "One Facility. Every
-// Discipline." copy as a stacked column (the old mosaic quick-link column is
-// in git history).
-const overviewBtnCls =
-  'group relative flex w-full flex-col gap-2.5 border border-white/[0.08] px-8 py-7 transition-[transform,box-shadow,border-color,filter] duration-[240ms] ease-rb hover:-translate-y-[3px] hover:border-white/[0.18] hover:shadow-[0_20px_44px_rgba(0,0,0,0.6),0_0_30px_rgba(204,0,0,0.18)] hover:brightness-[1.14] active:translate-y-0 active:scale-[0.98] md:px-9 md:py-8';
+// Gradient link tiles under the "One Facility. Every Discipline." division
+// columns (the old mosaic quick-link column is in git history). Borderless
+// floating rectangles — gradient surface + soft shadow only.
+const overviewSquareCls =
+  'group relative flex w-full flex-col items-center justify-center gap-3 px-5 py-9 text-center transition-[transform,box-shadow,filter] duration-[240ms] ease-rb hover:-translate-y-[3px] hover:shadow-[0_24px_52px_rgba(0,0,0,0.65),0_0_30px_rgba(204,0,0,0.18)] hover:brightness-[1.14] active:translate-y-0 active:scale-[0.98]';
 
-const overviewBtnBg = {
+const overviewSquareBg = {
   background: 'linear-gradient(150deg,#232323 0%,#151515 48%,#0C0C0C 100%)',
-  boxShadow: '0 14px 32px rgba(0,0,0,0.45)',
+  boxShadow: '0 18px 40px rgba(0,0,0,0.55)',
 };
 
 // Red CTA + red-outline ghost CTA used in the hero.
@@ -508,7 +508,8 @@ export function HomeShowcase({
           </div>
 
           {/* manifesto — owner copy, verbatim. Scaled to match the Tell Us
-              section below; quick-link buttons stack beside the paragraph. */}
+              section below; division description columns + square link tiles
+              follow the paragraph. */}
           <div className="px-6 pt-[72px] md:px-12 md:pt-[96px]">
             <div data-hreveal className="mb-8 font-mono text-[11px] uppercase tracking-[4px] text-rb-red" style={reveal()}>
               — What we do
@@ -518,37 +519,113 @@ export function HomeShowcase({
               <span data-hreveal className="block text-rb-tx-faint" style={reveal(0.12)}>Every Discipline.</span>
             </h2>
 
-            {/* copy one side, stacked quick-link buttons the other */}
-            <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
-              <p data-hreveal className="m-0 max-w-[680px] text-[18px] font-medium leading-[1.75] text-rb-tx-mute md:text-[19px]" style={reveal(0.24)}>
-                Red Box Motors brings vehicle sales, protection and customization together through
-                one trusted automotive partner. From preparing a new acquisition to representing a
-                collector vehicle for sale, every service is delivered with the same attention to
-                detail.
-              </p>
+            <p data-hreveal className="mb-0 mt-10 max-w-[760px] text-[18px] font-medium leading-[1.75] text-rb-tx-mute md:text-[19px]" style={reveal(0.24)}>
+              Red Box Motors brings vehicle sales, protection and customization together through
+              one trusted automotive partner. From preparing a new acquisition to representing a
+              collector vehicle for sale, every service is delivered with the same attention to
+              detail.
+            </p>
 
-              <div data-hreveal className="flex flex-col gap-3.5" style={reveal(0.34)}>
-                {[
-                  { href: '/about', label: 'About', sub: 'The Red Box story' },
-                  { href: '/cosmetics/work', label: 'Recent Work', sub: 'Project gallery' },
-                  { href: '/dealer/inventory', label: 'Inventory', sub: 'Cars for sale now' },
-                ].map((btn) => (
-                  <Link key={btn.href} href={btn.href} className={overviewBtnCls} style={overviewBtnBg}>
-                    <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.16] to-transparent" />
-                    <span className="flex items-center justify-between gap-6">
-                      <span className="text-[17px] font-semibold uppercase tracking-[2.5px] text-white md:text-[19px]">
-                        {btn.label}
-                      </span>
-                      <span className="flex h-10 w-10 flex-none items-center justify-center bg-rb-red transition-transform duration-[240ms] ease-rb group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                        <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden>
-                          <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" />
-                        </svg>
-                      </span>
-                    </span>
-                    <span className="text-[13.5px] tracking-[0.4px] text-rb-tx-mute-3">{btn.sub}</span>
+            {/* division description columns — red label · paragraph · explore
+                link (Collection Management stays unpublished) */}
+            <div data-hreveal className="mt-14 grid gap-12 md:grid-cols-2 md:gap-14" style={reveal(0.3)}>
+              {[
+                {
+                  label: 'Sales & Consignment',
+                  text: 'Curated inventory and premium consignment representation for enthusiast and collector vehicles — buying, selling and consigning, managed by one team from first conversation to delivery.',
+                  cta: 'Explore Sales',
+                  href: '/dealer',
+                },
+                {
+                  label: 'Red Box Restoration',
+                  text: 'Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive projects — delivered to one standard, under one roof.',
+                  cta: 'Explore Services',
+                  href: '/cosmetics',
+                },
+              ].map((div_) => (
+                <div key={div_.href} className="border-t-2 border-rb-red/80 pt-7">
+                  <div className="text-[14px] font-bold uppercase tracking-[2.5px] text-rb-red">
+                    {div_.label}
+                  </div>
+                  <p className="mb-0 mt-4 text-[15.5px] leading-[1.75] text-[#a6a6a6]">{div_.text}</p>
+                  <Link
+                    href={div_.href}
+                    className="mt-6 inline-flex items-center gap-2.5 text-[13.5px] font-semibold tracking-[1px] text-white transition-[gap,color] duration-200 hover:gap-4 hover:text-rb-red"
+                  >
+                    {div_.cta}
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
+                      <path d="M2 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" strokeWidth="1.4" />
+                    </svg>
                   </Link>
-                ))}
-              </div>
+                </div>
+              ))}
+            </div>
+
+            {/* floating link tiles — Inventory · Recent Work · Contact (modal),
+                evenly spread across the section width */}
+            <div data-hreveal className="mt-14 grid gap-4 sm:grid-cols-3 md:gap-6" style={reveal(0.38)}>
+              {[
+                {
+                  href: '/dealer/inventory',
+                  label: 'Inventory',
+                  sub: 'Cars for sale now',
+                  // car
+                  icon: (
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+                      <path d="M2 10.5h12M3.2 10.5V8.2L4.6 5h6.8L13 8.2v2.3" stroke="#fff" strokeWidth="1.3" />
+                      <circle cx="5.2" cy="12.2" r="1.2" stroke="#fff" strokeWidth="1.2" />
+                      <circle cx="10.8" cy="12.2" r="1.2" stroke="#fff" strokeWidth="1.2" />
+                    </svg>
+                  ),
+                },
+                {
+                  href: '/cosmetics/work',
+                  label: 'Recent Work',
+                  sub: 'Project gallery',
+                  // photo gallery
+                  icon: (
+                    <svg width="15" height="15" viewBox="0 0 18 18" fill="none" aria-hidden>
+                      <rect x="2.5" y="3.5" width="13" height="11" stroke="#fff" strokeWidth="1.3" />
+                      <circle cx="6" cy="7" r="1.3" fill="#fff" />
+                      <path d="M3.5 13L7 9.5L9.5 12L12 9L14.5 11.5" stroke="#fff" strokeWidth="1.3" />
+                    </svg>
+                  ),
+                },
+                {
+                  href: null,
+                  label: 'Contact Us',
+                  sub: 'Reach the team',
+                  // envelope
+                  icon: (
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+                      <path d="M2 4h12v8H2z M2 4l6 4 6-4" stroke="#fff" strokeWidth="1.3" />
+                    </svg>
+                  ),
+                },
+              ].map((tile) => {
+                const inner = (
+                  <>
+                    <span className="flex h-8 w-8 flex-none items-center justify-center bg-rb-red transition-transform duration-[240ms] ease-rb group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                      {tile.icon}
+                    </span>
+                    <span className="flex flex-col gap-1.5">
+                      <span className="text-[12.5px] font-semibold uppercase tracking-[2px] text-white md:text-[13.5px]">
+                        {tile.label}
+                      </span>
+                      <span className="text-[11px] tracking-[0.4px] text-rb-tx-mute-3">{tile.sub}</span>
+                    </span>
+                  </>
+                );
+                return tile.href ? (
+                  <Link key={tile.label} href={tile.href} className={overviewSquareCls} style={overviewSquareBg}>
+                    {inner}
+                  </Link>
+                ) : (
+                  <ContactLink key={tile.label} className={overviewSquareCls} style={overviewSquareBg}>
+                    {inner}
+                  </ContactLink>
+                );
+              })}
             </div>
           </div>
 
