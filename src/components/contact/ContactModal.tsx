@@ -29,7 +29,13 @@ export function useContactModal(): Ctx {
   return ctx;
 }
 
-export function ContactModalProvider({ children }: { children: React.ReactNode }) {
+export function ContactModalProvider({
+  children,
+  phone = null,
+}: {
+  children: React.ReactNode;
+  phone?: string | null;
+}) {
   const [open, setOpen] = useState(false);
   const [opts, setOpts] = useState<OpenOpts>({});
   const pathname = usePathname();
@@ -135,6 +141,7 @@ export function ContactModalProvider({ children }: { children: React.ReactNode }
                 listingSlug={opts.listingSlug}
                 listingTitle={opts.listingTitle}
                 prefillMessage={opts.prefillMessage ?? ''}
+                phone={phone}
               />
             </div>
           </div>

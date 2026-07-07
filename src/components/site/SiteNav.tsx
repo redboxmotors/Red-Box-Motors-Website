@@ -25,7 +25,7 @@ const LINKS: {
       { label: 'View Inventory', desc: 'Vehicles currently represented', href: '/dealer/inventory' },
       // Lands at the top of /dealer (owner: no anchored-subsection jumps from
       // the header) — the Sell chapter sits right below the intro.
-      { label: 'Sell Your Vehicle', desc: 'Consignment & direct sale', href: '/dealer' },
+      { label: 'Sell Your Vehicle', desc: 'Consignment & direct sale', href: '/dealer/sell' },
     ],
   },
   {

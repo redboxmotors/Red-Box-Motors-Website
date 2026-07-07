@@ -1,23 +1,51 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
+import Link from 'next/link';
 import { submitLead } from '@/lib/leads/client';
 import { TurnstileWidget } from '@/components/site/TurnstileWidget';
+import {
+  FieldBox,
+  FieldError,
+  FieldLabel,
+  FormFooterNote,
+  Honeypot,
+  inputCls,
+} from '@/components/forms/primitives';
 
-// Contact form (Contact.dc.html / Contact Form.dc.html + handoff/forms.md):
-// name, email, single-select "Interested In" chips, message, optional phone,
-// hidden source page. Live inline validation in the design language — red
-// #CC0000 hairline on the field box + small red error text, never an alert
-// box. Valid submit swaps in the quiet "Message sent." state.
+// General contact form (2026-07-07 form system, Phase 4). Sales-focused
+// category list (owner spec — replaces the old Cosmetics / Buying-Selling /
+// Collection interests); categories with a better destination surface a
+// smart-routing link (consignment form, inventory, Red Box Restoration).
+// One visible category label, honeypot invisible, single reply-time line
+// (lives in the page/modal header, not here) — 2026-07-07 bug fixes.
 
-// Submitted VALUES are unchanged (the leads API validates against them —
-// pipeline untouched); only the customer-facing labels are renamed. The
-// 'Collection' option is unpublished (owner revision) — restore by adding
-// { value: 'Collection', label: 'Collection' } back.
-const INTERESTS = [
-  { value: 'Cosmetics', label: 'Protection & Customization' },
-  { value: 'Buying / Selling', label: 'Buying / Selling' },
+// Values must match the API's INTERESTS set (src/app/api/leads/route.ts).
+const CATEGORIES = [
+  'Buy a Vehicle',
+  'Sell or Consign a Vehicle',
+  'Ask About an Existing Listing',
+  'Transportation or Delivery',
+  'General Sales Question',
+  'Red Box Restoration',
+  'Other',
 ] as const;
+
+// Smart routing — a better next step for some categories.
+const ROUTES: Partial<Record<(typeof CATEGORIES)[number], { href: string; text: string }>> = {
+  'Sell or Consign a Vehicle': {
+    href: '/dealer/sell',
+    text: 'Selling or consigning? Our dedicated consignment form gets your car in front of the team fastest',
+  },
+  'Ask About an Existing Listing': {
+    href: '/dealer/inventory',
+    text: 'Every car in our inventory has its own inquiry form — start from the vehicle page',
+  },
+  'Red Box Restoration': {
+    href: '/cosmetics',
+    text: 'Looking for protection or restoration work? Start with our services and request an estimate',
+  },
+};
 
 type FieldKey = 'name' | 'email' | 'interest' | 'message';
 type Errors = Partial<Record<FieldKey, string>>;
@@ -27,15 +55,18 @@ export function ContactForm({
   listingSlug,
   listingTitle,
   prefillMessage = '',
+  phone: shopPhone = null,
 }: {
   sourcePage: string;
   listingSlug?: string;
   listingTitle?: string;
   prefillMessage?: string;
+  phone?: string | null;
 }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [vehicle, setVehicle] = useState('');
   const [message, setMessage] = useState(prefillMessage);
   const [interest, setInterest] = useState<string | null>(null);
   const [errors, setErrors] = useState<Errors>({});
@@ -47,6 +78,10 @@ export function ContactForm({
   const onToken = useCallback((t: string | null) => {
     turnstileToken.current = t;
   }, []);
+  const submissionKey = useRef<string>('');
+  if (!submissionKey.current && typeof crypto !== 'undefined') {
+    submissionKey.current = crypto.randomUUID();
+  }
 
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -56,11 +91,6 @@ export function ContactForm({
 
   const clearError = (k: FieldKey) => {
     setErrors((e) => (e[k] ? { ...e, [k]: undefined } : e));
-  };
-
-  const selectInterest = (it: string) => {
-    setInterest(it);
-    clearError('interest');
   };
 
   const submit = async (e: React.FormEvent) => {
@@ -97,9 +127,11 @@ export function ContactForm({
       phone: phone.trim() || null,
       interest,
       message: message.trim(),
+      vehicle_text: vehicle.trim() || undefined,
       listing_slug: listingSlug ?? null,
       listing_title: listingTitle ?? null,
       source_page: sourcePage,
+      submission_key: submissionKey.current,
       website,
       turnstileToken: turnstileToken.current,
     });
@@ -122,24 +154,15 @@ export function ContactForm({
     setName('');
     setEmail('');
     setPhone('');
+    setVehicle('');
     setMessage('');
     setInterest(null);
     setErrors({});
     setSent(false);
+    submissionKey.current = typeof crypto !== 'undefined' ? crypto.randomUUID() : '';
   };
 
-  const fieldBox = (hasErr: boolean): React.CSSProperties => ({
-    background: '#0d0d0d',
-    border: '1px solid',
-    borderColor: hasErr ? '#CC0000' : '#242424',
-    padding: '18px 20px',
-    transition: 'border-color 150ms ease',
-  });
-
-  const inputClass =
-    'w-full bg-transparent p-0 text-[15.5px] tracking-[0.2px] text-white outline-none placeholder:text-rb-tx-ghost';
-  const labelClass = 'mb-2.5 block text-[11px] font-semibold uppercase tracking-[2px] text-[#8f8f8f]';
-  const errClass = 'mt-2 text-[11px] tracking-[0.5px] text-rb-red';
+  const route = interest ? ROUTES[interest as (typeof CATEGORIES)[number]] : undefined;
 
   if (sent) {
     return (
@@ -172,27 +195,11 @@ export function ContactForm({
 
   return (
     <form onSubmit={submit} noValidate className="relative">
-      <input type="hidden" name="source_page" value={sourcePage} />
-      {listingSlug ? <input type="hidden" name="listing_slug" value={listingSlug} /> : null}
-      {/* Honeypot — visually hidden, never announced; bots fill it */}
-      <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor="cf-website">Website</label>
-        <input
-          id="cf-website"
-          name="website"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          value={website}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+      <Honeypot id="cf-website" value={website} onChange={setWebsite} />
 
       <div className="mb-0.5 grid gap-0.5 sm:grid-cols-2">
-        <div style={fieldBox(!!errors.name)}>
-          <label htmlFor="cf-name" className={labelClass}>
-            Name
-          </label>
+        <FieldBox hasErr={!!errors.name}>
+          <FieldLabel htmlFor="cf-name">Name</FieldLabel>
           <input
             ref={nameRef}
             id="cf-name"
@@ -207,19 +214,12 @@ export function ContactForm({
             }}
             aria-invalid={errors.name ? true : undefined}
             aria-describedby={errors.name ? 'cf-name-err' : undefined}
-            className={inputClass}
-            style={{ caretColor: '#CC0000' }}
+            className={inputCls}
           />
-          {errors.name && (
-            <div id="cf-name-err" className={errClass}>
-              {errors.name}
-            </div>
-          )}
-        </div>
-        <div style={fieldBox(!!errors.email)}>
-          <label htmlFor="cf-email" className={labelClass}>
-            Email
-          </label>
+          {errors.name && <FieldError id="cf-name-err">{errors.name}</FieldError>}
+        </FieldBox>
+        <FieldBox hasErr={!!errors.email}>
+          <FieldLabel htmlFor="cf-email">Email</FieldLabel>
           <input
             ref={emailRef}
             id="cf-email"
@@ -234,53 +234,95 @@ export function ContactForm({
             }}
             aria-invalid={errors.email ? true : undefined}
             aria-describedby={errors.email ? 'cf-email-err' : undefined}
-            className={inputClass}
-            style={{ caretColor: '#CC0000' }}
+            className={inputCls}
           />
-          {errors.email && (
-            <div id="cf-email-err" className={errClass}>
-              {errors.email}
-            </div>
-          )}
-        </div>
+          {errors.email && <FieldError id="cf-email-err">{errors.email}</FieldError>}
+        </FieldBox>
       </div>
 
-      <fieldset className="m-0 border-0 p-0" style={{ ...fieldBox(!!errors.interest), marginBottom: '2px' }}>
-        <legend className="sr-only">Interested In</legend>
-        <div className={labelClass} aria-hidden>
-          Interested In
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {INTERESTS.map((it, i) => {
-            const active = interest === it.value;
-            return (
-              <button
-                key={it.value}
-                ref={i === 0 ? chipRef : undefined}
-                type="button"
-                aria-pressed={active}
-                onClick={() => selectInterest(it.value)}
-                className="whitespace-nowrap px-4 py-2.5 text-[12.5px] font-medium tracking-[0.5px] active:scale-[0.96]"
-                style={{
-                  border: '1px solid',
-                  borderColor: active ? '#CC0000' : '#2a2a2a',
-                  color: active ? '#fff' : '#aaa',
-                  background: active ? 'rgba(204,0,0,0.10)' : 'transparent',
-                  transition: 'border-color 150ms ease, color 150ms ease, background 150ms ease',
-                }}
-              >
-                {it.label}
-              </button>
-            );
-          })}
-        </div>
-        {errors.interest && <div className="mt-2.5 text-[10px] tracking-[0.5px] text-rb-red">{errors.interest}</div>}
-      </fieldset>
+      <div className="mb-0.5">
+        <FieldBox hasErr={!!errors.interest}>
+          <fieldset className="m-0 border-0 p-0">
+            <legend className="mb-[7px] block text-[10px] uppercase tracking-[2px] text-rb-tx-faint">
+              Interested in
+            </legend>
+            <div className="flex flex-wrap gap-2">
+              {CATEGORIES.map((it, i) => {
+                const active = interest === it;
+                return (
+                  <button
+                    key={it}
+                    ref={i === 0 ? chipRef : undefined}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => {
+                      setInterest(it);
+                      clearError('interest');
+                    }}
+                    className="whitespace-nowrap px-3.5 py-2 text-[12px] font-medium tracking-[0.5px] active:scale-[0.96]"
+                    style={{
+                      border: '1px solid',
+                      borderColor: active ? '#CC0000' : '#2a2a2a',
+                      color: active ? '#fff' : '#aaa',
+                      background: active ? 'rgba(204,0,0,0.10)' : 'transparent',
+                      transition: 'border-color 150ms ease, color 150ms ease, background 150ms ease',
+                    }}
+                  >
+                    {it}
+                  </button>
+                );
+              })}
+            </div>
+            {errors.interest && <FieldError>{errors.interest}</FieldError>}
+          </fieldset>
+        </FieldBox>
+        {route && (
+          <Link
+            href={route.href}
+            className="mt-0.5 flex items-center justify-between gap-3 border border-rb-red/40 bg-[rgba(204,0,0,0.07)] px-4 py-3.5 text-[13px] leading-snug text-white transition-colors duration-150 hover:border-rb-red hover:bg-[rgba(204,0,0,0.12)]"
+          >
+            <span>{route.text}</span>
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden className="flex-none">
+              <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#CC0000" strokeWidth="1.6" />
+            </svg>
+          </Link>
+        )}
+      </div>
 
-      <div className="mb-0.5" style={{ ...fieldBox(!!errors.message), minHeight: '118px' }}>
-        <label htmlFor="cf-message" className={labelClass}>
-          Message
-        </label>
+      <div className="mb-0.5 grid gap-0.5 sm:grid-cols-2">
+        <FieldBox>
+          <FieldLabel htmlFor="cf-phone" optional>
+            Phone
+          </FieldLabel>
+          <input
+            id="cf-phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            placeholder="Your phone number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className={inputCls}
+          />
+        </FieldBox>
+        <FieldBox>
+          <FieldLabel htmlFor="cf-vehicle" optional>
+            Vehicle
+          </FieldLabel>
+          <input
+            id="cf-vehicle"
+            name="vehicle"
+            type="text"
+            placeholder="Year / make / model"
+            value={vehicle}
+            onChange={(e) => setVehicle(e.target.value)}
+            className={inputCls}
+          />
+        </FieldBox>
+      </div>
+
+      <FieldBox hasErr={!!errors.message} minHeight="118px">
+        <FieldLabel htmlFor="cf-message">Message</FieldLabel>
         <textarea
           ref={msgRef}
           id="cf-message"
@@ -294,33 +336,10 @@ export function ContactForm({
           }}
           aria-invalid={errors.message ? true : undefined}
           aria-describedby={errors.message ? 'cf-message-err' : undefined}
-          className={`${inputClass} min-h-[70px] resize-none leading-[1.5]`}
-          style={{ caretColor: '#CC0000' }}
+          className={`${inputCls} min-h-[70px] resize-none leading-[1.5]`}
         />
-        {errors.message && (
-          <div id="cf-message-err" className={errClass}>
-            {errors.message}
-          </div>
-        )}
-      </div>
-
-      {/* Phone — optional (forms.md recommended addition, not in the prototype) */}
-      <div style={fieldBox(false)}>
-        <label htmlFor="cf-phone" className={labelClass}>
-          Phone · Optional
-        </label>
-        <input
-          id="cf-phone"
-          name="phone"
-          type="tel"
-          autoComplete="tel"
-          placeholder="Your phone number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className={inputClass}
-          style={{ caretColor: '#CC0000' }}
-        />
-      </div>
+        {errors.message && <FieldError id="cf-message-err">{errors.message}</FieldError>}
+      </FieldBox>
 
       <TurnstileWidget onToken={onToken} />
 
@@ -330,10 +349,7 @@ export function ContactForm({
         </p>
       )}
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        <span className="text-[12px] tracking-[0.5px] text-rb-tx-faint">
-          We reply within one business day.
-        </span>
+      <div className="mt-6 flex justify-end">
         <button
           type="submit"
           disabled={pending}
@@ -345,6 +361,8 @@ export function ContactForm({
           </svg>
         </button>
       </div>
+
+      <FormFooterNote phone={shopPhone} />
     </form>
   );
 }

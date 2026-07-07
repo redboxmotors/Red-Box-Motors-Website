@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ContactLink } from '@/components/contact/ContactModal';
+import { FirstLookLink, FirstLookProvider } from '@/components/dealer/FirstLookModal';
 import { ExpandingScrollBox } from '@/components/site/ExpandingScrollBox';
 import { SiteNav } from '@/components/site/SiteNav';
 import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
@@ -11,6 +12,7 @@ import { DEFAULT_SORT, makeParam, type SortKey } from '@/components/dealer/inven
 import {
   getHeroImages,
   getListings,
+  getSettings,
   getSourced,
   heroFor,
   listingHref,
@@ -136,6 +138,7 @@ function PipelineCard({
   title,
   sub,
   sold = false,
+  firstLook,
 }: {
   href: string;
   image: DbImage | null;
@@ -147,6 +150,7 @@ function PipelineCard({
   title: string;
   sub?: string | null;
   sold?: boolean;
+  firstLook?: { vehicle: string; campaign?: string };
 }) {
   const cls = `relative z-[1] block h-[190px] cursor-pointer overflow-hidden bg-rb-surface transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.02] hover:shadow-[0_22px_44px_rgba(0,0,0,0.6)] active:translate-y-0 active:scale-[0.99] ${
     sold ? 'hover:brightness-[1.1]' : 'hover:brightness-[1.14]'
@@ -189,9 +193,11 @@ function PipelineCard({
       </div>
     </>
   );
-  // Arriving cards point at the contact modal; sold/sourced use real routes.
-  return href === '/contact' ? (
-    <ContactLink className={cls}>{inner}</ContactLink>
+  // Arriving cards open the First Look form; sold/sourced use real routes.
+  return firstLook ? (
+    <FirstLookLink vehicle={firstLook.vehicle} campaign={firstLook.campaign} className={cls}>
+      {inner}
+    </FirstLookLink>
   ) : (
     <Link href={href} className={cls}>
       {inner}
@@ -224,11 +230,12 @@ export default async function DealerInventoryPage({
 }: {
   searchParams?: { make?: string | string[]; sort?: string | string[] };
 }) {
-  const [forSale, coming, sold, sourced] = await Promise.all([
+  const [forSale, coming, sold, sourced, settings] = await Promise.all([
     getListings('for_sale'),
     getListings('coming_soon'),
     getListings('sold'),
     getSourced(),
+    getSettings(),
   ]);
 
   // —— URL-driven filter + sort (?make=porsche&sort=price-desc) ——
@@ -264,6 +271,7 @@ export default async function DealerInventoryPage({
     comingShown.length > 0;
 
   return (
+    <FirstLookProvider phone={settings.phone}>
     <main className="relative bg-rb-bg text-white">
       <SchemaScript schema={itemListSchema(forSale)} />
       <RandomBackdrop />
@@ -448,14 +456,14 @@ export default async function DealerInventoryPage({
                     label="Arriving"
                     note="On the way to the floor"
                     link={
-                      <ContactLink
+                      <FirstLookLink
                         className="inline-flex items-center gap-[7px] text-[12px] tracking-[0.5px] text-white transition-[gap] duration-200 hover:gap-3"
                       >
                         Get first look
                         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
                           <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#CC0000" strokeWidth="1.3" />
                         </svg>
-                      </ContactLink>
+                      </FirstLookLink>
                     }
                   />
                   <div className="grid grid-cols-2 gap-1.5 bg-black p-1.5 lg:grid-cols-4">
@@ -470,6 +478,10 @@ export default async function DealerInventoryPage({
                         chipColor="#cfcfcf"
                         make={l.make}
                         title={l.model}
+                        firstLook={{
+                          vehicle: [l.year, l.make, l.model].filter(Boolean).join(' '),
+                          campaign: l.slug,
+                        }}
                       />
                     ))}
                   </div>
@@ -514,14 +526,15 @@ export default async function DealerInventoryPage({
                 vehicles to qualified buyers nationwide — tell us about yours.
               </p>
               <div className="mt-11 flex flex-wrap items-center gap-[22px]">
-                <ContactLink
+                <Link
+                  href="/dealer/sell"
                   className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
                 >
                   Sell Your Vehicle
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                     <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" />
                   </svg>
-                </ContactLink>
+                </Link>
               </div>
               <div className="mt-12 flex items-center gap-[11px] border-t border-rb-line pt-[26px]">
                 <span className="inline-flex bg-rb-red px-2.5 py-[7px]">
@@ -551,5 +564,6 @@ export default async function DealerInventoryPage({
         </svg>
       </ContactLink>
     </main>
+    </FirstLookProvider>
   );
 }

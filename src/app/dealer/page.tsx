@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ContactLink } from '@/components/contact/ContactModal';
 import { PreviewGrid } from '@/components/dealer/PreviewTiles';
 import { ExpandingScrollBox } from '@/components/site/ExpandingScrollBox';
 import { HeroBadge, HeroCtas, HeroSection, HeroSub } from '@/components/site/Hero';
@@ -222,9 +221,9 @@ export default async function DealerPage() {
             >
               View Inventory
             </Link>
-            <a href="#sell" className={`${ghostRed} px-[22px] py-[13px] text-[12.5px]`}>
+            <Link href="/dealer/sell" className={`${ghostRed} px-[22px] py-[13px] text-[12.5px]`}>
               Sell Your Vehicle
-            </a>
+            </Link>
           </HeroCtas>
         </HeroSection>
 
@@ -358,10 +357,13 @@ export default async function DealerPage() {
                   nationwide.
                 </p>
                 <div className="mt-10">
-                  <ContactLink className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white">
+                  <Link
+                    href="/dealer/sell"
+                    className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
+                  >
                     Sell Your Vehicle
                     <ArrowIcon size={16} stroke={1.5} />
-                  </ContactLink>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -501,10 +503,13 @@ export default async function DealerPage() {
                 complete offering—not simply another classified listing.
               </p>
               <div data-reveal style={{ transitionDelay: '.18s' }} className="mt-9">
-                <ContactLink className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-4 text-[14px] font-semibold tracking-[0.5px] text-white">
+                <Link
+                  href="/dealer/sell"
+                  className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-4 text-[14px] font-semibold tracking-[0.5px] text-white"
+                >
                   Sell Your Vehicle
                   <ArrowIcon size={15} stroke={1.5} />
-                </ContactLink>
+                </Link>
               </div>
             </div>
           </div>
@@ -657,10 +662,10 @@ export default async function DealerPage() {
                     View Inventory
                     <ArrowIcon size={16} stroke={1.5} />
                   </Link>
-                  <ContactLink className={`${ghostRed} px-[30px] py-[17px] text-[14px]`}>
+                  <Link href="/dealer/sell" className={`${ghostRed} px-[30px] py-[17px] text-[14px]`}>
                     Sell Your Vehicle
                     <ArrowIcon size={15} stroke={1.5} />
-                  </ContactLink>
+                  </Link>
                 </div>
 
                 <div className="mt-[52px] flex items-center gap-[11px] border-t border-rb-line pt-[26px]">
@@ -682,13 +687,14 @@ export default async function DealerPage() {
       </ScrollShell>
 
       {/* STICKY INQUIRY CTA */}
-      <ContactLink
+      <Link
+        href="/dealer/sell"
         className="rb-btn-red fixed bottom-[26px] right-[26px] z-40 flex items-center gap-[11px] bg-rb-red px-[22px] py-[15px] shadow-[0_12px_30px_rgba(204,0,0,0.34)]"
       >
         <span className="h-[7px] w-[7px] flex-none bg-white" />
         <span className="text-[12px] font-semibold tracking-[1.5px] text-white">Sell Your Vehicle</span>
         <ArrowIcon size={13} stroke={1.5} />
-      </ContactLink>
+      </Link>
     </>
   );
 }

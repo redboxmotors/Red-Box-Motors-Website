@@ -133,7 +133,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
     mileage ? `${mileage} · documented history` : null,
   ].filter((h): h is string => Boolean(h));
 
-  const prefill = `I'm interested in the ${[listing.year, makeModel].filter(Boolean).join(' ')}.`;
+  const prefill = `I'm interested in the ${[listing.year, makeModel].filter(Boolean).join(' ')}. Please contact me with additional information.`;
   const tel = (settings.phone ?? '').replace(/[^+\d]/g, '');
 
   return (
@@ -197,6 +197,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
                     prefill={prefill}
                     listingSlug={listing.slug}
                     listingTitle={makeModel}
+                    phone={settings.phone}
                   />
 
                   {/* Supplementary */}

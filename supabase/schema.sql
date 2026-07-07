@@ -37,7 +37,7 @@ begin
     );
   end if;
   if not exists (select 1 from pg_type where typname = 'lead_type') then
-    create type lead_type as enum ('contact', 'listing');
+    create type lead_type as enum ('contact', 'listing', 'consignment', 'first_look');
   end if;
   if not exists (select 1 from pg_type where typname = 'lead_status') then
     create type lead_status as enum ('new', 'handled');
@@ -213,11 +213,18 @@ create table public.leads (
   listing_slug text,               -- attribution for listing inquiries
   listing_title text,
   source_page  text,
+  contact_method text,             -- Phone / Text / Email (2026-07-07 forms)
+  city_state   text,
+  payload      jsonb,              -- form-specific structured fields (consignment,
+                                   -- inquiry, first_look — see patches/2026-07-07)
+  submission_key text,             -- client-generated idempotency key
   status       lead_status not null default 'new',
   created_at   timestamptz not null default now()
 );
 
 create index leads_status_idx on public.leads (status, created_at desc);
+create unique index leads_submission_key_idx
+  on public.leads (submission_key) where submission_key is not null;
 
 -- ============================================================================
 -- Admin allowlist — being "authenticated" is not enough to write. Supabase
@@ -343,6 +350,24 @@ create policy "photos_storage_auth_write"
   to authenticated
   using (bucket_id = 'photos' and public.is_admin())
   with check (bucket_id = 'photos' and public.is_admin());
+
+-- Private lead-uploads bucket (2026-07-07 consignment forms). NOT public and
+-- deliberately NO storage.objects policies: with RLS on and zero policies,
+-- anon/authenticated can neither read, list, nor write. Uploads happen via
+-- short-lived signed upload URLs issued by /api/consignments behind its
+-- gates; admin reads via signed download URLs from an admin-only server
+-- action. The bucket itself enforces mime types + 10 MB size server-side.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'lead-uploads', 'lead-uploads', false,
+  10485760,
+  array['image/jpeg', 'image/png', 'image/webp', 'image/avif',
+        'image/heic', 'image/heif', 'application/pdf']
+)
+on conflict (id) do update
+  set public = false,
+      file_size_limit = excluded.file_size_limit,
+      allowed_mime_types = excluded.allowed_mime_types;
 
 -- Retire the pre-rebuild bucket policies (bucket may stay; harmless if empty)
 drop policy if exists "listing_photos_storage_public_read" on storage.objects;

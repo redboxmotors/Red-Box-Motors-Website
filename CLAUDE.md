@@ -27,6 +27,13 @@ The `handoff/` folder is the full brief for converting these `.dc.html` prototyp
 - `migration-plan.md` — DC→React mapping, component inventory, build order.
 - `Style Guide.dc.html` (project root) — a living visual reference of the system.
 
+## Forms & lead pipeline (built 2026-07-07)
+- One hardened pipeline for all four lead types (`contact`, `listing`, `consignment`, `first_look`): honeypot + per-IP rate limit + optional Turnstile + service-role insert. Shared gates in `src/lib/leads/server.ts`; endpoints `/api/leads` and `/api/consignments`.
+- `/dealer/sell` (alias `/sell`) — multi-step consignment intake; every "Sell Your Vehicle" CTA sitewide routes there. Listing detail pages carry the full vehicle inquiry form (vehicle facts enriched server-side from the slug). Arriving-soon cards open the First Look modal.
+- Uploads go straight from the browser to the PRIVATE `lead-uploads` bucket via signed upload URLs (Vercel 4.5 MB body limit avoided); bucket enforces mime+10 MB; admin reads via signed URLs from `/admin/leads`.
+- **Pending owner action:** run `supabase/patches/2026-07-07-consignment-forms.sql` in the Supabase SQL editor. Until then the APIs fall back to legacy-shaped leads (everything lands in `message` — nothing lost).
+- Form-specific structured fields live in `leads.payload` (jsonb); shared form UI primitives in `src/components/forms/primitives.tsx`; `/privacy` is a minimal placeholder page (owner may replace copy).
+
 ## Ideas / TODO (not yet built)
 - (built) "Cars we found for clients" — now its own page `Sourced.dc.html` (3-across gallery) + a sliding teaser marquee in the Dealer page's "Sourced" section. Data in `data/found.js`.
 - **Admin / CMS (Claude Code task, not a design prototype):** owner wants a back-office to add/edit/delete listings, recent-work projects, and sourced cars; reorder them; and choose what's featured + where. Maps onto the existing `data/*.js` shapes (`listings.js`, `projects.js`, `found.js`) — those become DB tables + an authed admin UI.

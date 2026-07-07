@@ -10,7 +10,7 @@ export type PlacementSurface =
   | 'dealer_sold_preview'
   | 'dealer_sourced_preview'
   | 'cosmetics_builds_preview';
-export type LeadType = 'contact' | 'listing';
+export type LeadType = 'contact' | 'listing' | 'consignment' | 'first_look';
 export type LeadStatus = 'new' | 'handled';
 
 export interface Listing {
@@ -126,6 +126,12 @@ export interface Lead {
   listing_slug: string | null;
   listing_title: string | null;
   source_page: string | null;
+  // 2026-07-07 form system (patches/2026-07-07-consignment-forms.sql).
+  // Optional: absent on rows created before the patch (and on pre-patch DBs).
+  contact_method?: string | null;
+  city_state?: string | null;
+  payload?: Record<string, unknown> | null;
+  submission_key?: string | null;
   status: LeadStatus;
   created_at: string;
 }

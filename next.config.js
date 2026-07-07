@@ -28,6 +28,10 @@ const nextConfig = {
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
+  async redirects() {
+    // Short memorable alias for the consignment form.
+    return [{ source: '/sell', destination: '/dealer/sell', permanent: false }];
+  },
 };
 
 module.exports = nextConfig;

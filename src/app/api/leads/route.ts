@@ -1,64 +1,69 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/server';
+import {
+  EMAIL_RE,
+  clientIp,
+  emailRows,
+  escapeHtml,
+  notifyTo,
+  rateLimitCheck,
+  rateLimitHit,
+  seenSubmissionKey,
+  sendEmail,
+  strFrom,
+  verifyTurnstile,
+} from '@/lib/leads/server';
 
 export const runtime = 'nodejs';
 
 // Lead submission endpoint (handoff/forms.md — owner chose email + DB).
-// Server-side validation, honeypot, per-IP rate limit, optional Turnstile
-// (enforced only when TURNSTILE_SECRET_KEY is configured). Rows land in
-// public.leads; the notification email is sent from here (Resend) so it sits
-// behind the same gates — the old pg_net → edge-function pipeline was
-// publicly invokable and was removed (2026-07-02 security audit).
+// Handles three lead types behind identical gates (honeypot, per-IP rate
+// limit, validation, optional Turnstile, service-role insert):
+//   contact    — general contact form (/contact + modal)
+//   listing    — vehicle-specific inquiry on inventory detail pages; the
+//                vehicle facts (year/make/model/VIN/price/URL) are enriched
+//                SERVER-SIDE from the listing slug so they can't be tampered
+//                with and the customer never re-enters them
+//   first_look — Arriving Soon / First Look requests
+// Consignments have their own richer endpoint (/api/consignments).
+//
+// Pre-migration fallback: if the DB lacks the 2026-07-07 patch (payload
+// column / first_look enum value), structured extras fold into `message`
+// and first_look rows land as type 'contact' — nothing is dropped.
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const INTERESTS = new Set(['Cosmetics', 'Buying / Selling', 'Collection']);
+// Phase 4 category list (owner spec, 2026-07-07). 'Trade-in' intentionally
+// omitted for now — add here and in ContactForm when it opens up.
+const INTERESTS = new Set([
+  'Buy a Vehicle',
+  'Sell or Consign a Vehicle',
+  'Ask About an Existing Listing',
+  'Transportation or Delivery',
+  'General Sales Question',
+  'Red Box Restoration',
+  'Other',
+]);
 
-// Per-IP sliding window: 5 submissions / 10 min. In-memory — per serverless
-// instance, so it's a soft limit; Turnstile is the real gate once enabled.
-const WINDOW_MS = 10 * 60 * 1000;
-const MAX_PER_WINDOW = 5;
-const hits = new Map<string, number[]>();
+// Inquiry types for listing inquiries. 'Trade-in' intentionally omitted —
+// add here and in InquiryPanel when it opens up.
+const INQUIRY_TYPES = new Set([
+  'Request additional information',
+  'Schedule a showroom appointment',
+  'Request a video walkaround',
+  'Request additional photographs',
+  'Discuss transportation',
+  'Discuss pre-delivery PPF, coating, tint or detailing',
+]);
 
-function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const list = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  if (list.length >= MAX_PER_WINDOW) {
-    hits.set(ip, list);
-    return true;
-  }
-  list.push(now);
-  hits.set(ip, list);
-  if (hits.size > 5000) hits.clear(); // memory backstop
-  return false;
-}
+const TIMEFRAMES = new Set([
+  'As soon as possible',
+  'Within 30 days',
+  '1–3 months',
+  'Just researching',
+]);
 
-async function verifyTurnstile(token: string | null, ip: string): Promise<boolean> {
-  const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true; // not configured yet — skip
-  if (!token) return false;
-  try {
-    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ secret, response: token, remoteip: ip }),
-    });
-    const data = (await res.json()) as { success?: boolean };
-    return !!data.success;
-  } catch {
-    return false;
-  }
-}
+const CONTACT_METHODS = new Set(['Phone call', 'Text', 'Email']);
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-type LeadRow = {
+type LeadInsert = {
   type: string;
   name: string;
   email: string;
@@ -68,48 +73,11 @@ type LeadRow = {
   listing_slug: string | null;
   listing_title: string | null;
   source_page: string | null;
+  contact_method?: string | null;
+  city_state?: string | null;
+  payload?: Record<string, unknown> | null;
+  submission_key?: string | null;
 };
-
-// Best-effort notification — the lead is already in the DB (visible in
-// /admin/leads), so a send failure must not fail the request.
-async function sendLeadNotification(lead: LeadRow): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return; // email not configured yet — DB + admin only
-  const to = process.env.NOTIFY_TO ?? 'info@redboxmotors.com';
-  const from = process.env.NOTIFY_FROM ?? 'Red Box Motors <onboarding@resend.dev>';
-
-  const label = lead.type === 'listing' ? 'listing inquiry' : 'contact message';
-  const subject = `New ${label} — ${lead.name}`;
-  const rows = [
-    ['Name', lead.name],
-    ['Email', lead.email],
-    ['Phone', lead.phone ?? '—'],
-    ['Interest', lead.interest ?? '—'],
-    ['Listing', lead.listing_title ?? lead.listing_slug ?? '—'],
-    ['From page', lead.source_page ?? '—'],
-  ]
-    .map(([k, v]) => `<p><strong>${k}:</strong> ${escapeHtml(v)}</p>`)
-    .join('\n');
-  const html = `
-    <h2>New ${label}</h2>
-    ${rows}
-    <p><strong>Message:</strong></p>
-    <p>${escapeHtml(lead.message).replace(/\n/g, '<br/>')}</p>
-  `;
-
-  try {
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ from, to, subject, html, reply_to: lead.email }),
-    });
-  } catch {
-    // swallowed — lead is safe in the DB
-  }
-}
 
 export async function POST(req: Request) {
   let body: Record<string, unknown>;
@@ -119,22 +87,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Invalid request.' }, { status: 400 });
   }
 
-  const str = (k: string, max = 2000) =>
-    typeof body[k] === 'string' ? (body[k] as string).trim().slice(0, max) : '';
+  const str = strFrom(body);
 
   // Honeypot — bots fill it; humans never see it. Pretend success.
   if (str('website')) return NextResponse.json({ ok: true });
 
-  const ip = (req.headers.get('x-forwarded-for') ?? 'unknown').split(',')[0].trim();
-  if (rateLimited(ip)) {
+  const ip = clientIp(req);
+  if (rateLimitCheck('leads', ip, 5)) {
     return NextResponse.json(
       { ok: false, error: 'Too many messages — please try again in a few minutes.' },
       { status: 429 },
     );
   }
 
-  const type = str('type') === 'listing' ? 'listing' : 'contact';
-  const name = str('name', 200);
+  const rawType = str('type');
+  const type = rawType === 'listing' || rawType === 'first_look' ? rawType : 'contact';
+
+  const first_name = str('first_name', 100);
+  const last_name = str('last_name', 100);
+  const name = str('name', 200) || `${first_name} ${last_name}`.trim();
   const email = str('email', 320);
   const phone = str('phone', 40) || null;
   const message = str('message');
@@ -142,13 +113,43 @@ export async function POST(req: Request) {
   const listing_slug = str('listing_slug', 200) || null;
   const listing_title = str('listing_title', 200) || null;
   const source_page = str('source_page', 300) || null;
+  const contact_method = str('contact_method', 30) || null;
+  const city_state = str('city_state', 120) || null;
+  const inquiry_type = str('inquiry_type', 80) || null;
+  const timeframe = str('timeframe', 40) || null;
+  const vehicle_of_interest = str('vehicle_of_interest', 200) || null;
+  const vehicle_text = str('vehicle_text', 120) || null; // contact form's year/make/model
+  const campaign = str('campaign', 120) || null;
+  const opt_in = body.opt_in === true; // first_look — UNCHECKED by default, never assumed
 
   const errors: Record<string, string> = {};
-  if (!name) errors.name = 'Enter your name';
+  if (type === 'contact') {
+    if (!name) errors.name = 'Enter your name';
+  } else {
+    if (!first_name) errors.first_name = 'Enter your first name';
+    if (!last_name) errors.last_name = 'Enter your last name';
+  }
   if (!email) errors.email = 'Enter your email';
   else if (!EMAIL_RE.test(email)) errors.email = 'Enter a valid email';
-  if (!message) errors.message = 'Add a short message';
-  if (type === 'contact' && (!interest || !INTERESTS.has(interest))) errors.interest = 'Pick one';
+
+  if (type === 'contact') {
+    if (!message) errors.message = 'Add a short message';
+    if (!interest || !INTERESTS.has(interest)) errors.interest = 'Pick one';
+  }
+  if (type === 'listing') {
+    if (!phone) errors.phone = 'Enter your phone number';
+    if (!city_state) errors.city_state = 'Enter your city and state';
+    if (!contact_method || !CONTACT_METHODS.has(contact_method)) errors.contact_method = 'Pick one';
+    if (!timeframe || !TIMEFRAMES.has(timeframe)) errors.timeframe = 'Pick one';
+    if (!inquiry_type || !INQUIRY_TYPES.has(inquiry_type)) errors.inquiry_type = 'Pick one';
+    if (!message) errors.message = 'Add a message';
+    if (!listing_slug) errors.message = 'Missing vehicle reference — please reload the page.';
+  }
+  if (type === 'first_look') {
+    if (!phone) errors.phone = 'Enter your phone number';
+    if (!contact_method || !CONTACT_METHODS.has(contact_method)) errors.contact_method = 'Pick one';
+    if (!timeframe || !TIMEFRAMES.has(timeframe)) errors.timeframe = 'Pick one';
+  }
   if (Object.keys(errors).length) {
     return NextResponse.json({ ok: false, errors }, { status: 400 });
   }
@@ -164,29 +165,178 @@ export async function POST(req: Request) {
     );
   }
 
-  const lead: LeadRow = {
+  const submission_key =
+    typeof body.submission_key === 'string' && /^[0-9a-fA-F-]{20,64}$/.test(body.submission_key)
+      ? body.submission_key
+      : null;
+  if (submission_key && seenSubmissionKey(submission_key)) {
+    return NextResponse.json({ ok: true, duplicate: true });
+  }
+
+  const supabase = createAdminClient();
+
+  // —— Server-side vehicle enrichment for listing inquiries ————————————
+  // The customer never re-enters vehicle facts; we look them up ourselves.
+  let vehicle: Record<string, unknown> | null = null;
+  let vehicleTitle = listing_title;
+  if (type === 'listing' && listing_slug) {
+    const { data } = await supabase
+      .from('listings')
+      .select('slug, year, make, model, vin, price, status')
+      .eq('slug', listing_slug)
+      .maybeSingle();
+    if (data) {
+      vehicleTitle = [data.year, data.make, data.model].filter(Boolean).join(' ') || listing_title;
+      const site = process.env.NEXT_PUBLIC_SITE_URL ?? '';
+      vehicle = {
+        year: data.year,
+        make: data.make,
+        model: data.model,
+        // No stock-number field exists in the schema — the slug is the stock
+        // reference (decision flagged 2026-07-07).
+        stock: data.slug,
+        vin: data.vin ?? null, // admin-only (payload is not publicly readable)
+        advertised_price: data.price,
+        listing_url: `${site}/dealer/inventory/${data.slug}`,
+      };
+    }
+  }
+
+  const payload: Record<string, unknown> = {
+    form: type,
+    ...(inquiry_type ? { inquiry_type } : {}),
+    ...(timeframe ? { timeframe } : {}),
+    ...(vehicle ? { vehicle, vehicle_title: vehicleTitle } : {}),
+    ...(vehicle_text ? { vehicle_text } : {}),
+    ...(vehicle_of_interest ? { vehicle_of_interest } : {}),
+    ...(campaign ? { campaign } : {}),
+    ...(type === 'first_look' ? { opt_in } : {}),
+  };
+  const hasPayload = Object.keys(payload).length > 1;
+
+  const finalMessage =
+    message ||
+    (type === 'first_look'
+      ? `First Look request — ${vehicle_of_interest ?? listing_title ?? 'arriving vehicle'}`
+      : '');
+
+  const structuredRow: LeadInsert = {
     type,
     name,
     email,
     phone,
     interest,
-    message,
+    message: finalMessage,
     listing_slug,
-    listing_title,
+    listing_title: vehicleTitle,
     source_page,
+    contact_method,
+    city_state,
+    payload: hasPayload ? payload : null,
+    submission_key,
   };
 
-  const supabase = createAdminClient();
-  const { error } = await supabase.from('leads').insert(lead);
+  let inserted = await supabase.from('leads').insert(structuredRow).select('id').single();
 
-  if (error) {
-    return NextResponse.json(
-      { ok: false, error: 'Something went wrong on our end — please call or email us directly.' },
-      { status: 500 },
-    );
+  if (inserted.error && inserted.error.code === '23505') {
+    return NextResponse.json({ ok: true, duplicate: true });
   }
 
-  await sendLeadNotification(lead);
+  if (inserted.error) {
+    // Pre-migration DB — fold structured extras into the message and use a
+    // legacy-safe type so the submission still lands.
+    const extras = [
+      inquiry_type ? `Inquiry type: ${inquiry_type}` : null,
+      timeframe ? `Purchase timeframe: ${timeframe}` : null,
+      contact_method ? `Preferred contact: ${contact_method}` : null,
+      city_state ? `City / State: ${city_state}` : null,
+      vehicle_text ? `Vehicle: ${vehicle_text}` : null,
+      vehicle_of_interest ? `Vehicle of interest: ${vehicle_of_interest}` : null,
+      campaign ? `Campaign: ${campaign}` : null,
+      type === 'first_look' ? `Similar-vehicle updates opt-in: ${opt_in ? 'Yes' : 'No'}` : null,
+      vehicle ? `Listing URL: ${(vehicle as { listing_url?: string }).listing_url}` : null,
+    ].filter(Boolean);
+    const legacyRow = {
+      type: type === 'listing' ? 'listing' : 'contact',
+      name,
+      email,
+      phone,
+      interest: type === 'contact' ? 'Buying / Selling' : interest,
+      message: [
+        type === 'first_look' ? 'FIRST LOOK REQUEST' : null,
+        finalMessage,
+        extras.length ? `\n${extras.join('\n')}` : null,
+      ]
+        .filter(Boolean)
+        .join('\n'),
+      listing_slug,
+      listing_title: vehicleTitle,
+      source_page,
+    };
+    inserted = await supabase.from('leads').insert(legacyRow).select('id').single();
+    if (inserted.error) {
+      return NextResponse.json(
+        { ok: false, error: 'Something went wrong on our end — please call or email us directly.' },
+        { status: 500 },
+      );
+    }
+  }
+
+  rateLimitHit('leads', ip);
+
+  // —— Internal notification (per-type subjects, Phase 6 spec) ——————————
+  const subject =
+    type === 'listing'
+      ? `Vehicle Inquiry — ${vehicleTitle ?? listing_slug ?? 'Unknown vehicle'}`
+      : type === 'first_look'
+        ? `First Look Request — ${vehicle_of_interest ?? listing_title ?? 'Arriving vehicle'}`
+        : `General Sales Inquiry — ${name}`;
+
+  await sendEmail({
+    to: notifyTo(),
+    subject,
+    replyTo: email,
+    html: `
+      <h2>${escapeHtml(subject)}</h2>
+      ${emailRows([
+        ['Name', name],
+        ['Email', email],
+        ['Phone', phone],
+        ['Preferred contact', contact_method],
+        ['City / State', city_state],
+        ['Interest', interest],
+        ['Inquiry type', inquiry_type],
+        ['Purchase timeframe', timeframe],
+        ['Vehicle', vehicleTitle ?? vehicle_of_interest ?? vehicle_text],
+        ['Listing', listing_slug],
+        ...(type === 'first_look'
+          ? ([['Similar-vehicle opt-in', opt_in ? 'Yes' : 'No']] as Array<[string, string]>)
+          : []),
+        ['From page', source_page],
+      ])}
+      <p><strong>Message:</strong></p>
+      <p>${escapeHtml(finalMessage).replace(/\n/g, '<br/>')}</p>
+      <p><a href="${process.env.NEXT_PUBLIC_SITE_URL ?? ''}/admin/leads">Open in admin → Leads</a></p>
+    `,
+  });
+
+  // —— Customer confirmation — best-effort ————————————————————————————
+  const confirmBody =
+    type === 'listing'
+      ? `<p>Thank you for your interest${vehicleTitle ? ` in the ${escapeHtml(vehicleTitle)}` : ' in this vehicle'}. A member of the Red Box Motors team will contact you directly.</p>`
+      : type === 'first_look'
+        ? `<p>You're on the list. We'll contact you when additional information becomes available${vehicle_of_interest ? ` about the ${escapeHtml(vehicle_of_interest)}` : ''}.</p>`
+        : `<p>Thanks for reaching out — we've received your message and will get back to you within one business day.</p>`;
+  await sendEmail({
+    to: email,
+    subject:
+      type === 'listing'
+        ? 'We received your vehicle inquiry — Red Box Motors'
+        : type === 'first_look'
+          ? "You're on the First Look list — Red Box Motors"
+          : 'We received your message — Red Box Motors',
+    html: `${confirmBody}<p>— Red Box Motors, Austin, TX</p>`,
+  });
 
   return NextResponse.json({ ok: true });
 }

@@ -5,6 +5,7 @@ import { FilmGrain } from '@/components/motion/FilmGrain';
 import { RevealObserver } from '@/components/motion/RevealObserver';
 import { IntroLoader } from '@/components/site/IntroLoader';
 import { ContactModalProvider } from '@/components/contact/ContactModal';
+import { getSettings } from '@/lib/public/content';
 
 // Archivo, weights 300–800 — the bold/thick direction (design-language.md §3);
 // 800 carries the hero display lines and RBM badges.
@@ -37,12 +38,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Shop phone for the urgent/high-value line under every form (forms spec).
+  const settings = await getSettings();
   return (
     <html lang="en" className={archivo.variable}>
       <body className="bg-rb-bg font-sans text-rb-tx">
         <IntroLoader />
-        <ContactModalProvider>{children}</ContactModalProvider>
+        <ContactModalProvider phone={settings.phone}>{children}</ContactModalProvider>
         <FilmGrain />
         <RevealObserver />
       </body>

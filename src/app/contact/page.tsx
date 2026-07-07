@@ -95,6 +95,7 @@ export default async function ContactPage({
                 listingSlug={listing?.slug}
                 listingTitle={carTitle}
                 prefillMessage={carTitle ? `I'm interested in the ${carTitle}.` : ''}
+                phone={settings.phone}
               />
             </div>
           </div>

@@ -46,7 +46,7 @@ const TICKER: { label: string; href: string }[] = [
   { label: 'Detailing & Vehicle Care', href: '/cosmetics#detailing' },
   { label: 'Wheels, Tires & Calipers', href: '/cosmetics#wheels' },
   { label: 'Curated Inventory', href: '/dealer/inventory' },
-  { label: 'Consignment', href: '/dealer#sell' },
+  { label: 'Consignment', href: '/dealer/sell' },
 ];
 
 function FeaturedSquare({ card, ariaHidden }: { card: SurfaceCard; ariaHidden?: boolean }) {
@@ -379,7 +379,7 @@ export function HomeShowcase({
             View Inventory
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" strokeWidth="1.5" /></svg>
           </Link>
-          <Link href="/dealer#sell" className={heroRed}>
+          <Link href="/dealer/sell" className={heroRed}>
             Sell Your Vehicle
           </Link>
           <Link href="/cosmetics" className={heroGhost}>
@@ -708,10 +708,10 @@ export function HomeShowcase({
               </div>
 
               <div data-hreveal className="mt-11 flex flex-wrap items-center gap-[22px]" style={reveal(0.14)}>
-                <ContactLink className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white">
+                <Link href="/dealer/sell" className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white">
                   Tell Us About Your Vehicle
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" /></svg>
-                </ContactLink>
+                </Link>
                 <Link href="/about" className="text-[13.5px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white">
                   About Red Box Motors →
                 </Link>

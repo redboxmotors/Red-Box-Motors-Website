@@ -4,45 +4,35 @@ import { useCallback, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { submitLead } from '@/lib/leads/client';
 import { TurnstileWidget } from '@/components/site/TurnstileWidget';
+import {
+  ChipGroup,
+  FormFooterNote,
+  Honeypot,
+  SelectField,
+  TextAreaField,
+  TextField,
+} from '@/components/forms/primitives';
 
-// Car Detail inquiry box (Car Detail.dc.html). Prototype-faithful inline form:
-// client-side validation identical to the prototype, sent-state panel on
-// success. Submits to the leads pipeline (handoff/forms.md) with the listing
-// slug/title attached for attribution.
+// Car Detail inquiry box — vehicle-specific inquiry form (2026-07-07 form
+// system, Phase 2). Full contact details + inquiry type + purchase
+// timeframe; the vehicle facts (year/make/model/VIN/price/URL) are attached
+// SERVER-SIDE from the listing slug — the customer never re-enters them.
 
-type Errors = { name?: string; email?: string; message?: string };
+// 'Trade-in' intentionally omitted for now — add here and in the API's
+// INQUIRY_TYPES set when it opens up.
+const INQUIRY_TYPES = [
+  'Request additional information',
+  'Schedule a showroom appointment',
+  'Request a video walkaround',
+  'Request additional photographs',
+  'Discuss transportation',
+  'Discuss pre-delivery PPF, coating, tint or detailing',
+] as const;
 
-function FieldBox({
-  hasErr,
-  minHeight,
-  children,
-}: {
-  hasErr?: boolean;
-  minHeight?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      className="border bg-rb-surface-3 px-4 py-3.5 transition-colors duration-150"
-      style={{ borderColor: hasErr ? '#CC0000' : '#1c1c1c', minHeight }}
-    >
-      {children}
-    </div>
-  );
-}
+const TIMEFRAMES = ['As soon as possible', 'Within 30 days', '1–3 months', 'Just researching'] as const;
+const CONTACT_METHODS = ['Phone call', 'Text', 'Email'] as const;
 
-function FieldLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="mb-[7px] text-[10px] uppercase tracking-[2px] text-rb-tx-faint">{children}</div>
-  );
-}
-
-function FieldError({ children }: { children: React.ReactNode }) {
-  return <div className="mt-[7px] text-[10px] tracking-[0.5px] text-rb-red">{children}</div>;
-}
-
-const inputCls =
-  'w-full border-none bg-transparent p-0 text-[14px] tracking-[0.2px] text-white caret-rb-red outline-none placeholder:text-rb-tx-ghost';
+type Errors = Record<string, string>;
 
 export function InquiryPanel({
   makeModel,
@@ -50,18 +40,27 @@ export function InquiryPanel({
   prefill,
   listingSlug,
   listingTitle,
+  phone: shopPhone,
 }: {
   makeModel: string;
   price: string;
   prefill: string;
   listingSlug: string;
   listingTitle: string;
+  phone?: string | null;
 }) {
   const pathname = usePathname();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [message, setMessage] = useState(prefill);
+  const [fields, setFields] = useState<Record<string, string>>({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    city_state: '',
+    contact_method: '',
+    timeframe: '',
+    inquiry_type: 'Request additional information',
+    message: prefill,
+  });
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
   const [pending, setPending] = useState(false);
@@ -71,17 +70,42 @@ export function InquiryPanel({
   const onToken = useCallback((t: string | null) => {
     turnstileToken.current = t;
   }, []);
+  const rootRef = useRef<HTMLFormElement>(null);
+  const submissionKey = useRef<string>('');
+  if (!submissionKey.current && typeof crypto !== 'undefined') {
+    submissionKey.current = crypto.randomUUID();
+  }
+
+  const bind = (k: string) => ({
+    value: fields[k] ?? '',
+    onChange: (v: string) => {
+      setFields((p) => ({ ...p, [k]: v }));
+      setErrors((e) => (e[k] ? { ...e, [k]: undefined as unknown as string } : e));
+    },
+    error: errors[k],
+  });
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (pending) return;
     const next: Errors = {};
-    if (!name.trim()) next.name = 'Enter your name';
-    if (!email.trim()) next.email = 'Enter your email';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) next.email = 'Enter a valid email';
-    if (!message.trim()) next.message = 'Add a message';
+    if (!fields.first_name.trim()) next.first_name = 'Enter your first name';
+    if (!fields.last_name.trim()) next.last_name = 'Enter your last name';
+    if (!fields.email.trim()) next.email = 'Enter your email';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.trim())) next.email = 'Enter a valid email';
+    if (!fields.phone.trim()) next.phone = 'Enter your phone number';
+    if (!fields.city_state.trim()) next.city_state = 'Enter your city and state';
+    if (!fields.contact_method) next.contact_method = 'Pick one';
+    if (!fields.timeframe) next.timeframe = 'Pick one';
+    if (!fields.inquiry_type) next.inquiry_type = 'Pick one';
+    if (!fields.message.trim()) next.message = 'Add a message';
     if (Object.keys(next).length) {
       setErrors(next);
+      requestAnimationFrame(() => {
+        const box = rootRef.current?.querySelector<HTMLElement>('[data-field-error="true"]');
+        box?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        box?.querySelector<HTMLElement>('input, textarea, select, button')?.focus({ preventScroll: true });
+      });
       return;
     }
     setErrors({});
@@ -89,14 +113,19 @@ export function InquiryPanel({
     setPending(true);
     const result = await submitLead({
       type: 'listing',
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim() || null,
-      interest: null,
-      message: message.trim(),
+      first_name: fields.first_name.trim(),
+      last_name: fields.last_name.trim(),
+      email: fields.email.trim(),
+      phone: fields.phone.trim(),
+      city_state: fields.city_state.trim(),
+      contact_method: fields.contact_method,
+      timeframe: fields.timeframe,
+      inquiry_type: fields.inquiry_type,
+      message: fields.message.trim(),
       listing_slug: listingSlug,
       listing_title: listingTitle,
       source_page: pathname,
+      submission_key: submissionKey.current,
       website,
       turnstileToken: turnstileToken.current,
     });
@@ -112,15 +141,6 @@ export function InquiryPanel({
     setSent(true);
   };
 
-  const reset = () => {
-    setName('');
-    setEmail('');
-    setPhone('');
-    setMessage(prefill);
-    setErrors({});
-    setSent(false);
-  };
-
   if (sent) {
     return (
       <div className="flex min-h-[300px] animate-rb-fade-up flex-col items-start justify-center border border-rb-border bg-rb-surface-2 px-[30px] py-9">
@@ -133,21 +153,17 @@ export function InquiryPanel({
           Inquiry sent.
         </div>
         <p className="mb-7 text-[14px] leading-relaxed text-[#9a9a9a]">
-          We&rsquo;ll be in touch about the {makeModel} within one business day.
+          Thank you for your interest in this vehicle. A member of the Red Box Motors team will
+          contact you directly.
         </p>
-        <button
-          type="button"
-          onClick={reset}
-          className="inline-flex cursor-pointer items-center gap-[9px] border border-rb-border-2 px-5 py-3 text-[12px] tracking-[1px] text-white transition-[background,border-color,transform] duration-[220ms] ease-rb hover:-translate-y-0.5 hover:border-rb-border-3 hover:bg-rb-raised-3 active:translate-y-0 active:scale-[0.98]"
-        >
-          Send another
-        </button>
+        <FormFooterNote phone={shopPhone ?? null} />
       </div>
     );
   }
 
   return (
     <form
+      ref={rootRef}
       noValidate
       onSubmit={submit}
       className="relative border border-[#232323] bg-rb-surface-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
@@ -161,77 +177,29 @@ export function InquiryPanel({
         </div>
         <span className="text-[15px] font-semibold tracking-tight text-white">{price}</span>
       </div>
-      {/* Honeypot — visually hidden; bots fill it */}
-      <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor="iq-website">Website</label>
-        <input
-          id="iq-website"
-          name="website"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          value={website}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+      <Honeypot id="iq-website" value={website} onChange={setWebsite} />
       <div className="flex flex-col gap-0.5 px-[18px] pb-[18px] pt-4">
-        <FieldBox hasErr={!!errors.name}>
-          <FieldLabel>Name</FieldLabel>
-          <input
-            type="text"
-            autoComplete="name"
-            placeholder="Your name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              if (errors.name) setErrors((p) => ({ ...p, name: undefined }));
-            }}
-            className={inputCls}
-          />
-          {errors.name && <FieldError>{errors.name}</FieldError>}
-        </FieldBox>
-        <FieldBox hasErr={!!errors.email}>
-          <FieldLabel>Email</FieldLabel>
-          <input
-            type="email"
-            autoComplete="email"
-            placeholder="you@email.com"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              if (errors.email) setErrors((p) => ({ ...p, email: undefined }));
-            }}
-            className={inputCls}
-          />
-          {errors.email && <FieldError>{errors.email}</FieldError>}
-        </FieldBox>
-        <FieldBox>
-          <FieldLabel>
-            Phone <span className="text-[#444]">· optional</span>
-          </FieldLabel>
-          <input
-            type="tel"
-            autoComplete="tel"
-            placeholder="(512) 555-0000"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className={inputCls}
-          />
-        </FieldBox>
-        <FieldBox hasErr={!!errors.message} minHeight="88px">
-          <FieldLabel>Message</FieldLabel>
-          <textarea
-            rows={2}
-            aria-label="Message"
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
-              if (errors.message) setErrors((p) => ({ ...p, message: undefined }));
-            }}
-            className={`${inputCls} min-h-[60px] resize-none leading-normal`}
-          />
-          {errors.message && <FieldError>{errors.message}</FieldError>}
-        </FieldBox>
+        <div className="grid gap-0.5 sm:grid-cols-2">
+          <TextField id="iq-first" label="First name" autoComplete="given-name"
+            placeholder="First name" {...bind('first_name')} />
+          <TextField id="iq-last" label="Last name" autoComplete="family-name"
+            placeholder="Last name" {...bind('last_name')} />
+        </div>
+        <TextField id="iq-email" label="Email" type="email" autoComplete="email"
+          placeholder="you@email.com" {...bind('email')} />
+        <div className="grid gap-0.5 sm:grid-cols-2">
+          <TextField id="iq-phone" label="Phone" type="tel" autoComplete="tel"
+            placeholder="(512) 555-0000" {...bind('phone')} />
+          <TextField id="iq-city" label="City / State" autoComplete="address-level2"
+            placeholder="Austin, TX" {...bind('city_state')} />
+        </div>
+        <ChipGroup label="Preferred contact method" options={CONTACT_METHODS}
+          {...bind('contact_method')} />
+        <SelectField id="iq-type" label="I'd like to…" options={INQUIRY_TYPES}
+          {...bind('inquiry_type')} />
+        <SelectField id="iq-timeframe" label="Purchase timeframe" options={TIMEFRAMES}
+          {...bind('timeframe')} />
+        <TextAreaField id="iq-message" label="Message" rows={2} {...bind('message')} />
         <TurnstileWidget onToken={onToken} />
         {serverError && (
           <p role="alert" className="mt-1.5 border-l-2 border-rb-red bg-rb-surface-3 px-3.5 py-2.5 text-[12px] font-medium leading-relaxed text-rb-tx-2">
@@ -243,11 +211,14 @@ export function InquiryPanel({
           disabled={pending}
           className="rb-btn-red mt-1.5 flex cursor-pointer items-center justify-center gap-[9px] bg-rb-red p-3.5 text-[13px] tracking-[0.5px] text-white disabled:opacity-60"
         >
-          {pending ? 'Sending…' : 'Send Inquiry'}
+          {pending ? 'Sending…' : 'Inquire About This Vehicle'}
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
             <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.4" />
           </svg>
         </button>
+        <div className="px-1 pb-1">
+          <FormFooterNote phone={shopPhone ?? null} />
+        </div>
       </div>
     </form>
   );
