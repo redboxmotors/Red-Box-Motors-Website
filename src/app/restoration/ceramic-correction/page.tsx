@@ -19,24 +19,24 @@ export const metadata: Metadata = {
 
 const content: ServicePageContent = {
   bg: { src: '/assets/trust-gt3rs.jpeg', alt: '', position: 'center 56%' },
-  kicker: '— Cosmetics · Ceramic & Correction',
+  kicker: 'Cosmetics · Ceramic & Correction',
   hero: {
     src: '/assets/trust-gt3rs.jpeg',
     alt: 'Ceramic coating and paint correction, Austin TX',
     position: 'center 50%',
   },
   titleLines: ['Correct it.', 'Then lock it in.'],
-  sub: 'Multi-stage paint correction and Carbon Collective ceramic coatings — Austin, Texas.',
+  sub: 'Multi-stage paint correction and Carbon Collective ceramic coatings, Austin, Texas.',
   ribbon: ['Hydrophobic', 'Chemical-resistant', 'UV-resistant', 'Self-cleaning'],
   statement: {
     heading: 'A mirror finish is made in the paint, then sealed.',
     paras: [
-      'Great gloss starts with the surface itself. We level swirls, holograms, wash marring and light scratches through multi-stage machine correction — bringing back the depth and clarity the factory finish is capable of.',
+      'Great gloss starts with the surface itself. We level swirls, holograms, wash marring and light scratches through multi-stage machine correction, bringing back the depth and clarity the factory finish is capable of.',
       'Then we seal that corrected paint with a Carbon Collective ceramic coating: a hard, hydrophobic layer that beads water, resists staining and UV fade, and makes the whole car far easier to keep clean for years.',
     ],
   },
   properties: {
-    kicker: '— Why a coating works',
+    kicker: 'Why a coating works',
     items: [
       {
         title: 'Hydrophobic',
@@ -48,7 +48,7 @@ const content: ServicePageContent = {
       },
       {
         title: 'Slick & clean',
-        text: 'Dirt struggles to bond to the low-friction surface — cutting wash times and swirl risk every time you clean it.',
+        text: 'Dirt struggles to bond to the low-friction surface, cutting wash times and swirl risk every time you clean it.',
       },
       {
         title: 'Depth & gloss',
@@ -62,9 +62,9 @@ const content: ServicePageContent = {
       alt: 'Paint correction under inspection lighting',
       position: 'center 52%',
     },
-    kicker: '— Packages',
+    kicker: 'Packages',
     heading: 'Correction for the condition.',
-    note: 'Paint assessed under controlled light — then the right number of stages.',
+    note: 'Paint assessed under controlled light, then the right number of stages.',
     rows: [
       {
         kicker: '01 · Enhancement',
@@ -91,7 +91,7 @@ const content: ServicePageContent = {
       {
         kicker: '03 · Show',
         title: 'Concours correction',
-        desc: 'Maximum clarity — for show cars and flagship finishes.',
+        desc: 'Maximum clarity, for show cars and flagship finishes.',
         chips: [
           { label: 'Everything in Multi-stage', tone: 'dim' },
           { label: 'Wet-sanding (as needed)' },
@@ -128,11 +128,11 @@ const content: ServicePageContent = {
       },
       minHeight: 420,
       caption: 'Carbon Collective ceramic · STEK PPF',
-      kicker: '— Coating + film',
+      kicker: 'Coating + film',
       heading: 'Coat the paint, or coat the film.',
       headingMax: '16ch',
       paras: [
-        "A ceramic can seal bare corrected paint or go straight over STEK paint protection film. On a car already wearing PPF, the coating adds slickness and stain resistance to the film's impact protection — the two work as one system, and we plan them together.",
+        "A ceramic can seal bare corrected paint or go straight over STEK paint protection film. On a car already wearing PPF, the coating adds slickness and stain resistance to the film's impact protection, the two work as one system, and we plan them together.",
         "New delivery? We'll correct and coat before it ever sees a car wash, so the finish starts perfect and stays that way.",
       ],
     },
@@ -140,9 +140,9 @@ const content: ServicePageContent = {
   cta: {
     variant: 'flush',
     photoAlt: 'Book ceramic coating',
-    kicker: '— Perfect it',
+    kicker: 'Perfect it',
     heading: 'Bring back the gloss.',
-    text: "Tell us the car and its condition — we'll recommend the right correction and coating package.",
+    text: "Tell us the car and its condition, we'll recommend the right correction and coating package.",
     secondary: { label: 'Add PPF →', href: '/restoration/ppf' },
   },
 };

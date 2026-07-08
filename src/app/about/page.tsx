@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about' },
   title: 'About',
   description:
-    'From Red Box Restoration to Red Box Motors — the story, the standard and the team behind a complete automotive company in Austin, Texas.',
+    'From Red Box Restoration to Red Box Motors, the story, the standard and the team behind a complete automotive company in Austin, Texas.',
 };
 
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
@@ -44,12 +44,12 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 // Owner-specified operating principles — specific, not generic.
 const STANDARD = [
   { title: 'Accountability', text: 'One team owns the outcome. If something is not right, we make it right.' },
-  { title: 'Inspection & Documentation', text: 'Condition recorded before work begins and after it ends — photographs, notes and paperwork you can keep.' },
+  { title: 'Inspection & Documentation', text: 'Condition recorded before work begins and after it ends, photographs, notes and paperwork you can keep.' },
   { title: 'Clear Communication', text: 'You hear from us before decisions are made, not after. Scope, timeline and cost in writing.' },
-  { title: 'Professional Preparation', text: 'Every service starts with proper prep — decontamination, correction and masking before anything is installed or applied.' },
-  { title: 'Quality Materials & Processes', text: 'STEK films, Carbon Collective coatings and processes we have trained on — no shortcuts on what goes on your car.' },
+  { title: 'Professional Preparation', text: 'Every service starts with proper prep, decontamination, correction and masking before anything is installed or applied.' },
+  { title: 'Quality Materials & Processes', text: 'STEK films, Carbon Collective coatings and processes we have trained on, no shortcuts on what goes on your car.' },
   { title: 'Final Inspection', text: 'Nothing is delivered until it passes the same inspection we would want on our own cars.' },
-  { title: 'Follow-Through', text: 'Aftercare guidance and a direct line to the people who did the work — the relationship does not end at delivery.' },
+  { title: 'Follow-Through', text: 'Aftercare guidance and a direct line to the people who did the work, the relationship does not end at delivery.' },
 ];
 
 // Supportable credentials & partnerships only — no invented claims.
@@ -105,7 +105,7 @@ export default function AboutPage() {
             />
             <div className="absolute inset-x-0 bottom-0 px-7 pb-[34px] md:px-[52px]">
               <h1 className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — About Red Box Motors
+                About Red Box Motors
               </h1>
               <div
                 className="font-bold text-white"
@@ -126,7 +126,7 @@ export default function AboutPage() {
             >
               Red Box began with a simple belief: exceptional vehicles deserve more care, more
               attention and more accountability than the traditional automotive experience
-              provides. What started as Red Box Restoration has evolved into Red Box Motors—a
+              provides. What started as Red Box Restoration has evolved into Red Box Motors, a
               complete automotive company built around the ownership, protection, presentation and
               sale of enthusiast and collector vehicles.
             </p>
@@ -136,7 +136,7 @@ export default function AboutPage() {
           <TintSection tint>
             <div className="mt-12 grid gap-10 border-t border-rb-line px-7 pt-12 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:px-[52px]">
               <div>
-                <Eyebrow>— The origin</Eyebrow>
+                <Eyebrow>,  The origin</Eyebrow>
                 <h2
                   data-reveal
                   className="m-0 max-w-[18ch] font-bold text-white"
@@ -146,7 +146,7 @@ export default function AboutPage() {
                 </h2>
                 <p data-reveal style={{ transitionDelay: '.1s' }} className="mb-0 mt-7 text-[15px] leading-[1.8] text-[#a2a2a2]">
                   Red Box Restoration first established itself through detailing, paint correction,
-                  paint protection film, ceramic coatings and presentation work — the slow,
+                  paint protection film, ceramic coatings and presentation work, the slow,
                   hands-on disciplines where the difference between good and exceptional lives in
                   the prep. The problem it solved was accountability: owners of serious cars had
                   plenty of places to drop a car off, and very few where one person owned the
@@ -156,7 +156,7 @@ export default function AboutPage() {
                   The work built trust, and trust changed the business. Clients began asking
                   Red Box to help sell vehicles, prepare new purchases for delivery and
                   coordinate transportation. Sales &amp; consignment did not replace the
-                  restoration work — it grew out of it.
+                  restoration work, it grew out of it.
                 </p>
               </div>
               <div className="relative mb-12 min-h-[300px] overflow-hidden bg-rb-surface-4">
@@ -193,7 +193,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <div>
-                <Eyebrow>— The founder</Eyebrow>
+                <Eyebrow>,  The founder</Eyebrow>
                 <h2
                   data-reveal
                   className="m-0 font-bold text-white"
@@ -202,7 +202,7 @@ export default function AboutPage() {
                   Justin McClung
                 </h2>
                 <p data-reveal style={{ transitionDelay: '.08s' }} className="mb-0 mt-6 text-[15px] leading-[1.8] text-[#a2a2a2]">
-                  Justin&rsquo;s background is automotive through and through — including time with
+                  Justin&rsquo;s background is automotive through and through, including time with
                   Ford Motor Company and years spent evaluating automotive damage and repair
                   quality, learning exactly where corners get cut and what a proper repair looks
                   like from the inside. Add hands-on education in detailing and paint correction,
@@ -223,7 +223,7 @@ export default function AboutPage() {
           {/* 4 · COMPANY EVOLUTION */}
           <TintSection tint>
             <div className="border-t border-rb-line px-7 py-12 md:px-[52px]">
-              <Eyebrow>— The evolution</Eyebrow>
+              <Eyebrow>,  The evolution</Eyebrow>
               <div data-reveal className="flex flex-wrap items-center gap-4">
                 <span className="text-[24px] font-bold tracking-tight text-rb-tx-faint md:text-[32px]">
                   Red Box Restoration
@@ -237,7 +237,7 @@ export default function AboutPage() {
               </div>
               <p data-reveal style={{ transitionDelay: '.1s' }} className="mb-0 mt-6 max-w-[760px] text-[15px] leading-[1.8] text-[#a2a2a2]">
                 The company expanded from protection and restoration into professional vehicle
-                sales and consignment — without abandoning the original standards. The restoration
+                sales and consignment, without abandoning the original standards. The restoration
                 bay is still where every represented vehicle is prepared, and the same inspection
                 discipline that built the brand now backs every transaction.
               </p>
@@ -247,7 +247,7 @@ export default function AboutPage() {
           {/* 5 · VEHICLE-OWNERSHIP LIFECYCLE */}
           <TintSection tint>
             <div className="border-t border-rb-line px-7 py-12 md:px-[52px]">
-              <Eyebrow>— One relationship, every stage</Eyebrow>
+              <Eyebrow>,  One relationship, every stage</Eyebrow>
               <h2
                 data-reveal
                 className="m-0 font-bold text-white"
@@ -267,7 +267,7 @@ export default function AboutPage() {
                 ))}
               </div>
               <p data-reveal style={{ transitionDelay: '.16s' }} className="mb-0 mt-8 max-w-[720px] text-[14.5px] leading-[1.75] text-[#a2a2a2]">
-                Red Box Motors is built to support each stage — so the shop that protected the car
+                Red Box Motors is built to support each stage, so the shop that protected the car
                 is the same one that presents it properly when it is time to move on.
               </p>
             </div>
@@ -276,7 +276,7 @@ export default function AboutPage() {
           {/* 6 · THE RED BOX STANDARD */}
           <TintSection tint>
             <div className="border-t border-rb-line px-7 py-12 md:px-[52px]">
-              <Eyebrow>— The Red Box Standard</Eyebrow>
+              <Eyebrow>,  The Red Box Standard</Eyebrow>
               <h2
                 data-reveal
                 className="m-0 max-w-[20ch] font-bold text-white"
@@ -302,7 +302,7 @@ export default function AboutPage() {
           {/* 8 · CREDENTIALS & PARTNERSHIPS */}
           <TintSection tint>
             <div className="border-t border-rb-line px-7 py-12 md:px-[52px]">
-              <Eyebrow>— Credentials &amp; partnerships</Eyebrow>
+              <Eyebrow>,  Credentials &amp; partnerships</Eyebrow>
               <div data-reveal className="grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-5">
                 {CREDENTIALS.map((c) => (
                   <div key={c.name} className="border-t border-rb-line-2 pt-3.5">
@@ -334,7 +334,7 @@ export default function AboutPage() {
               />
             </div>
             <div className="flex min-w-0 flex-col justify-center px-7 py-12 md:flex-1 md:px-14 md:py-[72px]">
-              <Eyebrow>— Facility &amp; location</Eyebrow>
+              <Eyebrow>,  Facility &amp; location</Eyebrow>
               <h2
                 className="m-0 max-w-[13ch] font-extrabold text-white"
                 style={{ fontSize: 'clamp(30px,3.8vw,54px)', letterSpacing: '-0.04em', lineHeight: 0.98 }}
@@ -343,7 +343,7 @@ export default function AboutPage() {
               </h2>
               <p className="mb-0 mt-6 max-w-[460px] text-[15px] leading-[1.8] text-[#a2a2a2]">
                 Showroom, restoration bay and consignment preparation share one building on the
-                southeast side of Austin, minutes from Circuit of the Americas — close to the
+                southeast side of Austin, minutes from Circuit of the Americas, close to the
                 track days and events our clients actually drive to. Visits are by appointment.
               </p>
             </div>

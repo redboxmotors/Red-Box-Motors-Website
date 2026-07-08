@@ -17,7 +17,7 @@ const TILES: ServiceTile[] = [
   {
     href: '/restoration/ppf',
     title: 'Paint Protection',
-    desc: 'Self-healing STEK film — full-body and high-impact coverage.',
+    desc: 'Self-healing STEK film, full-body and high-impact coverage.',
     img: '/assets/ppf-hero.jpg',
     position: 'center 55%',
     icon: (

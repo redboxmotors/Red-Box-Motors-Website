@@ -18,7 +18,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/restoration/work' },
-  title: { absolute: 'Recent Work — Red Box Restoration | Red Box Motors' },
+  title: { absolute: 'Recent Work, Red Box Restoration | Red Box Motors' },
   description:
     'Recent paint protection film, ceramic coating, paint correction, wrap and wheel projects from Red Box Restoration, Austin, TX.',
 };
@@ -72,7 +72,7 @@ export default async function RecentWorkPage() {
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-6 pb-[34px] md:px-12">
               <div>
                 <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Red Box Restoration · Recent Work
+                  Red Box Restoration · Recent Work
                 </div>
                 <div
                   className="font-bold text-white"
@@ -84,7 +84,7 @@ export default async function RecentWorkPage() {
                   className="m-0 mt-[18px] max-w-[640px] text-[15px] leading-[1.6] tracking-[0.2px] text-[#c4c4c4]"
                   style={{ textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
                 >
-                  Every project here came through our Austin shop — paint protection, ceramic,
+                  Every project here came through our Austin shop, paint protection, ceramic,
                   correction, wraps and wheels. Documented panel by panel so you
                   can judge the standard before you drop a car off.
                 </p>
@@ -127,7 +127,7 @@ export default async function RecentWorkPage() {
               </div>
               <div className="flex min-w-[320px] flex-1 flex-col justify-center px-6 py-20 md:px-16 md:py-[100px]">
                 <div className="mb-[22px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Start a project
+                  Start a project
                 </div>
                 <h2
                   className="m-0 max-w-[15ch] font-extrabold text-white"
@@ -136,14 +136,14 @@ export default async function RecentWorkPage() {
                   Bring us the car.
                 </h2>
                 <p className="m-0 mt-7 max-w-[500px] text-[16.5px] font-medium leading-[1.7] text-rb-tx-mute">
-                  Tell us what you&rsquo;re protecting or transforming — paint protection, ceramic,
+                  Tell us what you&rsquo;re protecting or transforming, paint protection, ceramic,
                   correction, wrap, wheels or specialty installations. We&rsquo;ll walk you through the
                   right approach for your car and handle it under one roof in Austin.
                 </p>
 
                 <div className="mt-[30px] grid grid-cols-1 gap-0.5 bg-rb-raised-3 sm:grid-cols-2">
                   {[
-                    { h: 'Protection', d: 'STEK self-healing PPF — front-end to full-body coverage.' },
+                    { h: 'Protection', d: 'STEK self-healing PPF, front-end to full-body coverage.' },
                     { h: 'Finish', d: 'Carbon Collective ceramics over a proper paint correction.' },
                     { h: 'Transformation', d: 'Color-change wraps, wheel refinishing and custom finishes.' },
                     { h: 'Specialty', d: 'Wheels, tint, detailing and one-off specialty projects.' },

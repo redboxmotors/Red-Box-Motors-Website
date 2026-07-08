@@ -13,13 +13,13 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/dealer/sell' },
-  title: { absolute: 'Sell or Consign Your Vehicle — Red Box Motors | Austin, TX' },
+  title: { absolute: 'Sell or Consign Your Vehicle · Red Box Motors | Austin, TX' },
   description:
-    'Submit your vehicle to Red Box Motors for consignment. Tell us about the car, your timeline and expectations — our team will review and contact you.',
+    'Submit your vehicle to Red Box Motors for consignment. Tell us about the car, your timeline and expectations, our team will review and contact you.',
 };
 
 const PROCESS = [
-  ['Submit your vehicle', 'The details below — about five minutes.'],
+  ['Submit your vehicle', 'The details below, about five minutes.'],
   ['Valuation & strategy', 'We review the car and current market positioning with you.'],
   ['Preparation & presentation', 'Detailing, paperwork and photography handled.'],
   ['Marketing & buyer management', 'We run the listing, the calls and the negotiations.'],
@@ -41,7 +41,7 @@ export default async function SellPage() {
               Sell Your Vehicle
             </span>
             <span className="text-[11px] text-rb-tx-faint">
-              Consignment with Red Box Motors — Austin, TX
+              Consignment with Red Box Motors, Austin, TX
             </span>
           </div>
 
@@ -54,7 +54,7 @@ export default async function SellPage() {
                 represented properly.
               </h1>
               <p className="mb-10 max-w-[420px] text-[15px] leading-[1.65] text-[#9a9a9a]">
-                Tell us about the vehicle once — condition, history and what you want out of the
+                Tell us about the vehicle once, condition, history and what you want out of the
                 sale. Our team reviews every submission and comes back to you with a real read on
                 the market.
               </p>

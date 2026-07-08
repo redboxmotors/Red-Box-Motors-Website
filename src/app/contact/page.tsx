@@ -16,7 +16,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/contact' },
-  title: { absolute: 'Contact — Red Box Motors | Austin, TX' },
+  title: { absolute: 'Contact · Red Box Motors | Austin, TX' },
   description:
     'Reach Red Box Motors about buying, selling, consignment, protection or customization in Austin, TX.',
 };
@@ -84,7 +84,7 @@ export default async function ContactPage({
                   href={`tel:${(settings.phone ?? '').replace(/[^+\d]/g, '')}`}
                 />
                 <DetailRow label="Location" value={settings.address_line ?? 'Austin, TX'} />
-                <DetailRow label="Hours" value="By appointment · Mon–Sat" last />
+                <DetailRow label="Hours" value="By appointment · Mon-Sat" last />
               </div>
             </div>
 

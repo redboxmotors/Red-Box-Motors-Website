@@ -90,7 +90,7 @@ export function EndToEndSection() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/assets/mclaren-p1.jpg"
-          alt="Red Box Motors — how it works"
+          alt="Red Box Motors, how it works"
           className="absolute inset-0 h-full w-full object-cover"
           style={{ objectPosition: 'center 45%' }}
           loading="lazy"
@@ -98,7 +98,7 @@ export function EndToEndSection() {
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.35)_0%,rgba(10,10,10,0.04)_32%,rgba(10,10,10,0.55)_74%,#0C0C0C_100%)]" />
         <div className="absolute inset-x-0 bottom-0 px-6 pb-[42px] md:px-[52px]">
           <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-            — How it works
+            How it works
           </div>
           <h2
             className="m-0 max-w-[15ch] font-extrabold text-white"

@@ -13,33 +13,33 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   title: 'Vinyl Wrap & Color Change Austin',
   description:
-    'Color-change and custom vinyl wraps — reversible and paint-safe, in Austin, TX.',
+    'Color-change and custom vinyl wraps, reversible and paint-safe, in Austin, TX.',
 };
 
 const content: ServicePageContent = {
   bg: { src: '/assets/placeholders/detail-bay.jpg', alt: '', position: 'center 56%' },
-  kicker: '— Cosmetics · Vinyl Wrap',
+  kicker: 'Cosmetics · Vinyl Wrap',
   hero: {
     src: '/assets/placeholders/detail-bay.jpg',
     alt: 'Vinyl wrap install, Austin TX',
     position: 'center 50%',
   },
   titleLines: ['A whole new look.', 'Fully reversible.'],
-  sub: 'STEK color-change and finish films — installed in Austin, Texas.',
+  sub: 'STEK color-change and finish films, installed in Austin, Texas.',
   ribbon: ['Color-change', 'Reversible', 'Any finish', 'Hand-laid'],
   statement: {
     heading: 'Change everything, without touching the paint.',
     paras: [
-      'A vinyl wrap transforms the entire look of a car without a single drop of paint — color-change, satin, matte, gloss, chrome-delete and custom finishes, all applied over the factory surface.',
+      'A vinyl wrap transforms the entire look of a car without a single drop of paint, color-change, satin, matte, gloss, chrome-delete and custom finishes, all applied over the factory surface.',
       "It's the cleanest way to reinvent a daily, a track car or a collectible, protect the paint underneath while you own it, and return the car to original for resale.",
     ],
   },
   properties: {
-    kicker: '— Why wrap',
+    kicker: 'Why wrap',
     items: [
       {
         title: 'Reversible',
-        text: "Film sits on top of your paint — run a bold look for a season, then peel it and you're back to factory.",
+        text: "Film sits on top of your paint, run a bold look for a season, then peel it and you're back to factory.",
       },
       {
         title: 'Any finish',
@@ -51,7 +51,7 @@ const content: ServicePageContent = {
       },
       {
         title: 'Hand-laid',
-        text: 'Every panel cut and laid by hand with wrapped edges and clean gaps — no lifting, no bubbles, no seams.',
+        text: 'Every panel cut and laid by hand with wrapped edges and clean gaps, no lifting, no bubbles, no seams.',
       },
     ],
   },
@@ -61,9 +61,9 @@ const content: ServicePageContent = {
       alt: 'Color-change vinyl wrap finishes',
       position: 'center 52%',
     },
-    kicker: '— Finishes',
+    kicker: 'Finishes',
     heading: 'Every finish, done right.',
-    note: "See samples in person — we'll map the wrap to your car.",
+    note: "See samples in person, we'll map the wrap to your car.",
     rows: [
       {
         kicker: '01 · Color change',
@@ -104,7 +104,7 @@ const content: ServicePageContent = {
     steps: [
       {
         title: 'Prep',
-        text: 'The paint is washed, decontaminated and corrected first — vinyl only looks as good as the surface under it, and clean paint lets the film bond and last.',
+        text: 'The paint is washed, decontaminated and corrected first, vinyl only looks as good as the surface under it, and clean paint lets the film bond and last.',
       },
       {
         title: 'Lay',
@@ -112,7 +112,7 @@ const content: ServicePageContent = {
       },
       {
         title: 'Finish',
-        text: 'Edges are wrapped and tucked, panel gaps cleaned up and trim reset — so the wrap reads like the car came painted that way.',
+        text: 'Edges are wrapped and tucked, panel gaps cleaned up and trim reset, so the wrap reads like the car came painted that way.',
       },
     ],
   },
@@ -126,21 +126,21 @@ const content: ServicePageContent = {
       },
       minHeight: 420,
       caption: 'STEK wrap · STEK PPF',
-      kicker: '— Wrap + protect',
+      kicker: 'Wrap + protect',
       heading: 'The new look, and long-term protection.',
       headingMax: '16ch',
       paras: [
-        'Want both? We can lay STEK paint protection film first and wrap over it, or run a colored PPF that changes the finish and armors the paint in one layer — same shop, same standard, planned together so the surfaces work as a system.',
-        'Prep is everything with vinyl — we correct and decontaminate the paint before a single panel is laid, so the finish is flawless and the film lasts.',
+        'Want both? We can lay STEK paint protection film first and wrap over it, or run a colored PPF that changes the finish and armors the paint in one layer, same shop, same standard, planned together so the surfaces work as a system.',
+        'Prep is everything with vinyl, we correct and decontaminate the paint before a single panel is laid, so the finish is flawless and the film lasts.',
       ],
     },
   ],
   cta: {
     variant: 'flush',
     photoAlt: 'Book a vinyl wrap',
-    kicker: '— Transform it',
+    kicker: 'Transform it',
     heading: 'Reinvent the car.',
-    text: "Bring us the color or finish you have in mind — we'll show you samples and map the wrap to your car.",
+    text: "Bring us the color or finish you have in mind, we'll show you samples and map the wrap to your car.",
     secondary: { label: 'Add PPF →', href: '/restoration/ppf' },
   },
 };
@@ -148,7 +148,7 @@ const content: ServicePageContent = {
 export default function VinylPage() {
   return (
     <>
-      <SchemaScript schema={serviceSchema('Vinyl Wrap & Color Change', 'Color-change and custom vinyl wraps — reversible and paint-safe, in Austin, TX.', '/restoration/vinyl')} />
+      <SchemaScript schema={serviceSchema('Vinyl Wrap & Color Change', 'Color-change and custom vinyl wraps, reversible and paint-safe, in Austin, TX.', '/restoration/vinyl')} />
       <ServiceScrollPage content={content} visitAndFaq={<VisitAndFAQ division="cosmetics" />} />
     </>
   );

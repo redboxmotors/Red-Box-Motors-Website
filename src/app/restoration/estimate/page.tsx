@@ -12,7 +12,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/restoration/estimate' },
-  title: { absolute: 'Request a Restoration Estimate — Red Box Motors | Austin, TX' },
+  title: { absolute: 'Request a Restoration Estimate · Red Box Motors | Austin, TX' },
   description:
     'Request an estimate for paint protection film, paint correction, ceramic coating, wraps, tint, detailing or wheels from Red Box Restoration in Austin, TX.',
 };
@@ -38,7 +38,7 @@ export default async function EstimatePage() {
               Request an Estimate
             </span>
             <span className="text-[11px] text-rb-tx-faint">
-              Red Box Restoration — Austin, TX
+              Red Box Restoration, Austin, TX
             </span>
           </div>
 
@@ -50,7 +50,7 @@ export default async function EstimatePage() {
                 the project.
               </h1>
               <p className="mb-10 max-w-[400px] text-[15px] leading-[1.65] text-[#9a9a9a]">
-                Protection, correction or a full transformation — describe the car and the goal,
+                Protection, correction or a full transformation, describe the car and the goal,
                 and the right specialist will come back to you with scope and pricing.
               </p>
               <ol className="flex flex-col">

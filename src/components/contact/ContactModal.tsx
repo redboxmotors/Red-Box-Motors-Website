@@ -127,13 +127,13 @@ export function ContactModalProvider({
               </button>
 
               <div className="mb-3 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Get in touch
+                Get in touch
               </div>
               <div className="pr-12 text-[30px] font-extrabold leading-[1.02] tracking-[-0.03em] text-white sm:text-[36px]">
                 Tell us about your car.
               </div>
               <p className="mb-8 mt-3.5 max-w-[440px] text-[14.5px] leading-[1.6] text-rb-tx-mute">
-                Buying, selling, protecting or transforming — we reply within one business day.
+                Buying, selling, protecting or transforming, we reply within one business day.
               </p>
 
               <ContactForm

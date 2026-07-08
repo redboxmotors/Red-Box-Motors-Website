@@ -167,7 +167,9 @@
       "Bash(sips -r 90 public/assets/resto-detailing.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/resto-detailing.jpg)",
       "Bash(git commit -q -m 'Restoration: Dino foam-wash photo for the Detailing section *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(awk -F: '{print $1}')",
+      "Bash(grep -rn \" , \\\\| ,$\\\\|,,\" src/app src/components --include='*.tsx' --include='*.ts')"
     ]
   }
 }

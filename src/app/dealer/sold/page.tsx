@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   title: "Cars We've Sold",
   description:
-    'A record of past placements — cars sold and consigned by Red Box Motors, Austin, TX, to vetted owners.',
+    'A record of past placements, cars sold and consigned by Red Box Motors, Austin, TX, to vetted owners.',
 };
 
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
@@ -55,7 +55,7 @@ export default async function SoldPage() {
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-6 pb-[34px] md:px-12">
               <div>
                 <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Dealer · Track record
+                  Dealer · Track record
                 </div>
                 <h1
                   className="m-0 font-bold text-white"
@@ -67,7 +67,7 @@ export default async function SoldPage() {
                   className="mb-0 mt-[18px] max-w-[640px] text-[15px] leading-[1.6] tracking-[0.2px] text-[#c4c4c4]"
                   style={{ textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
                 >
-                  A record of past placements — sold and consigned quietly, correctly, to the right
+                  A record of past placements, sold and consigned quietly, correctly, to the right
                   owners. Proof of the network and the process, not for sale.
                 </p>
               </div>
@@ -143,7 +143,7 @@ export default async function SoldPage() {
             </div>
             <div className="flex min-w-[300px] flex-1 flex-col justify-center px-8 py-14 md:px-14 md:py-16">
               <div className="mb-[22px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Your car could be next
+                Your car could be next
               </div>
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
@@ -152,7 +152,7 @@ export default async function SoldPage() {
                 Have one to sell? We&rsquo;ll place it.
               </h2>
               <p className="mb-0 mt-6 max-w-[460px] text-[15px] font-medium leading-[1.7] text-rb-tx-mute">
-                We handle valuation, detailing, marketing, buyer vetting and the full transaction —
+                We handle valuation, detailing, marketing, buyer vetting and the full transaction: 
                 escrow, paperwork and insured transport. You set the reserve; we do the rest. Prefer
                 a clean exit? We&rsquo;ll make a direct offer and close on your timeline.
               </p>

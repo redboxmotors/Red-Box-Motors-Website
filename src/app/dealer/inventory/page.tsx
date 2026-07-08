@@ -44,11 +44,11 @@ const SHOW_SOURCED_PIPELINE = false;
 // Inventory-specific questions (owner checklist 2026-07-07) — the general
 // FAQ lives on the homepage only.
 const INVENTORY_FAQ = [
-  { q: 'Can I schedule a viewing?', a: 'Yes — visits are by appointment at our Austin facility. Use the inquiry form on any vehicle page or call us to set a time.' },
+  { q: 'Can I schedule a viewing?', a: 'Yes, visits are by appointment at our Austin facility. Use the inquiry form on any vehicle page or call us to set a time.' },
   { q: 'Can I request additional photos or video?', a: 'Yes. Every vehicle page has an inquiry form where you can request additional photographs or a personal video walkaround.' },
-  { q: 'Can a third-party inspection be arranged?', a: 'Yes — we accommodate independent pre-purchase inspections and can help coordinate one locally.' },
+  { q: 'Can a third-party inspection be arranged?', a: 'Yes, we accommodate independent pre-purchase inspections and can help coordinate one locally.' },
   { q: 'Can enclosed transportation be coordinated?', a: 'Yes. Enclosed, insured door-to-door transport can be arranged nationwide as part of the purchase.' },
-  { q: 'Can Red Box complete PPF, coating, tint or detailing before delivery?', a: 'Yes — Red Box Restoration can protect and prepare the vehicle before it ever leaves the building. Ask about pre-delivery packages on any inquiry.' },
+  { q: 'Can Red Box complete PPF, coating, tint or detailing before delivery?', a: 'Yes, Red Box Restoration can protect and prepare the vehicle before it ever leaves the building. Ask about pre-delivery packages on any inquiry.' },
 ];
 
 const SORT_KEYS: SortKey[] = ['price-desc', 'price-asc', 'year-desc', 'miles-asc'];
@@ -305,7 +305,7 @@ export default async function DealerInventoryPage({
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-12 pb-[34px]">
               <div>
                 <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Sales &amp; Consignment · Inventory
+                  Sales &amp; Consignment · Inventory
                 </div>
                 <h1
                   className="m-0 font-bold text-white"
@@ -382,7 +382,7 @@ export default async function DealerInventoryPage({
               >
                 <div>
                   <div className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                    — Beyond the floor
+                    Beyond the floor
                   </div>
                   <h2
                     className="m-0 font-bold leading-none text-white"
@@ -433,7 +433,7 @@ export default async function DealerInventoryPage({
                 <>
                   <SectionHeader
                     label="Found for clients"
-                    note="Sourced on request — off-market & nationwide"
+                    note="Sourced on request, off-market & nationwide"
                     link={
                       <Link
                         href="/dealer/sourced"
@@ -521,7 +521,7 @@ export default async function DealerInventoryPage({
             </div>
             <div className="flex min-w-[300px] flex-1 flex-col justify-center px-6 py-20 md:px-16 md:py-[100px]">
               <div className="mb-[22px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Don&rsquo;t see it here?
+                Don&rsquo;t see it here?
               </div>
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
@@ -535,7 +535,7 @@ export default async function DealerInventoryPage({
               </h2>
               <p className="mb-0 mt-7 max-w-[500px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute">
                 Selling a car you care about? We professionally prepare, market and represent
-                vehicles to qualified buyers nationwide — tell us about yours.
+                vehicles to qualified buyers nationwide, tell us about yours.
               </p>
               <div className="mt-11 flex flex-wrap items-center gap-[22px]">
                 <Link

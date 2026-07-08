@@ -313,7 +313,7 @@ export function ServiceScrollPage({
             <div className="border-t border-rb-line px-6 pb-16 pt-[60px] md:px-[52px]">
               <div data-reveal style={reveal()}>
                 <div className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — The process
+                  The process
                 </div>
                 <h2
                   className="m-0 font-bold leading-none text-white"

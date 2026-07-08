@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: 'Custom Builds & Modifications',
   description: 'Custom builds, aero, wheels and modifications, executed end to end in Austin, TX.',
   openGraph: {
-    title: 'Custom Builds & Modifications — Red Box Motors',
+    title: 'Custom Builds & Modifications, Red Box Motors',
     description:
       'Custom builds, aero, wheels and modifications, executed end to end in Austin, TX.',
     type: 'website',
@@ -32,7 +32,7 @@ const BUILDS: { id: string; tag: string; name: string; desc: string; chips: stri
     id: 'body',
     tag: 'body kits',
     name: 'Widebody & Body Kits',
-    desc: 'Bolt-on and fully-fitted widebody conversions, aero and complete kits — fitted, blended and painted to match.',
+    desc: 'Bolt-on and fully-fitted widebody conversions, aero and complete kits, fitted, blended and painted to match.',
     chips: ['Liberty Walk', 'Brabus', 'LART'],
   },
   {
@@ -46,28 +46,28 @@ const BUILDS: { id: string; tag: string; name: string; desc: string; chips: stri
     id: 'interior',
     tag: 'interior',
     name: 'Full Interior',
-    desc: 'Interiors rebuilt from the shell out — leather, Alcantara, carbon and custom trim.',
+    desc: 'Interiors rebuilt from the shell out, leather, Alcantara, carbon and custom trim.',
     chips: ['Retrim', 'Leather', 'Carbon'],
   },
   {
     id: 'audio',
     tag: 'audio',
     name: 'Sound Systems',
-    desc: 'Complete audio builds — head units, amplification, speakers and sound deadening, installed clean.',
+    desc: 'Complete audio builds, head units, amplification, speakers and sound deadening, installed clean.',
     chips: ['Head units', 'Amps', 'Deadening'],
   },
   {
     id: 'exhaust',
     tag: 'exhaust',
     name: 'Exhaust',
-    desc: 'Note, tone and flow — cat-back, valved and titanium systems fitted end to end.',
+    desc: 'Note, tone and flow, cat-back, valved and titanium systems fitted end to end.',
     chips: ['Cat-back', 'Valved', 'Titanium'],
   },
   {
     id: 'stance',
     tag: 'stance',
     name: 'Stance & Fitment',
-    desc: 'Ride height, suspension and air — the mechanical work coordinated to land the look.',
+    desc: 'Ride height, suspension and air, the mechanical work coordinated to land the look.',
     chips: ['Suspension', 'Air ride', 'Coordinated'],
   },
 ];
@@ -83,7 +83,7 @@ const ROOF_LIST = [
 const STEPS: { title: string; body: string }[] = [
   {
     title: 'Concept',
-    body: 'We start with the vision — stance, finish, kit and the details — then translate it into a build plan: parts sourced, disciplines sequenced and a realistic timeline set before anything comes apart.',
+    body: 'We start with the vision, stance, finish, kit and the details, then translate it into a build plan: parts sourced, disciplines sequenced and a realistic timeline set before anything comes apart.',
   },
   {
     title: 'Build',
@@ -91,7 +91,7 @@ const STEPS: { title: string; body: string }[] = [
   },
   {
     title: 'Deliver',
-    body: 'The finished car is corrected, protected and fully detailed, then documented and handed back complete — road-ready and exactly as planned, not almost.',
+    body: 'The finished car is corrected, protected and fully detailed, then documented and handed back complete, road-ready and exactly as planned, not almost.',
   },
 ];
 
@@ -141,7 +141,7 @@ export default function CustomBuildsPage() {
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-6 pb-[34px] md:px-12">
               <div>
                 <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Cosmetics · Custom Builds
+                  Cosmetics · Custom Builds
                 </div>
                 <h1
                   className="m-0 font-bold text-white"
@@ -153,7 +153,7 @@ export default function CustomBuildsPage() {
                   className="mb-0 mt-[18px] max-w-[640px] text-[15px] leading-relaxed text-[#c4c4c4]"
                   style={{ letterSpacing: '0.2px', textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
                 >
-                  Widebody kits, wheels, interiors, audio and exhaust — planned as one car and
+                  Widebody kits, wheels, interiors, audio and exhaust, planned as one car and
                   executed under one roof in Austin, Texas.
                 </p>
               </div>
@@ -176,7 +176,7 @@ export default function CustomBuildsPage() {
           >
             <div>
               <div className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — What goes into a build
+                What goes into a build
               </div>
               <h2
                 className="m-0 font-bold text-white"
@@ -186,7 +186,7 @@ export default function CustomBuildsPage() {
               </h2>
             </div>
             <span className="max-w-[34ch] text-right font-mono text-[11px] tracking-[1px] text-rb-tx-faint">
-              Every discipline in-house — planned together, not bolted on after.
+              Every discipline in-house, planned together, not bolted on after.
             </span>
           </div>
 
@@ -251,7 +251,7 @@ export default function CustomBuildsPage() {
               <div className="absolute inset-0 bg-[linear-gradient(180deg,#0A0A0A_0%,rgba(10,10,10,0.15)_22%,rgba(10,10,10,0.15)_62%,rgba(10,10,10,0.75)_88%,#0A0A0A_100%)]" />
               <div className="absolute bottom-0 left-0 top-0 flex max-w-[680px] flex-col justify-center px-6 md:px-12">
                 <div className="mb-3.5 font-mono text-[11px] uppercase tracking-[3px] text-rb-red">
-                  — Widebody &amp; full builds
+                  Widebody &amp; full builds
                 </div>
                 <div
                   className="font-bold text-white"
@@ -260,7 +260,7 @@ export default function CustomBuildsPage() {
                   Liberty Walk. Brabus. LART.
                 </div>
                 <p className="mb-0 mt-4 max-w-[540px] text-[14.5px] leading-[1.65] text-[#c4c4c4]">
-                  Named widebody kit or a one-off vision — every conversion is fitted, blended and
+                  Named widebody kit or a one-off vision, every conversion is fitted, blended and
                   painted to OEM standard, then wrapped, protected and set on the wheels to match.
                 </p>
               </div>
@@ -283,14 +283,14 @@ export default function CustomBuildsPage() {
                     Red Box Motors builds complete, ground-up custom cars at our Austin, Texas shop,
                     From bolt-on aero to full Liberty Walk,
                     Brabus and LART widebody conversions, every kit is fitted and blended into the
-                    bodywork, refinished in-house and protected — never simply screwed on and handed
+                    bodywork, refinished in-house and protected, never simply screwed on and handed
                     back.
                   </p>
                   <p className="m-0 text-[15px] leading-[1.75] text-[#a4a4a4]">
                     Because bodywork, paint, STEK paint protection film, vinyl wraps, wheels,
                     interior, audio and exhaust all happen under one roof, the disciplines are
                     planned together instead of bolted on after the fact. One team scopes the car,
-                    sequences the work and owns the result — so a full build looks as intentional as
+                    sequences the work and owns the result, so a full build looks as intentional as
                     a single detail.
                   </p>
                 </div>
@@ -359,7 +359,7 @@ export default function CustomBuildsPage() {
             </div>
             <div className="flex min-w-[300px] flex-1 flex-col justify-center px-6 py-[72px] md:px-14">
               <div className="mb-6 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Build it
+                Build it
               </div>
               <h2
                 className="m-0 max-w-[13ch] font-extrabold text-white"

@@ -518,7 +518,7 @@ export function HomeShowcase({
           {/* photo header */}
           <div className="relative h-[380px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/scroll-header.jpg" alt="Red Box Motors — Austin, Texas" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 72%' }} />
+            <img src="/assets/scroll-header.jpg" alt="Red Box Motors, Austin, Texas" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 72%' }} />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_42%,rgba(10,10,10,0.55)_76%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
           </div>
 
@@ -527,7 +527,7 @@ export function HomeShowcase({
               follow the paragraph. */}
           <div className="px-6 pt-[72px] md:px-12 md:pt-[96px]">
             <div data-hreveal className="mb-8 font-mono text-[11px] uppercase tracking-[4px] text-rb-red" style={reveal()}>
-              — What we do
+              What we do
             </div>
             <h2 className="m-0 max-w-[16ch] font-extrabold text-white" style={{ fontSize: 'clamp(38px,5.4vw,84px)', letterSpacing: '-0.04em', lineHeight: 0.98 }}>
               <span data-hreveal className="block" style={reveal()}>One Facility.{' '}</span>
@@ -553,7 +553,7 @@ export function HomeShowcase({
                 },
                 {
                   label: 'Red Box Restoration',
-                  text: 'Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive installations\u2014completed to one exacting standard.',
+                  text: 'Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive installations, completed to one exacting standard.',
                   cta: 'Explore Services',
                   href: '/restoration',
                 },
@@ -676,7 +676,7 @@ export function HomeShowcase({
             </div>
             <div className="flex flex-col justify-center px-6 py-8 md:px-12 md:py-10">
               <div data-hreveal className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red" style={reveal()}>
-                — Where to next
+                Where to next
               </div>
               <h2 data-hreveal className="m-0 max-w-[14ch] font-extrabold text-white" style={{ ...reveal(), fontSize: 'clamp(26px,3vw,40px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}>
                 Explore Red Box Motors.

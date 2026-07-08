@@ -84,11 +84,11 @@ export async function generateMetadata({
     .join(' ');
   const images = await getImagesFor('project', p.id);
   return {
-    title: { absolute: `${p.title} — ${p.vehicle} | Red Box Motors` },
+    title: { absolute: `${p.title}, ${p.vehicle} | Red Box Motors` },
     description,
     alternates: { canonical: `/restoration/work/${p.slug}` },
     openGraph: {
-      title: `${p.title} — ${p.vehicle}`,
+      title: `${p.title}, ${p.vehicle}`,
       description,
       type: 'article',
       url: `/restoration/work/${p.slug}`,
@@ -207,7 +207,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                   style={images[0] ? undefined : stripeStyle}
                 >
                   {images[0] ? (
-                    <CollagePhoto image={images[0]} alt={`${p.title} — ${p.vehicle}`} />
+                    <CollagePhoto image={images[0]} alt={`${p.title}, ${p.vehicle}`} />
                   ) : (
                     <span className="font-mono text-[11px] uppercase tracking-[2px] text-[#2f2f2f]">
                       [ {tag} ]
@@ -234,7 +234,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                       style={shot ? undefined : stripeStyle}
                     >
                       {shot ? (
-                        <CollagePhoto image={shot} alt={`${p.title} — photo ${i + 2}`} />
+                        <CollagePhoto image={shot} alt={`${p.title}, photo ${i + 2}`} />
                       ) : (
                         <span className="font-mono text-[10px] uppercase tracking-[1px] text-[#2f2f2f]">
                           [ {tag} ]
@@ -354,7 +354,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                       Want this for your car?
                     </div>
                     <div className="mb-5 text-[13px] leading-[1.55] text-[#8c8c8c]">
-                      Tell us what you have in mind — we will scope it and quote it.
+                      Tell us what you have in mind, we will scope it and quote it.
                     </div>
                     <Link
                       href="/restoration/estimate"
@@ -375,7 +375,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                 style={wideShot ? undefined : stripeStyle}
               >
                 {wideShot ? (
-                  <CollagePhoto image={wideShot} alt={`${p.title} — closing shot`} />
+                  <CollagePhoto image={wideShot} alt={`${p.title}, closing shot`} />
                 ) : (
                   <span className="font-mono text-[11px] uppercase tracking-[2px] text-[#2f2f2f]">
                     [ {tag} · wide ]

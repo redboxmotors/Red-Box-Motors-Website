@@ -55,7 +55,7 @@ export default async function SourcedPage() {
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-6 pb-[34px] md:px-12">
               <div>
                 <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Dealer · Acquisitions
+                  Dealer · Acquisitions
                 </div>
                 <h1
                   className="m-0 font-bold text-white"
@@ -67,7 +67,7 @@ export default async function SourcedPage() {
                   className="mb-0 mt-[18px] max-w-[640px] text-[15px] leading-[1.6] tracking-[0.2px] text-[#c4c4c4]"
                   style={{ textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
                 >
-                  Vehicles we&rsquo;ve sourced and acquired for buyers — off-market, pre-allocation
+                  Vehicles we&rsquo;ve sourced and acquired for buyers, off-market, pre-allocation
                   and nationwide. Not for sale; a record of what we find when someone has a car in
                   mind.
                 </p>
@@ -91,7 +91,7 @@ export default async function SourcedPage() {
                 Acquisitions
               </span>
               <span className="text-[11px] tracking-[0.5px] text-rb-tx-faint">
-                Sourced on request — off-market &amp; nationwide
+                Sourced on request, off-market &amp; nationwide
               </span>
             </div>
             {items.length > 0 && (
@@ -144,7 +144,7 @@ export default async function SourcedPage() {
             </div>
             <div className="flex min-w-[300px] flex-1 flex-col justify-center px-8 py-14 md:px-14 md:py-16">
               <div className="mb-[22px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Have a car in mind?
+                Have a car in mind?
               </div>
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
@@ -153,7 +153,7 @@ export default async function SourcedPage() {
                 Tell us the car. We&rsquo;ll find it.
               </h2>
               <p className="mb-0 mt-6 max-w-[460px] text-[15px] font-medium leading-[1.7] text-rb-tx-mute">
-                Give us the exact spec — build, color, options, mileage — and we go hunting. We work
+                Give us the exact spec, build, color, options, mileage, and we go hunting. We work
                 our network of dealers, collectors and private owners, vet every car, and handle
                 inspection, negotiation and insured door-to-door transport. You see only the ones
                 worth seeing.

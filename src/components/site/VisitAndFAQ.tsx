@@ -13,11 +13,11 @@ type Division = 'all' | 'dealer' | 'cosmetics' | 'collection';
 const DEFAULT_FAQ: Faq[] = [
   {
     q: 'What services does Red Box Motors provide?',
-    a: 'Two divisions under one roof: Sales & Consignment — curated inventory and professional consignment representation for enthusiast and collector vehicles — and Red Box Restoration — paint protection film, ceramic coatings, paint correction, vinyl wraps, tint, detailing, wheels and specialty automotive installations.',
+    a: 'Two divisions under one roof: Sales & Consignment, curated inventory and professional consignment representation for enthusiast and collector vehicles, and Red Box Restoration, paint protection film, ceramic coatings, paint correction, vinyl wraps, tint, detailing, wheels and specialty automotive installations.',
   },
   {
     q: 'Where is Red Box Motors located?',
-    a: 'Austin, Texas. Visits are by appointment — reach out and we will set a time to walk the showroom or talk through your vehicle.',
+    a: 'Austin, Texas. Visits are by appointment, reach out and we will set a time to walk the showroom or talk through your vehicle.',
   },
   {
     q: 'Do you work with clients outside Texas?',
@@ -25,7 +25,7 @@ const DEFAULT_FAQ: Faq[] = [
   },
   {
     q: 'How do I get started?',
-    a: 'Browse the current inventory, tell us about a vehicle you would like to sell or consign, or request an estimate for protection and customization work — the contact form routes your inquiry to the right person.',
+    a: 'Browse the current inventory, tell us about a vehicle you would like to sell or consign, or request an estimate for protection and customization work, the contact form routes your inquiry to the right person.',
   },
 ];
 

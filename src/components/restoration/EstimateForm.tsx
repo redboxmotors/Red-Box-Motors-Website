@@ -113,7 +113,7 @@ export function EstimateForm({ phone: shopPhone }: { phone: string | null }) {
       if (result.errors) setErrors(result.errors as Record<string, string>);
       setServerError(
         result.error ??
-          (result.errors ? null : 'Something went wrong — please try again, or call us directly.'),
+          (result.errors ? null : 'Something went wrong, please try again, or call us directly.'),
       );
       return;
     }
@@ -165,7 +165,7 @@ export function EstimateForm({ phone: shopPhone }: { phone: string | null }) {
           {...bind('contact_method')} />
         <TextField id="ef-vehicle" label="Vehicle" placeholder="Year, make and model"
           {...bind('vehicle_text')} />
-        <MultiChipGroup label="Services — pick all that apply" options={SERVICES}
+        <MultiChipGroup label="Services, pick all that apply" options={SERVICES}
           value={services}
           onChange={(v) => {
             setServices(v);

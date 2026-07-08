@@ -73,7 +73,7 @@ const INQUIRY_TYPES = new Set([
 const TIMEFRAMES = new Set([
   'As soon as possible',
   'Within 30 days',
-  '1–3 months',
+  '1-3 months',
   'Just researching',
 ]);
 
@@ -111,7 +111,7 @@ export async function POST(req: Request) {
   const ip = clientIp(req);
   if (rateLimitCheck('leads', ip, 5)) {
     return NextResponse.json(
-      { ok: false, error: 'Too many messages — please try again in a few minutes.' },
+      { ok: false, error: 'Too many messages, please try again in a few minutes.' },
       { status: 429 },
     );
   }
@@ -139,7 +139,7 @@ export async function POST(req: Request) {
   const vehicle_of_interest = str('vehicle_of_interest', 200) || null;
   const vehicle_text = str('vehicle_text', 120) || null; // contact form's year/make/model
   const campaign = str('campaign', 120) || null;
-  const opt_in = body.opt_in === true; // first_look — UNCHECKED by default, never assumed
+  const opt_in = body.opt_in === true; // first_look, UNCHECKED by default, never assumed
   const services = Array.isArray(body.services)
     ? (body.services as unknown[])
         .filter((s): s is string => typeof s === 'string' && ESTIMATE_SERVICES.has(s))
@@ -167,7 +167,7 @@ export async function POST(req: Request) {
     if (!timeframe || !TIMEFRAMES.has(timeframe)) errors.timeframe = 'Pick one';
     if (!inquiry_type || !INQUIRY_TYPES.has(inquiry_type)) errors.inquiry_type = 'Pick one';
     if (!message) errors.message = 'Add a message';
-    if (!listing_slug) errors.message = 'Missing vehicle reference — please reload the page.';
+    if (!listing_slug) errors.message = 'Missing vehicle reference, please reload the page.';
   }
   if (type === 'first_look') {
     if (!phone) errors.phone = 'Enter your phone number';
@@ -190,7 +190,7 @@ export async function POST(req: Request) {
   );
   if (!turnstileOk) {
     return NextResponse.json(
-      { ok: false, error: 'Verification failed — please retry.' },
+      { ok: false, error: 'Verification failed, please retry.' },
       { status: 400 },
     );
   }
@@ -250,9 +250,9 @@ export async function POST(req: Request) {
   const finalMessage =
     message ||
     (type === 'first_look'
-      ? `First Look request — ${vehicle_of_interest ?? listing_title ?? 'arriving vehicle'}`
+      ? `First Look request, ${vehicle_of_interest ?? listing_title ?? 'arriving vehicle'}`
       : type === 'estimate'
-        ? `Estimate request — ${services.join(', ')} for ${vehicle_text}`
+        ? `Estimate request, ${services.join(', ')} for ${vehicle_text}`
         : '');
 
   const structuredRow: LeadInsert = {
@@ -312,7 +312,7 @@ export async function POST(req: Request) {
     inserted = await supabase.from('leads').insert(legacyRow).select('id').single();
     if (inserted.error) {
       return NextResponse.json(
-        { ok: false, error: 'Something went wrong on our end — please call or email us directly.' },
+        { ok: false, error: 'Something went wrong on our end, please call or email us directly.' },
         { status: 500 },
       );
     }
@@ -323,12 +323,12 @@ export async function POST(req: Request) {
   // —— Internal notification (per-type subjects, Phase 6 spec) ——————————
   const subject =
     type === 'listing'
-      ? `Vehicle Inquiry — ${vehicleTitle ?? listing_slug ?? 'Unknown vehicle'}`
+      ? `Vehicle Inquiry, ${vehicleTitle ?? listing_slug ?? 'Unknown vehicle'}`
       : type === 'first_look'
-        ? `First Look Request — ${vehicle_of_interest ?? listing_title ?? 'Arriving vehicle'}`
+        ? `First Look Request, ${vehicle_of_interest ?? listing_title ?? 'Arriving vehicle'}`
         : type === 'estimate'
-          ? `Restoration Estimate Request — ${vehicle_text ?? name}`
-          : `General Sales Inquiry — ${name}`;
+          ? `Restoration Estimate Request, ${vehicle_text ?? name}`
+          : `General Sales Inquiry, ${name}`;
 
   await sendEmail({
     to: notifyTo(),
@@ -350,15 +350,15 @@ export async function POST(req: Request) {
         // notifications must carry VIN, stock ref, asking price, listing URL)
         ...(vehicle
           ? ([
-              ['VIN', (vehicle as { vin?: string | null }).vin ?? '—'],
+              ['VIN', (vehicle as { vin?: string | null }).vin ?? ', '],
               ['Stock ref', (vehicle as { stock?: string }).stock ?? listing_slug],
               [
                 'Asking price',
                 (vehicle as { advertised_price?: number | null }).advertised_price != null
                   ? `$${Math.round((vehicle as { advertised_price: number }).advertised_price).toLocaleString('en-US')}`
-                  : '—',
+                  : ', ',
               ],
-              ['Listing URL', (vehicle as { listing_url?: string }).listing_url ?? '—'],
+              ['Listing URL', (vehicle as { listing_url?: string }).listing_url ?? ', '],
             ] as Array<[string, string]>)
           : ([['Listing', listing_slug]] as Array<[string, string | null]>)),
         ...(type === 'first_look'
@@ -380,18 +380,18 @@ export async function POST(req: Request) {
         ? `<p>You're on the list. We'll contact you when additional information becomes available${vehicle_of_interest ? ` about the ${escapeHtml(vehicle_of_interest)}` : ''}.</p>`
         : type === 'estimate'
           ? `<p>Thank you for your estimate request${vehicle_text ? ` for the ${escapeHtml(vehicle_text)}` : ''}. Our team will review the project and contact you to discuss scope and next steps.</p>`
-          : `<p>Thanks for reaching out — we've received your message and will get back to you within one business day.</p>`;
+          : `<p>Thanks for reaching out, we've received your message and will get back to you within one business day.</p>`;
   await sendEmail({
     to: email,
     subject:
       type === 'listing'
-        ? 'We received your vehicle inquiry — Red Box Motors'
+        ? 'We received your vehicle inquiry, Red Box Motors'
         : type === 'first_look'
-          ? "You're on the First Look list — Red Box Motors"
+          ? "You're on the First Look list, Red Box Motors"
           : type === 'estimate'
-            ? 'We received your estimate request — Red Box Motors'
-            : 'We received your message — Red Box Motors',
-    html: `${confirmBody}<p>— Red Box Motors, Austin, TX</p>`,
+            ? 'We received your estimate request, Red Box Motors'
+            : 'We received your message, Red Box Motors',
+    html: `${confirmBody}<p>Red Box Motors · Austin, TX</p>`,
   });
 
   return NextResponse.json({ ok: true });

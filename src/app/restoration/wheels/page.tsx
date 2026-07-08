@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: 'Wheel Refinishing & Powder Coat Austin',
   description: 'Strip, powder coat and custom wheel finishes in Austin, TX.',
   openGraph: {
-    title: 'Wheel Refinishing & Powder Coat Austin — Red Box Motors',
+    title: 'Wheel Refinishing & Powder Coat Austin, Red Box Motors',
     description: 'Strip, powder coat and custom wheel finishes in Austin, TX.',
     type: 'website',
   },
@@ -29,19 +29,19 @@ const RIBBON = ['Repair', 'Powder-coat', 'Custom color', 'Balanced'];
 const WHY: { title: string; body: string }[] = [
   {
     title: 'Powder-coat tough',
-    body: 'A finish fused under heat is harder and more chip- and chemical-resistant than wet paint — built for brake dust and road salt.',
+    body: 'A finish fused under heat is harder and more chip- and chemical-resistant than wet paint, built for brake dust and road salt.',
   },
   {
     title: 'Repaired first',
-    body: 'Every wheel is stripped to bare metal, straightened and repaired before finishing — so the color goes on a sound surface.',
+    body: 'Every wheel is stripped to bare metal, straightened and repaired before finishing, so the color goes on a sound surface.',
   },
   {
     title: 'Any color',
-    body: 'Gloss, satin or matte in any shade — match the calipers, contrast the body, or go factory-correct.',
+    body: 'Gloss, satin or matte in any shade, match the calipers, contrast the body, or go factory-correct.',
   },
   {
     title: 'Balanced & true',
-    body: 'Faces machined true, tires remounted, balanced and torqued — it drives as good as it looks.',
+    body: 'Faces machined true, tires remounted, balanced and torqued, it drives as good as it looks.',
   },
 ];
 
@@ -139,7 +139,7 @@ export default function WheelsPage() {
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.15)_0%,rgba(10,10,10,0.05)_34%,rgba(10,10,10,0.6)_72%,rgba(10,10,10,0.94)_92%,#0A0A0A_100%)]" />
             <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-5 px-6 pt-[34px] md:px-[52px]">
               <div className="font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Cosmetics · Wheel Refinishing
+                Cosmetics · Wheel Refinishing
               </div>
               <Link
                 href="/restoration"
@@ -164,7 +164,7 @@ export default function WheelsPage() {
                 className="mb-0 mt-5 max-w-[600px] text-[15px] leading-relaxed text-[#c4c4c4]"
                 style={{ letterSpacing: '0.2px', textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
               >
-                Wheel repair, custom colors and powder-coat finishes — Austin, Texas.
+                Wheel repair, custom colors and powder-coat finishes, Austin, Texas.
               </p>
             </div>
             <div className="absolute inset-x-0 bottom-0 grid grid-cols-2 border-t border-white/10 bg-[rgba(8,8,8,0.5)] backdrop-blur-[6px] md:grid-cols-4">
@@ -194,14 +194,14 @@ export default function WheelsPage() {
             </h2>
             <div className="pt-1.5">
               <p className="mb-[18px] mt-0 text-[16px] leading-[1.75] text-[#a8a8a8]">
-                Wheels are the first thing curb rash and brake dust ruin — and the quickest
+                Wheels are the first thing curb rash and brake dust ruin, and the quickest
                 transformation on the whole car. We strip each wheel back, repair curb damage, and
                 refinish it in a custom color or powder-coat that&rsquo;s tougher and more even than
                 paint.
               </p>
               <p className="m-0 text-[16px] leading-[1.75] text-[#a8a8a8]">
                 Gloss, satin, matte, bronze, gunmetal, a factory-match respray or a full color change
-                — done properly, balanced, and ready to bolt back on.
+                done properly, balanced, and ready to bolt back on.
               </p>
             </div>
           </div>
@@ -209,7 +209,7 @@ export default function WheelsPage() {
           {/* PROPERTIES INDEX — Why refinish */}
           <div data-reveal className="border-t border-rb-line bg-rb-surface-2 px-6 pb-[60px] pt-14 md:px-[52px]">
             <div className="mb-[38px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-              — Why refinish
+              Why refinish
             </div>
             <div className="grid gap-0.5 border border-rb-line bg-rb-line md:grid-cols-2 lg:grid-cols-4">
               {WHY.map((item, i) => (
@@ -244,7 +244,7 @@ export default function WheelsPage() {
               <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-6 pb-9 md:px-[52px]">
                 <div>
                   <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                    — What we do
+                    What we do
                   </div>
                   <h2
                     className="m-0 font-bold text-white"
@@ -257,7 +257,7 @@ export default function WheelsPage() {
                   className="max-w-[30ch] text-right font-mono text-[11px] tracking-[1px] text-[#999]"
                   style={{ textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}
                 >
-                  Tell us the look — we&rsquo;ll build the finish to match the car.
+                  Tell us the look, we&rsquo;ll build the finish to match the car.
                 </span>
               </div>
             </div>
@@ -304,7 +304,7 @@ export default function WheelsPage() {
           <div className="border-t border-rb-line px-6 pb-16 pt-[60px] md:px-[52px]">
             <div data-reveal>
               <div className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — The process
+                The process
               </div>
               <h2
                 className="m-0 font-bold text-white"
@@ -343,7 +343,7 @@ export default function WheelsPage() {
           >
             <div className="flex flex-col justify-center px-6 py-[60px] md:px-[52px]">
               <div className="mb-4 font-mono text-[11px] uppercase tracking-[3px] text-rb-red">
-                — Part of the build
+                Part of the build
               </div>
               <h3
                 className="m-0 mb-5 max-w-[16ch] font-bold text-white"
@@ -354,7 +354,7 @@ export default function WheelsPage() {
               <p className="mb-4 mt-0 text-[15px] leading-[1.75] text-[#a4a4a4]">
                 Refinished wheels resolve a bigger transformation. Pair them with a color-change
                 wrap, a fresh ceramic and paint protection film and the car leaves looking completely
-                finished — every surface handled by the same team, to the same standard.
+                finished, every surface handled by the same team, to the same standard.
               </p>
               <p className="m-0 text-[15px] leading-[1.75] text-[#a4a4a4]">
                 Tell us the look you&rsquo;re chasing and we&rsquo;ll build the wheel finish to match
@@ -399,7 +399,7 @@ export default function WheelsPage() {
             </div>
             <div className="flex min-w-[300px] flex-1 flex-col justify-center px-6 py-[72px] md:px-14">
               <div className="mb-6 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Refinish them
+                Refinish them
               </div>
               <h2
                 className="m-0 max-w-[13ch] font-extrabold text-white"
@@ -408,7 +408,7 @@ export default function WheelsPage() {
                 Change the stance.
               </h2>
               <p className="mb-0 mt-[26px] max-w-[440px] text-[16px] font-medium leading-[1.7] text-rb-tx-mute">
-                Send us the wheels and the finish you want — we&rsquo;ll strip, repair and refinish
+                Send us the wheels and the finish you want, we&rsquo;ll strip, repair and refinish
                 them properly.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-[18px]">

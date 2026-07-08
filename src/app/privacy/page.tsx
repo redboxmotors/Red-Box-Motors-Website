@@ -13,7 +13,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/privacy' },
-  title: { absolute: 'Privacy Policy — Red Box Motors | Austin, TX' },
+  title: { absolute: 'Privacy Policy · Red Box Motors | Austin, TX' },
   description: 'How Red Box Motors handles the information you submit through this site.',
 };
 
@@ -35,7 +35,7 @@ export default async function PrivacyPage() {
     ],
     [
       'Your choices',
-      `You can ask us to correct or delete the information you've submitted at any time — email ${settings.email ?? 'us'} or call ${settings.phone ?? 'the shop'} and we'll take care of it.`,
+      `You can ask us to correct or delete the information you've submitted at any time, email ${settings.email ?? 'us'} or call ${settings.phone ?? 'the shop'} and we'll take care of it.`,
     ],
   ];
 

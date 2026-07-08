@@ -37,7 +37,7 @@ const CONTACT_METHODS = new Set(['Phone call', 'Text', 'Email']);
 const TITLE_STATUSES = new Set(['Clean', 'Rebuilt', 'Bonded', 'Other']);
 const YES_NO = new Set(['Yes', 'No']);
 const ACCIDENTS = new Set(['None', 'Minor', 'Major']);
-const TIMELINES = new Set(['As soon as possible', 'Within 30 days', '1–3 months', 'Just exploring']);
+const TIMELINES = new Set(['As soon as possible', 'Within 30 days', '1-3 months', 'Just exploring']);
 // Single option for now (owner decision) — add options here AND in the form
 // when direct purchase / brokerage become available.
 const REPRESENTATIONS = new Set(['Consignment']);
@@ -107,7 +107,7 @@ function groupText(title: string, g: Group): string {
   const lines = Object.entries(g)
     .filter(([, v]) => v)
     .map(([k, v]) => `${LABELS[k] ?? k}: ${v}`);
-  return lines.length ? `— ${title} —\n${lines.join('\n')}` : '';
+  return lines.length ? `${title}\n${lines.join('\n')}` : '';
 }
 
 function groupRows(g: Group): string {
@@ -133,7 +133,7 @@ export async function POST(req: Request) {
   const ip = clientIp(req);
   if (rateLimitCheck('consign', ip, 4)) {
     return NextResponse.json(
-      { ok: false, error: 'Too many submissions — please try again in a few minutes.' },
+      { ok: false, error: 'Too many submissions, please try again in a few minutes.' },
       { status: 429 },
     );
   }
@@ -168,7 +168,7 @@ export async function POST(req: Request) {
     errors['vehicle.mileage'] = 'Enter the mileage';
   need(vehicle, 'vehicle', 'location', 'Where is the vehicle located?');
   if (vehicle.vin && !/^[A-HJ-NPR-Z0-9]{11,17}$/i.test(vehicle.vin.replace(/\s/g, '')))
-    errors['vehicle.vin'] = 'Check the VIN — 17 characters, no I, O or Q';
+    errors['vehicle.vin'] = 'Check the VIN, 17 characters, no I, O or Q';
 
   // Ownership
   if (!YES_NO.has(ownership.title_in_name ?? '')) errors['ownership.title_in_name'] = 'Pick one';
@@ -194,7 +194,7 @@ export async function POST(req: Request) {
   );
   if (!turnstileOk) {
     return NextResponse.json(
-      { ok: false, error: 'Verification failed — please retry.' },
+      { ok: false, error: 'Verification failed, please retry.' },
       { status: 400 },
     );
   }
@@ -216,7 +216,7 @@ export async function POST(req: Request) {
     typeof body.source_page === 'string' ? body.source_page.trim().slice(0, 300) : '/dealer/sell';
 
   const summary = [
-    `${vehicleTitle}${vehicle.trim ? ` ${vehicle.trim}` : ''} — ${vehicle.mileage} mi, located ${vehicle.location}.`,
+    `${vehicleTitle}${vehicle.trim ? ` ${vehicle.trim}` : ''}, ${vehicle.mileage} mi, located ${vehicle.location}.`,
     [
       sale.asking_price ? `Asking ${sale.asking_price}` : null,
       `Timeline: ${sale.timeline}`,
@@ -272,14 +272,14 @@ export async function POST(req: Request) {
     // legacy-shaped lead with everything formatted into the message.
     structuredMode = false;
     const fullText = [
-      `CONSIGNMENT SUBMISSION — ${vehicleTitle}`,
+      `CONSIGNMENT SUBMISSION, ${vehicleTitle}`,
       groupText('Contact', contact),
       groupText('Vehicle', vehicle),
       groupText('Ownership', ownership),
       groupText('Condition & history', condition),
       groupText('Sale expectations', sale),
       files.length
-        ? `— Files (${files.length}, in lead-uploads bucket under this lead's id) —\n${files
+        ? `Files (${files.length}, in lead-uploads bucket under this lead's id):\n${files
             .map((f) => `${f.category}/${sanitizeFilename(f.name)}`)
             .join('\n')}`
         : '',
@@ -303,7 +303,7 @@ export async function POST(req: Request) {
 
     if (legacy.error) {
       return NextResponse.json(
-        { ok: false, error: 'Something went wrong on our end — please call or email us directly.' },
+        { ok: false, error: 'Something went wrong on our end, please call or email us directly.' },
         { status: 500 },
       );
     }
@@ -327,7 +327,7 @@ export async function POST(req: Request) {
   const site = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://redboxmotors.com';
   await sendEmail({
     to: notifyTo(),
-    subject: `New Consignment Submission — ${vehicleTitle}`,
+    subject: `New Consignment Submission, ${vehicleTitle}`,
     replyTo: contact.email,
     html: `
       <h2>New consignment submission</h2>
@@ -339,26 +339,26 @@ export async function POST(req: Request) {
       <h3>Files</h3>
       <p>${
         files.length
-          ? `${files.length} file(s) — view via the admin (sign-in required):`
+          ? `${files.length} file(s), view via the admin (sign-in required):`
           : 'No files attached.'
       }</p>
       ${files.map((f) => `<p>· ${escapeHtml(`${f.category}/${sanitizeFilename(f.name)}`)}</p>`).join('\n')}
       <p><a href="${site}/admin/leads">Open in admin → Leads</a></p>
-      ${structuredMode ? '' : '<p><em>Note: stored as a contact-type lead — run the 2026-07-07 SQL patch for structured consignment leads.</em></p>'}
+      ${structuredMode ? '' : '<p><em>Note: stored as a contact-type lead, run the 2026-07-07 SQL patch for structured consignment leads.</em></p>'}
     `,
   });
 
   // Customer confirmation — best-effort, mirrors the on-screen message.
   await sendEmail({
     to: contact.email,
-    subject: 'We received your vehicle submission — Red Box Motors',
+    subject: 'We received your vehicle submission, Red Box Motors',
     html: `
       <p>Hi ${escapeHtml(contact.first_name ?? '')},</p>
       <p>Thank you for submitting your vehicle to Red Box Motors. Our team will
       review the information and contact you to discuss the vehicle, current
       market positioning and next steps.</p>
       <p>Vehicle submitted: <strong>${escapeHtml(vehicleTitle)}</strong></p>
-      <p>— Red Box Motors, Austin, TX</p>
+      <p>Red Box Motors · Austin, TX</p>
     `,
   });
 

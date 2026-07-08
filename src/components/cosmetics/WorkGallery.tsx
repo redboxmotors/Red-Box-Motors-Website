@@ -27,7 +27,7 @@ type SortKey = 'year-desc' | 'year-asc' | 'name';
 const SORTS: { key: SortKey; label: string }[] = [
   { key: 'year-desc', label: 'Year ↓' },
   { key: 'year-asc', label: 'Year ↑' },
-  { key: 'name', label: 'A–Z' },
+  { key: 'name', label: 'A-Z' },
 ];
 
 const SORTERS: Record<SortKey, (a: WorkItem, b: WorkItem) => number> = {
@@ -132,7 +132,7 @@ export function WorkGallery({ items }: { items: WorkItem[] }) {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={p.image.url}
-                  alt={p.image.alt || `${p.title} — ${p.vehicle}`}
+                  alt={p.image.alt || `${p.title}, ${p.vehicle}`}
                   className="absolute inset-0 h-full w-full object-cover"
                   style={{ objectPosition: focalPosition(p.image) }}
                   loading="lazy"

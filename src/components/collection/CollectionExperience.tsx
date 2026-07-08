@@ -135,7 +135,7 @@ export function CollectionExperience({
           {/* MANIFESTO / LEAD */}
           <div className="px-6 pt-11 md:px-[52px]">
             <div data-reveal className="mb-7 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-              — Collection Management · Local Austin
+              Collection Management · Local Austin
             </div>
             <h2
               className="m-0 max-w-[18ch] font-bold text-white"
@@ -154,7 +154,7 @@ export function CollectionExperience({
               style={revealDelay(0.24)}
             >
               We look after the upkeep, the logistics and the small obligations that come with a serious
-              collection — so the only thing left for you is driving. Hands-on where it counts, coordinated
+              collection, so the only thing left for you is driving. Hands-on where it counts, coordinated
               with trusted partners where it helps, and one point of contact who knows you and every car.
               This is active management, not storage: your cars stay where they live, and we keep them
               ready.
@@ -200,12 +200,12 @@ export function CollectionExperience({
                 <p className="m-0 mb-[18px] text-[14.5px] leading-[1.75] text-[#999]">
                   Batteries tended, fluids checked, cars started and exercised on a schedule so nothing sits
                   and sours. Before a road trip or a day at COTA we inspect, fuel and set the car up
-                  ourselves — tire pressures, fluids, a proper once-over — so it&#39;s ready the moment you
+                  ourselves, tire pressures, fluids, a proper once-over, so it&#39;s ready the moment you
                   are.
                 </p>
                 <p className="m-0 text-[14.5px] leading-[1.75] text-[#999]">
                   When a car needs to move, we handle enclosed transport and logistics across Austin and to
-                  the event — coordinated, insured and on your timeline.
+                  the event, coordinated, insured and on your timeline.
                 </p>
               </div>
               <div>
@@ -215,11 +215,11 @@ export function CollectionExperience({
                 <p className="m-0 mb-[18px] text-[14.5px] leading-[1.75] text-[#999]">
                   Maintenance and servicing are scheduled and overseen with trusted shops, and we stay ahead
                   of what&#39;s due so nothing lapses. Detailing and washing are booked and managed with our
-                  detailers — coordinated on your behalf, not performed in-house.
+                  detailers, coordinated on your behalf, not performed in-house.
                 </p>
                 <p className="m-0 text-[14.5px] leading-[1.75] text-[#999]">
                   One relationship covers all of it. You call one person who knows every car, its history
-                  and how you drive it — and the rest simply gets handled.
+                  and how you drive it, and the rest simply gets handled.
                 </p>
               </div>
             </div>
@@ -253,7 +253,7 @@ export function CollectionExperience({
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(21,21,21,0.35)_0%,rgba(10,10,10,0.04)_34%,rgba(10,10,10,0.55)_74%,#0A0A0A_100%)]" />
               <div className="absolute inset-x-0 bottom-0 px-6 pb-10 md:px-[52px]">
                 <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — What we handle
+                  What we handle
                 </div>
                 <h2
                   className="m-0 font-extrabold text-white md:whitespace-nowrap"
@@ -294,13 +294,13 @@ export function CollectionExperience({
             <div className="mt-0 px-6 pt-14 md:px-[52px]">
               <div data-reveal className="mb-[26px]">
                 <div className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Ways to work with us
+                  Ways to work with us
                 </div>
                 <h2
                   className="m-0 font-bold leading-none text-white"
                   style={{ fontSize: 'clamp(26px,3.4vw,46px)', letterSpacing: '-0.03em' }}
                 >
-                  Two ways in — shaped around you
+                  Two ways in, shaped around you
                 </h2>
               </div>
             </div>
@@ -351,7 +351,7 @@ export function CollectionExperience({
                   When you need it
                 </div>
                 <p className="m-0 mb-[26px] text-[14.5px] leading-[1.6] text-[#9a9a9a]">
-                  Call for a single job — a service coordinated, a car transported, a weekend at COTA
+                  Call for a single job, a service coordinated, a car transported, a weekend at COTA
                   prepped for. No commitment; just the help you need, when you need it.
                 </p>
                 <div className="mt-auto flex flex-col">
@@ -375,7 +375,7 @@ export function CollectionExperience({
             </div>
             <div data-reveal className="px-6 pt-4 md:px-[52px]" style={revealDelay(0.16)}>
               <span className="text-[12px] tracking-[0.3px] text-rb-tx-faint">
-                Still shaping our plans — tell us how you&#39;d want to work and we&#39;ll build around it.
+                Still shaping our plans, tell us how you&#39;d want to work and we&#39;ll build around it.
               </span>
             </div>
           </div>
@@ -399,7 +399,7 @@ export function CollectionExperience({
             </div>
             <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-14 md:px-14 md:py-16">
               <div className="mb-[22px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Get in touch
+                Get in touch
               </div>
               <h2
                 className="m-0 max-w-[12ch] font-extrabold text-white"

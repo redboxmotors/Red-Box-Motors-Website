@@ -47,7 +47,7 @@ export async function generateMetadata({
   ]
     .filter(Boolean)
     .join(', ');
-  const description = `${title} for sale at Red Box Motors, Austin, TX${detail ? ` — ${detail}` : ''}. Inquire today.`;
+  const description = `${title} for sale at Red Box Motors, Austin, TX${detail ? `, ${detail}` : ''}. Inquire today.`;
   const path = `/dealer/inventory/${listing.slug}`;
   const images = await getImagesFor('listing', listing.id);
   return {
@@ -55,7 +55,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical: path },
     openGraph: {
-      title: `${title} for Sale — Red Box Motors`,
+      title: `${title} for Sale, Red Box Motors`,
       description,
       type: 'website',
       url: path,
@@ -331,7 +331,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
                             Austin, TX · by appointment
                           </span>
                           <span className="font-mono text-[10px] tracking-[1px] text-rb-tx-faint">
-                            MON–SAT
+                            MON-SAT
                           </span>
                         </div>
                       </div>

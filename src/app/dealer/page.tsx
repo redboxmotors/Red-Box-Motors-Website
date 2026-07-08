@@ -27,7 +27,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/dealer' },
-  title: { absolute: 'Sales & Consignment — Exceptional Cars. Properly Represented. | Red Box Motors' },
+  title: { absolute: 'Sales & Consignment · Exceptional Cars. Properly Represented. | Red Box Motors' },
   description:
     'Curated enthusiast and collector vehicles and premium consignment representation from Red Box Motors in Austin, Texas.',
 };
@@ -77,11 +77,11 @@ const CREDIBILITY = [
 
 // Detailed sales questions live here (moved off the homepage).
 const DEALER_FAQ: Faq[] = [
-  { q: 'How does consignment work?', a: 'We handle valuation, preparation, marketing, buyer qualification and the full transaction. You approve the positioning and terms — we manage the rest through closing and delivery.' },
-  { q: 'How is pricing established?', a: 'Pricing is informed by current listings, recent sales, specification, condition and market demand — reviewed with you and agreed before the car is listed.' },
+  { q: 'How does consignment work?', a: 'We handle valuation, preparation, marketing, buyer qualification and the full transaction. You approve the positioning and terms, we manage the rest through closing and delivery.' },
+  { q: 'How is pricing established?', a: 'Pricing is informed by current listings, recent sales, specification, condition and market demand, reviewed with you and agreed before the car is listed.' },
   { q: 'What does it cost to sell?', a: 'Representation fees and any approved preparation costs are disclosed in writing before anything is signed. No surprises.' },
   { q: 'Can you sell nationwide?', a: 'Yes. Marketing and transportation are coordinated nationwide, with enclosed door-to-door transport arranged for delivery.' },
-  { q: 'What happens before my car is listed?', a: 'Approved reconditioning, detailing, photography, video and organization of all available documentation — an agreed preparation, presentation and marketing plan for every consigned vehicle.' },
+  { q: 'What happens before my car is listed?', a: 'Approved reconditioning, detailing, photography, video and organization of all available documentation, an agreed preparation, presentation and marketing plan for every consigned vehicle.' },
 ];
 
 const ghostRed =
@@ -199,7 +199,7 @@ export default async function DealerPage() {
           {/* INTRO — owner copy, verbatim */}
           <div className="px-6 pt-[72px] md:px-[52px] md:pt-[88px]">
             <div data-reveal className="mb-7 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-              — Sales &amp; Consignment
+              Sales &amp; Consignment
             </div>
             <h2
               className="m-0 max-w-[18ch] font-bold text-white"
@@ -237,7 +237,7 @@ export default async function DealerPage() {
             <div className="grid gap-10 px-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:px-[52px]">
               <div>
                 <div data-reveal className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Representation
+                  Representation
                 </div>
                 <h2
                   data-reveal
@@ -262,7 +262,7 @@ export default async function DealerPage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/placeholders/consignment-process.jpg"
-                  alt="Red Box Motors consignment process — photography, detailing, inspection, video production, showroom presentation and enclosed transport"
+                  alt="Red Box Motors consignment process, photography, detailing, inspection, video production, showroom presentation and enclosed transport"
                   className="absolute inset-0 h-full w-full object-cover"
                   loading="lazy"
                 />
@@ -305,7 +305,7 @@ export default async function DealerPage() {
           <div className="bg-rb-surface-2 pt-40 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] md:pt-48">
             <div className="px-6 md:px-[52px]">
               <div data-reveal className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — How it works
+                How it works
               </div>
               <h2
                 data-reveal
@@ -346,7 +346,7 @@ export default async function DealerPage() {
               Supportable claims only. */}
           <div className="bg-[#151515] pb-24 pt-16">
             <SectionHeader
-              eyebrow="— Why Red Box"
+              eyebrow="Why Red Box"
               title="Why buyers and owners trust Red Box Motors"
               blurb="Whether you are buying one of our vehicles or consigning your own, the same team, facility and standard stand behind the transaction."
             />
@@ -373,7 +373,7 @@ export default async function DealerPage() {
               ))}
             </div>
             {/* OWNER TODO: when real numbers are approved, add visible proof
-                here — customer reviews, completed sales, social reach — as
+                here, customer reviews, completed sales, social reach, as
                 CREDIBILITY entries above. No invented claims. */}
           </div>
 
@@ -382,7 +382,7 @@ export default async function DealerPage() {
             <div className="flex flex-wrap items-end justify-between gap-5 px-6 md:px-[52px]">
               <div>
                 <div data-reveal className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Featured inventory
+                  Featured inventory
                 </div>
                 <h2
                   data-reveal
@@ -426,7 +426,7 @@ export default async function DealerPage() {
               </div>
               <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-16 md:px-16 md:py-[90px]">
                 <div className="mb-6 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — You want a car
+                  You want a car
                 </div>
                 <h2
                   className="m-0 max-w-[13ch] font-extrabold text-white"
@@ -477,7 +477,7 @@ export default async function DealerPage() {
               </div>
               <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-16 md:px-16 md:py-[90px]">
                 <div className="mb-6 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — You have a car
+                  You have a car
                 </div>
                 <h2
                   className="m-0 max-w-[14ch] font-extrabold text-white"
@@ -516,7 +516,7 @@ export default async function DealerPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/placeholders/consignment-process.jpg"
-                alt="Red Box Motors consignment process — photography, detailing, inspection, video production, showroom presentation and enclosed transport"
+                alt="Red Box Motors consignment process, photography, detailing, inspection, video production, showroom presentation and enclosed transport"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_55%,rgba(10,10,10,0.5)_82%,rgba(10,10,10,0.95)_100%)]" />
@@ -528,7 +528,7 @@ export default async function DealerPage() {
             </div>
             <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-14 md:px-14 md:py-[72px]">
               <div data-reveal className="mb-6 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — Consignment
+                Consignment
               </div>
               <h2
                 data-reveal
@@ -544,7 +544,7 @@ export default async function DealerPage() {
               >
                 Red Box Motors combines vehicle preparation, visual presentation, automotive
                 storytelling and transaction management to represent each consigned vehicle as a
-                complete offering—not simply another classified listing.
+                complete offering, not simply another classified listing.
               </p>
               <div data-reveal style={{ transitionDelay: '.18s' }} className="mt-9">
                 <Link
@@ -568,7 +568,7 @@ export default async function DealerPage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/dealer-buying-selling.jpg"
-                  alt="Race car cockpit — consign your vehicle with Red Box Motors"
+                  alt="Race car cockpit, consign your vehicle with Red Box Motors"
                   className="absolute inset-0 h-full w-full object-cover"
                   style={{ objectPosition: 'center 50%' }}
                   loading="lazy"
@@ -583,7 +583,7 @@ export default async function DealerPage() {
 
               <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-16 md:px-16 md:py-[90px]">
                 <div data-reveal className="mb-5 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — What we represent
+                  What we represent
                 </div>
                 <h2
                   data-reveal
@@ -598,7 +598,7 @@ export default async function DealerPage() {
                   className="mb-0 mt-7 max-w-[520px] text-[17px] font-medium leading-[1.7] text-rb-tx-2"
                 >
                   We represent vehicles with enthusiast value, compelling specification and a story
-                  worth presenting&mdash;from modern exotics and limited-production performance cars to
+                  worth presenting, from modern exotics and limited-production performance cars to
                   significant classics, restomods and specialty vehicles.
                 </p>
                 <p

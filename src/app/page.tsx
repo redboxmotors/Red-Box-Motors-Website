@@ -10,7 +10,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
-  title: { absolute: 'Red Box Motors — Exceptional Cars. One Trusted Partner. | Austin, TX' },
+  title: { absolute: 'Red Box Motors · Exceptional Cars. One Trusted Partner. | Austin, TX' },
   description:
     'Exotic and collector vehicle sales, professional consignment representation, protection and customization in Austin, Texas.',
 };

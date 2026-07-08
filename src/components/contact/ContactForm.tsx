@@ -37,11 +37,11 @@ const ROUTES: Partial<Record<(typeof CATEGORIES)[number], { href: string; text: 
   },
   'Request a Restoration Estimate': {
     href: '/restoration/estimate',
-    text: 'The estimate form goes straight to the Restoration team — describe the project there',
+    text: 'The estimate form goes straight to the Restoration team, describe the project there',
   },
   'Ask About an Existing Listing': {
     href: '/dealer/inventory',
-    text: 'Every car in our inventory has its own inquiry form — start from the vehicle page',
+    text: 'Every car in our inventory has its own inquiry form, start from the vehicle page',
   },
 };
 
@@ -139,7 +139,7 @@ export function ContactForm({
       if (result.errors) setErrors(result.errors as Errors);
       setServerError(
         result.error ??
-          (result.errors ? null : 'Something went wrong — please try again, or call or email us directly.'),
+          (result.errors ? null : 'Something went wrong, please try again, or call or email us directly.'),
       );
       return;
     }
@@ -178,7 +178,7 @@ export function ContactForm({
           Message sent.
         </div>
         <p className="mb-8 max-w-[380px] text-[15px] leading-[1.6] text-[#9a9a9a]">
-          Thanks — we&rsquo;ll get back to you within one business day.
+          Thanks, we&rsquo;ll get back to you within one business day.
         </p>
         <button
           type="button"

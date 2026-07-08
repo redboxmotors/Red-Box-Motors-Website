@@ -13,29 +13,29 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
   title: 'Paint Protection Film (PPF) Austin',
   description:
-    'Self-healing STEK paint protection film — full-body and high-impact packages in Austin, TX.',
+    'Self-healing STEK paint protection film, full-body and high-impact packages in Austin, TX.',
 };
 
 const content: ServicePageContent = {
   bg: { src: '/assets/ppf-hero.jpg', alt: '', position: 'center 56%' },
-  kicker: '— Cosmetics · Paint Protection Film',
+  kicker: 'Cosmetics · Paint Protection Film',
   hero: {
     src: '/assets/ppf-coverage.jpg',
     alt: 'Porsche GT2 RS protected with paint protection film, Austin TX',
     position: 'center 42%',
   },
   titleLines: ['Invisible armor', 'for your paint.'],
-  sub: 'STEK self-healing paint protection film — precision-cut and installed in Austin, Texas.',
+  sub: 'STEK self-healing paint protection film, precision-cut and installed in Austin, Texas.',
   ribbon: ['Self-healing', 'High-impact', 'Hydrophobic', 'Optically clear'],
   statement: {
     heading: 'The single best thing you can do for a car you actually drive.',
     paras: [
-      'Paint protection film is a tough, optically clear urethane layer that takes the rock chips, road rash, bug etching and wash marring that would otherwise scar your paint — while its self-healing top coat erases light swirls with heat from the sun or warm water.',
-      'We install STEK PPF, precision-cut for every panel with wrapped edges wherever possible — so the protection is there without ever changing how the car looks.',
+      'Paint protection film is a tough, optically clear urethane layer that takes the rock chips, road rash, bug etching and wash marring that would otherwise scar your paint, while its self-healing top coat erases light swirls with heat from the sun or warm water.',
+      'We install STEK PPF, precision-cut for every panel with wrapped edges wherever possible, so the protection is there without ever changing how the car looks.',
     ],
   },
   properties: {
-    kicker: '— Why the film works',
+    kicker: 'Why the film works',
     items: [
       {
         title: 'Self-healing',
@@ -47,11 +47,11 @@ const content: ServicePageContent = {
       },
       {
         title: 'Hydrophobic',
-        text: 'The surface sheds water, dirt and road film and resists chemical and bug staining — the car stays cleaner, longer.',
+        text: 'The surface sheds water, dirt and road film and resists chemical and bug staining, the car stays cleaner, longer.',
       },
       {
         title: 'Optically clear',
-        text: 'Precision-cut with wrapped edges — no lifting, no seams, nothing that reads as anything but factory paint.',
+        text: 'Precision-cut with wrapped edges, no lifting, no seams, nothing that reads as anything but factory paint.',
       },
     ],
   },
@@ -61,14 +61,14 @@ const content: ServicePageContent = {
       alt: 'Paint protection film install at Red Box Motors, Austin TX',
       position: 'center 45%',
     },
-    kicker: '— Packages',
+    kicker: 'Packages',
     heading: 'Coverage for how you drive.',
-    note: 'Every panel mapped with you — mix and match as needed.',
+    note: 'Every panel mapped with you, mix and match as needed.',
     rows: [
       {
         kicker: '01 · Front-end',
         title: 'High-impact',
-        desc: 'The daily-driver essential — the zones that take the chips.',
+        desc: 'The daily-driver essential, the zones that take the chips.',
         chips: [
           { label: 'Front bumper' },
           { label: 'Hood (partial / full)' },
@@ -93,7 +93,7 @@ const content: ServicePageContent = {
       {
         kicker: '03 · Full-body',
         title: 'Total protection',
-        desc: 'Every painted surface wrapped — the most protection, completely invisible.',
+        desc: 'Every painted surface wrapped, the most protection, completely invisible.',
         chips: [{ label: 'Every painted panel, wrapped edge to edge', tone: 'red' }],
       },
     ],
@@ -108,12 +108,12 @@ const content: ServicePageContent = {
       },
       minHeight: 440,
       caption: 'In the bay · panels off',
-      kicker: '— How we install',
+      kicker: 'How we install',
       heading: 'We take the car apart to wrap it right.',
       headingMax: '16ch',
       paras: [
-        "A seamless install can't happen with everything bolted on. We disassemble the car so the film tucks behind every edge instead of stopping at it — removing badges and emblems, lights, mirror caps, trim and grilles, and pulling bumpers, spoilers and panels where the wrap needs to wrap.",
-        'With the parts off, edges are wrapped, gaps are tucked and relief cuts stay hidden — then everything goes back together torqued to spec. The result reads as factory paint: no lifting, no visible seams, nothing to catch a fingernail.',
+        "A seamless install can't happen with everything bolted on. We disassemble the car so the film tucks behind every edge instead of stopping at it, removing badges and emblems, lights, mirror caps, trim and grilles, and pulling bumpers, spoilers and panels where the wrap needs to wrap.",
+        'With the parts off, edges are wrapped, gaps are tucked and relief cuts stay hidden, then everything goes back together torqued to spec. The result reads as factory paint: no lifting, no visible seams, nothing to catch a fingernail.',
       ],
       chips: [
         { label: 'Badges & emblems' },
@@ -133,12 +133,12 @@ const content: ServicePageContent = {
       },
       minHeight: 420,
       caption: 'STEK · protect + transform · reversible',
-      kicker: '— Color-change PPF',
+      kicker: 'Color-change PPF',
       heading: 'Change the color. Keep the protection.',
       headingMax: '15ch',
       paras: [
-        'STEK colored and finish-changing paint protection film transforms the look of the car and armors it at the same time — one film doing two jobs. Go gloss to satin or matte, shift to a whole new color, or add a brushed or color-flip finish, all over the same self-healing, chip-resistant urethane.',
-        "Because it's film, not paint, the factory finish stays untouched underneath and the change is fully reversible — ideal for a lease, a resale plan, or simply a new look without committing to a respray.",
+        'STEK colored and finish-changing paint protection film transforms the look of the car and armors it at the same time, one film doing two jobs. Go gloss to satin or matte, shift to a whole new color, or add a brushed or color-flip finish, all over the same self-healing, chip-resistant urethane.',
+        "Because it's film, not paint, the factory finish stays untouched underneath and the change is fully reversible, ideal for a lease, a resale plan, or simply a new look without committing to a respray.",
       ],
       chips: [
         { label: 'Gloss' },
@@ -153,9 +153,9 @@ const content: ServicePageContent = {
   cta: {
     variant: 'wrap',
     photoAlt: 'Book paint protection film',
-    kicker: '— Protect it',
+    kicker: 'Protect it',
     heading: 'Armor it before the first chip.',
-    text: "Tell us the car and how you drive it, and we'll map the right STEK coverage — front-end, track or full-body.",
+    text: "Tell us the car and how you drive it, and we'll map the right STEK coverage, front-end, track or full-body.",
     secondary: { label: 'Add ceramic →', href: '/restoration/ceramic-correction' },
   },
 };
@@ -163,7 +163,7 @@ const content: ServicePageContent = {
 export default function PpfPage() {
   return (
     <>
-      <SchemaScript schema={serviceSchema('Paint Protection Film', 'Self-healing STEK paint protection film — full-body and high-impact packages in Austin, TX.', '/restoration/ppf')} />
+      <SchemaScript schema={serviceSchema('Paint Protection Film', 'Self-healing STEK paint protection film, full-body and high-impact packages in Austin, TX.', '/restoration/ppf')} />
       <ServiceScrollPage content={content} visitAndFaq={<VisitAndFAQ division="cosmetics" />} />
     </>
   );

@@ -35,7 +35,7 @@ const INQUIRY_TYPES = [
   'Discuss pre-delivery PPF, coating, tint or detailing',
 ] as const;
 
-const TIMEFRAMES = ['As soon as possible', 'Within 30 days', '1–3 months', 'Just researching'] as const;
+const TIMEFRAMES = ['As soon as possible', 'Within 30 days', '1-3 months', 'Just researching'] as const;
 const CONTACT_METHODS = ['Phone call', 'Text', 'Email'] as const;
 
 type Errors = Record<string, string>;
@@ -140,7 +140,7 @@ export function InquiryPanel({
       if (result.errors) setErrors(result.errors as Errors);
       setServerError(
         result.error ??
-          (result.errors ? null : 'Something went wrong — please try again, or call us directly.'),
+          (result.errors ? null : 'Something went wrong, please try again, or call us directly.'),
       );
       return;
     }

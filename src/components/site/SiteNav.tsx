@@ -84,7 +84,7 @@ export function SiteNav({ current = '' }: { current?: NavKey }) {
       />
 
       <div className="relative flex items-center justify-between px-6 py-5 md:px-11">
-        <Link href="/" className="pointer-events-auto inline-flex items-center gap-3.5" aria-label="Red Box Motors — home">
+        <Link href="/" className="pointer-events-auto inline-flex items-center gap-3.5" aria-label="Red Box Motors, home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/assets/brand/rbm-logo-header.png"

@@ -23,9 +23,9 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/restoration' },
-  title: { absolute: 'Red Box Restoration — Protection, Restoration and Customization—Done Right. | Red Box Motors' },
+  title: { absolute: 'Red Box Restoration, Protection, Restoration and Customization. Done Right. | Red Box Motors' },
   description:
-    'Red Box Restoration protects, restores and transforms enthusiast, exotic and collector vehicles from a climate-controlled Austin, TX facility — PPF, paint correction, ceramic coatings, wraps, tint, detailing, wheels and specialty installations.',
+    'Red Box Restoration protects, restores and transforms enthusiast, exotic and collector vehicles from a climate-controlled Austin, TX facility, PPF, paint correction, ceramic coatings, wraps, tint, detailing, wheels and specialty installations.',
 };
 
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
@@ -173,10 +173,10 @@ const SERVICES: {
 
 // Detailed service questions live here (moved off the homepage).
 const RESTORATION_FAQ: Faq[] = [
-  { q: 'How do I get an estimate?', a: 'Use the estimate form — tell us the vehicle and what you want to protect or change, and we will walk you through options and put together a written estimate. Photos help; an in-person look is even better.' },
+  { q: 'How do I get an estimate?', a: 'Use the estimate form, tell us the vehicle and what you want to protect or change, and we will walk you through options and put together a written estimate. Photos help; an in-person look is even better.' },
   { q: 'What PPF coverage do you offer?', a: 'From high-impact front-end packages to full-body coverage, precision-cut per panel with wrapped edges wherever possible, in STEK clear and color films.' },
-  { q: 'Does ceramic coating require paint correction?', a: 'Coatings lock in whatever is under them, so where needed we correct the paint to the agreed level first — that is what gives the finish its depth.' },
-  { q: 'Are vinyl wraps reversible?', a: 'When installed over suitable paint and removed using proper techniques, vinyl provides a reversible appearance change. Paint condition and prior repairs can affect removal — we assess that before the work starts.' },
+  { q: 'Does ceramic coating require paint correction?', a: 'Coatings lock in whatever is under them, so where needed we correct the paint to the agreed level first, that is what gives the finish its depth.' },
+  { q: 'Are vinyl wraps reversible?', a: 'When installed over suitable paint and removed using proper techniques, vinyl provides a reversible appearance change. Paint condition and prior repairs can affect removal, we assess that before the work starts.' },
 ];
 
 // Shared process — one section for every service (owner checklist).
@@ -184,7 +184,7 @@ const PROCESS = [
   ['Consultation', 'Tell us about the car and what you want to accomplish.'],
   ['Inspection & Scope', 'We assess the vehicle and agree on the exact work in writing.'],
   ['Preparation', 'Wash, decontamination and the prep the finish demands.'],
-  ['Execution', 'The work itself — film, polish, coating, wrap or wheels.'],
+  ['Execution', 'The work itself, film, polish, coating, wrap or wheels.'],
   ['Final Inspection & Delivery', 'Checked panel by panel before the car goes home.'],
 ] as const;
 
@@ -223,7 +223,7 @@ export default async function RestorationPage() {
     >
       <SchemaScript
         schema={serviceSchema(
-          'Protection, Restoration and Customization—Done Right.',
+          'Protection, Restoration and Customization. Done Right.',
           'Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint, detailing and wheel services in Austin, TX.',
           '/restoration',
         )}
@@ -255,7 +255,7 @@ export default async function RestorationPage() {
               className="rb-hero-line block"
               style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .41s` }}
             >
-              Customization&mdash;Done Right.
+              Customization. Done Right.
             </span>
           </span>
         </h1>
@@ -308,7 +308,7 @@ export default async function RestorationPage() {
         {/* manifesto / lead */}
         <div className="px-6 pt-[52px] md:px-[52px]">
           <div data-reveal className={`mb-7 ${eyebrowCls}`}>
-            — Red Box Restoration · Austin, Texas
+            Red Box Restoration · Austin, Texas
           </div>
           <p
             data-reveal
@@ -349,22 +349,6 @@ export default async function RestorationPage() {
         <div id="services" className="px-6 pb-6 pt-2 md:px-[52px]">
           {SERVICES.map((svc, i) => (
             <div key={svc.id}>
-            {/* Estimate band after every few sections (owner checklist) —
-                replaces the old one-CTA-per-service pattern. */}
-            {(i === 3 || i === 6) && (
-              <div className="mb-2 flex flex-wrap items-center justify-between gap-4 border-t border-rb-line bg-rb-surface-3 px-6 py-6">
-                <span className="text-[15px] font-medium tracking-[0.2px] text-rb-tx-2">
-                  Ready to talk about your car?
-                </span>
-                <Link
-                  href="/restoration/estimate"
-                  className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-6 py-3.5 text-[12.5px] font-semibold tracking-[1px] text-white"
-                >
-                  Request an Estimate
-                  <Arrow size={13} />
-                </Link>
-              </div>
-            )}
             <div
               id={svc.id}
               data-reveal
@@ -429,7 +413,7 @@ export default async function RestorationPage() {
         {/* ——— THE PROCESS — one shared flow for every service ——— */}
         <div className="px-6 pb-16 md:px-[52px]">
           <div data-reveal className={`mb-[13px] ${eyebrowCls}`}>
-            — How every project runs
+            How every project runs
           </div>
           <h2
             data-reveal
@@ -468,7 +452,7 @@ export default async function RestorationPage() {
               className="mb-[18px] flex flex-wrap items-end justify-between gap-5 px-6 md:px-[52px]"
             >
               <div>
-                <div className={`mb-[13px] ${eyebrowCls}`}>— Recent work</div>
+                <div className={`mb-[13px] ${eyebrowCls}`}>,  Recent work</div>
                 <h2
                   className="m-0 font-bold leading-none text-white"
                   style={{ fontSize: 'clamp(28px, 3.6vw, 52px)', letterSpacing: '-0.03em' }}
@@ -489,7 +473,7 @@ export default async function RestorationPage() {
               className="mb-[30px] mt-0 max-w-[680px] px-6 text-[14.5px] leading-[1.75] text-[#999] md:px-[52px]"
               style={{ transitionDelay: '.1s' }}
             >
-              Recent paint protection, correction, coating, wrap and wheel projects — documented
+              Recent paint protection, correction, coating, wrap and wheel projects, documented
               panel by panel so you can see exactly the finish and standard you can expect on your
               own car.
             </p>
@@ -506,7 +490,7 @@ export default async function RestorationPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/resto-bring-us.jpg"
-                alt="Red Box Restoration shop floor — GT3 RS in for paint protection film"
+                alt="Red Box Restoration shop floor, GT3 RS in for paint protection film"
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ objectPosition: '45% center' }}
                 loading="lazy"
@@ -520,7 +504,7 @@ export default async function RestorationPage() {
             </div>
             {/* copy side */}
             <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-20 md:px-16 md:py-[110px]">
-              <div className={`mb-[22px] ${eyebrowCls}`}>— Start a project</div>
+              <div className={`mb-[22px] ${eyebrowCls}`}>,  Start a project</div>
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
                 style={{ fontSize: 'clamp(40px, 5.4vw, 80px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
@@ -565,25 +549,6 @@ export default async function RestorationPage() {
         </div>
       </ExpandingScrollBox>
 
-      {/* FLOATING ESTIMATE CTA — right edge, vertically centered (desktop);
-          bottom-fixed bar on mobile so it never covers body text */}
-      <Link
-        href="/restoration/estimate"
-        className="rb-btn-red fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 items-center gap-2.5 bg-rb-red px-[13px] py-[22px] shadow-[0_12px_30px_rgba(204,0,0,0.34)] [writing-mode:vertical-rl] sm:flex"
-        aria-label="Request an Estimate"
-      >
-        <span className="h-[7px] w-[7px] flex-none bg-white" />
-        <span className="text-[12px] font-semibold tracking-[1.5px] text-white">
-          Request an Estimate
-        </span>
-      </Link>
-      <Link
-        href="/restoration/estimate"
-        className="rb-btn-red fixed inset-x-0 bottom-0 z-40 flex items-center justify-center gap-2.5 bg-rb-red px-6 py-4 pb-[max(16px,env(safe-area-inset-bottom))] sm:hidden"
-      >
-        <span className="text-[13px] font-semibold tracking-[1.5px] text-white">Request an Estimate</span>
-        <Arrow size={13} />
-      </Link>
     </ScrollShell>
   );
 }

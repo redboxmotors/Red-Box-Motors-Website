@@ -37,7 +37,7 @@ export function useFirstLook(): Ctx {
   return ctx;
 }
 
-const TIMEFRAMES = ['As soon as possible', 'Within 30 days', '1–3 months', 'Just researching'] as const;
+const TIMEFRAMES = ['As soon as possible', 'Within 30 days', '1-3 months', 'Just researching'] as const;
 const CONTACT_METHODS = ['Phone call', 'Text', 'Email'] as const;
 
 export function FirstLookProvider({
@@ -110,13 +110,13 @@ export function FirstLookProvider({
               </svg>
             </button>
             <div className="mb-3 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-              — Arriving soon
+              Arriving soon
             </div>
             <div className="pr-12 text-[28px] font-extrabold leading-[1.05] tracking-[-0.03em] text-white sm:text-[32px]">
               {opts.vehicle ? `First look: ${opts.vehicle}` : 'Get the first look.'}
             </div>
             <p className="mb-7 mt-3 max-w-[420px] text-[14px] leading-[1.6] text-rb-tx-mute">
-              Be first in line when the car lands — photos, condition report and pricing before it
+              Be first in line when the car lands, photos, condition report and pricing before it
               hits the floor.
             </p>
             <FirstLookForm vehicle={opts.vehicle} campaign={opts.campaign} phone={phone} />
@@ -146,7 +146,7 @@ function FirstLookForm({
     timeframe: '',
     contact_method: '',
   });
-  const [optIn, setOptIn] = useState(false); // UNCHECKED — never auto-subscribe
+  const [optIn, setOptIn] = useState(false); // UNCHECKED, never auto-subscribe
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pending, setPending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -220,7 +220,7 @@ function FirstLookForm({
       if (result.errors) setErrors(result.errors as Record<string, string>);
       setServerError(
         result.error ??
-          (result.errors ? null : 'Something went wrong — please try again, or call us directly.'),
+          (result.errors ? null : 'Something went wrong, please try again, or call us directly.'),
       );
       return;
     }

@@ -29,7 +29,7 @@ const CONTACT_METHODS = ['Phone call', 'Text', 'Email'] as const;
 const TITLE_STATUSES = ['Clean', 'Rebuilt', 'Bonded', 'Other'] as const;
 const YES_NO = ['Yes', 'No'] as const;
 const ACCIDENTS = ['None', 'Minor', 'Major'] as const;
-const TIMELINES = ['As soon as possible', 'Within 30 days', '1–3 months', 'Just exploring'] as const;
+const TIMELINES = ['As soon as possible', 'Within 30 days', '1-3 months', 'Just exploring'] as const;
 const TRANSMISSIONS = ['Automatic', 'Manual', 'Other'] as const;
 const OWNER_COUNTS = ['1', '2', '3', '4+', 'Not sure'] as const;
 const KEY_COUNTS = ['1', '2', '3+'] as const;
@@ -112,7 +112,7 @@ export function SellForm({ phone }: { phone: string | null }) {
       if (!vehicle.location.trim()) e['vehicle.location'] = 'Where is the vehicle located?';
       const vin = vehicle.vin.replace(/\s/g, '');
       if (vin && !/^[A-HJ-NPR-Z0-9]{11,17}$/i.test(vin))
-        e['vehicle.vin'] = 'Check the VIN — 17 characters, no I, O or Q';
+        e['vehicle.vin'] = 'Check the VIN, 17 characters, no I, O or Q';
     }
     if (i === 2) {
       if (!ownership.title_in_name) e['ownership.title_in_name'] = 'Pick one';
@@ -195,7 +195,7 @@ export function SellForm({ phone }: { phone: string | null }) {
       }
       setServerError(
         result.error ??
-          (result.errors ? null : 'Something went wrong — please try again, or call us directly.'),
+          (result.errors ? null : 'Something went wrong, please try again, or call us directly.'),
       );
       return;
     }
@@ -332,7 +332,7 @@ export function SellForm({ phone }: { phone: string | null }) {
                 {...bind('vehicle', vehicle, setVehicle, 'interior')} />
             </div>
             <TextField id="sf-vehicle-location" label="Current vehicle location"
-              placeholder="City, state — or “at Red Box Motors”"
+              placeholder="City, state, or “at Red Box Motors”"
               {...bind('vehicle', vehicle, setVehicle, 'location')} />
           </div>
         )}
@@ -375,7 +375,7 @@ export function SellForm({ phone }: { phone: string | null }) {
             <ChipGroup label="Accident / damage history" options={ACCIDENTS}
               {...bind('condition', condition, setCondition, 'accidents')} />
             <TextAreaField id="sf-condition-accident-details" optional
-              label="Accidents, paintwork or body repairs — details"
+              label="Accidents, paintwork or body repairs, details"
               placeholder="What happened, when, and how it was repaired"
               {...bind('condition', condition, setCondition, 'accident_details')} />
             <div className="grid gap-0.5 sm:grid-cols-2">

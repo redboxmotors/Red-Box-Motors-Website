@@ -23,7 +23,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
             >
               <span className="text-[14px] tracking-tight text-[#e8e8e8]">{faq.q}</span>
               <span className="w-4 flex-none text-center text-[20px] font-semibold leading-none text-rb-red" aria-hidden>
-                {isOpen ? '–' : '+'}
+                {isOpen ? '\u2212' : '+'}
               </span>
             </button>
             <div
