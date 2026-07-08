@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState, useTransition } from 'react';
 import type { DbImage, Listing, ListingStatus, PlacementSurface } from '@/lib/db/types';
-import { listingTitle } from '@/lib/db/types';
+import { dedupeModel, listingTitle } from '@/lib/db/types';
 import { saveListing, type ListingInput } from '@/app/admin/(panel)/listings/actions';
 import { slugify } from '@/lib/admin/slug';
+import { DEFAULT_LISTING_FAQ, CONDITION_TOPIC_SUGGESTIONS } from '@/lib/listing-defaults';
 import { Field, Toggle, inputCls } from './ui';
+import { ConditionListEditor, FaqListEditor, StringListEditor } from './ListingContentFields';
 import { PhotoManager } from './PhotoManager';
 import { ShowOn } from './ShowOn';
 
@@ -52,14 +54,33 @@ export function ListingEditor({
     sale_detail: listing?.sale_detail ?? '',
     published: listing?.published ?? false,
     featured: listing?.featured ?? false,
+    // 2026-07-08 owner-authored content
+    overview: listing?.overview ?? null,
+    highlights: listing?.highlights ?? [],
+    chassis_no: listing?.chassis_no ?? '',
+    title_status: listing?.title_status ?? '',
+    body_style: listing?.body_style ?? '',
+    drivetrain: listing?.drivetrain ?? '',
+    powertrain: listing?.powertrain ?? '',
+    output_hp: listing?.output_hp ?? '',
+    torque_lbft: listing?.torque_lbft ?? '',
+    msrp: listing?.msrp ?? '',
+    special_spec: listing?.special_spec ?? '',
+    documentation: listing?.documentation ?? [],
+    condition_notes: listing?.condition_notes ?? [],
+    listing_faq: listing?.listing_faq ?? null,
   });
 
   function set<K extends keyof ListingInput>(key: K, value: ListingInput[K]) {
     setForm((f) => {
       const next = { ...f, [key]: value };
-      // auto-slug from year/make/model until the owner edits the slug directly
+      // auto-slug from year/make/model until the owner edits the slug
+      // directly — dedupeModel keeps a make typed into the model field from
+      // producing "porsche-porsche-…" slugs (2026-07-08 fix)
       if (!slugTouched && (key === 'year' || key === 'make' || key === 'model')) {
-        next.slug = slugify(`${next.year ?? ''} ${next.make} ${next.model}`);
+        next.slug = slugify(
+          `${next.year ?? ''} ${next.make} ${dedupeModel(next.make, next.model)}`,
+        );
       }
       return next;
     });
@@ -220,6 +241,136 @@ export function ListingEditor({
         <Field label="Transmission">
           <input className={inputCls} value={form.transmission ?? ''} onChange={(e) => set('transmission', e.target.value)} />
         </Field>
+      </section>
+
+      {/* Extended specifications (2026-07-08 — render on the page only when filled) */}
+      <section className="mb-8 border border-rb-line bg-rb-surface p-5">
+        <h2 className="rb-label mb-4">Extended specifications</h2>
+        <div className="grid gap-5 md:grid-cols-3">
+          <Field label="Chassis number">
+            <input className={`${inputCls} font-mono`} value={form.chassis_no ?? ''} onChange={(e) => set('chassis_no', e.target.value)} />
+          </Field>
+          <Field label="Title status" hint="Clean / Rebuilt / Bonded…">
+            <input className={inputCls} value={form.title_status ?? ''} onChange={(e) => set('title_status', e.target.value)} />
+          </Field>
+          <Field label="Body style" hint='e.g. "Spyder"'>
+            <input className={inputCls} value={form.body_style ?? ''} onChange={(e) => set('body_style', e.target.value)} />
+          </Field>
+          <Field label="Drivetrain" hint="AWD / RWD…">
+            <input className={inputCls} value={form.drivetrain ?? ''} onChange={(e) => set('drivetrain', e.target.value)} />
+          </Field>
+          <Field label="Powertrain type" hint='e.g. "Plug-in hybrid"'>
+            <input className={inputCls} value={form.powertrain ?? ''} onChange={(e) => set('powertrain', e.target.value)} />
+          </Field>
+          <Field label="Combined output (hp)" hint="Numbers only.">
+            <input className={inputCls} inputMode="numeric" value={form.output_hp ?? ''} onChange={(e) => set('output_hp', e.target.value)} />
+          </Field>
+          <Field label="Torque (lb-ft)" hint="Numbers only.">
+            <input className={inputCls} inputMode="numeric" value={form.torque_lbft ?? ''} onChange={(e) => set('torque_lbft', e.target.value)} />
+          </Field>
+          <Field label="Original MSRP (USD)" hint="Numbers only.">
+            <input className={inputCls} inputMode="numeric" value={form.msrp ?? ''} onChange={(e) => set('msrp', e.target.value)} />
+          </Field>
+          <Field label="Special specification" hint='e.g. "CXX Special Wishes specification"'>
+            <input className={inputCls} value={form.special_spec ?? ''} onChange={(e) => set('special_spec', e.target.value)} />
+          </Field>
+        </div>
+      </section>
+
+      {/* Overview — the owner's words, verbatim. No generated copy. */}
+      <section className="mb-8 border border-rb-line bg-rb-surface p-5">
+        <h2 className="rb-label mb-1.5">Overview</h2>
+        <p className="mb-4 text-[12px] font-medium leading-relaxed text-rb-tx-faint">
+          Published exactly as written — blank line starts a new paragraph. Leave empty and the
+          page shows no overview at all (never generated filler).
+        </p>
+        <textarea
+          className={`${inputCls} min-h-[220px] resize-y leading-relaxed`}
+          value={form.overview ?? ''}
+          onChange={(e) => set('overview', e.target.value)}
+          placeholder={'First paragraph…\n\nSecond paragraph…'}
+        />
+      </section>
+
+      {/* Vehicle highlights */}
+      <section className="mb-8 border border-rb-line bg-rb-surface p-5">
+        <h2 className="rb-label mb-1.5">Vehicle highlights</h2>
+        <p className="mb-4 text-[12px] font-medium leading-relaxed text-rb-tx-faint">
+          Short lines, in the order they should appear. Section hides when empty.
+        </p>
+        <StringListEditor
+          items={form.highlights}
+          onChange={(v) => set('highlights', v)}
+          placeholder='e.g. "Non-Weissach specification"'
+          addLabel="Add highlight"
+        />
+      </section>
+
+      {/* Documentation & included items */}
+      <section className="mb-8 border border-rb-line bg-rb-surface p-5">
+        <h2 className="rb-label mb-1.5">Documentation &amp; included items</h2>
+        <p className="mb-4 text-[12px] font-medium leading-relaxed text-rb-tx-faint">
+          Manuals, accessories, records, keys, chargers… Section hides when empty.
+        </p>
+        <StringListEditor
+          items={form.documentation}
+          onChange={(v) => set('documentation', v)}
+          placeholder='e.g. "Original manuals"'
+          addLabel="Add item"
+        />
+      </section>
+
+      {/* Condition & inspection */}
+      <section className="mb-8 border border-rb-line bg-rb-surface p-5">
+        <h2 className="rb-label mb-1.5">Condition &amp; inspection</h2>
+        <p className="mb-4 text-[12px] font-medium leading-relaxed text-rb-tx-faint">
+          Only owner-verified details — empty items don&rsquo;t publish. Suggested topics:
+          cosmetic notes, paintwork history, accident history, PPF status, tires, recent service,
+          battery / hybrid system, inspection availability.
+        </p>
+        <ConditionListEditor
+          items={form.condition_notes}
+          onChange={(v) => set('condition_notes', v)}
+          suggestions={CONDITION_TOPIC_SUGGESTIONS}
+        />
+      </section>
+
+      {/* Listing FAQ */}
+      <section className="mb-8 border border-rb-line bg-rb-surface p-5">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="rb-label mb-1.5">Listing FAQ</h2>
+            <p className="text-[12px] font-medium leading-relaxed text-rb-tx-faint">
+              {form.listing_faq === null
+                ? 'Using the site default questions. Customize to edit them for this listing.'
+                : form.listing_faq.length === 0
+                  ? 'FAQ section hidden on this listing. Add a question or restore the defaults.'
+                  : 'Custom questions for this listing.'}
+            </p>
+          </div>
+          <div className="flex gap-1.5">
+            {form.listing_faq === null ? (
+              <button
+                type="button"
+                onClick={() => set('listing_faq', DEFAULT_LISTING_FAQ.map((f) => ({ ...f })))}
+                className="border border-rb-line px-4 py-2.5 text-[10px] font-bold uppercase tracking-label text-rb-tx-faint transition-colors hover:border-rb-border-2 hover:text-rb-tx"
+              >
+                Customize
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => set('listing_faq', null)}
+                className="border border-rb-line px-4 py-2.5 text-[10px] font-bold uppercase tracking-label text-rb-tx-faint transition-colors hover:border-rb-border-2 hover:text-rb-tx"
+              >
+                Use site defaults
+              </button>
+            )}
+          </div>
+        </div>
+        {form.listing_faq !== null && (
+          <FaqListEditor items={form.listing_faq} onChange={(v) => set('listing_faq', v)} />
+        )}
       </section>
 
       {/* VIN — server-side only unless made public */}

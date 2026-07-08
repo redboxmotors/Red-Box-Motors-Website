@@ -3,7 +3,7 @@
 import { requireUser } from '@/lib/auth';
 import { revalidatePublic } from '@/lib/admin/revalidate';
 import { parseNumeric, slugify } from '@/lib/admin/slug';
-import type { ListingStatus } from '@/lib/db/types';
+import type { ConditionNote, ListingFaqItem, ListingStatus } from '@/lib/db/types';
 
 export type ListingInput = {
   slug: string;
@@ -25,6 +25,22 @@ export type ListingInput = {
   sale_detail: string | null;
   published: boolean;
   featured: boolean;
+  // 2026-07-08 owner-authored content (requires the 2026-07-08 SQL patch)
+  overview: string | null;
+  highlights: string[];
+  chassis_no: string | null;
+  title_status: string | null;
+  body_style: string | null;
+  drivetrain: string | null;
+  powertrain: string | null;
+  output_hp: string | number | null;
+  torque_lbft: string | number | null;
+  msrp: string | number | null;
+  special_spec: string | null;
+  documentation: string[];
+  condition_notes: ConditionNote[];
+  // null = site default questions; [] = section hidden
+  listing_faq: ListingFaqItem[] | null;
 };
 
 export type SaveResult =
@@ -67,6 +83,36 @@ function toRow(input: ListingInput) {
   };
 }
 
+// Owner-authored content columns (2026-07-08 patch). Written in a SEPARATE
+// update so a pre-patch database still saves the base listing and gets a
+// clear "run the patch" message instead of a wholesale failure.
+function toContentRow(input: ListingInput) {
+  const strings = (list: string[]) => list.map((s) => s.trim()).filter(Boolean);
+  return {
+    overview: input.overview?.trim() || null,
+    highlights: strings(input.highlights),
+    chassis_no: input.chassis_no?.trim() || null,
+    title_status: input.title_status?.trim() || null,
+    body_style: input.body_style?.trim() || null,
+    drivetrain: input.drivetrain?.trim() || null,
+    powertrain: input.powertrain?.trim() || null,
+    output_hp: parseNumeric(input.output_hp),
+    torque_lbft: parseNumeric(input.torque_lbft),
+    msrp: parseNumeric(input.msrp),
+    special_spec: input.special_spec?.trim() || null,
+    documentation: strings(input.documentation),
+    condition_notes: input.condition_notes
+      .map((n) => ({ label: n.label.trim(), value: n.value.trim() }))
+      .filter((n) => n.label || n.value),
+    listing_faq:
+      input.listing_faq === null
+        ? null
+        : input.listing_faq
+            .map((f) => ({ q: f.q.trim(), a: f.a.trim() }))
+            .filter((f) => f.q || f.a),
+  };
+}
+
 export async function saveListing(id: string | null, input: ListingInput): Promise<SaveResult> {
   const { supabase } = await requireUser();
 
@@ -81,17 +127,47 @@ export async function saveListing(id: string | null, input: ListingInput): Promi
 
   const row = toRow(input);
 
+  let savedId = id;
+  let oldSlug: string | null = null;
+
   if (id) {
+    const { data: existing } = await supabase.from('listings').select('slug').eq('id', id).maybeSingle();
+    oldSlug = existing?.slug ?? null;
     const { error } = await supabase.from('listings').update(row).eq('id', id);
     if (error) return { ok: false, errors: { _form: error.message } };
-    revalidatePublic();
-    return { ok: true, id };
+  } else {
+    const { data, error } = await supabase.from('listings').insert(row).select('id').single();
+    if (error || !data) return { ok: false, errors: { _form: error?.message ?? 'Insert failed.' } };
+    savedId = data.id;
   }
 
-  const { data, error } = await supabase.from('listings').insert(row).select('id').single();
-  if (error || !data) return { ok: false, errors: { _form: error?.message ?? 'Insert failed.' } };
+  // Slug changed → record a permanent redirect so the old URL keeps working,
+  // and repoint any older redirects at the new slug (no chains). Best-effort:
+  // a pre-patch DB (table missing) just skips it.
+  if (oldSlug && oldSlug !== row.slug) {
+    await supabase.from('slug_redirects').upsert({ old_slug: oldSlug, new_slug: row.slug });
+    await supabase.from('slug_redirects').update({ new_slug: row.slug }).eq('new_slug', oldSlug);
+    // never redirect a slug to itself (e.g. renamed back)
+    await supabase.from('slug_redirects').delete().eq('old_slug', row.slug);
+  }
+
+  // Owner-authored content — separate write with a clear pre-patch error.
+  const { error: contentError } = await supabase
+    .from('listings')
+    .update(toContentRow(input))
+    .eq('id', savedId!);
+  if (contentError) {
+    return {
+      ok: false,
+      errors: {
+        _form:
+          'Base listing saved, but the overview/highlights/spec fields need the 2026-07-08 database patch (supabase/patches/2026-07-08-listing-content.sql) — run it in the Supabase SQL editor and save again.',
+      },
+    };
+  }
+
   revalidatePublic();
-  return { ok: true, id: data.id };
+  return { ok: true, id: savedId! };
 }
 
 export async function deleteListing(id: string) {
