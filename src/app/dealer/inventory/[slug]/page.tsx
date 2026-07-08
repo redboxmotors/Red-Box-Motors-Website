@@ -23,8 +23,8 @@ import { carSchema } from '@/lib/seo/schema';
 // /dealer/inventory/[slug] — single listing (2026-07-08 owner rework).
 // Section order: gallery → name/mileage/price → primary specifications →
 // owner-written overview → highlights → documentation & included items →
-// condition & inspection → Available Through Red Box Motors → listing FAQ →
-// inquiry form → view additional inventory.
+// condition & inspection → Available Through Red Box Motors → inquiry form →
+// listing FAQ → view additional inventory.
 //
 // NO generated copy: overview, highlights, documentation and condition
 // render ONLY when the owner has written them in /admin — empty sections
@@ -295,17 +295,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
                 </div>
               </div>
 
-              {/* 9 · Listing-specific FAQ */}
-              {faq.length > 0 && (
-                <div className="mt-12 border-t border-rb-line-2 pt-[34px]">
-                  <SectionHeading>Questions About This Vehicle</SectionHeading>
-                  <div className="border border-rb-line-2">
-                    <FaqAccordion faqs={faq} />
-                  </div>
-                </div>
-              )}
-
-              {/* 10 · Inquiry */}
+              {/* 9 · Inquiry */}
               <div className="mt-12 border-t border-rb-line-2 pt-[34px]">
                 <SectionHeading>Inquire About This Vehicle</SectionHeading>
                 <div className="flex items-start gap-10 max-lg:flex-col">
@@ -349,6 +339,16 @@ export default async function CarDetailPage({ params }: { params: { slug: string
                   </div>
                 </div>
               </div>
+
+              {/* 10 · Listing-specific FAQ (below the inquiry form per owner) */}
+              {faq.length > 0 && (
+                <div className="mt-12 border-t border-rb-line-2 pt-[34px]">
+                  <SectionHeading>Questions About This Vehicle</SectionHeading>
+                  <div className="border border-rb-line-2">
+                    <FaqAccordion faqs={faq} />
+                  </div>
+                </div>
+              )}
 
               {/* 11 · View additional inventory */}
               <div className="mt-12 flex flex-wrap items-center justify-between gap-5 border-t border-rb-line-2 pt-8">
