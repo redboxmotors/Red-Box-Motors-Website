@@ -547,13 +547,13 @@ export function HomeShowcase({
               {[
                 {
                   label: 'Sales & Consignment',
-                  text: 'Curated inventory and professional consignment representation for enthusiast and collector vehicles — buying, selling and consigning, managed by one team from first conversation to delivery.',
+                  text: 'Curated inventory and professional consignment representation for enthusiast and collector vehicles, managed by one team from the first conversation through delivery.',
                   cta: 'Explore Sales',
                   href: '/dealer',
                 },
                 {
                   label: 'Red Box Restoration',
-                  text: 'Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive installations — delivered to one standard, under one roof.',
+                  text: 'Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive installations\u2014completed to one exacting standard.',
                   cta: 'Explore Services',
                   href: '/restoration',
                 },
