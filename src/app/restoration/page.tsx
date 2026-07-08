@@ -301,10 +301,10 @@ export default async function RestorationPage() {
         <div className="relative h-[400px] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/bring-us-car.jpg"
-            alt="Red Box Restoration bay — vehicle prepared for paint protection film"
+            src="/assets/resto-intro.jpg"
+            alt="McLaren 765LT in the Red Box Restoration wash bay, Austin TX"
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: 'center 46%' }}
+            style={{ objectPosition: 'center 55%' }}
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
         </div>
