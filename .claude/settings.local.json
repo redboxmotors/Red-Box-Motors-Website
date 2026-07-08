@@ -101,7 +101,13 @@
       "Bash(sips -g pixelWidth -g pixelHeight home-sales-tile.jpg home-protection-tile.jpg home-tell-us.jpg)",
       "Bash(sips -r 90 home-protection-tile.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight home-protection-tile.jpg)",
-      "Bash(grep -rn \"View on site\\\\|preview\\\\|href=\\\\`/\\\\|href={\\\\`/\" src/components/admin/ListingEditor.tsx src/components/admin/ProjectEditor.tsx src/components/admin/ListingsManager.tsx src/components/admin/ProjectsManager.tsx)"
+      "Bash(grep -rn \"View on site\\\\|preview\\\\|href=\\\\`/\\\\|href={\\\\`/\" src/components/admin/ListingEditor.tsx src/components/admin/ProjectEditor.tsx src/components/admin/ListingsManager.tsx src/components/admin/ProjectsManager.tsx)",
+      "mcp__claude_ai_Vercel__list_projects",
+      "Bash(git commit -m 'Listing content model: owner-authored overview/highlights/docs/condition/FAQ, expanded specs, slug redirects, make-model dedupe *)",
+      "Bash(git commit -m 'Listing detail rework: new section order, no generated/absolute template copy, Available Through Red Box Motors, listing FAQ, 918 slug 301 *)",
+      "Bash(git commit -m 'Inquiry form fixes: bulletproof honeypot hiding, single chip-group label, consolidated inquiry types, VIN/stock/price/URL in notifications, direct-call wording *)",
+      "Bash(git commit -m 'Admin: listing content editors \\(overview, highlights, documentation, condition, FAQ, extended specs\\) + slug-change redirect recording *)",
+      "Bash(git commit -m 'Schema sync, memory and project notes for 2026-07-08 listing batch *)"
     ]
   }
 }
