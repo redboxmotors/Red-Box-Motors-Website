@@ -285,7 +285,7 @@ export default async function DealerInventoryPage({
     <main className="relative bg-rb-bg text-white">
       <SchemaScript schema={itemListSchema(forSale)} />
       <RandomBackdrop />
-      <SiteNav current="dealer" />
+      <SiteNav current="inventory" />
 
       <div
         className="rb-noscrollbar relative z-[1] h-screen overflow-y-auto bg-transparent"
@@ -297,9 +297,9 @@ export default async function DealerInventoryPage({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/assets/inventory-represented.jpg"
-              alt="Kenwood Group C race car represented by Red Box Motors, Austin TX"
+              alt="Aston Martin Valkyrie pair represented by Red Box Motors, Austin TX"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 40%' }}
+              style={{ objectPosition: 'center 45%' }}
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-12 pb-[34px]">
@@ -510,7 +510,7 @@ export default async function DealerInventoryPage({
                 src="/assets/keys-handoff.jpg"
                 alt="Consign your car with Red Box Motors"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 42%' }}
+                style={{ objectPosition: 'center 54%' }}
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,16,16,0)_55%,rgba(16,16,16,0.55)_82%,rgba(16,16,16,0.95)_100%)]" />
               <div className="absolute bottom-0 left-0 px-[30px] py-[26px]">

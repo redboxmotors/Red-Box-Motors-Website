@@ -144,7 +144,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
       <RandomBackdrop />
 
       <div className="relative z-[1]">
-        <SiteNav current="cosmetics" />
+        <SiteNav current="work" />
 
         <article className="mx-auto max-w-[1120px] px-6 pb-20 pt-24">
           {/* BACK */}

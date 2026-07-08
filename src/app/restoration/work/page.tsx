@@ -50,7 +50,7 @@ export default async function RecentWorkPage() {
     <main className="relative bg-rb-bg text-white">
       <SchemaScript schema={collectionPageSchema('Recent Work', 'Recent paint protection film, ceramic coating, paint correction, wrap and wheel projects from Red Box Restoration, Austin, TX.', '/restoration/work')} />
       <RandomBackdrop />
-      <SiteNav current="cosmetics" />
+      <SiteNav current="work" />
 
       <div
         className="rb-noscrollbar relative z-[1] h-screen overflow-y-auto bg-transparent"

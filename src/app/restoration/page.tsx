@@ -151,9 +151,9 @@ const SERVICES: {
       "Every installation is completed with attention to vehicle-specific mounting procedures and final fitment. Where specialized repair or finishing is required, Red Box Restoration manages the project through trusted specialty partners and remains the client's point of contact from removal through final installation.",
     ],
     img: {
-      src: '/assets/ppf-disassembly.jpg',
-      alt: 'Lifted truck on aftermarket wheels and tires in the Red Box shop',
-      pos: 'center 62%',
+      src: '/assets/resto-wheels.jpg',
+      alt: 'Wheel detailing on a Lamborghini Huracan STO at Red Box Restoration',
+      pos: 'center 72%',
     },
   },
   {

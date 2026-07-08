@@ -151,7 +151,11 @@
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/resto-vinyl.jpg)",
       "Bash(sips -s format jpeg -s formatOptions 85 '/Users/user/Downloads/Porsche-ST-Polish.jpg' --out public/assets/resto-correction.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/resto-correction.jpg)",
-      "Bash(git commit -q -m 'Restoration: real paint-correction photo \\(911 S/T polishing\\) replaces placeholder *)"
+      "Bash(git commit -q -m 'Restoration: real paint-correction photo \\(911 S/T polishing\\) replaces placeholder *)",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2400 '/Users/user/Desktop/PHOTOS/Web Pics/2.jpg' --out public/assets/inventory-represented.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleHeight 2000 '/Users/user/Desktop/PHOTOS/A027_C171_0929L0.0000003.jpeg' --out public/assets/resto-wheels.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/resto-wheels.jpg)",
+      "Bash(git commit -q -m 'UI fixes: full End-to-end \\(Buy+Consign tracks\\) restored on homepage via shared HowItWorksSection, per-route nav active states, HCW photo column, MTAL header fade restored, VWR merged with final sell CTA; Valkyrie inventory header, STO wheel photo, floor-changes crop nudge *)"
     ]
   }
 }

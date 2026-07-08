@@ -23,9 +23,10 @@ type NavKey =
   | 'about'
   | 'contact';
 
-// Old section keys → the flat nav item to highlight.
+// Old section keys → the flat nav item to highlight. ('dealer' no longer
+// aliases to inventory — /dealer is the consignment page and highlights
+// Sell Your Car via current="sell"; each page passes its exact key.)
 const ALIAS: Partial<Record<NavKey, NavKey>> = {
-  dealer: 'inventory',
   cosmetics: 'restoration',
 };
 

@@ -34,7 +34,7 @@ export default async function SourcedPage() {
     <div className="relative bg-rb-bg text-white">
       <SchemaScript schema={collectionPageSchema('Cars We Found for Clients', "Off-market and pre-allocation cars we've sourced and acquired for buyers nationwide.", '/dealer/sourced')} />
       <RandomBackdrop />
-      <SiteNav current="dealer" />
+      <SiteNav current="inventory" />
 
       <div
         data-scroll-container

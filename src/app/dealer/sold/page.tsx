@@ -34,7 +34,7 @@ export default async function SoldPage() {
     <div className="relative bg-rb-bg text-white">
       <SchemaScript schema={collectionPageSchema("Cars We've Sold", 'Past placements sold and consigned through Red Box Motors, Austin, TX.', '/dealer/sold')} />
       <RandomBackdrop />
-      <SiteNav current="dealer" />
+      <SiteNav current="inventory" />
 
       <div
         data-scroll-container

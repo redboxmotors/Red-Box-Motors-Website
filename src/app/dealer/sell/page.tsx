@@ -32,7 +32,7 @@ export default async function SellPage() {
   return (
     <div className="relative flex min-h-screen flex-col text-white">
       <RandomBackdrop />
-      <SiteNav current="dealer" />
+      <SiteNav current="sell" />
 
       <main className="relative z-[1] flex flex-1 items-start justify-center px-[2.5vw] pb-14 pt-[104px]">
         <div className="flex w-full max-w-[1280px] animate-rb-panel-in flex-col overflow-hidden bg-rb-surface shadow-rb-card-lg">
