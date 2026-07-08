@@ -129,7 +129,13 @@
       "Bash(sips -s format jpeg -s formatOptions 82 --resampleHeight 2400 '/Users/user/Downloads/Web Pics-2.png' --out public/assets/home-tell-us.jpg)",
       "Bash(git commit -q -m 'Homepage: Hoonitruck photo for Tell Us About Your Car section *)",
       "Bash(git commit -q -m 'Homepage: raise Protection & Customization crop so cars clear the caption; bottom bar now links site sections instead of full capability list *)",
-      "Bash(git commit -q -m 'Homepage: Brabus G-Wagon + classic 280 SE photo for Tell Us About Your Car *)"
+      "Bash(git commit -q -m 'Homepage: Brabus G-Wagon + classic 280 SE photo for Tell Us About Your Car *)",
+      "Bash(sips -g pixelWidth -g pixelHeight '/Users/user/Downloads/Web Pics.png' '/Users/user/Desktop/PHOTOS/Web Pics/26.jpg')",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2400 '/Users/user/Downloads/Web Pics.png' --out public/assets/dealer-one-team.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2000 '/Users/user/Desktop/PHOTOS/red photoes/A042_C067_0413BO.0000116.jpeg' --out public/assets/dealer-sell-consign.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2000 '/Users/user/Desktop/PHOTOS/Web Pics/26.jpg' --out public/assets/dealer-buying-selling.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/dealer-one-team.jpg public/assets/dealer-sell-consign.jpg public/assets/dealer-buying-selling.jpg)",
+      "Bash(git commit -q -m 'Dealer page photos: 918 Spyder one-team header, Dino for Sell/Consign, race cockpit for final CTA \\(sized to match homepage bottom CTA\\) *)"
     ]
   }
 }

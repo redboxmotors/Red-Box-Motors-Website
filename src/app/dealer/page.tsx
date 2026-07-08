@@ -234,10 +234,10 @@ export default async function DealerPage() {
           <div className="relative h-[400px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/dealer-scroll-header.jpg"
-              alt="Red Box Motors showroom"
+              src="/assets/dealer-one-team.jpg"
+              alt="Porsche 918 Spyder outside Red Box Motors, Austin TX"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 55%' }}
+              style={{ objectPosition: 'center 68%' }}
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
           </div>
@@ -330,10 +330,10 @@ export default async function DealerPage() {
               <div className="relative min-h-[300px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[520px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/assets/consignment.jpeg"
-                  alt="Consignment vehicle prepared for sale at Red Box Motors"
+                  src="/assets/dealer-sell-consign.jpg"
+                  alt="Consigned Ferrari Dino represented by Red Box Motors"
                   className="absolute inset-0 h-full w-full object-cover"
-                  style={{ objectPosition: 'center 52%' }}
+                  style={{ objectPosition: '60% 55%' }}
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(270deg,rgba(16,16,16,0)_55%,rgba(16,16,16,0.55)_82%,rgba(16,16,16,0.95)_100%)]" />
@@ -626,13 +626,13 @@ export default async function DealerPage() {
           {/* FINAL CTA — hard cut in */}
           <div className="border-t border-rb-line bg-[#101010]">
             <div className="flex flex-col md:flex-row">
-              <div className="relative min-h-[320px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[560px]">
+              <div className="relative min-h-[340px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[640px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/assets/get-in-touch.jpeg"
-                  alt="Talk to Red Box Motors"
+                  src="/assets/dealer-buying-selling.jpg"
+                  alt="Race car cockpit — talk to Red Box Motors about buying or selling"
                   className="absolute inset-0 h-full w-full object-cover"
-                  style={{ objectPosition: 'center 64%' }}
+                  style={{ objectPosition: 'center 50%' }}
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_55%,rgba(10,10,10,0.55)_82%,rgba(10,10,10,0.95)_100%)]" />
