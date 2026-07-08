@@ -14,14 +14,11 @@ import type { Faq } from '@/components/site/FaqAccordion';
 
 // Sales & Consignment landing (customer-facing rename of "Dealer" — the
 // /dealer URL is kept to avoid routing churn). Owner-approved copy, verbatim.
-// Page order: hero → one-team intro → full Buy section → full Sell/Consign
-// section → More Than a Listing (pillar tile row overlapping into featured
-// inventory) → featured inventory → How It Works → merged Why Red Box trust
-// section → What We Represent → final CTA. The seller
-// visual (SHOW_SELLER_VISUAL) and sold/sourced previews are unpublished (the
-// routes still exist, just unlinked). Section boundaries deliberately
-// alternate hard cuts (border + surface jump) and gradient transitions so
-// the page reads as chapters.
+// Page order (consignment-focused, owner 2026-07-08): hero → More Than a
+// Listing → How Consignment Works → featured inventory → Why Red Box trust
+// → Vehicles Worth Representing → final sell CTA → FAQ. The one-team intro,
+// Buy/Sell path chapters, Buying track and seller visual are unpublished
+// (SHOW_* flags); the "End to end" banner moved to the homepage.
 
 export const revalidate = 60;
 
@@ -38,6 +35,11 @@ const EASE = 'cubic-bezier(.2,.8,.2,1)';
 // revision (redundant with the enlarged "More than a listing" section, which
 // inherited its consignment-process photo). Flip to restore.
 const SHOW_SELLER_VISUAL = false;
+
+// 2026-07-08 consignment-focused reorder — hidden, not deleted. Flip to restore.
+const SHOW_ONE_TEAM_INTRO = false;
+const SHOW_PATH_CHAPTERS = false;
+const SHOW_BUYING_TRACK = false;
 
 // Owner copy — verbatim.
 const BUYING_STEPS = [
@@ -242,6 +244,10 @@ export default async function DealerPage() {
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
           </div>
 
+          {/* ONE-TEAM INTRO — unpublished (owner 2026-07-08 reorder; the
+              "End to end" story now lives on the homepage). Flip to restore. */}
+          {SHOW_ONE_TEAM_INTRO && (
+          <>
           {/* INTRO — owner copy, verbatim */}
           <div className="px-6 pt-[72px] md:px-[52px] md:pt-[88px]">
             <div data-reveal className="mb-7 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
@@ -273,6 +279,133 @@ export default async function DealerPage() {
           {/* spacer under the intro before the buy/sell chapters */}
           <div className="h-16 md:h-24" />
 
+          </>
+          )}
+
+          {/* MORE THAN A LISTING — representation pillars as a tile row that
+              overlaps into the featured-inventory section below, visually
+              tying the consignment pitch to the cars it produces. */}
+          <div className="border-t border-rb-line bg-[#131313] pt-20 md:pt-[100px]">
+            <div className="grid gap-10 px-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:px-[52px]">
+              <div>
+                <div data-reveal className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
+                  — Representation
+                </div>
+                <h2
+                  data-reveal
+                  className="m-0 font-extrabold text-white"
+                  style={{ fontSize: 'clamp(36px,4.8vw,72px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
+                >
+                  More than a listing
+                </h2>
+                <p
+                  data-reveal
+                  style={{ transitionDelay: '.1s' }}
+                  className="mb-0 mt-6 max-w-[560px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute"
+                >
+                  Every consigned vehicle receives an agreed preparation, presentation and marketing plan.
+                </p>
+              </div>
+              <div data-reveal style={{ transitionDelay: '.12s' }} className="relative min-h-[240px] overflow-hidden bg-rb-surface-4">
+                {/* PLACEHOLDER IMAGE — replace /public/assets/placeholders/consignment-process.jpg
+                    with a collage of consignment-process stages: photography, detailing,
+                    inspection, video production, showroom presentation, enclosed transport
+                    loading. Same filename = drop-in swap. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/placeholders/consignment-process.jpg"
+                  alt="Red Box Motors consignment process — photography, detailing, inspection, video production, showroom presentation and enclosed transport"
+                  className="absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-x-0 bottom-0 px-5 py-4">
+                  <div className="font-mono text-[10px] uppercase tracking-[2.5px] text-[#9a9a9a]">
+                    Photography · Detailing · Inspection · Video · Showroom · Transport
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* pillar tiles — pulled down across the section boundary */}
+            <div
+              data-reveal
+              style={{ transitionDelay: '.16s' }}
+              className="relative z-[2] -mb-24 mt-14 grid gap-1.5 px-6 sm:grid-cols-2 md:grid-cols-3 md:px-[52px] xl:grid-cols-5"
+            >
+              {MORE_THAN_A_LISTING.map((item) => (
+                <div
+                  key={item.title}
+                  className="flex flex-col gap-3 px-7 py-8 transition-[transform,box-shadow,filter] duration-[240ms] ease-rb hover:z-[3] hover:-translate-y-[5px] hover:brightness-[1.14]"
+                  style={{
+                    background: 'linear-gradient(165deg,#1d1d1d 0%,#131313 55%,#0D0D0D 100%)',
+                    boxShadow: '0 22px 48px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  <div className="text-[15px] font-bold uppercase leading-snug tracking-[1px] text-rb-red">
+                    {item.title}
+                  </div>
+                  <p className="m-0 text-[13.5px] leading-[1.65] text-[#a0a0a0]">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* HOW CONSIGNMENT WORKS — consignment-only (owner 2026-07-08).
+              The Buying track is unpublished below (SHOW_BUYING_TRACK) and the
+              "End to end, either direction" banner moved to the homepage.
+              Top padding clears the MTAL tiles overlapping in from above. */}
+          <div className="bg-rb-surface-2 pt-40 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] md:pt-48">
+            <div className="px-6 md:px-[52px]">
+              <div data-reveal className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
+                — How it works
+              </div>
+              <h2
+                data-reveal
+                className="m-0 font-bold leading-none text-white"
+                style={{ fontSize: 'clamp(28px,3.6vw,52px)', letterSpacing: '-0.03em' }}
+              >
+                How Consignment Works
+              </h2>
+            </div>
+            <div className="mx-auto max-w-[1080px]">
+              <StepTrack heading="Consignment" tag="Five steps" steps={CONSIGNMENT_STEPS} delay=".06s" />
+            </div>
+            {SHOW_BUYING_TRACK && (
+              <div className="grid border-t border-rb-line md:grid-cols-2">
+                <StepTrack heading="Buying" tag="You want a car" steps={BUYING_STEPS} delay=".06s" borderRight />
+                <StepTrack heading="Consignment" tag="You have a car" steps={CONSIGNMENT_STEPS} delay=".16s" />
+              </div>
+            )}
+          </div>
+
+          {/* FEATURED INVENTORY */}
+          <div className="pb-24 pt-20 md:pt-24" style={{ background: 'linear-gradient(180deg,#0C0C0C 0px,#0A0A0A 340px)' }}>
+            <div className="flex flex-wrap items-end justify-between gap-5 px-6 md:px-[52px]">
+              <div>
+                <div data-reveal className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
+                  — Featured inventory
+                </div>
+                <h2
+                  data-reveal
+                  className="m-0 font-bold leading-none text-white"
+                  style={{ fontSize: 'clamp(26px,3.4vw,46px)', letterSpacing: '-0.03em' }}
+                >
+                  Currently represented
+                </h2>
+              </div>
+              <Link href="/dealer/inventory" className={`${ghostRed} flex-none px-6 py-[13px] text-[13px]`}>
+                View Inventory
+                <ArrowIcon />
+              </Link>
+            </div>
+            <PreviewGrid cards={salePreview} variant="forsale" />
+          </div>
+
+          {/* BUY + SELL/CONSIGN PATH CHAPTERS — unpublished (owner 2026-07-08
+              reorder; superseded by the consignment-focused order). Flip to
+              restore. */}
+          {SHOW_PATH_CHAPTERS && (
+          <>
           {/* BUY — full section: photo + copy + button (owner copy verbatim) */}
           <div data-reveal className="border-t border-rb-line bg-[#0C0C0C]">
             <div className="flex flex-col md:flex-row">
@@ -370,97 +503,8 @@ export default async function DealerPage() {
             </div>
           </div>
 
-          {/* MORE THAN A LISTING — representation pillars as a tile row that
-              overlaps into the featured-inventory section below, visually
-              tying the consignment pitch to the cars it produces. */}
-          <div className="border-t border-rb-line bg-[#131313] pt-20 md:pt-[100px]">
-            <div className="grid gap-10 px-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:px-[52px]">
-              <div>
-                <div data-reveal className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Representation
-                </div>
-                <h2
-                  data-reveal
-                  className="m-0 font-extrabold text-white"
-                  style={{ fontSize: 'clamp(36px,4.8vw,72px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
-                >
-                  More than a listing
-                </h2>
-                <p
-                  data-reveal
-                  style={{ transitionDelay: '.1s' }}
-                  className="mb-0 mt-6 max-w-[560px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute"
-                >
-                  Every consigned vehicle receives an agreed preparation, presentation and marketing plan.
-                </p>
-              </div>
-              <div data-reveal style={{ transitionDelay: '.12s' }} className="relative min-h-[240px] overflow-hidden bg-rb-surface-4">
-                {/* PLACEHOLDER IMAGE — replace /public/assets/placeholders/consignment-process.jpg
-                    with a collage of consignment-process stages: photography, detailing,
-                    inspection, video production, showroom presentation, enclosed transport
-                    loading. Same filename = drop-in swap. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/placeholders/consignment-process.jpg"
-                  alt="Red Box Motors consignment process — photography, detailing, inspection, video production, showroom presentation and enclosed transport"
-                  className="absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-x-0 bottom-0 px-5 py-4">
-                  <div className="font-mono text-[10px] uppercase tracking-[2.5px] text-[#9a9a9a]">
-                    Photography · Detailing · Inspection · Video · Showroom · Transport
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* pillar tiles — pulled down across the section boundary */}
-            <div
-              data-reveal
-              style={{ transitionDelay: '.16s' }}
-              className="relative z-[2] -mb-24 mt-14 grid gap-1.5 px-6 sm:grid-cols-2 md:grid-cols-3 md:px-[52px] xl:grid-cols-5"
-            >
-              {MORE_THAN_A_LISTING.map((item) => (
-                <div
-                  key={item.title}
-                  className="flex flex-col gap-3 px-7 py-8 transition-[transform,box-shadow,filter] duration-[240ms] ease-rb hover:z-[3] hover:-translate-y-[5px] hover:brightness-[1.14]"
-                  style={{
-                    background: 'linear-gradient(165deg,#1d1d1d 0%,#131313 55%,#0D0D0D 100%)',
-                    boxShadow: '0 22px 48px rgba(0,0,0,0.5)',
-                  }}
-                >
-                  <div className="text-[15px] font-bold uppercase leading-snug tracking-[1px] text-rb-red">
-                    {item.title}
-                  </div>
-                  <p className="m-0 text-[13.5px] leading-[1.65] text-[#a0a0a0]">{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* FEATURED INVENTORY — the MTAL tiles above overlap into this
-              section (connective transition, no hard cut) */}
-          <div className="pb-24 pt-44 md:pt-52" style={{ background: 'linear-gradient(180deg,#0C0C0C 0px,#0A0A0A 340px)' }}>
-            <div className="flex flex-wrap items-end justify-between gap-5 px-6 md:px-[52px]">
-              <div>
-                <div data-reveal className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — Featured inventory
-                </div>
-                <h2
-                  data-reveal
-                  className="m-0 font-bold leading-none text-white"
-                  style={{ fontSize: 'clamp(26px,3.4vw,46px)', letterSpacing: '-0.03em' }}
-                >
-                  Currently represented
-                </h2>
-              </div>
-              <Link href="/dealer/inventory" className={`${ghostRed} flex-none px-6 py-[13px] text-[13px]`}>
-                View Inventory
-                <ArrowIcon />
-              </Link>
-            </div>
-            <PreviewGrid cards={salePreview} variant="forsale" />
-          </div>
+          </>
+          )}
 
           {/* SELLER-FOCUSED VISUAL — unpublished (SHOW_SELLER_VISUAL) */}
           {SHOW_SELLER_VISUAL && (
@@ -515,53 +559,6 @@ export default async function DealerPage() {
             </div>
           </div>
           )}
-
-          {/* HOW IT WORKS — two tracks */}
-          <div className="bg-rb-surface-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-            <div data-reveal className="relative h-[400px] overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/mclaren-p1.jpg"
-                alt="Red Box Motors — how it works"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 45%' }}
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.35)_0%,rgba(10,10,10,0.04)_32%,rgba(10,10,10,0.55)_74%,#0C0C0C_100%)]" />
-              <div className="absolute inset-x-0 bottom-0 px-6 pb-[42px] md:px-[52px]">
-                <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  — How it works
-                </div>
-                <h2
-                  className="m-0 max-w-[15ch] font-extrabold text-white"
-                  style={{
-                    fontSize: 'clamp(34px,4.6vw,68px)',
-                    letterSpacing: '-0.04em',
-                    lineHeight: 0.92,
-                    textShadow: '0 2px 30px rgba(0,0,0,0.55)',
-                  }}
-                >
-                  End to end, either direction
-                </h2>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2">
-              <StepTrack
-                heading="Buying"
-                tag="You want a car"
-                steps={BUYING_STEPS}
-                delay=".06s"
-                borderRight
-              />
-              <StepTrack
-                heading="Consignment"
-                tag="You have a car"
-                steps={CONSIGNMENT_STEPS}
-                delay=".16s"
-              />
-            </div>
-          </div>
 
           {/* WHY RED BOX — the buying pillars and the owner-credibility claims,
               merged into one big trust section (hard cut from How It Works).
@@ -623,14 +620,15 @@ export default async function DealerPage() {
             </p>
           </div>
 
-          {/* FINAL CTA — hard cut in */}
+          {/* FINAL SELL CTA — the big closing chapter (owner 2026-07-08;
+              the previous "Buying or selling?" variant is in git history) */}
           <div className="border-t border-rb-line bg-[#101010]">
             <div className="flex flex-col md:flex-row">
               <div className="relative min-h-[340px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[640px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/dealer-buying-selling.jpg"
-                  alt="Race car cockpit — talk to Red Box Motors about buying or selling"
+                  alt="Race car cockpit — consign your vehicle with Red Box Motors"
                   className="absolute inset-0 h-full w-full object-cover"
                   style={{ objectPosition: 'center 50%' }}
                   loading="lazy"
@@ -651,23 +649,23 @@ export default async function DealerPage() {
                   className="m-0 max-w-[13ch] font-extrabold text-white"
                   style={{ fontSize: 'clamp(40px,5.4vw,80px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
                 >
-                  Buying or selling?
+                  Sell Your Vehicle.
                 </h2>
                 <p className="mb-0 mt-[30px] max-w-[480px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute">
-                  Explore the vehicles we currently represent, or tell us about the one you would
-                  like us to represent for you.
+                  Professionally prepare, market and represent your vehicle to qualified buyers
+                  nationwide — tell us about the car you would like us to represent.
                 </p>
 
                 <div className="mt-11 flex flex-wrap items-center gap-[22px]">
                   <Link
-                    href="/dealer/inventory"
+                    href="/dealer/sell"
                     className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
                   >
-                    View Inventory
+                    Sell Your Vehicle
                     <ArrowIcon size={16} stroke={1.5} />
                   </Link>
-                  <Link href="/dealer/sell" className={`${ghostRed} px-[30px] py-[17px] text-[14px]`}>
-                    Sell Your Vehicle
+                  <Link href="/dealer/inventory" className={`${ghostRed} px-[30px] py-[17px] text-[14px]`}>
+                    View Inventory
                     <ArrowIcon size={15} stroke={1.5} />
                   </Link>
                 </div>

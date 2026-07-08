@@ -84,9 +84,9 @@ const SERVICES: {
       'Protection is available for paint, paint protection film, wheels, calipers, exterior glass and interior surfaces. Multiple coating levels are available based on the vehicle, intended use and desired term of protection.',
     ],
     img: {
-      src: '/assets/mclaren-p1.jpg',
-      alt: 'Deep gloss finish on a McLaren P1 — ceramic-coated paint',
-      pos: 'center 60%',
+      src: '/assets/resto-ceramic.jpg',
+      alt: 'Ceramic coating applied to a BMW M2 at Red Box Restoration',
+      pos: '55% 45%',
     },
   },
   {
@@ -100,9 +100,9 @@ const SERVICES: {
       'The vehicle is thoroughly cleaned and prepared before the film is installed with careful attention to alignment, body lines, seams and edges. Because paint condition and previous repairs can affect installation and future removal, the existing finish is evaluated before work begins.',
     ],
     img: {
-      src: '/assets/placeholders/vinyl-wrap.jpg',
-      alt: 'Color-change vinyl wrap installation at Red Box Restoration',
-      placeholder: true,
+      src: '/assets/resto-vinyl.jpg',
+      alt: 'Camouflage livery vinyl installation at Red Box Restoration',
+      pos: 'center 55%',
     },
   },
   {

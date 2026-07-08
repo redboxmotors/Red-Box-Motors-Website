@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { ContactLink } from '@/components/contact/ContactModal';
 
-// Fixed top nav — flat six links (owner checklist 2026-07-07): Inventory,
-// Sell Your Vehicle, Restoration, Recent Work, About, Contact. A top scrim
+// Fixed top nav — flat six links (owner 2026-07-08): Current Inventory,
+// Sell Your Car, Red Box Restoration, Recent Work, About, Contact. A top scrim
 // keeps the links legible over photo heroes. Collection Management and
 // sourcing are unpublished — keys stay in NavKey so hidden pages still
 // compile, but no link renders. Pages still pass the old section keys
@@ -33,12 +33,12 @@ const LINKS: {
   key: Exclude<NavKey, '' | 'dealer' | 'cosmetics' | 'collection'>;
   label: string;
   href: string;
-  children?: { label: string; desc: string; href: string }[];
+  children?: { label: string; desc?: string; href: string }[];
 }[] = [
-  { key: 'inventory', label: 'Inventory', href: '/dealer/inventory' },
+  { key: 'inventory', label: 'Current Inventory', href: '/dealer/inventory' },
   {
     key: 'sell',
-    label: 'Sell Your Vehicle',
+    label: 'Sell Your Car',
     href: '/dealer/sell',
     children: [
       { label: 'Submit Your Vehicle', desc: 'Professional consignment representation', href: '/dealer/sell' },
@@ -47,10 +47,19 @@ const LINKS: {
   },
   {
     key: 'restoration',
-    label: 'Restoration',
+    label: 'Red Box Restoration',
     href: '/restoration',
+    // Every service, title case (owner 2026-07-08), linking to the
+    // jump-menu anchors on /restoration.
     children: [
-      { label: 'Services', desc: 'PPF · coatings · correction · wraps', href: '/restoration#services' },
+      { label: 'Paint Protection Film', href: '/restoration#ppf' },
+      { label: 'Paint Correction', href: '/restoration#correction' },
+      { label: 'Ceramic Coatings', href: '/restoration#coatings' },
+      { label: 'Vinyl Wraps, Graphics And Liveries', href: '/restoration#wraps' },
+      { label: 'Window Tint', href: '/restoration#tint' },
+      { label: 'Detailing And Vehicle Care', href: '/restoration#detailing' },
+      { label: 'Wheels, Tires And Calipers', href: '/restoration#wheels' },
+      { label: 'Specialty Automotive Installations', href: '/restoration#specialty' },
       { label: 'Request an Estimate', desc: 'Tell us about the project', href: '/restoration/estimate' },
     ],
   },
@@ -58,6 +67,7 @@ const LINKS: {
   { key: 'about', label: 'About', href: '/about' },
   { key: 'contact', label: 'Contact', href: '/contact' },
 ];
+
 
 export function SiteNav({ current = '' }: { current?: NavKey }) {
   const [open, setOpen] = useState<NavKey>('');
@@ -160,9 +170,11 @@ export function SiteNav({ current = '' }: { current?: NavKey }) {
                             <span className="text-[12.5px] font-medium tracking-[0.4px] text-white">
                               {child.label}
                             </span>
-                            <span className="text-[10.5px] tracking-[0.6px] text-rb-tx-mute-3">
-                              {child.desc}
-                            </span>
+                            {child.desc && (
+                              <span className="text-[10.5px] tracking-[0.6px] text-rb-tx-mute-3">
+                                {child.desc}
+                              </span>
+                            )}
                           </span>
                         </Link>
                       ))}

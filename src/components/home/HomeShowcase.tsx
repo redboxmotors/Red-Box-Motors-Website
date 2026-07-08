@@ -20,6 +20,10 @@ const EASE = 'cubic-bezier(.2,.8,.2,1)';
 // through the `featured` prop.
 const SHOW_FEATURED = false;
 
+// "Tell Us About Your Car" unpublished (owner 2026-07-08) — the End-to-end
+// section from /dealer took its place. Flip to restore.
+const SHOW_TELL_US = false;
+
 // True only on the first mount within a document (a genuine full load or
 // refresh) — false on in-site client navigations, which reuse the module.
 // The hero entrance is choreographed to sit under the ~2.6s IntroLoader on a
@@ -653,6 +657,52 @@ export function HomeShowcase({
             </div>
           )}
 
+          {/* END TO END — moved from /dealer (owner 2026-07-08); replaces the
+              "Tell Us About Your Car" section, which is unpublished below
+              (SHOW_TELL_US). */}
+          <div className="relative mt-[96px] overflow-hidden border-t border-rb-line">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/mclaren-p1.jpg"
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: 'center 45%' }}
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0.6)_0%,rgba(5,5,5,0.28)_40%,rgba(5,5,5,0.74)_78%,#050505_100%)]" />
+            <div className="relative px-6 pb-[64px] pt-[110px] md:px-16 md:pb-[88px] md:pt-[150px]">
+              <div data-hreveal className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red" style={reveal()}>
+                — How it works
+              </div>
+              <h2
+                data-hreveal
+                className="m-0 max-w-[15ch] font-extrabold text-white"
+                style={{ ...reveal(), fontSize: 'clamp(36px,5vw,76px)', letterSpacing: '-0.04em', lineHeight: 0.94, textShadow: '0 2px 30px rgba(0,0,0,0.55)' }}
+              >
+                End to end, either direction
+              </h2>
+              <p
+                data-hreveal
+                className="mb-0 mt-6 max-w-[560px] text-[16px] font-medium leading-[1.7] text-rb-tx-2"
+                style={{ ...reveal(0.08), textShadow: '0 1px 20px rgba(0,0,0,0.7)' }}
+              >
+                Buying one of our vehicles or consigning your own — one team manages the process
+                from the first conversation through delivery.
+              </p>
+              <div data-hreveal className="mt-10 flex flex-wrap items-center gap-[18px]" style={reveal(0.14)}>
+                <Link href="/dealer/inventory" className={heroRed}>
+                  Current Inventory
+                </Link>
+                <Link href="/dealer/sell" className={heroGhost}>
+                  Sell Your Car
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* TELL US ABOUT YOUR CAR — unpublished (owner 2026-07-08). Flip to restore. */}
+          {SHOW_TELL_US && (
+          <>
           {/* TELL US ABOUT YOUR CAR — two customer paths */}
           <div className="mt-[96px] grid border-t border-rb-line bg-rb-surface md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="relative min-h-[280px] overflow-hidden bg-rb-surface-4 md:min-h-[520px]">
@@ -718,6 +768,9 @@ export function HomeShowcase({
               </div>
             </div>
           </div>
+
+          </>
+          )}
 
           {/* Visit & FAQ — generous breathing room above so it reads as its own
               chapter, clearly separated from the Tell Us section */}
