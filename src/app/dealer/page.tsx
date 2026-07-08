@@ -16,10 +16,12 @@ import type { Faq } from '@/components/site/FaqAccordion';
 // Sales & Consignment landing (customer-facing rename of "Dealer" — the
 // /dealer URL is kept to avoid routing churn). Owner-approved copy, verbatim.
 // Page order (consignment-focused, owner 2026-07-08): hero → More Than a
-// Listing → How Consignment Works → featured inventory → Why Red Box trust
-// → Vehicles Worth Representing → final sell CTA → FAQ. The one-team intro,
-// Buy/Sell path chapters, Buying track and seller visual are unpublished
-// (SHOW_* flags); the "End to end" banner moved to the homepage.
+// Listing → How Consignment Works (full-width steps + Dino band) → featured
+// inventory → Why Red Box trust → closing chapter (Vehicles Worth
+// Representing framing + Sell Your Car action, one section) → FAQ. The
+// one-team intro, Buy/Sell path chapters, Buying track and seller visual
+// are unpublished (SHOW_* flags); the "End to end" chapter lives on the
+// homepage (components/dealer/HowItWorksSection).
 
 export const revalidate = 60;
 
@@ -313,19 +315,21 @@ export default async function DealerPage() {
                 How Consignment Works
               </h2>
             </div>
-            <div className="mx-auto grid max-w-[1240px] items-stretch md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+            {/* steps span the full page width; the Dino rides below as a
+                full-bleed band (owner 2026-07-08) */}
+            <div className="px-0 md:px-10">
               <StepTrack heading="Consignment" tag="Five steps" steps={CONSIGNMENT_STEPS} delay=".06s" />
-              <div data-reveal style={{ transitionDelay: '.14s' }} className="relative min-h-[300px] overflow-hidden md:my-[46px] md:min-h-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/dealer-sell-consign.jpg"
-                  alt="Consigned Ferrari Dino represented by Red Box Motors"
-                  className="absolute inset-0 h-full w-full object-cover"
-                  style={{ objectPosition: '60% 55%' }}
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,17,17,0.15)_0%,rgba(17,17,17,0)_45%,rgba(17,17,17,0.4)_100%)]" />
-              </div>
+            </div>
+            <div data-reveal className="relative h-[280px] overflow-hidden md:h-[380px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/dealer-sell-consign.jpg"
+                alt="Consigned Ferrari Dino represented by Red Box Motors"
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: 'center 60%' }}
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,17,17,0.55)_0%,rgba(17,17,17,0)_35%,rgba(17,17,17,0)_65%,rgba(12,12,12,0.85)_100%)]" />
             </div>
             {SHOW_BUYING_TRACK && (
               <div className="grid border-t border-rb-line md:grid-cols-2">
@@ -553,34 +557,12 @@ export default async function DealerPage() {
                 CREDIBILITY entries above. No invented claims. */}
           </div>
 
-          {/* VEHICLES WORTH REPRESENTING → SELL CTA — one closing chapter
-              (merged 2026-07-08): the owner's VWR headline + description lead
-              directly into the sell CTA. Copy verbatim. */}
+          {/* CLOSING CHAPTER — Vehicles Worth Representing framing + the
+              Sell Your Car action in ONE section (owner 2026-07-08 redo).
+              Owner copy verbatim. */}
           <div className="border-t border-rb-line bg-[#101010]">
-            <div className="px-6 pb-6 pt-20 md:px-[52px]">
-              <div data-reveal className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                — What we represent
-              </div>
-              <h2
-                data-reveal
-                className="m-0 font-bold leading-none text-white"
-                style={{ fontSize: 'clamp(30px,4vw,58px)', letterSpacing: '-0.03em' }}
-              >
-                Vehicles Worth Representing
-              </h2>
-              <p
-                data-reveal
-                style={{ transitionDelay: '.1s' }}
-                className="mb-0 mt-7 max-w-[820px] text-[19px] font-medium leading-[1.7] text-rb-tx-2"
-              >
-                We represent vehicles with enthusiast value, compelling specification and a story
-                worth presenting&mdash;from modern exotics and limited-production performance cars to
-                significant classics, restomods and specialty vehicles.
-              </p>
-            </div>
-
-            <div className="mt-8 flex flex-col md:flex-row">
-              <div className="relative min-h-[340px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[560px]">
+            <div className="flex flex-col md:flex-row">
+              <div className="relative min-h-[340px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[620px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/dealer-buying-selling.jpg"
@@ -598,17 +580,39 @@ export default async function DealerPage() {
               </div>
 
               <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-16 md:px-16 md:py-[90px]">
-                <p className="mb-0 max-w-[480px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute">
-                  Professionally prepare, market and represent your vehicle to qualified buyers
-                  nationwide &mdash; tell us about the car you would like us to represent.
+                <div data-reveal className="mb-5 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
+                  — What we represent
+                </div>
+                <h2
+                  data-reveal
+                  className="m-0 max-w-[14ch] font-extrabold text-white"
+                  style={{ fontSize: 'clamp(34px,4.4vw,64px)', letterSpacing: '-0.04em', lineHeight: 0.98 }}
+                >
+                  Vehicles Worth Representing
+                </h2>
+                <p
+                  data-reveal
+                  style={{ transitionDelay: '.1s' }}
+                  className="mb-0 mt-7 max-w-[520px] text-[17px] font-medium leading-[1.7] text-rb-tx-2"
+                >
+                  We represent vehicles with enthusiast value, compelling specification and a story
+                  worth presenting&mdash;from modern exotics and limited-production performance cars to
+                  significant classics, restomods and specialty vehicles.
+                </p>
+                <p
+                  data-reveal
+                  style={{ transitionDelay: '.14s' }}
+                  className="mb-0 mt-6 max-w-[480px] text-[15px] font-medium leading-[1.7] text-rb-tx-mute"
+                >
+                  Tell us about the car you would like us to represent.
                 </p>
 
-                <div className="mt-11 flex flex-wrap items-center gap-[22px]">
+                <div data-reveal style={{ transitionDelay: '.18s' }} className="mt-10 flex flex-wrap items-center gap-[22px]">
                   <Link
                     href="/dealer/sell"
                     className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
                   >
-                    Sell Your Vehicle
+                    Sell Your Car
                     <ArrowIcon size={16} stroke={1.5} />
                   </Link>
                   <Link href="/dealer/inventory" className={`${ghostRed} px-[30px] py-[17px] text-[14px]`}>
@@ -617,7 +621,7 @@ export default async function DealerPage() {
                   </Link>
                 </div>
 
-                <div className="mt-[52px] flex items-center gap-[11px] border-t border-rb-line pt-[26px]">
+                <div className="mt-[46px] flex items-center gap-[11px] border-t border-rb-line pt-[26px]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/assets/brand/rbm-logo-header.png" alt="" className="h-[24px] w-[24px]" />
                   <span className="text-[11px] uppercase tracking-[2px] text-rb-tx-faint">

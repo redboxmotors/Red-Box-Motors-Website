@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 // "End to end, either direction" — the full How It Works chapter (banner +
 // Buying and Consignment step tracks). Owner copy, verbatim. Lived on
 // /dealer until the 2026-07-08 reorder; the full section now renders on the
@@ -25,12 +27,14 @@ export function StepTrack({
   steps,
   delay,
   borderRight = false,
+  cta,
 }: {
   heading: string;
   tag: string;
   steps: { num: string; title: string; desc: string }[];
   delay: string;
   borderRight?: boolean;
+  cta?: { label: string; href: string };
 }) {
   return (
     <div
@@ -61,6 +65,19 @@ export function StepTrack({
           </div>
         </div>
       ))}
+      {cta && (
+        <div className="mt-9 border-t border-[#191919] pt-8">
+          <Link
+            href={cta.href}
+            className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-4 text-[14px] font-semibold tracking-[0.5px] text-white"
+          >
+            {cta.label}
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" />
+            </svg>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
@@ -98,8 +115,21 @@ export function EndToEndSection() {
       </div>
 
       <div className="grid md:grid-cols-2">
-        <StepTrack heading="Buying" tag="You want a car" steps={BUYING_STEPS} delay=".06s" borderRight />
-        <StepTrack heading="Consignment" tag="You have a car" steps={CONSIGNMENT_STEPS} delay=".16s" />
+        <StepTrack
+          heading="Buying"
+          tag="You want a car"
+          steps={BUYING_STEPS}
+          delay=".06s"
+          borderRight
+          cta={{ label: 'View Inventory', href: '/dealer/inventory' }}
+        />
+        <StepTrack
+          heading="Consignment"
+          tag="You have a car"
+          steps={CONSIGNMENT_STEPS}
+          delay=".16s"
+          cta={{ label: 'Sell Your Car', href: '/dealer/sell' }}
+        />
       </div>
     </div>
   );

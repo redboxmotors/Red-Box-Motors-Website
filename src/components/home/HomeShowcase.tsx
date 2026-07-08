@@ -21,10 +21,6 @@ const EASE = 'cubic-bezier(.2,.8,.2,1)';
 // through the `featured` prop.
 const SHOW_FEATURED = false;
 
-// "Tell Us About Your Car" unpublished (owner 2026-07-08) — the End-to-end
-// section from /dealer took its place. Flip to restore.
-const SHOW_TELL_US = false;
-
 // True only on the first mount within a document (a genuine full load or
 // refresh) — false on in-site client navigations, which reuse the module.
 // The hero entrance is choreographed to sit under the ~2.6s IntroLoader on a
@@ -665,48 +661,62 @@ export function HomeShowcase({
             <EndToEndSection />
           </div>
 
-          {/* TELL US ABOUT YOUR CAR — unpublished (owner 2026-07-08). Flip to restore. */}
-          {SHOW_TELL_US && (
-          <>
-          {/* TELL US ABOUT YOUR CAR — two customer paths */}
+          {/* EXPLORE RED BOX MOTORS — closing chapter (owner 2026-07-08):
+              the former "Tell Us About Your Car" section restored and adapted
+              to route visitors onward to every main page. */}
           <div className="mt-[96px] grid border-t border-rb-line bg-rb-surface md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="relative min-h-[280px] overflow-hidden bg-rb-surface-4 md:min-h-[520px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/home-tell-us.jpg" alt="Talk to Red Box Motors" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: '36% center' }} />
+              <img src="/assets/home-tell-us.jpg" alt="Red Box Motors, Austin TX" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: '36% center' }} />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_46%,rgba(10,10,10,0.5)_80%,rgba(10,10,10,0.96)_100%)]" />
             </div>
-            <div className="flex flex-col justify-center px-6 py-[56px] md:px-16 md:py-[80px]">
+            <div className="flex flex-col justify-center px-6 py-[56px] md:px-16 md:py-[72px]">
               <div data-hreveal className="mb-6 font-mono text-[11px] uppercase tracking-[4px] text-rb-red" style={reveal()}>
-                — Where do we start?
+                — Where to next
               </div>
-              <h2 data-hreveal className="m-0 max-w-[14ch] font-extrabold text-white" style={{ ...reveal(), fontSize: 'clamp(40px,5.4vw,84px)', letterSpacing: '-0.045em', lineHeight: 0.94 }}>
-                Tell us about your car.
+              <h2 data-hreveal className="m-0 max-w-[14ch] font-extrabold text-white" style={{ ...reveal(), fontSize: 'clamp(36px,4.8vw,72px)', letterSpacing: '-0.045em', lineHeight: 0.94 }}>
+                Explore Red Box Motors.
               </h2>
 
-              <div data-hreveal className="mt-10 border-t border-[#232323]" style={reveal(0.1)}>
+              <div data-hreveal className="mt-9 border-t border-[#232323]" style={reveal(0.1)}>
                 {[
                   {
-                    href: '/dealer',
-                    label: 'Buy or Sell a Vehicle',
-                    sub: 'View available inventory or discuss professional consignment representation.',
+                    href: '/dealer/inventory',
+                    label: 'Current Inventory',
+                    sub: 'Enthusiast and collector vehicles currently offered through Red Box Motors.',
+                  },
+                  {
+                    href: '/dealer/sell',
+                    label: 'Sell Your Car',
+                    sub: 'Professional consignment representation, from first conversation to delivery.',
                   },
                   {
                     href: '/restoration',
-                    label: 'Protect or Customize a Vehicle',
-                    sub: 'Request an estimate for PPF, coatings, paint correction, wraps, tint, detailing, wheels or specialty work.',
+                    label: 'Red Box Restoration',
+                    sub: 'PPF, paint correction, ceramic coatings, wraps, tint, detailing, wheels and specialty installations.',
+                  },
+                  {
+                    href: '/restoration/work',
+                    label: 'Recent Work',
+                    sub: 'Recent protection, correction and transformation projects from the shop floor.',
+                  },
+                  {
+                    href: '/about',
+                    label: 'About',
+                    sub: 'The story, the standard and the facility behind Red Box Motors.',
                   },
                 ].map((row) => (
                   <Link
                     key={row.href}
                     href={row.href}
-                    className="flex items-center justify-between gap-5 border-b border-rb-line-2 px-1 py-8 transition-[padding-left,background] duration-200 hover:bg-[rgba(204,0,0,0.06)] hover:pl-4 md:py-9"
+                    className="flex items-center justify-between gap-5 border-b border-rb-line-2 px-1 py-6 transition-[padding-left,background] duration-200 hover:bg-[rgba(204,0,0,0.06)] hover:pl-4 md:py-7"
                   >
-                    <span className="flex flex-col gap-2.5">
+                    <span className="flex flex-col gap-2">
                       <span className="flex items-center gap-4">
                         <span className="h-2 w-2 flex-none bg-rb-red" />
-                        <span className="text-[20px] font-semibold tracking-[0.2px] text-white md:text-[22px]">{row.label}</span>
+                        <span className="text-[19px] font-semibold tracking-[0.2px] text-white md:text-[21px]">{row.label}</span>
                       </span>
-                      <span className="pl-6 text-[14.5px] leading-relaxed tracking-[0.2px] text-rb-tx-mute-3 md:text-[15px]">{row.sub}</span>
+                      <span className="pl-6 text-[13.5px] leading-relaxed tracking-[0.2px] text-rb-tx-mute-3 md:text-[14px]">{row.sub}</span>
                     </span>
                     <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="flex-none" aria-hidden>
                       <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#CC0000" strokeWidth="1.5" />
@@ -715,16 +725,13 @@ export function HomeShowcase({
                 ))}
               </div>
 
-              <div data-hreveal className="mt-11 flex flex-wrap items-center gap-[22px]" style={reveal(0.14)}>
-                <Link href="/dealer/sell" className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white">
-                  Tell Us About Your Vehicle
+              <div data-hreveal className="mt-10 flex flex-wrap items-center gap-[22px]" style={reveal(0.14)}>
+                <ContactLink className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white">
+                  Contact Red Box Motors
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" /></svg>
-                </Link>
-                <Link href="/about" className="text-[13.5px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white">
-                  About Red Box Motors →
-                </Link>
+                </ContactLink>
               </div>
-              <div data-hreveal className="mt-14 flex items-center gap-[11px]" style={reveal(0.24)}>
+              <div data-hreveal className="mt-12 flex items-center gap-[11px]" style={reveal(0.24)}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/assets/brand/rbm-logo-header.png" alt="" className="h-[26px] w-[26px]" />
                 <span className="text-[11px] uppercase tracking-[2px] text-rb-tx-faint">
@@ -733,9 +740,6 @@ export function HomeShowcase({
               </div>
             </div>
           </div>
-
-          </>
-          )}
 
           {/* Visit & FAQ — generous breathing room above so it reads as its own
               chapter, clearly separated from the Tell Us section */}
