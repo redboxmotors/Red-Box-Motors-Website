@@ -18,7 +18,7 @@ import type { Faq } from '@/components/site/FaqAccordion';
 // Page order (consignment-focused, owner 2026-07-08): hero → More Than a
 // Listing → How Consignment Works (full-width steps) → Why Red Box trust →
 // featured inventory → closing chapter (Vehicles Worth
-// Representing framing + Sell Your Car action, one section) → FAQ. The
+// Representing framing + Sell Your Vehicle action, one section) → FAQ. The
 // one-team intro, Buy/Sell path chapters, Buying track and seller visual
 // are unpublished (SHOW_* flags); the "End to end" chapter lives on the
 // homepage (components/dealer/HowItWorksSection).
@@ -560,7 +560,7 @@ export default async function DealerPage() {
           )}
 
           {/* CLOSING CHAPTER — Vehicles Worth Representing framing + the
-              Sell Your Car action in ONE section (owner 2026-07-08 redo).
+              Sell Your Vehicle action in ONE section (owner 2026-07-08 redo).
               Owner copy verbatim. */}
           <div className="border-t border-rb-line bg-[#101010]">
             <div className="flex flex-col md:flex-row">
@@ -614,7 +614,7 @@ export default async function DealerPage() {
                     href="/dealer/sell"
                     className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
                   >
-                    Sell Your Car
+                    Sell Your Vehicle
                     <ArrowIcon size={16} stroke={1.5} />
                   </Link>
                   <Link href="/dealer/inventory" className={`${ghostRed} px-[30px] py-[17px] text-[14px]`}>

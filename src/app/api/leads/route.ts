@@ -53,7 +53,6 @@ const ESTIMATE_SERVICES = new Set([
   'Detailing',
   'Wheels, Tires & Calipers',
   'Specialty Installations',
-  'Specialty Project',
 ]);
 
 // Inquiry types for listing inquiries (2026-07-08 consolidated list).

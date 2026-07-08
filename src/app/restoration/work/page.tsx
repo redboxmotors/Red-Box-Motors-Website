@@ -137,7 +137,7 @@ export default async function RecentWorkPage() {
                 </h2>
                 <p className="m-0 mt-7 max-w-[500px] text-[16.5px] font-medium leading-[1.7] text-rb-tx-mute">
                   Tell us what you&rsquo;re protecting or transforming — paint protection, ceramic,
-                  correction, wrap, wheels or specialty work. We&rsquo;ll walk you through the
+                  correction, wrap, wheels or specialty installations. We&rsquo;ll walk you through the
                   right approach for your car and handle it under one roof in Austin.
                 </p>
 

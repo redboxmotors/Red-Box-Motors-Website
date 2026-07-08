@@ -366,8 +366,8 @@ export function HomeShowcase({
           className="rb-hero-in relative z-[2] mt-7 max-w-[520px] text-[16px] font-medium leading-relaxed text-rb-tx-2"
           style={{ textShadow: '0 1px 20px rgba(0,0,0,0.8)', opacity: 0, animation: `fadeUp .9s ${EASE} forwards ${heroDelay(2.35, 0.34)}s` }}
         >
-          Exotic and collector vehicle sales, consignment, protection and customization—under one
-          roof in Austin, Texas.
+          Exotic and collector vehicle sales, professional consignment representation, protection
+          and customization in Austin, Texas.
         </p>
         <div
           className="rb-hero-in relative z-[2] mt-8 flex flex-wrap items-center gap-3.5"
@@ -377,10 +377,13 @@ export function HomeShowcase({
             View Inventory
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" strokeWidth="1.5" /></svg>
           </Link>
-          <Link href="/dealer/sell" className={heroRed}>
+          <Link href="/dealer/sell" className={heroGhost}>
             Sell Your Vehicle
           </Link>
-          <Link href="/restoration" className={heroGhost}>
+          <Link
+            href="/restoration"
+            className="inline-flex items-center gap-2 px-2 py-[14px] text-[12.5px] font-semibold tracking-[1px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
+          >
             Explore Restoration Services
           </Link>
         </div>
@@ -413,8 +416,8 @@ export function HomeShowcase({
                 <div className="absolute inset-x-0 bottom-0 p-[30px] px-[34px]">
                   <div className="mb-2.5 text-[32px] font-semibold tracking-tight text-white">Sales &amp; Consignment</div>
                   <div className="max-w-[420px] text-[15px] leading-relaxed text-[#d6d6d6]">
-                    Curated inventory and premium consignment representation for enthusiast and
-                    collector vehicles.
+                    Curated inventory and professional consignment representation for enthusiast
+                    and collector vehicles.
                   </div>
                   <span className="mt-5 inline-flex items-center gap-2.5 bg-rb-red px-5 py-3 text-[12px] font-semibold tracking-[1.5px] text-white">
                     EXPLORE SALES
@@ -434,8 +437,9 @@ export function HomeShowcase({
                 <div className="absolute inset-x-0 bottom-0 p-[30px] px-[34px]">
                   <div className="mb-2.5 text-[32px] font-semibold tracking-tight text-white">Protection &amp; Customization</div>
                   <div className="max-w-[420px] text-[15px] leading-relaxed text-[#d6d6d6]">
-                    PPF, ceramic coatings, paint correction, vinyl wraps, tint, detailing, wheels
-                    and specialty automotive projects.
+                    Professional vehicle protection, finish restoration and customization,
+                    including PPF, paint correction, ceramic coatings, wraps, tint, detailing,
+                    wheels and specialty installations.
                   </div>
                   <span className="mt-5 inline-flex items-center gap-2.5 bg-rb-red px-5 py-3 text-[12px] font-semibold tracking-[1.5px] text-white">
                     EXPLORE SERVICES
@@ -534,7 +538,7 @@ export function HomeShowcase({
               Red Box Motors brings vehicle sales, protection and customization together through
               one trusted automotive partner. From protecting a new delivery to representing a
               collector vehicle for sale, one accountable team can prepare, protect, present,
-              sell and deliver your car — start to finish.
+              represent and deliver your vehicle from start to finish.
             </p>
 
             {/* division description columns — red label · paragraph · explore
@@ -543,13 +547,13 @@ export function HomeShowcase({
               {[
                 {
                   label: 'Sales & Consignment',
-                  text: 'Curated inventory and premium consignment representation for enthusiast and collector vehicles — buying, selling and consigning, managed by one team from first conversation to delivery.',
+                  text: 'Curated inventory and professional consignment representation for enthusiast and collector vehicles — buying, selling and consigning, managed by one team from first conversation to delivery.',
                   cta: 'Explore Sales',
                   href: '/dealer',
                 },
                 {
                   label: 'Red Box Restoration',
-                  text: 'Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive projects — delivered to one standard, under one roof.',
+                  text: 'Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive installations — delivered to one standard, under one roof.',
                   cta: 'Explore Services',
                   href: '/restoration',
                 },
@@ -687,7 +691,7 @@ export function HomeShowcase({
                   },
                   {
                     href: '/dealer/sell',
-                    label: 'Sell Your Car',
+                    label: 'Sell Your Vehicle',
                     sub: 'Professional consignment representation, from first conversation to delivery.',
                   },
                   {

@@ -70,7 +70,7 @@ const LIFECYCLE = [
   { stage: 'Buy', text: 'Curated inventory and consignment representation through Sales & Consignment.' },
   { stage: 'Protect', text: 'PPF, ceramic coatings and correction before the miles go on.' },
   { stage: 'Maintain', text: 'Detailing and vehicle care that keep the finish at delivery standard.' },
-  { stage: 'Enjoy', text: 'Tint, wheels, wraps and the specialty work that makes the car yours.' },
+  { stage: 'Enjoy', text: 'Tint, wheels, wraps and the specialty installations that make the car yours.' },
   { stage: 'Sell', text: 'Preparation, presentation and professional representation when it is time.' },
 ];
 

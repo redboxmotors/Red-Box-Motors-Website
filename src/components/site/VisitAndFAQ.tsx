@@ -13,7 +13,7 @@ type Division = 'all' | 'dealer' | 'cosmetics' | 'collection';
 const DEFAULT_FAQ: Faq[] = [
   {
     q: 'What services does Red Box Motors provide?',
-    a: 'Two divisions under one roof: Sales & Consignment — curated inventory and professional consignment representation for enthusiast and collector vehicles — and Red Box Restoration — paint protection film, ceramic coatings, paint correction, vinyl wraps, tint, detailing, wheels and specialty automotive work.',
+    a: 'Two divisions under one roof: Sales & Consignment — curated inventory and professional consignment representation for enthusiast and collector vehicles — and Red Box Restoration — paint protection film, ceramic coatings, paint correction, vinyl wraps, tint, detailing, wheels and specialty automotive installations.',
   },
   {
     q: 'Where is Red Box Motors located?',

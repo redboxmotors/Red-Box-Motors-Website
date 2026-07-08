@@ -26,7 +26,6 @@ const SERVICES = [
   'Detailing',
   'Wheels, Tires & Calipers',
   'Specialty Installations',
-  'Specialty Project',
 ] as const;
 
 const CONTACT_METHODS = ['Phone call', 'Text', 'Email'] as const;

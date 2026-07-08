@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: '%s — Red Box Motors',
   },
   description:
-    'Exotic and collector vehicle sales, consignment, protection and customization — under one roof in Austin, Texas.',
+    'Exotic and collector vehicle sales, professional consignment representation, protection and customization in Austin, Texas.',
   openGraph: {
     siteName: 'Red Box Motors',
     title: 'Red Box Motors',

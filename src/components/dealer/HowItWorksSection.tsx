@@ -128,7 +128,7 @@ export function EndToEndSection() {
           tag="You have a car"
           steps={CONSIGNMENT_STEPS}
           delay=".16s"
-          cta={{ label: 'Sell Your Car', href: '/dealer/sell' }}
+          cta={{ label: 'Sell Your Vehicle', href: '/dealer/sell' }}
         />
       </div>
     </div>

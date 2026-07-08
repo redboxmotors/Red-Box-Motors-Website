@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { ContactLink } from '@/components/contact/ContactModal';
 
 // Fixed top nav — flat six links (owner 2026-07-08): Current Inventory,
-// Sell Your Car, Red Box Restoration, Recent Work, About, Contact. A top scrim
+// Sell Your Vehicle, Red Box Restoration, Recent Work, About, Contact. A top scrim
 // keeps the links legible over photo heroes. Collection Management and
 // sourcing are unpublished — keys stay in NavKey so hidden pages still
 // compile, but no link renders. Pages still pass the old section keys
@@ -25,7 +25,7 @@ type NavKey =
 
 // Old section keys → the flat nav item to highlight. ('dealer' no longer
 // aliases to inventory — /dealer is the consignment page and highlights
-// Sell Your Car via current="sell"; each page passes its exact key.)
+// Sell Your Vehicle via current="sell"; each page passes its exact key.)
 const ALIAS: Partial<Record<NavKey, NavKey>> = {
   cosmetics: 'restoration',
 };
@@ -39,7 +39,7 @@ const LINKS: {
   { key: 'inventory', label: 'Current Inventory', href: '/dealer/inventory' },
   {
     key: 'sell',
-    label: 'Sell Your Car',
+    label: 'Sell Your Vehicle',
     href: '/dealer/sell',
     children: [
       { label: 'Submit Your Vehicle', desc: 'Professional consignment representation', href: '/dealer/sell' },
