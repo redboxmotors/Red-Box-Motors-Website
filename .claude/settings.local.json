@@ -161,7 +161,8 @@
       "Bash(git commit -q -m 'Dealer: much smaller closing chapter \\(photo height, type scale, padding, buttons\\) *)",
       "Bash(git commit -q -m 'Dealer: remove photo band under How Consignment Works *)",
       "Bash(git revert *)",
-      "Bash(git commit -q -m 'Homepage: much smaller Explore Red Box Motors closing chapter \\(dealer closing restored to original size\\) *)"
+      "Bash(git commit -q -m 'Homepage: much smaller Explore Red Box Motors closing chapter \\(dealer closing restored to original size\\) *)",
+      "Bash(git commit -q -m 'Homepage: tighten gap between closing CTA and Questions & Location *)"
     ]
   }
 }

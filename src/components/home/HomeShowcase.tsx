@@ -741,11 +741,10 @@ export function HomeShowcase({
             </div>
           </div>
 
-          {/* Visit & FAQ — generous breathing room above so it reads as its own
-              chapter, clearly separated from the Tell Us section */}
+          {/* Visit & FAQ */}
           <div
-            className="pt-[110px] md:pt-[160px]"
-            style={{ background: 'linear-gradient(180deg,#050505 0px,#0A0A0A 110px,#111 260px)' }}
+            className="pt-8 md:pt-12"
+            style={{ background: 'linear-gradient(180deg,#050505 0px,#0A0A0A 60px,#111 160px)' }}
           >
             {visitAndFaq}
           </div>
