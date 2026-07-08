@@ -112,7 +112,7 @@ export default function CustomBuildsPage() {
           serviceSchema(
             'Custom Builds & Modifications',
             'Custom builds, aero, wheels and modifications, executed end to end in Austin, TX.',
-            '/cosmetics/custom-builds',
+            '/restoration/custom-builds',
           ),
         )}
       />
@@ -158,7 +158,7 @@ export default function CustomBuildsPage() {
                 </p>
               </div>
               <Link
-                href="/cosmetics"
+                href="/restoration"
                 className="inline-flex items-center gap-[9px] whitespace-nowrap text-[12.5px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
               >
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -378,7 +378,7 @@ export default function CustomBuildsPage() {
                   Start a build <ArrowUpRight />
                 </ContactLink>
                 <Link
-                  href="/cosmetics/work"
+                  href="/restoration/work"
                   className="text-[13px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
                 >
                   See recent work →

@@ -72,8 +72,8 @@ export default async function ContactPage({
                 about the car.
               </h1>
               <p className="mb-10 max-w-[420px] text-[15px] leading-[1.65] text-[#9a9a9a]">
-                Buying, selling, protection or customization — reach out and the right person will get
-                back to you.
+                Tell us about the vehicle and what you would like to accomplish. Your inquiry will
+                be directed to the appropriate Red Box Motors team member.
               </p>
 
               <div className="flex flex-col">

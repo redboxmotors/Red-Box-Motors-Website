@@ -34,7 +34,7 @@ export function listingHref(l: Pick<Listing, 'slug'>): string {
 }
 
 export function projectHref(p: Pick<Project, 'slug'>): string {
-  return `/cosmetics/work/${p.slug}`;
+  return `/restoration/work/${p.slug}`;
 }
 
 function listingLabel(status: Listing['status']): SurfaceCard['label'] {

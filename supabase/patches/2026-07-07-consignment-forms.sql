@@ -20,6 +20,7 @@
 --    so this is transaction-safe on PG 12+.)
 alter type lead_type add value if not exists 'consignment';
 alter type lead_type add value if not exists 'first_look';
+alter type lead_type add value if not exists 'estimate';
 
 -- 2) Shared structured columns on leads.
 alter table public.leads add column if not exists contact_method text;

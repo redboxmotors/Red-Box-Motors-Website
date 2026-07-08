@@ -105,7 +105,7 @@ export default function WheelsPage() {
           serviceSchema(
             'Wheel Refinishing & Powder Coat',
             'Strip, powder coat and custom wheel finishes in Austin, TX.',
-            '/cosmetics/wheels',
+            '/restoration/wheels',
           ),
         )}
       />
@@ -142,7 +142,7 @@ export default function WheelsPage() {
                 — Cosmetics · Wheel Refinishing
               </div>
               <Link
-                href="/cosmetics"
+                href="/restoration"
                 className="inline-flex items-center gap-[9px] whitespace-nowrap text-[12.5px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
               >
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -418,7 +418,7 @@ export default function WheelsPage() {
                   Request a quote <ArrowUpRight />
                 </ContactLink>
                 <Link
-                  href="/cosmetics"
+                  href="/restoration"
                   className="text-[13px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
                 >
                   All cosmetics →

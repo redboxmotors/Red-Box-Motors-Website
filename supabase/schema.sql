@@ -37,7 +37,7 @@ begin
     );
   end if;
   if not exists (select 1 from pg_type where typname = 'lead_type') then
-    create type lead_type as enum ('contact', 'listing', 'consignment', 'first_look');
+    create type lead_type as enum ('contact', 'listing', 'consignment', 'first_look', 'estimate');
   end if;
   if not exists (select 1 from pg_type where typname = 'lead_status') then
     create type lead_status as enum ('new', 'handled');

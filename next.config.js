@@ -29,8 +29,16 @@ const nextConfig = {
     return [{ source: '/:path*', headers: securityHeaders }];
   },
   async redirects() {
-    // Short memorable alias for the consignment form.
-    return [{ source: '/sell', destination: '/dealer/sell', permanent: false }];
+    return [
+      // Short memorable alias for the consignment form.
+      { source: '/sell', destination: '/dealer/sell', permanent: false },
+      // 2026-07-07 rename: Cosmetics → Restoration (old links keep working).
+      { source: '/cosmetics', destination: '/restoration', permanent: true },
+      { source: '/cosmetics/:path*', destination: '/restoration/:path*', permanent: true },
+      // Unpublished divisions (owner: not offered for now; pages kept in code).
+      { source: '/collection', destination: '/', permanent: false },
+      { source: '/dealer/sourced', destination: '/dealer/inventory', permanent: false },
+    ];
   },
 };
 

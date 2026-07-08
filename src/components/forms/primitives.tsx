@@ -182,6 +182,58 @@ export const ChipGroup = forwardRef<HTMLButtonElement, {
   );
 });
 
+// Multi-select chip row (e.g. estimate services — pick all that apply).
+export function MultiChipGroup({
+  label,
+  optional,
+  options,
+  value,
+  onChange,
+  error,
+}: {
+  label: string;
+  optional?: boolean;
+  options: readonly string[];
+  value: string[];
+  onChange: (v: string[]) => void;
+  error?: string;
+}) {
+  return (
+    <FieldBox hasErr={!!error}>
+      <fieldset className="m-0 border-0 p-0">
+        <legend className="sr-only">{label}</legend>
+        <FieldLabel optional={optional}>{label}</FieldLabel>
+        <div className="flex flex-wrap gap-2">
+          {options.map((opt) => {
+            const active = value.includes(opt);
+            return (
+              <button
+                key={opt}
+                type="button"
+                aria-pressed={active}
+                onClick={() =>
+                  onChange(active ? value.filter((v) => v !== opt) : [...value, opt])
+                }
+                className="whitespace-nowrap px-3.5 py-2 text-[12px] font-medium tracking-[0.5px] active:scale-[0.96]"
+                style={{
+                  border: '1px solid',
+                  borderColor: active ? '#CC0000' : '#2a2a2a',
+                  color: active ? '#fff' : '#aaa',
+                  background: active ? 'rgba(204,0,0,0.10)' : 'transparent',
+                  transition: 'border-color 150ms ease, color 150ms ease, background 150ms ease',
+                }}
+              >
+                {opt}
+              </button>
+            );
+          })}
+        </div>
+        {error && <FieldError>{error}</FieldError>}
+      </fieldset>
+    </FieldBox>
+  );
+}
+
 // Native select styled into the field-box pattern (used where a chip row
 // would be too wide — e.g. long option lists on mobile).
 export function SelectField({

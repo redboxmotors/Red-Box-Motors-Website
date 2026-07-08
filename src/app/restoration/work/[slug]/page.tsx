@@ -86,12 +86,12 @@ export async function generateMetadata({
   return {
     title: { absolute: `${p.title} — ${p.vehicle} | Red Box Motors` },
     description,
-    alternates: { canonical: `/cosmetics/work/${p.slug}` },
+    alternates: { canonical: `/restoration/work/${p.slug}` },
     openGraph: {
       title: `${p.title} — ${p.vehicle}`,
       description,
       type: 'article',
-      url: `/cosmetics/work/${p.slug}`,
+      url: `/restoration/work/${p.slug}`,
       ...(images[0] ? { images: [images[0].url] } : {}),
     },
   };
@@ -149,7 +149,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
         <article className="mx-auto max-w-[1120px] px-6 pb-20 pt-24">
           {/* BACK */}
           <Link
-            href="/cosmetics/work"
+            href="/restoration/work"
             className="mb-[26px] inline-flex items-center gap-[9px] text-[12px] uppercase tracking-[2px] text-rb-tx-mute-2 transition-colors duration-150 hover:text-white"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -163,7 +163,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
               {/* ===== AUTHOR ROW ===== */}
               <div className="flex items-center gap-[13px] border-b border-rb-raised-3 pb-[22px]">
                 <Link
-                  href="/cosmetics"
+                  href="/restoration"
                   className="flex h-[46px] w-[46px] flex-none items-center justify-center bg-rb-red"
                 >
                   <span className="font-mono text-[12px] font-bold tracking-[1px] text-white">RBM</span>
@@ -299,7 +299,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                       {hashtags.map((t) => (
                         <Link
                           key={t}
-                          href="/cosmetics/work"
+                          href="/restoration/work"
                           className="font-mono text-[12px] tracking-[0.5px] text-[#7f7f7f] transition-colors duration-150 hover:text-rb-red"
                         >
                           {t}
@@ -356,14 +356,15 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
                     <div className="mb-5 text-[13px] leading-[1.55] text-[#8c8c8c]">
                       Tell us what you have in mind — we will scope it and quote it.
                     </div>
-                    <ContactLink
+                    <Link
+                      href="/restoration/estimate"
                       className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-6 py-3.5 text-[13px] tracking-[0.5px] text-white"
                     >
                       Request an Estimate
                       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
                         <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.4" />
                       </svg>
-                    </ContactLink>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -397,7 +398,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
               {/* ===== MORE WORK ===== */}
               <div className="mt-[30px] flex items-center justify-center">
                 <Link
-                  href="/cosmetics/work"
+                  href="/restoration/work"
                   className="inline-flex items-center gap-[9px] border border-rb-border-2 px-[22px] py-[13px] text-[12.5px] tracking-[1px] text-white transition-[background,border-color,transform,box-shadow] duration-btn ease-rb hover:-translate-y-0.5 hover:border-[#444] hover:bg-rb-raised-3 hover:shadow-[0_12px_26px_rgba(0,0,0,0.5)] active:translate-y-0 active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none"
                 >
                   See more work

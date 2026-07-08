@@ -100,7 +100,8 @@
       "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2000 '/Users/user/Desktop/Web Pics/6.jpg' --out home-tell-us.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight home-sales-tile.jpg home-protection-tile.jpg home-tell-us.jpg)",
       "Bash(sips -r 90 home-protection-tile.jpg)",
-      "Bash(sips -g pixelWidth -g pixelHeight home-protection-tile.jpg)"
+      "Bash(sips -g pixelWidth -g pixelHeight home-protection-tile.jpg)",
+      "Bash(grep -rn \"View on site\\\\|preview\\\\|href=\\\\`/\\\\|href={\\\\`/\" src/components/admin/ListingEditor.tsx src/components/admin/ProjectEditor.tsx src/components/admin/ListingsManager.tsx src/components/admin/ProjectsManager.tsx)"
     ]
   }
 }

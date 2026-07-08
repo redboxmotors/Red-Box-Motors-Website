@@ -24,11 +24,9 @@ import {
 const CATEGORIES = [
   'Buy a Vehicle',
   'Sell or Consign a Vehicle',
+  'Request a Restoration Estimate',
   'Ask About an Existing Listing',
-  'Transportation or Delivery',
-  'General Sales Question',
-  'Red Box Restoration',
-  'Other',
+  'General Question',
 ] as const;
 
 // Smart routing — a better next step for some categories.
@@ -37,13 +35,13 @@ const ROUTES: Partial<Record<(typeof CATEGORIES)[number], { href: string; text: 
     href: '/dealer/sell',
     text: 'Selling or consigning? Our dedicated consignment form gets your car in front of the team fastest',
   },
+  'Request a Restoration Estimate': {
+    href: '/restoration/estimate',
+    text: 'The estimate form goes straight to the Restoration team — describe the project there',
+  },
   'Ask About an Existing Listing': {
     href: '/dealer/inventory',
     text: 'Every car in our inventory has its own inquiry form — start from the vehicle page',
-  },
-  'Red Box Restoration': {
-    href: '/cosmetics',
-    text: 'Looking for protection or restoration work? Start with our services and request an estimate',
   },
 };
 

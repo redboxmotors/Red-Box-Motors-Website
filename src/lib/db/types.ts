@@ -10,7 +10,7 @@ export type PlacementSurface =
   | 'dealer_sold_preview'
   | 'dealer_sourced_preview'
   | 'cosmetics_builds_preview';
-export type LeadType = 'contact' | 'listing' | 'consignment' | 'first_look';
+export type LeadType = 'contact' | 'listing' | 'consignment' | 'first_look' | 'estimate';
 export type LeadStatus = 'new' | 'handled';
 
 export interface Listing {

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ContactLink } from '@/components/contact/ContactModal';
 import { SiteNav } from '@/components/site/SiteNav';
 import { ScrollShell } from '@/components/site/ScrollShell';
 import { HeroSection, HeroBadge } from '@/components/site/Hero';
@@ -13,16 +12,17 @@ import { serviceSchema } from '@/lib/seo/schema';
 import type { Faq } from '@/components/site/FaqAccordion';
 
 // Red Box Restoration — the consolidated protection/restoration/customization
-// page (formerly "Cosmetics"; the /cosmetics URL is kept to avoid routing
-// churn). All services live here as anchored sections; the old per-service
+// page (formerly "Cosmetics"; /cosmetics now 301s here). All services live
+// here as anchored sections with a sticky jump menu; the old per-service
 // subpages still exist but are unlinked. Recent Work remains its own
-// portfolio page. Custom builds are folded into the specialty-work copy —
-// Red Box is not positioned as a ground-up custom builder.
+// portfolio page. Estimate CTAs route to /restoration/estimate (owner
+// checklist 2026-07-07) — one band every few sections plus a sticky button,
+// not one per service.
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  alternates: { canonical: '/cosmetics' },
+  alternates: { canonical: '/restoration' },
   title: { absolute: 'Red Box Restoration — Vehicle Protection, Restoration & Customization | Red Box Motors' },
   description:
     'Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint, detailing and wheel services in Austin, TX.',
@@ -62,7 +62,7 @@ const SERVICES: {
     title: 'Paint Correction',
     tags: ['Multi-stage', 'Swirl removal', 'Machine polish'],
     paras: [
-      'Swirls, holograms and wash marring are leveled by machine, stage by stage, until the paint reads flat and deep. Correction is the foundation under every coating and film we install — and a service on its own for paint that has lost its edge.',
+      'Swirls, holograms and wash marring are leveled by machine, stage by stage, until the paint reads flat and deep. Where needed, paint correction creates the proper foundation before a coating or film installation — and it can also restore depth and clarity as a standalone service.',
     ],
     img: {
       src: '/assets/placeholders/paint-correction.jpg',
@@ -88,9 +88,9 @@ const SERVICES: {
     id: 'wraps',
     num: '04',
     title: 'Vinyl Wraps, Graphics & Liveries',
-    tags: ['Color change', 'Graphics', 'Fully reversible'],
+    tags: ['Color change', 'Graphics', 'Reversible'],
     paras: [
-      'Color-change wraps, satin and gloss finishes, racing liveries and commercial graphics — a complete transformation without touching the factory paint, and fully reversible when you are ready to go back.',
+      'Color-change wraps, satin and gloss finishes, racing liveries and commercial graphics. Vinyl provides a reversible appearance change when installed over suitable paint and removed using proper techniques — paint condition and prior repairs can affect removal, and we assess that up front.',
     ],
     img: {
       src: '/assets/placeholders/vinyl-wrap.jpg',
@@ -135,7 +135,8 @@ const SERVICES: {
     title: 'Wheels, Tires & Calipers',
     tags: ['Refinishing', 'Powder coat', 'Fitment'],
     paras: [
-      'Wheels stripped, repaired and refinished in custom colors and powder-coat finishes; caliper refinishing and tire sourcing and fitment handled in the same visit. We also take on specialty automotive projects — from suspension and stance to one-off cosmetic work — without positioning ourselves as a ground-up custom builder.',
+      'Red Box Restoration manages wheel repair, refinishing, custom finishes, tire sourcing, mounting and installation, coordinating specialized finishing partners where required — caliper refinishing handled in the same visit.',
+      'We also coordinate select specialty automotive projects, including suspension, stance and one-off appearance work.',
     ],
     img: {
       src: '/assets/ppf-disassembly.jpg',
@@ -147,11 +148,32 @@ const SERVICES: {
 
 // Detailed service questions live here (moved off the homepage).
 const RESTORATION_FAQ: Faq[] = [
-  { q: 'How do I get an estimate?', a: 'Tell us the vehicle and what you want to protect or change — we will walk you through options and put together a written estimate. Photos help; an in-person look is even better.' },
+  { q: 'How do I get an estimate?', a: 'Use the estimate form — tell us the vehicle and what you want to protect or change, and we will walk you through options and put together a written estimate. Photos help; an in-person look is even better.' },
   { q: 'What PPF coverage do you offer?', a: 'From high-impact front-end packages to full-body coverage, precision-cut per panel with wrapped edges wherever possible, in STEK clear and color films.' },
-  { q: 'Does ceramic coating require paint correction?', a: 'Coatings lock in whatever is under them, so we correct the paint to the agreed level first — that is what gives the finish its depth.' },
-  { q: 'Are vinyl wraps reversible?', a: 'Yes. A properly installed and removed wrap protects the factory paint underneath and returns the car to original when you are ready.' },
+  { q: 'Does ceramic coating require paint correction?', a: 'Coatings lock in whatever is under them, so where needed we correct the paint to the agreed level first — that is what gives the finish its depth.' },
+  { q: 'Are vinyl wraps reversible?', a: 'When installed over suitable paint and removed using proper techniques, vinyl provides a reversible appearance change. Paint condition and prior repairs can affect removal — we assess that before the work starts.' },
 ];
+
+// Shared process — one section for every service (owner checklist).
+const PROCESS = [
+  ['Consultation', 'Tell us about the car and what you want to accomplish.'],
+  ['Inspection & Scope', 'We assess the vehicle and agree on the exact work in writing.'],
+  ['Preparation', 'Wash, decontamination and the prep the finish demands.'],
+  ['Execution', 'The work itself — film, polish, coating, wrap or wheels.'],
+  ['Final Inspection & Delivery', 'Checked panel by panel before the car goes home.'],
+] as const;
+
+// Sticky jump menu targets (owner checklist: PPF | Correction | Coatings |
+// Wraps | Tint | Detailing | Wheels).
+const JUMP = [
+  ['ppf', 'PPF'],
+  ['correction', 'Correction'],
+  ['coatings', 'Coatings'],
+  ['wraps', 'Wraps'],
+  ['tint', 'Tint'],
+  ['detailing', 'Detailing'],
+  ['wheels', 'Wheels'],
+] as const;
 
 function Arrow({ size = 14, width = 1.5 }: { size?: number; width?: number }) {
   return (
@@ -170,7 +192,7 @@ export default async function RestorationPage() {
         schema={serviceSchema(
           'Vehicle Protection, Restoration & Customization',
           'Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint, detailing and wheel services in Austin, TX.',
-          '/cosmetics',
+          '/restoration',
         )}
       />
       <SiteNav current="cosmetics" />
@@ -192,7 +214,7 @@ export default async function RestorationPage() {
               className="rb-hero-line block"
               style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .28s` }}
             >
-              Vehicle Protection,
+              Vehicle Protection,{' '}
             </span>
           </span>
           <span className="block overflow-hidden">
@@ -219,12 +241,15 @@ export default async function RestorationPage() {
           className="rb-hero-in relative z-[2] mt-8 flex flex-wrap items-center gap-3.5"
           style={{ opacity: 0, animation: `fadeUp .9s ${EASE} forwards 1.05s` }}
         >
-          <ContactLink className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-[24px] py-[14px] text-[12.5px] font-semibold tracking-[1px] text-white">
+          <Link
+            href="/restoration/estimate"
+            className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-[24px] py-[14px] text-[12.5px] font-semibold tracking-[1px] text-white"
+          >
             Request an Estimate
             <Arrow size={13} />
-          </ContactLink>
+          </Link>
           <Link
-            href="/cosmetics/work"
+            href="/restoration/work"
             className="rb-btn inline-flex items-center gap-2.5 border border-rb-red bg-transparent px-[22px] py-[13px] text-[12.5px] font-semibold tracking-[1px] text-rb-red transition-colors duration-[180ms] hover:bg-rb-red hover:text-white"
           >
             See Recent Work
@@ -273,15 +298,56 @@ export default async function RestorationPage() {
           </p>
         </div>
 
+        {/* ——— STICKY JUMP MENU ——— */}
+        <nav
+          aria-label="Services"
+          className="sticky top-[64px] z-30 mt-12 border-y border-rb-line bg-[#0A0A0A]/92 px-4 backdrop-blur-md md:px-[44px]"
+        >
+          <div className="rb-noscrollbar flex items-center gap-1 overflow-x-auto">
+            {JUMP.map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="whitespace-nowrap px-3 py-3.5 text-[11.5px] font-semibold uppercase tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
+              >
+                {label}
+              </a>
+            ))}
+            <span className="flex-1" />
+            <Link
+              href="/restoration/estimate"
+              className="hidden whitespace-nowrap px-3 py-3.5 text-[11.5px] font-semibold uppercase tracking-[1.5px] text-rb-red transition-colors duration-150 hover:text-white sm:inline"
+            >
+              Request an Estimate →
+            </Link>
+          </div>
+        </nav>
+
         {/* ——— SERVICES ——— */}
-        <div id="services" className="px-6 pb-6 pt-14 md:px-[52px]">
-          {SERVICES.map((svc) => (
+        <div id="services" className="px-6 pb-6 pt-2 md:px-[52px]">
+          {SERVICES.map((svc, i) => (
+            <div key={svc.id}>
+            {/* Estimate band after every few sections (owner checklist) —
+                replaces the old one-CTA-per-service pattern. */}
+            {(i === 3 || i === 6) && (
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-4 border-t border-rb-line bg-rb-surface-3 px-6 py-6">
+                <span className="text-[15px] font-medium tracking-[0.2px] text-rb-tx-2">
+                  Ready to talk about your car?
+                </span>
+                <Link
+                  href="/restoration/estimate"
+                  className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-6 py-3.5 text-[12.5px] font-semibold tracking-[1px] text-white"
+                >
+                  Request an Estimate
+                  <Arrow size={13} />
+                </Link>
+              </div>
+            )}
             <div
-              key={svc.id}
               id={svc.id}
               data-reveal
               className="grid gap-8 border-t border-rb-line py-16 md:grid-cols-[84px_minmax(0,1fr)]"
-              style={{ scrollMarginTop: '90px' }}
+              style={{ scrollMarginTop: '124px' }}
             >
               <div
                 className="text-[52px] font-extrabold text-rb-red"
@@ -312,10 +378,6 @@ export default async function RestorationPage() {
                       {p}
                     </p>
                   ))}
-                  <ContactLink className="mt-7 inline-flex items-center gap-[7px] text-[13.5px] font-semibold tracking-[0.5px] text-rb-red transition-[gap,color] duration-200 hover:gap-3 hover:text-white">
-                    Request an Estimate
-                    <Arrow size={14} width={1.3} />
-                  </ContactLink>
                 </div>
                 <div className="relative min-h-[260px] overflow-hidden bg-rb-surface-4 md:min-h-[300px]">
                   {/* Placeholder slots live in /public/assets/placeholders/ —
@@ -338,7 +400,42 @@ export default async function RestorationPage() {
                 </div>
               </div>
             </div>
+            </div>
           ))}
+        </div>
+
+        {/* ——— THE PROCESS — one shared flow for every service ——— */}
+        <div className="px-6 pb-16 md:px-[52px]">
+          <div data-reveal className={`mb-[13px] ${eyebrowCls}`}>
+            — How every project runs
+          </div>
+          <h2
+            data-reveal
+            className="m-0 font-bold leading-none text-white"
+            style={{ fontSize: 'clamp(26px,3.2vw,44px)', letterSpacing: '-0.03em' }}
+          >
+            One process, every service
+          </h2>
+          <ol className="mt-10 grid gap-0.5 md:grid-cols-5">
+            {PROCESS.map(([title, detail], i) => (
+              <li
+                key={title}
+                data-reveal
+                className="bg-rb-surface-3 px-5 py-6"
+                style={{ transitionDelay: `${i * 0.06}s` }}
+              >
+                <span className="block text-[12px] font-semibold tracking-[1px] text-rb-red">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="mt-2.5 block text-[14.5px] font-semibold tracking-[0.2px] text-white">
+                  {title}
+                </span>
+                <span className="mt-1.5 block text-[12.5px] leading-relaxed text-rb-tx-faint">
+                  {detail}
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
 
         {/* recent work preview */}
@@ -358,7 +455,7 @@ export default async function RestorationPage() {
                 </h2>
               </div>
               <Link
-                href="/cosmetics/work"
+                href="/restoration/work"
                 className="inline-flex flex-none items-center gap-[9px] whitespace-nowrap border border-rb-red bg-transparent px-6 py-[13px] text-[13px] font-semibold tracking-[0.5px] text-rb-red transition-[background,color,transform] duration-[220ms] ease-rb hover:-translate-y-0.5 hover:bg-rb-red hover:text-white active:translate-y-0 active:scale-[0.98]"
               >
                 View all work
@@ -414,12 +511,15 @@ export default async function RestorationPage() {
               </p>
 
               <div className="mt-11 flex flex-wrap items-center gap-[22px]">
-                <ContactLink className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white">
+                <Link
+                  href="/restoration/estimate"
+                  className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
+                >
                   Request an Estimate
                   <Arrow size={16} />
-                </ContactLink>
+                </Link>
                 <Link
-                  href="/cosmetics/work"
+                  href="/restoration/work"
                   className="inline-flex items-center gap-2 border border-rb-red bg-transparent px-[30px] py-[17px] text-[14px] font-semibold tracking-[0.5px] text-rb-red transition-[background,color,transform] duration-[220ms] ease-rb hover:-translate-y-0.5 hover:bg-rb-red hover:text-white active:translate-y-0 active:scale-[0.98]"
                 >
                   See recent work
@@ -442,6 +542,16 @@ export default async function RestorationPage() {
           <VisitAndFAQ division="cosmetics" faqs={RESTORATION_FAQ} />
         </div>
       </ExpandingScrollBox>
+
+      {/* STICKY ESTIMATE CTA */}
+      <Link
+        href="/restoration/estimate"
+        className="rb-btn-red fixed bottom-[26px] right-[26px] z-40 flex items-center gap-[11px] bg-rb-red px-[22px] py-[15px] shadow-[0_12px_30px_rgba(204,0,0,0.34)]"
+      >
+        <span className="h-[7px] w-[7px] flex-none bg-white" />
+        <span className="text-[12px] font-semibold tracking-[1.5px] text-white">Request an Estimate</span>
+        <Arrow size={13} />
+      </Link>
     </ScrollShell>
   );
 }

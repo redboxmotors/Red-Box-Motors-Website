@@ -17,7 +17,7 @@ import {
 export const runtime = 'nodejs';
 
 // Lead submission endpoint (handoff/forms.md — owner chose email + DB).
-// Handles three lead types behind identical gates (honeypot, per-IP rate
+// Handles four lead types behind identical gates (honeypot, per-IP rate
 // limit, validation, optional Turnstile, service-role insert):
 //   contact    — general contact form (/contact + modal)
 //   listing    — vehicle-specific inquiry on inventory detail pages; the
@@ -25,22 +25,33 @@ export const runtime = 'nodejs';
 //                SERVER-SIDE from the listing slug so they can't be tampered
 //                with and the customer never re-enters them
 //   first_look — Arriving Soon / First Look requests
+//   estimate   — Restoration estimate requests (/restoration/estimate)
 // Consignments have their own richer endpoint (/api/consignments).
 //
 // Pre-migration fallback: if the DB lacks the 2026-07-07 patch (payload
-// column / first_look enum value), structured extras fold into `message`
-// and first_look rows land as type 'contact' — nothing is dropped.
+// column / new enum values), structured extras fold into `message` and
+// first_look/estimate rows land as type 'contact' — nothing is dropped.
 
-// Phase 4 category list (owner spec, 2026-07-07). 'Trade-in' intentionally
-// omitted for now — add here and in ContactForm when it opens up.
+// Contact categories (owner checklist, 2026-07-07 rev 2). Must match
+// ContactForm's CATEGORIES.
 const INTERESTS = new Set([
   'Buy a Vehicle',
   'Sell or Consign a Vehicle',
+  'Request a Restoration Estimate',
   'Ask About an Existing Listing',
-  'Transportation or Delivery',
-  'General Sales Question',
-  'Red Box Restoration',
-  'Other',
+  'General Question',
+]);
+
+// Estimate services (owner service list). Must match EstimateForm.
+const ESTIMATE_SERVICES = new Set([
+  'Paint Protection Film',
+  'Paint Correction',
+  'Ceramic Coating',
+  'Vinyl Wrap or Graphics',
+  'Window Tint',
+  'Detailing',
+  'Wheels, Tires & Calipers',
+  'Specialty Project',
 ]);
 
 // Inquiry types for listing inquiries. 'Trade-in' intentionally omitted —
@@ -101,7 +112,10 @@ export async function POST(req: Request) {
   }
 
   const rawType = str('type');
-  const type = rawType === 'listing' || rawType === 'first_look' ? rawType : 'contact';
+  const type =
+    rawType === 'listing' || rawType === 'first_look' || rawType === 'estimate'
+      ? rawType
+      : 'contact';
 
   const first_name = str('first_name', 100);
   const last_name = str('last_name', 100);
@@ -121,6 +135,11 @@ export async function POST(req: Request) {
   const vehicle_text = str('vehicle_text', 120) || null; // contact form's year/make/model
   const campaign = str('campaign', 120) || null;
   const opt_in = body.opt_in === true; // first_look — UNCHECKED by default, never assumed
+  const services = Array.isArray(body.services)
+    ? (body.services as unknown[])
+        .filter((s): s is string => typeof s === 'string' && ESTIMATE_SERVICES.has(s))
+        .slice(0, 10)
+    : [];
 
   const errors: Record<string, string> = {};
   if (type === 'contact') {
@@ -149,6 +168,12 @@ export async function POST(req: Request) {
     if (!phone) errors.phone = 'Enter your phone number';
     if (!contact_method || !CONTACT_METHODS.has(contact_method)) errors.contact_method = 'Pick one';
     if (!timeframe || !TIMEFRAMES.has(timeframe)) errors.timeframe = 'Pick one';
+  }
+  if (type === 'estimate') {
+    if (!phone) errors.phone = 'Enter your phone number';
+    if (!contact_method || !CONTACT_METHODS.has(contact_method)) errors.contact_method = 'Pick one';
+    if (!vehicle_text) errors.vehicle_text = 'Tell us the year, make and model';
+    if (!services.length) errors.services = 'Pick at least one';
   }
   if (Object.keys(errors).length) {
     return NextResponse.json({ ok: false, errors }, { status: 400 });
@@ -210,6 +235,7 @@ export async function POST(req: Request) {
     ...(vehicle_text ? { vehicle_text } : {}),
     ...(vehicle_of_interest ? { vehicle_of_interest } : {}),
     ...(campaign ? { campaign } : {}),
+    ...(services.length ? { services } : {}),
     ...(type === 'first_look' ? { opt_in } : {}),
   };
   const hasPayload = Object.keys(payload).length > 1;
@@ -218,7 +244,9 @@ export async function POST(req: Request) {
     message ||
     (type === 'first_look'
       ? `First Look request — ${vehicle_of_interest ?? listing_title ?? 'arriving vehicle'}`
-      : '');
+      : type === 'estimate'
+        ? `Estimate request — ${services.join(', ')} for ${vehicle_text}`
+        : '');
 
   const structuredRow: LeadInsert = {
     type,
@@ -252,6 +280,7 @@ export async function POST(req: Request) {
       city_state ? `City / State: ${city_state}` : null,
       vehicle_text ? `Vehicle: ${vehicle_text}` : null,
       vehicle_of_interest ? `Vehicle of interest: ${vehicle_of_interest}` : null,
+      services.length ? `Services: ${services.join(', ')}` : null,
       campaign ? `Campaign: ${campaign}` : null,
       type === 'first_look' ? `Similar-vehicle updates opt-in: ${opt_in ? 'Yes' : 'No'}` : null,
       vehicle ? `Listing URL: ${(vehicle as { listing_url?: string }).listing_url}` : null,
@@ -263,7 +292,7 @@ export async function POST(req: Request) {
       phone,
       interest: type === 'contact' ? 'Buying / Selling' : interest,
       message: [
-        type === 'first_look' ? 'FIRST LOOK REQUEST' : null,
+        type === 'first_look' ? 'FIRST LOOK REQUEST' : type === 'estimate' ? 'RESTORATION ESTIMATE REQUEST' : null,
         finalMessage,
         extras.length ? `\n${extras.join('\n')}` : null,
       ]
@@ -290,7 +319,9 @@ export async function POST(req: Request) {
       ? `Vehicle Inquiry — ${vehicleTitle ?? listing_slug ?? 'Unknown vehicle'}`
       : type === 'first_look'
         ? `First Look Request — ${vehicle_of_interest ?? listing_title ?? 'Arriving vehicle'}`
-        : `General Sales Inquiry — ${name}`;
+        : type === 'estimate'
+          ? `Restoration Estimate Request — ${vehicle_text ?? name}`
+          : `General Sales Inquiry — ${name}`;
 
   await sendEmail({
     to: notifyTo(),
@@ -326,7 +357,9 @@ export async function POST(req: Request) {
       ? `<p>Thank you for your interest${vehicleTitle ? ` in the ${escapeHtml(vehicleTitle)}` : ' in this vehicle'}. A member of the Red Box Motors team will contact you directly.</p>`
       : type === 'first_look'
         ? `<p>You're on the list. We'll contact you when additional information becomes available${vehicle_of_interest ? ` about the ${escapeHtml(vehicle_of_interest)}` : ''}.</p>`
-        : `<p>Thanks for reaching out — we've received your message and will get back to you within one business day.</p>`;
+        : type === 'estimate'
+          ? `<p>Thank you for your estimate request${vehicle_text ? ` for the ${escapeHtml(vehicle_text)}` : ''}. Our team will review the project and contact you to discuss scope and next steps.</p>`
+          : `<p>Thanks for reaching out — we've received your message and will get back to you within one business day.</p>`;
   await sendEmail({
     to: email,
     subject:
@@ -334,7 +367,9 @@ export async function POST(req: Request) {
         ? 'We received your vehicle inquiry — Red Box Motors'
         : type === 'first_look'
           ? "You're on the First Look list — Red Box Motors"
-          : 'We received your message — Red Box Motors',
+          : type === 'estimate'
+            ? 'We received your estimate request — Red Box Motors'
+            : 'We received your message — Red Box Motors',
     html: `${confirmBody}<p>— Red Box Motors, Austin, TX</p>`,
   });
 

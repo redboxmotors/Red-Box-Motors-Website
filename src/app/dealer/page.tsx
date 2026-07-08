@@ -58,7 +58,7 @@ const CONSIGNMENT_STEPS = [
 const MORE_THAN_A_LISTING = [
   { title: 'Market Positioning', text: 'Pricing informed by current listings, recent sales, specification, condition and market demand.' },
   { title: 'Vehicle Preparation', text: 'Detailing, paint correction, PPF evaluation, mechanical-service coordination and presentation planning.' },
-  { title: 'Professional Media', text: 'Photography, video, written automotive storytelling and complete vehicle documentation.' },
+  { title: 'Professional Media', text: 'Photography, video, written automotive storytelling and organization and presentation of all available vehicle documentation.' },
   { title: 'Qualified Exposure', text: 'Targeted listing placement, direct buyer outreach, social media and enthusiast networks.' },
   { title: 'Transaction Management', text: 'Inquiry handling, buyer qualification, documents, payment coordination and transportation.' },
 ];
@@ -84,9 +84,10 @@ const CREDIBILITY = [
 // Detailed sales questions live here (moved off the homepage).
 const DEALER_FAQ: Faq[] = [
   { q: 'How does consignment work?', a: 'We handle valuation, preparation, marketing, buyer qualification and the full transaction. You approve the positioning and terms — we manage the rest through closing and delivery.' },
-  { q: 'What does it cost to sell?', a: 'Representation terms are agreed up front and disclosed before anything is signed. No surprises.' },
+  { q: 'How is pricing established?', a: 'Pricing is informed by current listings, recent sales, specification, condition and market demand — reviewed with you and agreed before the car is listed.' },
+  { q: 'What does it cost to sell?', a: 'Representation fees and any approved preparation costs are disclosed in writing before anything is signed. No surprises.' },
   { q: 'Can you sell nationwide?', a: 'Yes. Marketing and transportation are coordinated nationwide, with enclosed door-to-door transport arranged for delivery.' },
-  { q: 'What happens before my car is listed?', a: 'Approved reconditioning, detailing, photography, video and complete documentation — every consigned vehicle is presented as a complete offering.' },
+  { q: 'What happens before my car is listed?', a: 'Approved reconditioning, detailing, photography, video and organization of all available documentation — an agreed preparation, presentation and marketing plan for every consigned vehicle.' },
 ];
 
 const ghostRed =
@@ -198,7 +199,7 @@ export default async function DealerPage() {
                 className="rb-hero-line block"
                 style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .28s` }}
               >
-                Exceptional Cars.
+                Exceptional Cars.{' '}
               </span>
             </span>
             <span className="block overflow-hidden">
@@ -390,7 +391,7 @@ export default async function DealerPage() {
                   style={{ transitionDelay: '.1s' }}
                   className="mb-0 mt-6 max-w-[560px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute"
                 >
-                  Every consigned vehicle is prepared, presented and managed as a complete offering.
+                  Every consigned vehicle receives an agreed preparation, presentation and marketing plan.
                 </p>
               </div>
               <div data-reveal style={{ transitionDelay: '.12s' }} className="relative min-h-[240px] overflow-hidden bg-rb-surface-4">
@@ -593,28 +594,31 @@ export default async function DealerPage() {
                 </div>
               ))}
             </div>
-            <p
-              data-reveal
-              className="mx-6 mb-0 mt-6 max-w-[720px] text-[14.5px] leading-[1.75] text-[#8a8a8a] md:mx-[52px]"
-            >
-              Completed sales, customer reviews and our social channels tell the rest of the story
-              — ask and we will point you to them.
-            </p>
+            {/* OWNER TODO: when real numbers are approved, add visible proof
+                here — customer reviews, completed sales, social reach — as
+                CREDIBILITY entries above. No invented claims. */}
           </div>
 
-          {/* WHAT WE REPRESENT — owner copy, verbatim (gradient transition out
-              of the trust section above) */}
+          {/* VEHICLES WORTH REPRESENTING — owner copy (headline per 2026-07-07
+              checklist; gradient transition out of the trust section above) */}
           <div className="px-6 pb-24 pt-20 md:px-[52px]" style={{ background: 'linear-gradient(180deg,#151515 0px,#0A0A0A 220px)' }}>
             <div data-reveal className="mb-[13px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
               — What we represent
             </div>
+            <h2
+              data-reveal
+              className="m-0 font-bold leading-none text-white"
+              style={{ fontSize: 'clamp(28px,3.6vw,52px)', letterSpacing: '-0.03em' }}
+            >
+              Vehicles Worth Representing
+            </h2>
             <p
               data-reveal
               style={{ transitionDelay: '.1s' }}
-              className="m-0 max-w-[820px] text-[19px] font-medium leading-[1.7] text-rb-tx-2"
+              className="mb-0 mt-7 max-w-[820px] text-[19px] font-medium leading-[1.7] text-rb-tx-2"
             >
               We represent vehicles with enthusiast value, compelling specification and a story
-              worth presenting—from modern exotics and limited-production performance cars to
+              worth presenting&mdash;from modern exotics and limited-production performance cars to
               significant classics, restomods and specialty vehicles.
             </p>
           </div>

@@ -7,8 +7,8 @@ export const SURFACES: Record<
   { label: string; rendersOn: string; types: ContentType[]; fallback: string }
 > = {
   home_featured: {
-    label: 'Homepage — Featured right now',
-    rendersOn: 'Homepage marquee',
+    label: 'Homepage — Featured right now (section currently unpublished)',
+    rendersOn: 'Homepage marquee — hidden until re-enabled',
     types: ['listing', 'project'],
     fallback: 'Newest featured cars + projects',
   },
@@ -25,20 +25,20 @@ export const SURFACES: Record<
     fallback: 'Newest featured for-sale cars',
   },
   dealer_sold_preview: {
-    label: 'Dealer — Sold preview',
-    rendersOn: 'Dealer landing → “Cars we’ve sold”',
+    label: 'Sales — Sold preview (section currently unpublished)',
+    rendersOn: 'Sales & Consignment landing — hidden until re-enabled',
     types: ['listing'],
     fallback: 'Newest sold cars',
   },
   dealer_sourced_preview: {
-    label: 'Dealer — Sourced preview',
-    rendersOn: 'Dealer landing → “Cars we found for clients”',
+    label: 'Sales — Sourced preview (section currently unpublished)',
+    rendersOn: 'Sourcing is not offered publicly right now',
     types: ['sourced'],
     fallback: 'Newest featured sourced cars',
   },
   cosmetics_builds_preview: {
-    label: 'Cosmetics — Builds & transformations',
-    rendersOn: 'Cosmetics landing preview grid',
+    label: 'Restoration — Recent work preview',
+    rendersOn: 'Restoration page → “From the shop floor”',
     types: ['project'],
     fallback: 'Newest featured projects',
   },

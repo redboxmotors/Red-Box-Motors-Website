@@ -156,14 +156,14 @@ const content: ServicePageContent = {
     kicker: '— Protect it',
     heading: 'Armor it before the first chip.',
     text: "Tell us the car and how you drive it, and we'll map the right STEK coverage — front-end, track or full-body.",
-    secondary: { label: 'Add ceramic →', href: '/cosmetics/ceramic-correction' },
+    secondary: { label: 'Add ceramic →', href: '/restoration/ceramic-correction' },
   },
 };
 
 export default function PpfPage() {
   return (
     <>
-      <SchemaScript schema={serviceSchema('Paint Protection Film', 'Self-healing STEK paint protection film — full-body and high-impact packages in Austin, TX.', '/cosmetics/ppf')} />
+      <SchemaScript schema={serviceSchema('Paint Protection Film', 'Self-healing STEK paint protection film — full-body and high-impact packages in Austin, TX.', '/restoration/ppf')} />
       <ServiceScrollPage content={content} visitAndFaq={<VisitAndFAQ division="cosmetics" />} />
     </>
   );

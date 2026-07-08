@@ -61,7 +61,7 @@ export function ProjectEditor({
       description: form.summary
         ? `${form.summary.slice(0, 155)}`
         : `${form.category} on a ${form.vehicle} in Austin, TX.`,
-      url: `/cosmetics/work/${form.slug || '…'}`,
+      url: `/restoration/work/${form.slug || '…'}`,
     }),
     [form],
   );

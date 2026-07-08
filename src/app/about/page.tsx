@@ -54,14 +54,14 @@ const STANDARD = [
 
 // Supportable credentials & partnerships only — no invented claims.
 const CREDENTIALS = [
-  { name: 'STEK', kind: 'Paint protection films' },
-  { name: 'Carbon Collective', kind: 'Ceramic coatings' },
-  { name: 'LEGEND', kind: 'Partner brand' },
-  { name: 'ASE', kind: 'Certification' },
-  { name: 'I-CAR Platinum', kind: 'Collision industry training' },
+  { name: 'STEK', kind: 'Certified paint protection film installer' },
+  { name: 'LEGEND', kind: 'Certified paint protection film installer' },
+  { name: 'Carbon Collective', kind: 'Ceramic coating partner' },
+  { name: 'ASE', kind: 'Automotive service certification' },
+  { name: 'I-CAR Platinum', kind: 'Advanced collision-industry training' },
+  { name: 'DuPont', kind: 'Automotive refinishing education' },
+  { name: 'Advanced Detailing & Paint Correction', kind: 'Professional hands-on training' },
   { name: 'Six Sigma Black Belt', kind: 'Process discipline' },
-  { name: 'DuPont', kind: 'Refinishing education' },
-  { name: 'Advanced detailing & paint-correction training', kind: 'Ongoing education' },
   { name: '8Twelve Wheels', kind: 'Wheel partner' },
   { name: 'Forgiato', kind: 'Wheel partner' },
 ];
@@ -153,10 +153,10 @@ export default function AboutPage() {
                   result.
                 </p>
                 <p data-reveal style={{ transitionDelay: '.16s' }} className="mb-12 mt-5 text-[15px] leading-[1.8] text-[#a2a2a2]">
-                  The work built trust, and trust changed the business. The same clients who
-                  trusted Red Box with their paint began asking it to help sell a car, find the
-                  next one, prepare it for delivery and get it transported. Sales &amp; consignment
-                  did not replace the restoration work — it grew out of it.
+                  The work built trust, and trust changed the business. Clients began asking
+                  Red Box to help sell vehicles, prepare new purchases for delivery and
+                  coordinate transportation. Sales &amp; consignment did not replace the
+                  restoration work — it grew out of it.
                 </p>
               </div>
               <div className="relative mb-12 min-h-[300px] overflow-hidden bg-rb-surface-4">
@@ -295,41 +295,9 @@ export default function AboutPage() {
             </div>
           </TintSection>
 
-          {/* 7 · TEAM — placeholder scaffold: real names/roles/photos to be
-               supplied by the owner (no invented people; Jon removed). */}
-          <TintSection tint>
-            <div className="border-t border-rb-line px-7 py-12 md:px-[52px]">
-              <Eyebrow>— The team</Eyebrow>
-              <h2
-                data-reveal
-                className="m-0 font-bold text-white"
-                style={{ fontSize: 'clamp(26px,3.4vw,46px)', letterSpacing: '-0.03em', lineHeight: 1.05 }}
-              >
-                Real people, on the floor.
-              </h2>
-              <div data-reveal style={{ transitionDelay: '.1s' }} className="mt-9 grid gap-2 sm:grid-cols-3">
-                {['team-1', 'team-2', 'team-3'].map((slot) => (
-                  <div key={slot} className="relative aspect-[3/4] overflow-hidden bg-rb-surface-4">
-                    {/* PLACEHOLDER — replace /public/assets/placeholders/{slot}.jpg
-                        with professional team photos; names + accurate roles
-                        to be supplied by the owner. */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={`/assets/placeholders/${slot}.jpg`}
-                      alt=""
-                      className="absolute inset-0 h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 px-4 py-3">
-                      <span className="font-mono text-[9px] uppercase tracking-[2px] text-[#555]">
-                        Team member · photo &amp; role coming soon
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </TintSection>
+          {/* 7 · TEAM — removed per owner checklist (2026-07-07): add back only
+               when names, roles and biographies are complete. Prior placeholder
+               scaffold is in git history. */}
 
           {/* 8 · CREDENTIALS & PARTNERSHIPS */}
           <TintSection tint>
@@ -395,9 +363,9 @@ export default function AboutPage() {
               style={{ transitionDelay: '.1s' }}
               className="mx-auto mb-0 mt-7 max-w-[640px] text-[16px] font-medium leading-[1.75] text-rb-tx-mute"
             >
-              Whether it is a new acquisition, a vehicle you have owned for decades or a car you
-              are preparing to sell, Red Box Motors is built to provide one trusted relationship
-              through every stage of ownership.
+              Whether it is a newly purchased vehicle, a car you have owned for decades or one
+              you are preparing to sell, Red Box Motors is built to provide one trusted
+              relationship through every stage of ownership.
             </p>
             <div data-reveal style={{ transitionDelay: '.16s' }} className="mt-9 flex flex-wrap items-center justify-center gap-[18px]">
               <ContactLink className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-4 text-[14px] font-semibold tracking-[0.5px] text-white">
@@ -415,7 +383,7 @@ export default function AboutPage() {
 
           {/* VISIT & FAQ — bottom of scrolling section */}
           <div className="border-t border-rb-line">
-            <VisitAndFAQ division="all" />
+            <VisitAndFAQ division="all" faqs={[]} />
           </div>
         </ExpandingScrollBox>
       </main>

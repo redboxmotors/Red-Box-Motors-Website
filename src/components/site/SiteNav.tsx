@@ -4,45 +4,64 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { ContactLink } from '@/components/contact/ContactModal';
 
-// Fixed top nav. `current` highlights the active section; Sales & Consignment
-// and Restoration carry hover dropdown panels. A top scrim keeps the links
-// legible over photo heroes. Collection Management is unpublished — the key
-// stays in NavKey so hidden pages still compile, but no link renders.
+// Fixed top nav — flat six links (owner checklist 2026-07-07): Inventory,
+// Sell Your Vehicle, Restoration, Recent Work, About, Contact. A top scrim
+// keeps the links legible over photo heroes. Collection Management and
+// sourcing are unpublished — keys stay in NavKey so hidden pages still
+// compile, but no link renders. Pages still pass the old section keys
+// ('dealer' / 'cosmetics'); ALIAS maps them onto the flat items.
 
-type NavKey = '' | 'dealer' | 'cosmetics' | 'collection' | 'about' | 'contact';
+type NavKey =
+  | ''
+  | 'dealer'
+  | 'inventory'
+  | 'sell'
+  | 'cosmetics'
+  | 'restoration'
+  | 'work'
+  | 'collection'
+  | 'about'
+  | 'contact';
+
+// Old section keys → the flat nav item to highlight.
+const ALIAS: Partial<Record<NavKey, NavKey>> = {
+  dealer: 'inventory',
+  cosmetics: 'restoration',
+};
 
 const LINKS: {
-  key: Exclude<NavKey, '' | 'collection'>;
+  key: Exclude<NavKey, '' | 'dealer' | 'cosmetics' | 'collection'>;
   label: string;
   href: string;
   children?: { label: string; desc: string; href: string }[];
 }[] = [
+  { key: 'inventory', label: 'Inventory', href: '/dealer/inventory' },
   {
-    key: 'dealer',
-    label: 'Sales & Consignment',
-    href: '/dealer',
+    key: 'sell',
+    label: 'Sell Your Vehicle',
+    href: '/dealer/sell',
     children: [
-      { label: 'View Inventory', desc: 'Vehicles currently represented', href: '/dealer/inventory' },
-      // Lands at the top of /dealer (owner: no anchored-subsection jumps from
-      // the header) — the Sell chapter sits right below the intro.
-      { label: 'Sell Your Vehicle', desc: 'Consignment & direct sale', href: '/dealer/sell' },
+      { label: 'Submit Your Vehicle', desc: 'Professional consignment representation', href: '/dealer/sell' },
+      { label: 'How Consignment Works', desc: 'The full process, step by step', href: '/dealer' },
     ],
   },
   {
-    key: 'cosmetics',
+    key: 'restoration',
     label: 'Restoration',
-    href: '/cosmetics',
+    href: '/restoration',
     children: [
-      { label: 'Services', desc: 'PPF · coatings · correction · wraps', href: '/cosmetics#services' },
-      { label: 'Recent Work', desc: 'Project gallery', href: '/cosmetics/work' },
+      { label: 'Services', desc: 'PPF · coatings · correction · wraps', href: '/restoration#services' },
+      { label: 'Request an Estimate', desc: 'Tell us about the project', href: '/restoration/estimate' },
     ],
   },
+  { key: 'work', label: 'Recent Work', href: '/restoration/work' },
   { key: 'about', label: 'About', href: '/about' },
   { key: 'contact', label: 'Contact', href: '/contact' },
 ];
 
 export function SiteNav({ current = '' }: { current?: NavKey }) {
   const [open, setOpen] = useState<NavKey>('');
+  const activeKey = ALIAS[current] ?? current;
 
   return (
     <div className="pointer-events-none fixed inset-x-0 top-0 z-50 animate-rb-fade-up [animation-delay:150ms]">
@@ -62,14 +81,17 @@ export function SiteNav({ current = '' }: { current?: NavKey }) {
             className="h-[34px] w-[34px] flex-none"
             style={{ filter: 'drop-shadow(0 1px 6px rgba(0,0,0,0.5))' }}
           />
-          <span className="whitespace-nowrap text-[12px] font-bold tracking-[3px] text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)]">
+          <span className="hidden whitespace-nowrap text-[12px] font-bold tracking-[3px] text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.6)] lg:inline">
             RED BOX MOTORS
           </span>
         </Link>
 
-        <nav className="pointer-events-auto flex items-start gap-7" aria-label="Site">
+        <nav
+          className="pointer-events-auto flex flex-wrap items-start justify-end gap-x-4 gap-y-1 md:gap-x-6"
+          aria-label="Site"
+        >
           {LINKS.map((link) => {
-            const active = link.key === current;
+            const active = link.key === activeKey;
             const isOpen = open === link.key;
             return (
               <div

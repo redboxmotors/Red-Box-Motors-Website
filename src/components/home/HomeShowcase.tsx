@@ -36,15 +36,15 @@ function useFirstDocumentMount(): boolean {
 }
 
 const TICKER: { label: string; href: string }[] = [
-  { label: 'Paint Protection Film', href: '/cosmetics#ppf' },
-  { label: 'STEK Films', href: '/cosmetics#ppf' },
-  { label: 'Paint Correction', href: '/cosmetics#correction' },
-  { label: 'Ceramic Coatings', href: '/cosmetics#coatings' },
-  { label: 'Carbon Collective', href: '/cosmetics#coatings' },
-  { label: 'Vinyl Wraps & Liveries', href: '/cosmetics#wraps' },
-  { label: 'Window Tint', href: '/cosmetics#tint' },
-  { label: 'Detailing & Vehicle Care', href: '/cosmetics#detailing' },
-  { label: 'Wheels, Tires & Calipers', href: '/cosmetics#wheels' },
+  { label: 'Paint Protection Film', href: '/restoration#ppf' },
+  { label: 'STEK Films', href: '/restoration#ppf' },
+  { label: 'Paint Correction', href: '/restoration#correction' },
+  { label: 'Ceramic Coatings', href: '/restoration#coatings' },
+  { label: 'Carbon Collective', href: '/restoration#coatings' },
+  { label: 'Vinyl Wraps & Liveries', href: '/restoration#wraps' },
+  { label: 'Window Tint', href: '/restoration#tint' },
+  { label: 'Detailing & Vehicle Care', href: '/restoration#detailing' },
+  { label: 'Wheels, Tires & Calipers', href: '/restoration#wheels' },
   { label: 'Curated Inventory', href: '/dealer/inventory' },
   { label: 'Consignment', href: '/dealer/sell' },
 ];
@@ -355,7 +355,7 @@ export function HomeShowcase({
         >
           <span className="block overflow-hidden">
             <span className="rb-hero-line block" style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards ${heroDelay(1.75, 0.14)}s` }}>
-              Exceptional Cars.
+              Exceptional Cars.{' '}
             </span>
           </span>
           <span className="block overflow-hidden">
@@ -382,7 +382,7 @@ export function HomeShowcase({
           <Link href="/dealer/sell" className={heroRed}>
             Sell Your Vehicle
           </Link>
-          <Link href="/cosmetics" className={heroGhost}>
+          <Link href="/restoration" className={heroGhost}>
             Explore Restoration Services
           </Link>
         </div>
@@ -428,7 +428,7 @@ export function HomeShowcase({
 
             {/* PROTECTION & CUSTOMIZATION */}
             <div className="min-h-0 min-w-0 flex-1" style={dashReveal(1)}>
-              <Link href="/cosmetics" className={`${tileCls} h-full w-full`}>
+              <Link href="/restoration" className={`${tileCls} h-full w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 55%' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
@@ -530,15 +530,15 @@ export function HomeShowcase({
               — What we do
             </div>
             <h2 className="m-0 max-w-[16ch] font-extrabold text-white" style={{ fontSize: 'clamp(38px,5.4vw,84px)', letterSpacing: '-0.04em', lineHeight: 0.98 }}>
-              <span data-hreveal className="block" style={reveal()}>One Facility.</span>
+              <span data-hreveal className="block" style={reveal()}>One Facility.{' '}</span>
               <span data-hreveal className="block text-rb-tx-faint" style={reveal(0.12)}>Every Discipline.</span>
             </h2>
 
             <p data-hreveal className="mb-0 mt-10 max-w-[760px] text-[18px] font-medium leading-[1.75] text-rb-tx-mute md:text-[19px]" style={reveal(0.24)}>
               Red Box Motors brings vehicle sales, protection and customization together through
-              one trusted automotive partner. From preparing a new acquisition to representing a
-              collector vehicle for sale, every service is delivered with the same attention to
-              detail.
+              one trusted automotive partner. From protecting a new delivery to representing a
+              collector vehicle for sale, one accountable team can prepare, protect, present,
+              sell and deliver your car — start to finish.
             </p>
 
             {/* division description columns — red label · paragraph · explore
@@ -555,7 +555,7 @@ export function HomeShowcase({
                   label: 'Red Box Restoration',
                   text: 'Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive projects — delivered to one standard, under one roof.',
                   cta: 'Explore Services',
-                  href: '/cosmetics',
+                  href: '/restoration',
                 },
               ].map((div_) => (
                 <div key={div_.href} className="border-t-2 border-rb-red/80 pt-7">
@@ -594,7 +594,7 @@ export function HomeShowcase({
                   ),
                 },
                 {
-                  href: '/cosmetics/work',
+                  href: '/restoration/work',
                   label: 'Recent Work',
                   sub: 'Project gallery',
                   // photo gallery
@@ -683,7 +683,7 @@ export function HomeShowcase({
                     sub: 'View available inventory or discuss professional consignment representation.',
                   },
                   {
-                    href: '/cosmetics',
+                    href: '/restoration',
                     label: 'Protect or Customize a Vehicle',
                     sub: 'Request an estimate for PPF, coatings, paint correction, wraps, tint, detailing, wheels or specialty work.',
                   },

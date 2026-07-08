@@ -124,7 +124,7 @@ export function WorkGallery({ items }: { items: WorkItem[] }) {
           {filtered.map((p) => (
             <Link
               key={p.id}
-              href={`/cosmetics/work/${p.slug}`}
+              href={`/restoration/work/${p.slug}`}
               className="group relative z-[1] block h-[330px] cursor-pointer overflow-hidden hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.015] hover:brightness-[1.14] hover:shadow-[0_24px_50px_rgba(0,0,0,0.62)] active:translate-y-0 active:scale-[0.992] motion-reduce:transform-none motion-reduce:transition-none [transition:filter_240ms_ease,transform_260ms_cubic-bezier(.2,.8,.2,1),box-shadow_260ms_cubic-bezier(.2,.8,.2,1)]"
               style={{ background: 'linear-gradient(165deg,#131313 0%,#0D0D0D 55%,#090909 100%)' }}
             >

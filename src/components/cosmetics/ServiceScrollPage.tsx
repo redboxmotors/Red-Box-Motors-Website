@@ -158,7 +158,7 @@ export function ServiceScrollPage({
             <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-5 px-6 pt-[34px] md:px-[52px]">
               <div className="font-mono text-[11px] uppercase tracking-[4px] text-rb-red">{c.kicker}</div>
               <Link
-                href="/cosmetics"
+                href="/restoration"
                 className="inline-flex items-center gap-[9px] whitespace-nowrap text-[12.5px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
               >
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>

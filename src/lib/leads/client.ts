@@ -2,7 +2,7 @@
 // inquiry panel (handoff/forms.md).
 
 export type LeadPayload = {
-  type: 'contact' | 'listing' | 'first_look';
+  type: 'contact' | 'listing' | 'first_look' | 'estimate';
   name?: string;
   first_name?: string;
   last_name?: string;
@@ -21,6 +21,7 @@ export type LeadPayload = {
   vehicle_text?: string;
   vehicle_of_interest?: string;
   campaign?: string;
+  services?: string[];
   opt_in?: boolean;
   submission_key?: string;
   website: string; // honeypot — must be empty

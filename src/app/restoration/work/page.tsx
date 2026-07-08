@@ -5,7 +5,6 @@ import { RandomBackdrop } from '@/components/site/RandomBackdrop';
 import { WorkGallery, type WorkItem } from '@/components/cosmetics/WorkGallery';
 import { ExpandingScrollBox } from '@/components/site/ExpandingScrollBox';
 import { SiteNav } from '@/components/site/SiteNav';
-import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
 import { getHeroImages, getProjects, heroFor } from '@/lib/public/content';
 import type { Project } from '@/lib/db/types';
 import { SchemaScript } from '@/components/site/SchemaScript';
@@ -18,7 +17,7 @@ import { collectionPageSchema } from '@/lib/seo/schema';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  alternates: { canonical: '/cosmetics/work' },
+  alternates: { canonical: '/restoration/work' },
   title: { absolute: 'Recent Work — Red Box Restoration | Red Box Motors' },
   description:
     'Recent paint protection film, ceramic coating, paint correction, wrap and wheel projects from Red Box Restoration, Austin, TX.',
@@ -49,7 +48,7 @@ export default async function RecentWorkPage() {
 
   return (
     <main className="relative bg-rb-bg text-white">
-      <SchemaScript schema={collectionPageSchema('Recent Work', 'Recent paint protection film, ceramic coating, paint correction, wrap and wheel projects from Red Box Restoration, Austin, TX.', '/cosmetics/work')} />
+      <SchemaScript schema={collectionPageSchema('Recent Work', 'Recent paint protection film, ceramic coating, paint correction, wrap and wheel projects from Red Box Restoration, Austin, TX.', '/restoration/work')} />
       <RandomBackdrop />
       <SiteNav current="cosmetics" />
 
@@ -79,7 +78,7 @@ export default async function RecentWorkPage() {
                   className="font-bold text-white"
                   style={{ fontSize: 'clamp(36px,4.8vw,66px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
                 >
-                  Builds &amp; transformations.
+                  Protection. Correction. Transformation.
                 </div>
                 <p
                   className="m-0 mt-[18px] max-w-[640px] text-[15px] leading-[1.6] tracking-[0.2px] text-[#c4c4c4]"
@@ -91,7 +90,7 @@ export default async function RecentWorkPage() {
                 </p>
               </div>
               <Link
-                href="/cosmetics"
+                href="/restoration"
                 className="inline-flex items-center gap-[9px] whitespace-nowrap text-[12.5px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
               >
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -159,29 +158,28 @@ export default async function RecentWorkPage() {
                 </div>
 
                 <div className="mt-10 flex flex-wrap items-center gap-[22px]">
-                  <ContactLink
+                  <Link
+                    href="/restoration/estimate"
                     className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
                   >
-                    Book a service
+                    Request an Estimate
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                       <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" />
                     </svg>
-                  </ContactLink>
+                  </Link>
                   <Link
-                    href="/cosmetics"
+                    href="/restoration"
                     className="text-[13px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
                   >
-                    Explore cosmetics →
+                    Explore Restoration →
                   </Link>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* VISIT & FAQ */}
-          <div className="border-t border-rb-raised-3">
-            <VisitAndFAQ division="cosmetics" />
-          </div>
+          {/* Visit & FAQ removed per owner checklist — "Bring us the car"
+              is the final section on this page. */}
         </ExpandingScrollBox>
       </div>
 

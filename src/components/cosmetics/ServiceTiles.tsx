@@ -15,7 +15,7 @@ type ServiceTile = {
 
 const TILES: ServiceTile[] = [
   {
-    href: '/cosmetics/ppf',
+    href: '/restoration/ppf',
     title: 'Paint Protection',
     desc: 'Self-healing STEK film — full-body and high-impact coverage.',
     img: '/assets/ppf-hero.jpg',
@@ -32,7 +32,7 @@ const TILES: ServiceTile[] = [
     ),
   },
   {
-    href: '/cosmetics/ceramic-correction',
+    href: '/restoration/ceramic-correction',
     title: 'Ceramic & Correction',
     desc: 'Correct the swirls, seal the gloss with Carbon Collective coatings.',
     img: '/assets/placeholders/detail-bay.jpg',
@@ -49,7 +49,7 @@ const TILES: ServiceTile[] = [
     ),
   },
   {
-    href: '/cosmetics/vinyl',
+    href: '/restoration/vinyl',
     title: 'Vinyl Wrap',
     desc: 'Color-change, custom and fully reversible wraps.',
     img: '/assets/mclaren-p1.jpg',
@@ -62,7 +62,7 @@ const TILES: ServiceTile[] = [
     ),
   },
   {
-    href: '/cosmetics/wheels',
+    href: '/restoration/wheels',
     title: 'Wheel Refinishing',
     desc: 'Strip, powder coat and custom finishes.',
     img: '/assets/dealer-garage.jpeg',
@@ -76,7 +76,7 @@ const TILES: ServiceTile[] = [
     ),
   },
   {
-    href: '/cosmetics/custom-builds',
+    href: '/restoration/custom-builds',
     title: 'Custom Builds',
     desc: 'Ground-up builds and modifications, executed end to end.',
     img: '/assets/ppf-hero.jpg',
@@ -142,11 +142,11 @@ export function ServiceTiles() {
 // Inline service picker in the "Bring us the car" CTA (labels differ slightly
 // from the tiles — prototype-verbatim).
 const PICKER: { href: string; label: string }[] = [
-  { href: '/cosmetics/ppf', label: 'Paint Protection Film' },
-  { href: '/cosmetics/ceramic-correction', label: 'Ceramic & Correction' },
-  { href: '/cosmetics/vinyl', label: 'Vinyl Wrap' },
-  { href: '/cosmetics/wheels', label: 'Wheel Refinishing' },
-  { href: '/cosmetics/custom-builds', label: 'Custom Builds' },
+  { href: '/restoration/ppf', label: 'Paint Protection Film' },
+  { href: '/restoration/ceramic-correction', label: 'Ceramic & Correction' },
+  { href: '/restoration/vinyl', label: 'Vinyl Wrap' },
+  { href: '/restoration/wheels', label: 'Wheel Refinishing' },
+  { href: '/restoration/custom-builds', label: 'Custom Builds' },
 ];
 
 export function ServicePicker() {

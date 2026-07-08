@@ -141,14 +141,14 @@ const content: ServicePageContent = {
     kicker: '— Transform it',
     heading: 'Reinvent the car.',
     text: "Bring us the color or finish you have in mind — we'll show you samples and map the wrap to your car.",
-    secondary: { label: 'Add PPF →', href: '/cosmetics/ppf' },
+    secondary: { label: 'Add PPF →', href: '/restoration/ppf' },
   },
 };
 
 export default function VinylPage() {
   return (
     <>
-      <SchemaScript schema={serviceSchema('Vinyl Wrap & Color Change', 'Color-change and custom vinyl wraps — reversible and paint-safe, in Austin, TX.', '/cosmetics/vinyl')} />
+      <SchemaScript schema={serviceSchema('Vinyl Wrap & Color Change', 'Color-change and custom vinyl wraps — reversible and paint-safe, in Austin, TX.', '/restoration/vinyl')} />
       <ServiceScrollPage content={content} visitAndFaq={<VisitAndFAQ division="cosmetics" />} />
     </>
   );

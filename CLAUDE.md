@@ -27,6 +27,14 @@ The `handoff/` folder is the full brief for converting these `.dc.html` prototyp
 - `migration-plan.md` — DC→React mapping, component inventory, build order.
 - `Style Guide.dc.html` (project root) — a living visual reference of the system.
 
+## 2026-07-07 owner checklist rev 2 (applied same day)
+- **Cosmetics → Restoration**: public route renamed `/cosmetics` → `/restoration` (301s in next.config); customer-facing wording is "Red Box Restoration". Old `src/components/cosmetics/` component dir name kept (internal only).
+- **Flat 6-item nav**: Inventory / Sell Your Vehicle / Restoration / Recent Work / About / Contact (SiteNav ALIAS maps old `current` keys).
+- **Collection Management + sourcing unpublished**: `/collection` → `/`, `/dealer/sourced` → `/dealer/inventory` redirects; pages kept in code per unpublish-not-delete convention; sourcing/acquisition copy removed from public pages.
+- **Restoration Estimate form** at `/restoration/estimate` (lead type `estimate`); every "Request an Estimate" CTA routes there. Contact categories now: Buy a Vehicle / Sell or Consign a Vehicle / Request a Restoration Estimate / Ask About an Existing Listing / General Question.
+- **All fake seed listings deleted from the live DB** (owner adds real cars via admin). Projects/sourced seed data remain; "Custom Build" category renamed "Specialty Project" in DB.
+- Homepage FAQ = 4 fixed questions; inventory has its own FAQ; About/Recent Work have no FAQ block.
+
 ## Forms & lead pipeline (built 2026-07-07)
 - One hardened pipeline for all four lead types (`contact`, `listing`, `consignment`, `first_look`): honeypot + per-IP rate limit + optional Turnstile + service-role insert. Shared gates in `src/lib/leads/server.ts`; endpoints `/api/leads` and `/api/consignments`.
 - `/dealer/sell` (alias `/sell`) — multi-step consignment intake; every "Sell Your Vehicle" CTA sitewide routes there. Listing detail pages carry the full vehicle inquiry form (vehicle facts enriched server-side from the slug). Arriving-soon cards open the First Look modal.

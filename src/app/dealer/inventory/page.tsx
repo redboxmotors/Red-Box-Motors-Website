@@ -41,6 +41,16 @@ export const metadata: Metadata = {
 const SHOW_SOLD_PIPELINE = false;
 const SHOW_SOURCED_PIPELINE = false;
 
+// Inventory-specific questions (owner checklist 2026-07-07) — the general
+// FAQ lives on the homepage only.
+const INVENTORY_FAQ = [
+  { q: 'Can I schedule a viewing?', a: 'Yes — visits are by appointment at our Austin facility. Use the inquiry form on any vehicle page or call us to set a time.' },
+  { q: 'Can I request additional photos or video?', a: 'Yes. Every vehicle page has an inquiry form where you can request additional photographs or a personal video walkaround.' },
+  { q: 'Can a third-party inspection be arranged?', a: 'Yes — we accommodate independent pre-purchase inspections and can help coordinate one locally.' },
+  { q: 'Can enclosed transportation be coordinated?', a: 'Yes. Enclosed, insured door-to-door transport can be arranged nationwide as part of the purchase.' },
+  { q: 'Can Red Box complete PPF, coating, tint or detailing before delivery?', a: 'Yes — Red Box Restoration can protect and prepare the vehicle before it ever leaves the building. Ask about pre-delivery packages on any inquiry.' },
+];
+
 const SORT_KEYS: SortKey[] = ['price-desc', 'price-asc', 'year-desc', 'miles-asc'];
 
 const SORTERS: Record<SortKey, (a: Listing, b: Listing) => number> = {
@@ -305,11 +315,13 @@ export default async function DealerInventoryPage({
                     lineHeight: 0.96,
                   }}
                 >
-                  The current floor.
+                  Currently represented.
                 </h1>
                 <p className="mb-0 mt-[18px] max-w-[640px] text-[15px] leading-relaxed tracking-[0.2px] text-[#c4c4c4] [text-shadow:0_1px_20px_rgba(0,0,0,0.7)]">
-                  Every car listed here is one we&rsquo;d own ourselves — inspected, documented and
-                  ready. The floor changes weekly.
+                  Explore enthusiast and collector vehicles currently offered through Red Box
+                  Motors. Each represented vehicle is presented with available specifications,
+                  history, condition information and supporting documentation so buyers can make
+                  an informed decision.
                 </p>
               </div>
               <Link
@@ -496,7 +508,7 @@ export default async function DealerInventoryPage({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/keys-handoff.jpg"
-                alt="Consign or source a car with Red Box Motors"
+                alt="Consign your car with Red Box Motors"
                 className="absolute inset-0 h-full w-full object-cover"
                 style={{ objectPosition: 'center 42%' }}
               />
@@ -548,7 +560,7 @@ export default async function DealerInventoryPage({
           </div>
 
           <div className="border-t border-rb-line">
-            <VisitAndFAQ division="dealer" />
+            <VisitAndFAQ division="dealer" faqs={INVENTORY_FAQ} />
           </div>
         </ExpandingScrollBox>
       </div>

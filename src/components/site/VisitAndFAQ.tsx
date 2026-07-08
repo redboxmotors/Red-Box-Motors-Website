@@ -46,7 +46,7 @@ export async function VisitAndFAQ({
           </h2>
         </div>
 
-        <div className="grid items-stretch gap-0.5 bg-black md:grid-cols-2">
+        <div className={`grid items-stretch gap-0.5 bg-black ${faqs.length ? 'md:grid-cols-2' : ''}`}>
           {/* Location */}
           <div className="flex flex-col justify-center bg-rb-surface">
             <div className="px-7 py-[22px]">
@@ -69,8 +69,9 @@ export async function VisitAndFAQ({
             </div>
           </div>
 
-          {/* FAQ */}
-          <FaqAccordion faqs={faqs} />
+          {/* FAQ — pass faqs={[]} to render Location/contact only (owner
+              checklist: no repeated general FAQ on About / Recent Work) */}
+          {faqs.length > 0 && <FaqAccordion faqs={faqs} />}
 
           {/* Talk to a person */}
           <div className="flex flex-col justify-center gap-5 bg-rb-surface-3 px-8 py-[22px] md:col-span-2">

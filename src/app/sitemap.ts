@@ -14,8 +14,11 @@ const STATIC_ROUTES = [
   '/contact',
   '/dealer',
   '/dealer/inventory',
-  '/cosmetics',
-  '/cosmetics/work',
+  '/dealer/sell',
+  '/restoration',
+  '/restoration/work',
+  '/restoration/estimate',
+  '/privacy',
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

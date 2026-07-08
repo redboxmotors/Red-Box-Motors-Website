@@ -143,14 +143,14 @@ const content: ServicePageContent = {
     kicker: '— Perfect it',
     heading: 'Bring back the gloss.',
     text: "Tell us the car and its condition — we'll recommend the right correction and coating package.",
-    secondary: { label: 'Add PPF →', href: '/cosmetics/ppf' },
+    secondary: { label: 'Add PPF →', href: '/restoration/ppf' },
   },
 };
 
 export default function CeramicCorrectionPage() {
   return (
     <>
-      <SchemaScript schema={serviceSchema('Ceramic Coating & Paint Correction', 'Multi-stage paint correction and Carbon Collective ceramic coatings in Austin, TX.', '/cosmetics/ceramic-correction')} />
+      <SchemaScript schema={serviceSchema('Ceramic Coating & Paint Correction', 'Multi-stage paint correction and Carbon Collective ceramic coatings in Austin, TX.', '/restoration/ceramic-correction')} />
       <ServiceScrollPage content={content} visitAndFaq={<VisitAndFAQ division="cosmetics" />} />
     </>
   );
