@@ -139,6 +139,9 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>
 );
 
 // Single-select chip row (the contact form's "Interested In" pattern).
+// NOTE: the visible label IS the <legend> — browsers ignore positioning
+// tricks (sr-only) on <legend>, so a hidden legend + separate visible label
+// renders the text TWICE (the "duplicated label" bug, fixed 2026-07-08).
 export const ChipGroup = forwardRef<HTMLButtonElement, {
   label: string;
   optional?: boolean;
@@ -150,8 +153,10 @@ export const ChipGroup = forwardRef<HTMLButtonElement, {
   return (
     <FieldBox hasErr={!!error}>
       <fieldset className="m-0 border-0 p-0">
-        <legend className="sr-only">{label}</legend>
-        <FieldLabel optional={optional}>{label}</FieldLabel>
+        <legend className="mb-[7px] block p-0 text-[10px] uppercase tracking-[2px] text-rb-tx-faint">
+          {label}
+          {optional && <span className="text-[#444]"> · optional</span>}
+        </legend>
         <div className="flex flex-wrap gap-2">
           {options.map((opt, i) => {
             const active = value === opt;
@@ -201,8 +206,11 @@ export function MultiChipGroup({
   return (
     <FieldBox hasErr={!!error}>
       <fieldset className="m-0 border-0 p-0">
-        <legend className="sr-only">{label}</legend>
-        <FieldLabel optional={optional}>{label}</FieldLabel>
+        {/* visible label = the legend itself (see ChipGroup note) */}
+        <legend className="mb-[7px] block p-0 text-[10px] uppercase tracking-[2px] text-rb-tx-faint">
+          {label}
+          {optional && <span className="text-[#444]"> · optional</span>}
+        </legend>
         <div className="flex flex-wrap gap-2">
           {options.map((opt) => {
             const active = value.includes(opt);
@@ -282,7 +290,10 @@ export function SelectField({
   );
 }
 
-// Honeypot — visually hidden, never announced; bots fill it.
+// Honeypot — visually hidden, never announced; bots fill it. Hidden with
+// INLINE styles (not utility classes) so no CSS-pipeline change can ever
+// make it visible again (2026-07-08 — the field had shown up on the listing
+// inquiry form).
 export function Honeypot({
   id,
   value,
@@ -293,7 +304,17 @@ export function Honeypot({
   onChange: (v: string) => void;
 }) {
   return (
-    <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+    <div
+      aria-hidden
+      style={{
+        position: 'absolute',
+        left: '-9999px',
+        top: 0,
+        width: '1px',
+        height: '1px',
+        overflow: 'hidden',
+      }}
+    >
       <label htmlFor={id}>Website</label>
       <input
         id={id}
@@ -315,7 +336,7 @@ export function FormFooterNote({ phone }: { phone: string | null }) {
     <p className="mt-5 text-[12px] leading-relaxed tracking-[0.3px] text-rb-tx-faint">
       {phone && tel ? (
         <>
-          Urgent or high-value inquiry? Call us directly at{' '}
+          Prefer to speak directly? Call Red Box Motors at{' '}
           <a href={`tel:${tel}`} className="text-rb-tx-mute underline decoration-rb-border-2 underline-offset-4 hover:text-white">
             {phone}
           </a>

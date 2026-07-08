@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/server';
+import { dedupeModel } from '@/lib/db/types';
 import {
   EMAIL_RE,
   clientIp,
@@ -54,14 +55,18 @@ const ESTIMATE_SERVICES = new Set([
   'Specialty Project',
 ]);
 
-// Inquiry types for listing inquiries. 'Trade-in' intentionally omitted —
-// add here and in InquiryPanel when it opens up.
+// Inquiry types for listing inquiries (2026-07-08 consolidated list).
+// 'Trade-in' intentionally omitted — add here and in InquiryPanel when it
+// opens up. Must match InquiryPanel's list exactly.
 const INQUIRY_TYPES = new Set([
   'Request additional information',
-  'Schedule a showroom appointment',
-  'Request a video walkaround',
+  'Request available documentation',
+  'Request a specification sheet',
   'Request additional photographs',
-  'Discuss transportation',
+  'Request a live video walkaround',
+  'Schedule a private viewing',
+  'Discuss a third-party inspection',
+  'Discuss enclosed transportation',
   'Discuss pre-delivery PPF, coating, tint or detailing',
 ]);
 
@@ -211,7 +216,9 @@ export async function POST(req: Request) {
       .eq('slug', listing_slug)
       .maybeSingle();
     if (data) {
-      vehicleTitle = [data.year, data.make, data.model].filter(Boolean).join(' ') || listing_title;
+      vehicleTitle =
+        [data.year, data.make, dedupeModel(data.make, data.model)].filter(Boolean).join(' ') ||
+        listing_title;
       const site = process.env.NEXT_PUBLIC_SITE_URL ?? '';
       vehicle = {
         year: data.year,
@@ -339,7 +346,21 @@ export async function POST(req: Request) {
         ['Inquiry type', inquiry_type],
         ['Purchase timeframe', timeframe],
         ['Vehicle', vehicleTitle ?? vehicle_of_interest ?? vehicle_text],
-        ['Listing', listing_slug],
+        // Vehicle facts enriched server-side from the listing (2026-07-08:
+        // notifications must carry VIN, stock ref, asking price, listing URL)
+        ...(vehicle
+          ? ([
+              ['VIN', (vehicle as { vin?: string | null }).vin ?? '—'],
+              ['Stock ref', (vehicle as { stock?: string }).stock ?? listing_slug],
+              [
+                'Asking price',
+                (vehicle as { advertised_price?: number | null }).advertised_price != null
+                  ? `$${Math.round((vehicle as { advertised_price: number }).advertised_price).toLocaleString('en-US')}`
+                  : '—',
+              ],
+              ['Listing URL', (vehicle as { listing_url?: string }).listing_url ?? '—'],
+            ] as Array<[string, string]>)
+          : ([['Listing', listing_slug]] as Array<[string, string | null]>)),
         ...(type === 'first_look'
           ? ([['Similar-vehicle opt-in', opt_in ? 'Yes' : 'No']] as Array<[string, string]>)
           : []),

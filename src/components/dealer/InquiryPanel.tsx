@@ -18,14 +18,20 @@ import {
 // timeframe; the vehicle facts (year/make/model/VIN/price/URL) are attached
 // SERVER-SIDE from the listing slug — the customer never re-enters them.
 
-// 'Trade-in' intentionally omitted for now — add here and in the API's
-// INQUIRY_TYPES set when it opens up.
+// 2026-07-08 consolidated list (owner batch): private viewing replaces
+// showroom appointment, live video walkaround replaces video walkaround,
+// enclosed transportation replaces transportation. 'Trade-in' intentionally
+// omitted for now — add here and in the API's INQUIRY_TYPES set when it
+// opens up. Must match the API set exactly.
 const INQUIRY_TYPES = [
   'Request additional information',
-  'Schedule a showroom appointment',
-  'Request a video walkaround',
+  'Request available documentation',
+  'Request a specification sheet',
   'Request additional photographs',
-  'Discuss transportation',
+  'Request a live video walkaround',
+  'Schedule a private viewing',
+  'Discuss a third-party inspection',
+  'Discuss enclosed transportation',
   'Discuss pre-delivery PPF, coating, tint or detailing',
 ] as const;
 
