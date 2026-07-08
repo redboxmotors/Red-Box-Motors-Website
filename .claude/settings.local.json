@@ -120,7 +120,11 @@
       "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2000 '/Users/user/Desktop/PHOTOS/red photoes/A042_C067_0413BO.0000116.jpeg' --out public/assets/home-tell-us.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/home-tell-us.jpg)",
       "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --window-size=1240,800 --screenshot=\"/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/crops.png\" \"file:///private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/crops.html\")",
-      "Bash(git commit -q -m 'UI polish: remove side-scroll marquees \\(static capabilities row, FeatureBar deleted\\), fix hero descender clipping, homepage headline '\\\\''One Trusted Partner'\\\\'', new G-Wagon + Dino homepage photos *)"
+      "Bash(git commit -q -m 'UI polish: remove side-scroll marquees \\(static capabilities row, FeatureBar deleted\\), fix hero descender clipping, homepage headline '\\\\''One Trusted Partner'\\\\'', new G-Wagon + Dino homepage photos *)",
+      "Bash(sips -g pixelWidth -g pixelHeight '/Users/user/Desktop/PHOTOS/Web Pics/1.jpg' '/Users/user/Desktop/PHOTOS/red photoes/A026_C056_0911KG.0000018.jpeg')",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2000 '/Users/user/Desktop/PHOTOS/Web Pics/1.jpg' --out public/assets/home-tell-us.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2400 '/Users/user/Desktop/PHOTOS/red photoes/A026_C056_0911KG.0000018.jpeg' --out public/assets/home-protection-tile.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/home-tell-us.jpg public/assets/home-protection-tile.jpg)"
     ]
   }
 }

@@ -430,9 +430,7 @@ export function HomeShowcase({
             <div className="min-h-0 min-w-0 flex-1" style={dashReveal(1)}>
               <Link href="/restoration" className={`${tileCls} h-full w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                {/* G-Wagon + branded shop door — 40% focal keeps both centered
-                    in the tall tile crop */}
-                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: '40% center' }} />
+                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 53%' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
                 <div className="absolute right-[22px] top-[22px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-[30px] px-[34px]">
@@ -662,7 +660,7 @@ export function HomeShowcase({
           <div className="mt-[96px] grid border-t border-rb-line bg-rb-surface md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="relative min-h-[340px] overflow-hidden bg-rb-surface-4 md:min-h-[640px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/home-tell-us.jpg" alt="Talk to Red Box Motors" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: '60% 55%' }} />
+              <img src="/assets/home-tell-us.jpg" alt="Talk to Red Box Motors" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: '34% center' }} />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_46%,rgba(10,10,10,0.5)_80%,rgba(10,10,10,0.96)_100%)]" />
             </div>
             <div className="flex flex-col justify-center px-6 py-[72px] md:px-16 md:py-[110px]">
