@@ -68,9 +68,9 @@ const SERVICES: {
       'Services range from a one-step paint enhancement for light imperfections to a two-stage correction for moderate defects and a comprehensive three-stage correction for heavily marred, collector or show-level finishes. Wet sanding and targeted defect removal are available by consultation when the paint system and project allow.',
     ],
     img: {
-      src: '/assets/placeholders/paint-correction.jpg',
-      alt: 'Multi-stage machine paint correction at Red Box Restoration',
-      placeholder: true,
+      src: '/assets/resto-correction.jpg',
+      alt: 'Machine paint correction on a Porsche 911 S/T at Red Box Restoration',
+      pos: 'center 55%',
     },
   },
   {
