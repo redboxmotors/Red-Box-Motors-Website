@@ -55,7 +55,7 @@ const SERVICES: {
       'Red Box Restoration installs premium paint protection film using vehicle-specific patterns and professional installation techniques. Coverage ranges from high-impact front-end packages and track-focused protection to complete full-body installations. Panels are carefully prepared, film is precisely positioned and edges are wrapped wherever practical for a clean, refined result.',
       'Available options include clear gloss, matte and color-change paint protection films, with manufacturer warranty coverage available according to the selected material.',
     ],
-    img: { src: '/assets/ppf-coverage.jpg', alt: 'Porsche GT2 RS protected with paint protection film', pos: 'center 42%' },
+    img: { src: '/assets/resto-ppf.jpg', alt: 'STEK paint protection film installed on a Porsche 911 at Red Box Restoration', pos: 'center 50%' },
   },
   {
     id: 'correction',
