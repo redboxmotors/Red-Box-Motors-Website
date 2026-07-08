@@ -215,8 +215,16 @@ function Arrow({ size = 14, width = 1.5 }: { size?: number; width?: number }) {
 export default async function RestorationPage() {
   const builds = await getSurfaceCards('cosmetics_builds_preview', 8);
 
+  // Video hero (owner 2026-07-08). INTERIM FILE: restoration-hero.mp4 is a
+  // 360p pull of the owner's YouTube video — replace the file with the
+  // original export (same filename) for full quality. ppf-hero.jpg is the
+  // poster + reduced-motion fallback.
   return (
-    <ScrollShell bg="/assets/ppf-hero.jpg" bgPosition="center 55%">
+    <ScrollShell
+      bg="/assets/ppf-hero.jpg"
+      bgVideo="/assets/restoration-hero.mp4"
+      bgPosition="center 55%"
+    >
       <SchemaScript
         schema={serviceSchema(
           'Protection, Restoration and Customization—Done Right.',

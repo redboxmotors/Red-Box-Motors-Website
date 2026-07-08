@@ -144,7 +144,9 @@
       "Bash(sips -g pixelWidth -g pixelHeight '/Users/user/Desktop/PHOTOS/Web Pics/23.jpg')",
       "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2000 '/Users/user/Desktop/PHOTOS/Web Pics/23.jpg' --out public/assets/resto-bring-us.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/resto-bring-us.jpg)",
-      "Bash(git commit -q -m 'Restoration page: verbatim owner copy for intro + all 8 services \\(adds Specialty Automotive Installations\\), right-edge floating estimate CTA with mobile bottom bar, shop-floor photo for Bring Us the Car, Specialty Installations in estimate services *)"
+      "Bash(git commit -q -m 'Restoration page: verbatim owner copy for intro + all 8 services \\(adds Specialty Automotive Installations\\), right-edge floating estimate CTA with mobile bottom bar, shop-floor photo for Bring Us the Car, Specialty Installations in estimate services *)",
+      "Bash(~/.local/bin/yt-dlp --version)",
+      "Bash(git commit -q -m 'Restoration hero: looping muted video background \\(interim 360p pull — replace restoration-hero.mp4 with original export\\), ScrollShell gains bgVideo support with poster + reduced-motion fallback *)"
     ]
   }
 }
