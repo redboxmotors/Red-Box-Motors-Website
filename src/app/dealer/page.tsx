@@ -374,7 +374,7 @@ export default async function DealerPage() {
                   </div>
                 </div>
               </div>
-              <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-10 md:px-12 md:py-12">
+              <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-16 md:px-16 md:py-[90px]">
                 <div className="mb-6 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
                   — You want a car
                 </div>
@@ -425,7 +425,7 @@ export default async function DealerPage() {
                   </div>
                 </div>
               </div>
-              <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-10 md:px-12 md:py-12">
+              <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-16 md:px-16 md:py-[90px]">
                 <div className="mb-6 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
                   — You have a car
                 </div>
@@ -550,7 +550,7 @@ export default async function DealerPage() {
               Owner copy verbatim. */}
           <div className="border-t border-rb-line bg-[#101010]">
             <div className="flex flex-col md:flex-row">
-              <div className="relative min-h-[220px] min-w-0 flex-[0.9] overflow-hidden md:min-h-[380px]">
+              <div className="relative min-h-[340px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[620px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/dealer-buying-selling.jpg"
@@ -567,21 +567,21 @@ export default async function DealerPage() {
                 </div>
               </div>
 
-              <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-10 md:px-12 md:py-12">
+              <div className="flex min-w-0 flex-1 flex-col justify-center px-6 py-16 md:px-16 md:py-[90px]">
                 <div data-reveal className="mb-5 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
                   — What we represent
                 </div>
                 <h2
                   data-reveal
                   className="m-0 max-w-[14ch] font-extrabold text-white"
-                  style={{ fontSize: 'clamp(26px,3vw,42px)', letterSpacing: '-0.035em', lineHeight: 0.98 }}
+                  style={{ fontSize: 'clamp(34px,4.4vw,64px)', letterSpacing: '-0.04em', lineHeight: 0.98 }}
                 >
                   Vehicles Worth Representing
                 </h2>
                 <p
                   data-reveal
                   style={{ transitionDelay: '.1s' }}
-                  className="mb-0 mt-5 max-w-[520px] text-[15px] font-medium leading-[1.65] text-rb-tx-2"
+                  className="mb-0 mt-7 max-w-[520px] text-[17px] font-medium leading-[1.7] text-rb-tx-2"
                 >
                   We represent vehicles with enthusiast value, compelling specification and a story
                   worth presenting&mdash;from modern exotics and limited-production performance cars to
@@ -590,26 +590,26 @@ export default async function DealerPage() {
                 <p
                   data-reveal
                   style={{ transitionDelay: '.14s' }}
-                  className="mb-0 mt-3.5 max-w-[480px] text-[13.5px] font-medium leading-[1.6] text-rb-tx-mute"
+                  className="mb-0 mt-6 max-w-[480px] text-[15px] font-medium leading-[1.7] text-rb-tx-mute"
                 >
                   Tell us about the car you would like us to represent.
                 </p>
 
-                <div data-reveal style={{ transitionDelay: '.18s' }} className="mt-7 flex flex-wrap items-center gap-[16px]">
+                <div data-reveal style={{ transitionDelay: '.18s' }} className="mt-10 flex flex-wrap items-center gap-[22px]">
                   <Link
                     href="/dealer/sell"
-                    className="rb-btn-red inline-flex items-center gap-3 bg-rb-red px-7 py-[15px] text-[13.5px] font-semibold tracking-[0.5px] text-white"
+                    className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
                   >
                     Sell Your Car
                     <ArrowIcon size={16} stroke={1.5} />
                   </Link>
-                  <Link href="/dealer/inventory" className={`${ghostRed} px-[22px] py-[13px] text-[13px]`}>
+                  <Link href="/dealer/inventory" className={`${ghostRed} px-[30px] py-[17px] text-[14px]`}>
                     View Inventory
                     <ArrowIcon size={15} stroke={1.5} />
                   </Link>
                 </div>
 
-                <div className="mt-8 flex items-center gap-[11px] border-t border-rb-line pt-5">
+                <div className="mt-[46px] flex items-center gap-[11px] border-t border-rb-line pt-[26px]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/assets/brand/rbm-logo-header.png" alt="" className="h-[24px] w-[24px]" />
                   <span className="text-[11px] uppercase tracking-[2px] text-rb-tx-faint">
