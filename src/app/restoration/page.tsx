@@ -131,13 +131,10 @@ const SERVICES: {
       'Maintenance services include pH-balanced hand washing, careful drying, wheel and caliper cleaning, tire treatment, vacuuming, glass cleaning and light interior care. More comprehensive packages add exterior decontamination, leather cleaning and conditioning, detailed interior agitation, carpet and upholstery extraction, engine-bay cleaning, odor treatment and final inspection under high-intensity lighting.',
       'Whether the vehicle needs routine upkeep, seasonal revitalization, pre-sale preparation or a complete interior and exterior reset, the service is tailored to its condition and intended use.',
     ],
-    // Real wash-bay photo (replaces the wash-bay.jpg placeholder slot). Note:
-    // includes a team member — swap back to /assets/placeholders/wash-bay.jpg
-    // if a people-free shot is preferred.
     img: {
-      src: '/assets/cosmetics-wash.jpeg',
-      alt: 'Foam wash in the Red Box Restoration detailing bay, Austin TX',
-      pos: 'center 55%',
+      src: '/assets/resto-detailing.jpg',
+      alt: 'Classic Ferrari Dino foam-washed in the Red Box Restoration detailing bay',
+      pos: 'center 67%',
     },
   },
   {

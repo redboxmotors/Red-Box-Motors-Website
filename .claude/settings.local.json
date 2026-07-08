@@ -163,7 +163,10 @@
       "Bash(git revert *)",
       "Bash(git commit -q -m 'Homepage: much smaller Explore Red Box Motors closing chapter \\(dealer closing restored to original size\\) *)",
       "Bash(git commit -q -m 'Homepage: tighten gap between closing CTA and Questions & Location *)",
-      "Bash(git commit -q -m 'Restoration: foamed 765LT wash-bay photo for the intro band below the hero *)"
+      "Bash(git commit -q -m 'Restoration: foamed 765LT wash-bay photo for the intro band below the hero *)",
+      "Bash(sips -r 90 public/assets/resto-detailing.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/resto-detailing.jpg)",
+      "Bash(git commit -q -m 'Restoration: Dino foam-wash photo for the Detailing section *)"
     ]
   }
 }
