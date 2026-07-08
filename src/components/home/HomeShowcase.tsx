@@ -657,7 +657,7 @@ export function HomeShowcase({
           <div className="mt-[96px] grid border-t border-rb-line bg-rb-surface md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="relative min-h-[340px] overflow-hidden bg-rb-surface-4 md:min-h-[640px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/home-tell-us.jpg" alt="Talk to Red Box Motors" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 57%' }} />
+              <img src="/assets/home-tell-us.jpg" alt="Talk to Red Box Motors" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: '36% center' }} />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_46%,rgba(10,10,10,0.5)_80%,rgba(10,10,10,0.96)_100%)]" />
             </div>
             <div className="flex flex-col justify-center px-6 py-[72px] md:px-16 md:py-[110px]">
