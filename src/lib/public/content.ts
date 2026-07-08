@@ -258,6 +258,39 @@ export async function getListingBySlug(slug: string): Promise<Listing | null> {
   return (data as unknown as Listing) ?? null;
 }
 
+// Owner-authored listing content (2026-07-08 patch). Fetched separately and
+// best-effort so a pre-patch database (columns missing) degrades to "no
+// custom content" instead of breaking the page.
+const LISTING_CONTENT_COLS =
+  'overview,highlights,chassis_no,title_status,body_style,drivetrain,' +
+  'powertrain,output_hp,torque_lbft,msrp,special_spec,documentation,' +
+  'condition_notes,listing_faq';
+
+export async function getListingContent(id: string): Promise<Partial<Listing>> {
+  const supabase = createServerClient();
+  const { data, error } = await supabase
+    .from('listings')
+    .select(LISTING_CONTENT_COLS)
+    .eq('id', id)
+    .maybeSingle();
+  if (error || !data) return {};
+  return data as Partial<Listing>;
+}
+
+// Data-driven slug redirects (2026-07-08): when a listing slug changes, the
+// old URL 301s to the new one (rows written by the admin save action).
+// Best-effort — a pre-patch DB (table missing) just means "no redirect".
+export async function getSlugRedirect(oldSlug: string): Promise<string | null> {
+  const supabase = createServerClient();
+  const { data, error } = await supabase
+    .from('slug_redirects')
+    .select('new_slug')
+    .eq('old_slug', oldSlug)
+    .maybeSingle();
+  if (error) return null;
+  return data?.new_slug ?? null;
+}
+
 // Full VIN for the detail page. The anon role cannot select `vin` at all, so
 // when the owner has marked it public we fetch it with the service-role
 // client (server-only) — the vin_public flag stays the single gate.

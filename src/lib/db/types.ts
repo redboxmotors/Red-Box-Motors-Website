@@ -13,6 +13,16 @@ export type PlacementSurface =
 export type LeadType = 'contact' | 'listing' | 'consignment' | 'first_look' | 'estimate';
 export type LeadStatus = 'new' | 'handled';
 
+export interface ConditionNote {
+  label: string;
+  value: string;
+}
+
+export interface ListingFaqItem {
+  q: string;
+  a: string;
+}
+
 export interface Listing {
   id: string;
   slug: string;
@@ -40,6 +50,23 @@ export interface Listing {
   deleted_at: string | null;
   created_at: string;
   updated_at: string;
+  // 2026-07-08 owner-authored content (patches/2026-07-08-listing-content.sql).
+  // Optional: absent on pre-patch DBs — readers must treat missing as empty.
+  overview?: string | null;
+  highlights?: string[] | null;
+  chassis_no?: string | null;
+  title_status?: string | null;
+  body_style?: string | null;
+  drivetrain?: string | null;
+  powertrain?: string | null;
+  output_hp?: number | null;
+  torque_lbft?: number | null;
+  msrp?: number | null;
+  special_spec?: string | null;
+  documentation?: string[] | null;
+  condition_notes?: ConditionNote[] | null;
+  // null = render the site default questions; [] = owner hid the section.
+  listing_faq?: ListingFaqItem[] | null;
 }
 
 export interface Project {
@@ -147,6 +174,19 @@ export function formatMileage(mileage: number | null): string {
   return `${mileage.toLocaleString('en-US')} mi`;
 }
 
+// If the model field itself starts with the make ("Porsche 918 Spyder" with
+// make "Porsche"), drop the duplicate so titles/slugs never read
+// "Porsche Porsche 918 Spyder" (2026-07-08 fix — root cause of the double-
+// make bug in titles, headings, prefills, metadata and generated slugs).
+export function dedupeModel(make: string | null | undefined, model: string): string {
+  const m = (model ?? '').trim();
+  const mk = (make ?? '').trim();
+  if (mk && m.toLowerCase().startsWith(`${mk.toLowerCase()} `)) {
+    return m.slice(mk.length).trim();
+  }
+  return m;
+}
+
 export function listingTitle(l: Pick<Listing, 'year' | 'make' | 'model'>): string {
-  return [l.year, l.make, l.model].filter(Boolean).join(' ');
+  return [l.year, l.make, dedupeModel(l.make, l.model)].filter(Boolean).join(' ');
 }
