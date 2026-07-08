@@ -1,5 +1,5 @@
 import type { Listing, Project } from '@/lib/db/types';
-import { listingTitle } from '@/lib/db/types';
+import { dedupeModel, listingTitle } from '@/lib/db/types';
 import type { SiteSettings } from '@/lib/public/content';
 
 // JSON-LD builders (seo-map.md). FACTUAL FIELDS ONLY — no invented ratings,
@@ -87,7 +87,7 @@ export function carSchema(listing: Listing, imageUrls: string[], withContext = t
     name: listingTitle(listing),
     url,
     brand: { '@type': 'Brand', name: listing.make },
-    model: listing.model,
+    model: dedupeModel(listing.make, listing.model),
     ...(listing.engine ? { vehicleEngine: { '@type': 'EngineSpecification', name: listing.engine } } : {}),
     ...(listing.transmission ? { vehicleTransmission: listing.transmission } : {}),
     ...(listing.year ? { vehicleModelDate: String(listing.year) } : {}),

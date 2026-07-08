@@ -38,6 +38,14 @@ const nextConfig = {
       // Unpublished divisions (owner: not offered for now; pages kept in code).
       { source: '/collection', destination: '/', permanent: false },
       { source: '/dealer/sourced', destination: '/dealer/inventory', permanent: false },
+      // 918 slug fix (2026-07-08). Future slug changes are handled
+      // data-driven via public.slug_redirects; this one is also pinned here
+      // so it works even before that table exists.
+      {
+        source: '/dealer/inventory/2015-porsche-porsche-918-spyder-cxx',
+        destination: '/dealer/inventory/2015-porsche-918-spyder-cxx',
+        permanent: true,
+      },
     ];
   },
 };
