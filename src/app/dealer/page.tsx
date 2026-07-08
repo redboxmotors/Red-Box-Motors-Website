@@ -327,10 +327,24 @@ export default async function DealerPage() {
             )}
           </div>
 
+          {/* PHOTO BAND — full-bleed transition into the trust section,
+              same treatment as the page opener (owner 2026-07-08) */}
+          <div className="relative h-[400px] overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/consignment.jpeg"
+              alt="Consignment vehicle prepared for sale at Red Box Motors"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: 'center 52%' }}
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(21,21,21,0.10)_0%,rgba(21,21,21,0.04)_40%,rgba(21,21,21,0.55)_74%,rgba(21,21,21,0.92)_92%,#151515_100%)]" />
+          </div>
+
           {/* WHY RED BOX — the buying pillars and the owner-credibility claims,
               merged into one big trust section (hard cut from How It Works).
               Supportable claims only. */}
-          <div className="border-t border-rb-line bg-[#151515] pb-24 pt-24">
+          <div className="bg-[#151515] pb-24 pt-16">
             <SectionHeader
               eyebrow="— Why Red Box"
               title="Why buyers and owners trust Red Box Motors"
