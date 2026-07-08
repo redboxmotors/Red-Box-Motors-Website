@@ -25,6 +25,7 @@ const SERVICES = [
   'Window Tint',
   'Detailing',
   'Wheels, Tires & Calipers',
+  'Specialty Installations',
   'Specialty Project',
 ] as const;
 

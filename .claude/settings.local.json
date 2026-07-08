@@ -139,7 +139,12 @@
       "Bash(sips -g pixelWidth -g pixelHeight '/Users/user/Desktop/PHOTOS/Web Pics/25.jpg')",
       "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2400 '/Users/user/Desktop/PHOTOS/Web Pics/25.jpg' --out public/assets/inventory-represented.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/inventory-represented.jpg)",
-      "Bash(git commit -q -m 'Inventory header: Kenwood 962 photo; homepage Tell Us section trimmed vertically *)"
+      "Bash(git commit -q -m 'Inventory header: Kenwood 962 photo; homepage Tell Us section trimmed vertically *)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=9000 --window-size=1440,900 --screenshot=/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/resto-new.png http://localhost:3999/restoration)",
+      "Bash(sips -g pixelWidth -g pixelHeight '/Users/user/Desktop/PHOTOS/Web Pics/23.jpg')",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2000 '/Users/user/Desktop/PHOTOS/Web Pics/23.jpg' --out public/assets/resto-bring-us.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/resto-bring-us.jpg)",
+      "Bash(git commit -q -m 'Restoration page: verbatim owner copy for intro + all 8 services \\(adds Specialty Automotive Installations\\), right-edge floating estimate CTA with mobile bottom bar, shop-floor photo for Bring Us the Car, Specialty Installations in estimate services *)"
     ]
   }
 }

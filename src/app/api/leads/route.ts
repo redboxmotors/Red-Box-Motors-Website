@@ -52,6 +52,7 @@ const ESTIMATE_SERVICES = new Set([
   'Window Tint',
   'Detailing',
   'Wheels, Tires & Calipers',
+  'Specialty Installations',
   'Specialty Project',
 ]);
 

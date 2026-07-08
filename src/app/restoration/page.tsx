@@ -23,9 +23,9 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   alternates: { canonical: '/restoration' },
-  title: { absolute: 'Red Box Restoration — Vehicle Protection, Restoration & Customization | Red Box Motors' },
+  title: { absolute: 'Red Box Restoration — Protection, Restoration and Customization—Done Right. | Red Box Motors' },
   description:
-    'Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint, detailing and wheel services in Austin, TX.',
+    'Red Box Restoration protects, restores and transforms enthusiast, exotic and collector vehicles from a climate-controlled Austin, TX facility — PPF, paint correction, ceramic coatings, wraps, tint, detailing, wheels and specialty installations.',
 };
 
 const EASE = 'cubic-bezier(.2,.8,.2,1)';
@@ -49,10 +49,11 @@ const SERVICES: {
     id: 'ppf',
     num: '01',
     title: 'Paint Protection Film',
-    tags: ['STEK', 'Self-healing', 'High-impact', 'Optically clear'],
+    tags: ['Self-Healing', 'High-Impact Protection', 'Optically Clear'],
     paras: [
-      'A tough, optically clear urethane layer that takes the rock chips, road rash and bug etching that would otherwise scar your paint — while its self-healing top coat erases light swirls with heat.',
-      'We install STEK PPF, precision-cut for every panel with wrapped edges wherever possible, from high-impact front-end packages to full-body coverage.',
+      'Paint protection film provides a durable, nearly invisible barrier against rock chips, road debris, scratches, bug etching and other damage that would otherwise reach the factory paint. Its self-healing surface helps light swirls and marks disappear when exposed to heat while maintaining the color, clarity and finish beneath it.',
+      'Red Box Restoration installs premium paint protection film using vehicle-specific patterns and professional installation techniques. Coverage ranges from high-impact front-end packages and track-focused protection to complete full-body installations. Panels are carefully prepared, film is precisely positioned and edges are wrapped wherever practical for a clean, refined result.',
+      'Available options include clear gloss, matte and color-change paint protection films, with manufacturer warranty coverage available according to the selected material.',
     ],
     img: { src: '/assets/ppf-coverage.jpg', alt: 'Porsche GT2 RS protected with paint protection film', pos: 'center 42%' },
   },
@@ -60,9 +61,11 @@ const SERVICES: {
     id: 'correction',
     num: '02',
     title: 'Paint Correction',
-    tags: ['Multi-stage', 'Swirl removal', 'Machine polish'],
+    tags: ['Swirl Removal', 'Multi-Stage Refinement', 'Restored Clarity'],
     paras: [
-      'Swirls, holograms and wash marring are leveled by machine, stage by stage, until the paint reads flat and deep. Where needed, paint correction creates the proper foundation before a coating or film installation — and it can also restore depth and clarity as a standalone service.',
+      'Paint correction is the controlled machine-polishing process used to reduce swirl marks, wash-induced marring, oxidation, holograms, light scratches and other defects that prevent the finish from displaying its full depth and clarity.',
+      'Every vehicle begins with a careful inspection followed by a proper wash and decontamination process. Each panel is then refined using professional polishing equipment, compounds and techniques selected for the condition of the paint and the desired outcome. Fresh polishing pads and clean microfiber towels are used for every vehicle to prevent cross-contamination and maintain consistent results.',
+      'Services range from a one-step paint enhancement for light imperfections to a two-stage correction for moderate defects and a comprehensive three-stage correction for heavily marred, collector or show-level finishes. Wet sanding and targeted defect removal are available by consultation when the paint system and project allow.',
     ],
     img: {
       src: '/assets/placeholders/paint-correction.jpg',
@@ -74,9 +77,11 @@ const SERVICES: {
     id: 'coatings',
     num: '03',
     title: 'Ceramic Coatings',
-    tags: ['Carbon Collective', 'Gloss', 'Chemical resistance'],
+    tags: ['Long-Term Protection', 'Enhanced Gloss', 'Easier Maintenance'],
     paras: [
-      'Carbon Collective ceramic coatings applied over a proper correction. The finish sheds water, resists fading and chemicals, and stays dramatically easier to keep clean — long after the car leaves the bay.',
+      'Ceramic coating creates a durable, hydrophobic layer that chemically bonds to the prepared surface. It enhances depth and gloss while helping protect against ultraviolet exposure, road grime, environmental contamination and chemical staining. The slick surface also reduces contamination buildup and makes routine washing and drying considerably easier.',
+      'Every coating installation begins with proper surface preparation, including washing, chemical and mechanical decontamination and paint correction where needed. The coating is then carefully applied and leveled in a controlled environment before the vehicle is inspected under specialized lighting to confirm even coverage and finish quality.',
+      'Protection is available for paint, paint protection film, wheels, calipers, exterior glass and interior surfaces. Multiple coating levels are available based on the vehicle, intended use and desired term of protection.',
     ],
     img: {
       src: '/assets/mclaren-p1.jpg',
@@ -87,10 +92,12 @@ const SERVICES: {
   {
     id: 'wraps',
     num: '04',
-    title: 'Vinyl Wraps, Graphics & Liveries',
-    tags: ['Color change', 'Graphics', 'Reversible'],
+    title: 'Vinyl Wraps, Graphics and Liveries',
+    tags: ['Color Change', 'Custom Graphics', 'Reversible Transformation'],
     paras: [
-      'Color-change wraps, satin and gloss finishes, racing liveries and commercial graphics. Vinyl provides a reversible appearance change when installed over suitable paint and removed using proper techniques — paint condition and prior repairs can affect removal, and we assess that up front.',
+      'Vinyl wrap provides a flexible and reversible way to transform the appearance of a vehicle without committing to a permanent repaint. Choose from gloss, satin, matte, metallic, textured and specialty finishes, or work with our team to develop custom stripes, graphics, decals and complete racing liveries.',
+      'Each project begins with a consultation to establish the desired finish, design direction and installation scope. Custom designs and renderings can be developed before production so placement, scale and colors can be reviewed before installation begins.',
+      'The vehicle is thoroughly cleaned and prepared before the film is installed with careful attention to alignment, body lines, seams and edges. Because paint condition and previous repairs can affect installation and future removal, the existing finish is evaluated before work begins.',
     ],
     img: {
       src: '/assets/placeholders/vinyl-wrap.jpg',
@@ -102,9 +109,11 @@ const SERVICES: {
     id: 'tint',
     num: '05',
     title: 'Window Tint',
-    tags: ['Heat rejection', 'UV protection', 'Clean edges'],
+    tags: ['Heat Rejection', 'UV Protection', 'Clean Installation'],
     paras: [
-      'Precision-cut window film for heat rejection, UV protection and a finished look — installed with the same edge discipline as our film work.',
+      'Professional window tint improves cabin comfort, reduces glare and helps protect interior materials from damaging ultraviolet exposure. Premium film options provide strong heat rejection and optical clarity without relying on a dark appearance alone.',
+      'Each installation is precision-cut for the vehicle and completed with careful attention to glass preparation, alignment and finished edges. Film shade and performance options are reviewed with the customer to select the appropriate balance of appearance, privacy, heat rejection and legal compliance.',
+      'Existing tint removal, side and rear glass coverage and windshield-film options are available depending on the vehicle and applicable regulations.',
     ],
     img: {
       src: '/assets/placeholders/window-tint.jpg',
@@ -115,10 +124,12 @@ const SERVICES: {
   {
     id: 'detailing',
     num: '06',
-    title: 'Detailing & Vehicle Care',
-    tags: ['Wash & decon', 'Interior', 'Maintenance'],
+    title: 'Detailing and Vehicle Care',
+    tags: ['Safe Washing', 'Deep Cleaning', 'Ongoing Preservation'],
     paras: [
-      'Detailing is where Red Box started. Proper wash and decontamination, interior care and maintenance details that protect the work — and the value — already in the car.',
+      'Detailing is where Red Box Restoration began. Our services go beyond a basic wash by safely cleaning, decontaminating and preserving the exterior and interior surfaces of the vehicle using professional products, equipment and techniques.',
+      'Maintenance services include pH-balanced hand washing, careful drying, wheel and caliper cleaning, tire treatment, vacuuming, glass cleaning and light interior care. More comprehensive packages add exterior decontamination, leather cleaning and conditioning, detailed interior agitation, carpet and upholstery extraction, engine-bay cleaning, odor treatment and final inspection under high-intensity lighting.',
+      'Whether the vehicle needs routine upkeep, seasonal revitalization, pre-sale preparation or a complete interior and exterior reset, the service is tailored to its condition and intended use.',
     ],
     // Real wash-bay photo (replaces the wash-bay.jpg placeholder slot). Note:
     // includes a team member — swap back to /assets/placeholders/wash-bay.jpg
@@ -132,16 +143,33 @@ const SERVICES: {
   {
     id: 'wheels',
     num: '07',
-    title: 'Wheels, Tires & Calipers',
-    tags: ['Refinishing', 'Powder coat', 'Fitment'],
+    title: 'Wheels, Tires and Calipers',
+    tags: ['Custom Fitment', 'Refinishing', 'Protection'],
     paras: [
-      'Red Box Restoration manages wheel repair, refinishing, custom finishes, tire sourcing, mounting and installation, coordinating specialized finishing partners where required — caliper refinishing handled in the same visit.',
-      'We also coordinate select specialty automotive projects, including suspension, stance and one-off appearance work.',
+      "The right wheel and tire package can completely change a vehicle's appearance, stance and driving character. Red Box Restoration helps clients select the proper wheel size, offset, finish and tire specification to achieve the desired look while maintaining appropriate clearance, fitment and functionality.",
+      'Services include wheel and tire sourcing, custom fitment consultation, professional mounting and balancing, center-lock handling, wheel repair and refinishing coordination, custom finishes, caliper refinishing and wheels-off ceramic protection.',
+      "Every installation is completed with attention to vehicle-specific mounting procedures and final fitment. Where specialized repair or finishing is required, Red Box Restoration manages the project through trusted specialty partners and remains the client's point of contact from removal through final installation.",
     ],
     img: {
       src: '/assets/ppf-disassembly.jpg',
       alt: 'Lifted truck on aftermarket wheels and tires in the Red Box shop',
       pos: 'center 62%',
+    },
+  },
+  {
+    id: 'specialty',
+    num: '08',
+    title: 'Specialty Automotive Installations',
+    tags: ['Aero', 'Appearance Components', 'Vehicle-Specific Upgrades'],
+    paras: [
+      'Red Box Restoration also installs select exterior and appearance components, including carbon-fiber aero, spoilers, splitters, side skirts, emblems, lighting upgrades and other vehicle-specific accessories.',
+      'Each component is inspected and test-fitted before installation to verify alignment, clearance and compatibility with the vehicle. Mounting surfaces are prepared, required panels or trim are carefully removed where necessary and all components are securely installed and inspected for proper fit and finish.',
+      'Projects requiring drilling, trimming, custom brackets, wiring, fabrication or correction of manufacturer-related fitment issues are evaluated and approved before additional work is performed.',
+    ],
+    img: {
+      src: '/assets/placeholders/specialty-install.jpg',
+      alt: 'Carbon-fiber aero component installation at Red Box Restoration',
+      placeholder: true,
     },
   },
 ];
@@ -173,6 +201,7 @@ const JUMP = [
   ['tint', 'Tint'],
   ['detailing', 'Detailing'],
   ['wheels', 'Wheels'],
+  ['specialty', 'Specialty'],
 ] as const;
 
 function Arrow({ size = 14, width = 1.5 }: { size?: number; width?: number }) {
@@ -190,7 +219,7 @@ export default async function RestorationPage() {
     <ScrollShell bg="/assets/ppf-hero.jpg" bgPosition="center 55%">
       <SchemaScript
         schema={serviceSchema(
-          'Vehicle Protection, Restoration & Customization',
+          'Protection, Restoration and Customization—Done Right.',
           'Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint, detailing and wheel services in Austin, TX.',
           '/restoration',
         )}
@@ -214,7 +243,7 @@ export default async function RestorationPage() {
               className="rb-hero-line block"
               style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .28s` }}
             >
-              Vehicle Protection,{' '}
+              Protection, Restoration and{' '}
             </span>
           </span>
           <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
@@ -222,7 +251,7 @@ export default async function RestorationPage() {
               className="rb-hero-line block"
               style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .41s` }}
             >
-              Restoration &amp; Customization
+              Customization&mdash;Done Right.
             </span>
           </span>
         </h1>
@@ -234,8 +263,9 @@ export default async function RestorationPage() {
             animation: `fadeUp .9s ${EASE} forwards .9s`,
           }}
         >
-          Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint,
-          detailing and wheels — Red Box Restoration, Austin, Texas.
+          Red Box Restoration is where our company began. From our climate-controlled Austin
+          facility, we protect, restore and transform enthusiast, exotic and collector vehicles
+          using premium materials, professional equipment and vehicle-specific processes.
         </p>
         <div
           className="rb-hero-in relative z-[2] mt-8 flex flex-wrap items-center gap-3.5"
@@ -276,25 +306,13 @@ export default async function RestorationPage() {
           <div data-reveal className={`mb-7 ${eyebrowCls}`}>
             — Red Box Restoration · Austin, Texas
           </div>
-          <h2
-            className="m-0 max-w-[18ch] font-bold text-white"
-            style={{ fontSize: 'clamp(30px, 4.2vw, 60px)', letterSpacing: '-0.03em', lineHeight: 1.04 }}
-          >
-            <span data-reveal className="block">
-              Protection, finish
-            </span>
-            <span data-reveal className="block text-rb-tx-faint" style={{ transitionDelay: '.12s' }}>
-              and detail — done right.
-            </span>
-          </h2>
           <p
             data-reveal
-            className="mb-0 mt-9 max-w-[640px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute"
-            style={{ transitionDelay: '.24s' }}
+            className="mb-0 max-w-[760px] text-[19px] font-medium leading-[1.75] text-rb-tx-2"
           >
-            Red Box Restoration is where the company started — protecting, correcting and
-            transforming enthusiast and collector vehicles in Austin, Texas. Every service below
-            runs through the same bay, the same obsessive prep and the same standard.
+            Whether the goal is preserving a new delivery, restoring depth and clarity to an
+            existing finish or creating a complete visual transformation, every project receives
+            the same careful preparation, clear communication and final quality inspection.
           </p>
         </div>
 
@@ -483,10 +501,10 @@ export default async function RestorationPage() {
             <div className="relative min-h-[340px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[600px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/trust-gt3rs.jpeg"
-                alt="Porsche GT3 RS at Red Box Restoration, Austin TX"
+                src="/assets/resto-bring-us.jpg"
+                alt="Red Box Restoration shop floor — GT3 RS in for paint protection film"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 56%' }}
+                style={{ objectPosition: '45% center' }}
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_55%,rgba(10,10,10,0.55)_82%,rgba(10,10,10,0.95)_100%)]" />
@@ -543,13 +561,23 @@ export default async function RestorationPage() {
         </div>
       </ExpandingScrollBox>
 
-      {/* STICKY ESTIMATE CTA */}
+      {/* FLOATING ESTIMATE CTA — right edge, vertically centered (desktop);
+          bottom-fixed bar on mobile so it never covers body text */}
       <Link
         href="/restoration/estimate"
-        className="rb-btn-red fixed bottom-[26px] right-[26px] z-40 hidden items-center gap-[11px] bg-rb-red px-[22px] py-[15px] sm:flex shadow-[0_12px_30px_rgba(204,0,0,0.34)]"
+        className="rb-btn-red fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 items-center gap-2.5 bg-rb-red px-[13px] py-[22px] shadow-[0_12px_30px_rgba(204,0,0,0.34)] [writing-mode:vertical-rl] sm:flex"
+        aria-label="Request an Estimate"
       >
         <span className="h-[7px] w-[7px] flex-none bg-white" />
-        <span className="text-[12px] font-semibold tracking-[1.5px] text-white">Request an Estimate</span>
+        <span className="text-[12px] font-semibold tracking-[1.5px] text-white">
+          Request an Estimate
+        </span>
+      </Link>
+      <Link
+        href="/restoration/estimate"
+        className="rb-btn-red fixed inset-x-0 bottom-0 z-40 flex items-center justify-center gap-2.5 bg-rb-red px-6 py-4 pb-[max(16px,env(safe-area-inset-bottom))] sm:hidden"
+      >
+        <span className="text-[13px] font-semibold tracking-[1.5px] text-white">Request an Estimate</span>
         <Arrow size={13} />
       </Link>
     </ScrollShell>
