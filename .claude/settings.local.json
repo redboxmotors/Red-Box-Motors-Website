@@ -157,7 +157,8 @@
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/resto-wheels.jpg)",
       "Bash(git commit -q -m 'UI fixes: full End-to-end \\(Buy+Consign tracks\\) restored on homepage via shared HowItWorksSection, per-route nav active states, HCW photo column, MTAL header fade restored, VWR merged with final sell CTA; Valkyrie inventory header, STO wheel photo, floor-changes crop nudge *)",
       "Bash(git commit -q -m 'Restoration: STEK PPF installation photo for the Paint Protection Film section *)",
-      "Bash(git commit -q -m 'Homepage: per-side CTAs on End-to-end tracks, Explore Red Box Motors closing chapter \\(adapted from hidden Tell Us section\\); dealer: full-width How Consignment Works with Dino band, single unified VWR + Sell Your Car closing chapter *)"
+      "Bash(git commit -q -m 'Homepage: per-side CTAs on End-to-end tracks, Explore Red Box Motors closing chapter \\(adapted from hidden Tell Us section\\); dealer: full-width How Consignment Works with Dino band, single unified VWR + Sell Your Car closing chapter *)",
+      "Bash(git commit -q -m 'Dealer: much smaller closing chapter \\(photo height, type scale, padding, buttons\\) *)"
     ]
   }
 }
