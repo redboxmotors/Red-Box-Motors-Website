@@ -127,7 +127,8 @@
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/home-tell-us.jpg public/assets/home-protection-tile.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight '/Users/user/Downloads/Web Pics-2.png')",
       "Bash(sips -s format jpeg -s formatOptions 82 --resampleHeight 2400 '/Users/user/Downloads/Web Pics-2.png' --out public/assets/home-tell-us.jpg)",
-      "Bash(git commit -q -m 'Homepage: Hoonitruck photo for Tell Us About Your Car section *)"
+      "Bash(git commit -q -m 'Homepage: Hoonitruck photo for Tell Us About Your Car section *)",
+      "Bash(git commit -q -m 'Homepage: raise Protection & Customization crop so cars clear the caption; bottom bar now links site sections instead of full capability list *)"
     ]
   }
 }

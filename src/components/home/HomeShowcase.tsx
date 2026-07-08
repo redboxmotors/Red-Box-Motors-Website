@@ -35,18 +35,15 @@ function useFirstDocumentMount(): boolean {
   return first;
 }
 
+// Quick links under the division tiles — the site's main pages/sections
+// (owner 2026-07-08: not the full capability list).
 const TICKER: { label: string; href: string }[] = [
-  { label: 'Paint Protection Film', href: '/restoration#ppf' },
-  { label: 'STEK Films', href: '/restoration#ppf' },
-  { label: 'Paint Correction', href: '/restoration#correction' },
-  { label: 'Ceramic Coatings', href: '/restoration#coatings' },
-  { label: 'Carbon Collective', href: '/restoration#coatings' },
-  { label: 'Vinyl Wraps & Liveries', href: '/restoration#wraps' },
-  { label: 'Window Tint', href: '/restoration#tint' },
-  { label: 'Detailing & Vehicle Care', href: '/restoration#detailing' },
-  { label: 'Wheels, Tires & Calipers', href: '/restoration#wheels' },
-  { label: 'Curated Inventory', href: '/dealer/inventory' },
-  { label: 'Consignment', href: '/dealer/sell' },
+  { label: 'View Inventory', href: '/dealer/inventory' },
+  { label: 'Sell Your Vehicle', href: '/dealer/sell' },
+  { label: 'Restoration Services', href: '/restoration#services' },
+  { label: 'Request an Estimate', href: '/restoration/estimate' },
+  { label: 'Recent Work', href: '/restoration/work' },
+  { label: 'About Red Box', href: '/about' },
 ];
 
 function FeaturedSquare({ card, ariaHidden }: { card: SurfaceCard; ariaHidden?: boolean }) {
@@ -430,7 +427,7 @@ export function HomeShowcase({
             <div className="min-h-0 min-w-0 flex-1" style={dashReveal(1)}>
               <Link href="/restoration" className={`${tileCls} h-full w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 53%' }} />
+                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 82%' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
                 <div className="absolute right-[22px] top-[22px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-[30px] px-[34px]">
