@@ -296,10 +296,10 @@ export default async function DealerInventoryPage({
           <div className="relative h-[400px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/inventory-header.jpg"
-              alt="Red Box Motors dealer inventory, Austin TX"
+              src="/assets/inventory-represented.jpg"
+              alt="Kenwood Group C race car represented by Red Box Motors, Austin TX"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 62%' }}
+              style={{ objectPosition: 'center 40%' }}
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-12 pb-[34px]">
