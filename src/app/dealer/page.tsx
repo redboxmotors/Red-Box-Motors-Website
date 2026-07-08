@@ -315,21 +315,9 @@ export default async function DealerPage() {
                 How Consignment Works
               </h2>
             </div>
-            {/* steps span the full page width; the Dino rides below as a
-                full-bleed band (owner 2026-07-08) */}
-            <div className="px-0 md:px-10">
+            {/* steps span the full page width (photo band removed per owner) */}
+            <div className="px-0 pb-4 md:px-10">
               <StepTrack heading="Consignment" tag="Five steps" steps={CONSIGNMENT_STEPS} delay=".06s" />
-            </div>
-            <div data-reveal className="relative h-[280px] overflow-hidden md:h-[380px]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/dealer-sell-consign.jpg"
-                alt="Consigned Ferrari Dino represented by Red Box Motors"
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 60%' }}
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,17,17,0.55)_0%,rgba(17,17,17,0)_35%,rgba(17,17,17,0)_65%,rgba(12,12,12,0.85)_100%)]" />
             </div>
             {SHOW_BUYING_TRACK && (
               <div className="grid border-t border-rb-line md:grid-cols-2">
