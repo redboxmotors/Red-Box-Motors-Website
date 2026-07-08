@@ -20,7 +20,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Red Box Motors — Exceptional Cars. Fully Managed. | Austin, TX',
+    default: 'Red Box Motors — Exceptional Cars. One Trusted Partner. | Austin, TX',
     template: '%s — Red Box Motors',
   },
   description:

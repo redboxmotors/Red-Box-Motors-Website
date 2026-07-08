@@ -194,7 +194,7 @@ export default async function DealerPage() {
               textShadow: '0 1px 3px rgba(0,0,0,0.45)',
             }}
           >
-            <span className="block overflow-hidden">
+            <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
               <span
                 className="rb-hero-line block"
                 style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .28s` }}
@@ -202,7 +202,7 @@ export default async function DealerPage() {
                 Exceptional Cars.{' '}
               </span>
             </span>
-            <span className="block overflow-hidden">
+            <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
               <span
                 className="rb-hero-line block"
                 style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .41s` }}
@@ -693,7 +693,7 @@ export default async function DealerPage() {
       {/* STICKY INQUIRY CTA */}
       <Link
         href="/dealer/sell"
-        className="rb-btn-red fixed bottom-[26px] right-[26px] z-40 flex items-center gap-[11px] bg-rb-red px-[22px] py-[15px] shadow-[0_12px_30px_rgba(204,0,0,0.34)]"
+        className="rb-btn-red fixed bottom-[26px] right-[26px] z-40 hidden items-center gap-[11px] bg-rb-red px-[22px] py-[15px] sm:flex shadow-[0_12px_30px_rgba(204,0,0,0.34)]"
       >
         <span className="h-[7px] w-[7px] flex-none bg-white" />
         <span className="text-[12px] font-semibold tracking-[1.5px] text-white">Sell Your Vehicle</span>

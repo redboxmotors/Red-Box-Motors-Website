@@ -107,7 +107,20 @@
       "Bash(git commit -m 'Listing detail rework: new section order, no generated/absolute template copy, Available Through Red Box Motors, listing FAQ, 918 slug 301 *)",
       "Bash(git commit -m 'Inquiry form fixes: bulletproof honeypot hiding, single chip-group label, consolidated inquiry types, VIN/stock/price/URL in notifications, direct-call wording *)",
       "Bash(git commit -m 'Admin: listing content editors \\(overview, highlights, documentation, condition, FAQ, extended specs\\) + slug-change redirect recording *)",
-      "Bash(git commit -m 'Schema sync, memory and project notes for 2026-07-08 listing batch *)"
+      "Bash(git commit -m 'Schema sync, memory and project notes for 2026-07-08 listing batch *)",
+      "Bash(git rm *)",
+      "Bash(sips -g pixelWidth -g pixelHeight '/Users/user/Desktop/PHOTOS/A014_C185_0507RD.0000000.jpeg')",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2400 '/Users/user/Desktop/PHOTOS/A014_C185_0507RD.0000000.jpeg' --out public/assets/home-protection-tile.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/home-protection-tile.jpg)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --window-size=390,844 --dump-dom 'data:text/html,<body onload=\"document.body.textContent=window.innerWidth+\\\\\"x\\\\\"+window.innerHeight\"></body>')",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --virtual-time-budget=2000 --window-size=390,844 --dump-dom file:///private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/vp.html)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=9000 --window-size=500,900 --screenshot=/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/hero-home-500.png http://localhost:3999/)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=9000 --window-size=500,900 --screenshot=/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/hero-restoration-500.png http://localhost:3999/restoration)",
+      "Bash(sips -g pixelWidth -g pixelHeight '/Users/user/Desktop/PHOTOS/red photoes/A042_C067_0413BO.0000116.jpeg')",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2000 '/Users/user/Desktop/PHOTOS/red photoes/A042_C067_0413BO.0000116.jpeg' --out public/assets/home-tell-us.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/home-tell-us.jpg)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=6000 --window-size=1240,800 --screenshot=\"/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/crops.png\" \"file:///private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/crops.html\")",
+      "Bash(git commit -q -m 'UI polish: remove side-scroll marquees \\(static capabilities row, FeatureBar deleted\\), fix hero descender clipping, homepage headline '\\\\''One Trusted Partner'\\\\'', new G-Wagon + Dino homepage photos *)"
     ]
   }
 }

@@ -81,17 +81,12 @@ const config: Config = {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        // Feature Bar marquee — list is rendered twice, loop = half width
-        marquee: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
+
       },
       animation: {
         'rb-fade-up': 'fadeUp 500ms cubic-bezier(.2,.8,.2,1) both',
         'rb-fade': 'fade 240ms ease both',
         'rb-panel-in': 'panelIn 500ms ease both',
-        'rb-marquee': 'marquee 52s linear infinite',
       },
     },
   },

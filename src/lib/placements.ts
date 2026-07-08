@@ -13,8 +13,8 @@ export const SURFACES: Record<
     fallback: 'Newest featured cars + projects',
   },
   feature_bar: {
-    label: 'Feature Bar',
-    rendersOn: 'Sliding marquee inside Visit & FAQ (most pages)',
+    label: 'Feature Bar (component removed — slot currently unused)',
+    rendersOn: 'Not rendered anywhere (marquees removed 2026-07-08)',
     types: ['listing', 'project'],
     fallback: 'Newest featured cars + projects',
   },

@@ -353,14 +353,14 @@ export function HomeShowcase({
           className="relative z-[2] m-0 font-extrabold text-white"
           style={{ fontSize: 'clamp(38px,4.6vw,70px)', letterSpacing: '-0.04em', lineHeight: 0.96, textShadow: '0 1px 3px rgba(0,0,0,0.45)' }}
         >
-          <span className="block overflow-hidden">
+          <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
             <span className="rb-hero-line block" style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards ${heroDelay(1.75, 0.14)}s` }}>
               Exceptional Cars.{' '}
             </span>
           </span>
-          <span className="block overflow-hidden">
+          <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
             <span className="rb-hero-line block" style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards ${heroDelay(1.88, 0.22)}s` }}>
-              Fully Managed.
+              One Trusted Partner.
             </span>
           </span>
         </h1>
@@ -430,7 +430,9 @@ export function HomeShowcase({
             <div className="min-h-0 min-w-0 flex-1" style={dashReveal(1)}>
               <Link href="/restoration" className={`${tileCls} h-full w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 55%' }} />
+                {/* G-Wagon + branded shop door — 40% focal keeps both centered
+                    in the tall tile crop */}
+                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: '40% center' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
                 <div className="absolute right-[22px] top-[22px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-[30px] px-[34px]">
@@ -449,22 +451,20 @@ export function HomeShowcase({
 
           </div>
 
-          {/* capabilities ticker */}
+          {/* capabilities — static row (side-scroll marquee removed 2026-07-08) */}
           <div
-            className="group h-14 flex-none overflow-hidden border-t border-rb-line bg-rb-surface"
+            className="flex-none border-t border-rb-line bg-rb-surface"
             style={dashReveal(2)}
           >
-            <div className="flex h-full w-max motion-safe:animate-rb-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none [animation-duration:54s]">
-              {[...TICKER, ...TICKER].map((cap, i) => (
+            <div className="flex flex-wrap items-center justify-center">
+              {TICKER.map((cap) => (
                 <Link
-                  key={`${cap.label}-${i}`}
+                  key={cap.label}
                   href={cap.href}
-                  aria-hidden={i >= TICKER.length}
-                  tabIndex={i >= TICKER.length ? -1 : undefined}
-                  className="inline-flex h-full flex-none items-center gap-3 border-r border-rb-raised-3 px-7 transition-colors duration-150 hover:bg-rb-raised"
+                  className="inline-flex items-center gap-2.5 px-5 py-[15px] transition-colors duration-150 hover:bg-rb-raised"
                 >
                   <span className="h-1.5 w-1.5 flex-none bg-rb-red" />
-                  <span className="whitespace-nowrap text-[12px] font-semibold uppercase tracking-[2px] text-[#cfcfcf]">
+                  <span className="whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-[2px] text-[#cfcfcf]">
                     {cap.label}
                   </span>
                 </Link>
@@ -648,12 +648,10 @@ export function HomeShowcase({
           {SHOW_FEATURED && marquee.length > 0 && (
             <div className="pt-16">
               <div className="group overflow-hidden">
-                <div className="flex w-max gap-1.5 px-1.5 motion-safe:animate-rb-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none [animation-duration:64s]">
+                {/* static, user-scrollable (auto-marquee removed 2026-07-08) */}
+                <div className="rb-noscrollbar flex gap-1.5 overflow-x-auto px-1.5">
                   {marquee.map((c) => (
                     <FeaturedSquare key={`${c.type}-${c.id}`} card={c} />
-                  ))}
-                  {marquee.map((c) => (
-                    <FeaturedSquare key={`${c.type}-${c.id}-dup`} card={c} ariaHidden />
                   ))}
                 </div>
               </div>
@@ -664,7 +662,7 @@ export function HomeShowcase({
           <div className="mt-[96px] grid border-t border-rb-line bg-rb-surface md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
             <div className="relative min-h-[340px] overflow-hidden bg-rb-surface-4 md:min-h-[640px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/home-tell-us.jpg" alt="Talk to Red Box Motors" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 58%' }} />
+              <img src="/assets/home-tell-us.jpg" alt="Talk to Red Box Motors" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: '60% 55%' }} />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_46%,rgba(10,10,10,0.5)_80%,rgba(10,10,10,0.96)_100%)]" />
             </div>
             <div className="flex flex-col justify-center px-6 py-[72px] md:px-16 md:py-[110px]">

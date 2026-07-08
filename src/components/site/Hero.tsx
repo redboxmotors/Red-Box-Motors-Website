@@ -29,7 +29,7 @@ export function HeroTitle({ lines }: { lines: string[] }) {
       }}
     >
       {lines.map((line, i) => (
-        <span key={line} className="block overflow-hidden">
+        <span key={line} className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
           <span
             className="rb-hero-line block"
             style={{
