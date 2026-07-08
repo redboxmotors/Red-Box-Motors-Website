@@ -16,8 +16,8 @@ import type { Faq } from '@/components/site/FaqAccordion';
 // Sales & Consignment landing (customer-facing rename of "Dealer" — the
 // /dealer URL is kept to avoid routing churn). Owner-approved copy, verbatim.
 // Page order (consignment-focused, owner 2026-07-08): hero → More Than a
-// Listing → How Consignment Works (full-width steps + Dino band) → featured
-// inventory → Why Red Box trust → closing chapter (Vehicles Worth
+// Listing → How Consignment Works (full-width steps) → Why Red Box trust →
+// featured inventory → closing chapter (Vehicles Worth
 // Representing framing + Sell Your Car action, one section) → FAQ. The
 // one-team intro, Buy/Sell path chapters, Buying track and seller visual
 // are unpublished (SHOW_* flags); the "End to end" chapter lives on the
@@ -327,6 +327,42 @@ export default async function DealerPage() {
             )}
           </div>
 
+          {/* WHY RED BOX — the buying pillars and the owner-credibility claims,
+              merged into one big trust section (hard cut from How It Works).
+              Supportable claims only. */}
+          <div className="border-t border-rb-line bg-[#151515] pb-24 pt-24">
+            <SectionHeader
+              eyebrow="— Why Red Box"
+              title="Why buyers and owners trust Red Box Motors"
+              blurb="Whether you are buying one of our vehicles or consigning your own, the same team, facility and standard stand behind the transaction."
+            />
+            <div data-reveal style={{ transitionDelay: '.12s' }} className="mt-12 grid gap-x-12 gap-y-10 px-6 md:grid-cols-2 md:px-[52px]">
+              {WHY_BUY.map((item) => (
+                <div key={item.title} className="border-t border-rb-line pt-6">
+                  <div className="mb-3 text-[18px] font-bold uppercase tracking-[1px] text-white">{item.title}</div>
+                  <p className="m-0 text-[15px] leading-[1.75] text-[#a6a6a6]">{item.text}</p>
+                </div>
+              ))}
+            </div>
+            <div
+              data-reveal
+              style={{ transitionDelay: '.1s' }}
+              className="mx-6 mt-16 grid grid-cols-2 gap-x-10 gap-y-9 border-t-2 border-[#242424] pt-12 md:mx-[52px] md:grid-cols-3 lg:grid-cols-6"
+            >
+              {CREDIBILITY.map((f) => (
+                <div key={f.small}>
+                  <div className="text-[24px] font-bold tracking-tight text-white">{f.big}</div>
+                  <div className="mt-2 text-[10.5px] uppercase leading-snug tracking-[1.5px] text-rb-tx-faint">
+                    {f.small}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* OWNER TODO: when real numbers are approved, add visible proof
+                here — customer reviews, completed sales, social reach — as
+                CREDIBILITY entries above. No invented claims. */}
+          </div>
+
           {/* FEATURED INVENTORY */}
           <div className="pb-24 pt-20 md:pt-24" style={{ background: 'linear-gradient(180deg,#0C0C0C 0px,#0A0A0A 340px)' }}>
             <div className="flex flex-wrap items-end justify-between gap-5 px-6 md:px-[52px]">
@@ -508,42 +544,6 @@ export default async function DealerPage() {
             </div>
           </div>
           )}
-
-          {/* WHY RED BOX — the buying pillars and the owner-credibility claims,
-              merged into one big trust section (hard cut from How It Works).
-              Supportable claims only. */}
-          <div className="border-t border-rb-line bg-[#151515] pb-24 pt-24">
-            <SectionHeader
-              eyebrow="— Why Red Box"
-              title="Why buyers and owners trust Red Box Motors"
-              blurb="Whether you are buying one of our vehicles or consigning your own, the same team, facility and standard stand behind the transaction."
-            />
-            <div data-reveal style={{ transitionDelay: '.12s' }} className="mt-12 grid gap-x-12 gap-y-10 px-6 md:grid-cols-2 md:px-[52px]">
-              {WHY_BUY.map((item) => (
-                <div key={item.title} className="border-t border-rb-line pt-6">
-                  <div className="mb-3 text-[18px] font-bold uppercase tracking-[1px] text-white">{item.title}</div>
-                  <p className="m-0 text-[15px] leading-[1.75] text-[#a6a6a6]">{item.text}</p>
-                </div>
-              ))}
-            </div>
-            <div
-              data-reveal
-              style={{ transitionDelay: '.1s' }}
-              className="mx-6 mt-16 grid grid-cols-2 gap-x-10 gap-y-9 border-t-2 border-[#242424] pt-12 md:mx-[52px] md:grid-cols-3 lg:grid-cols-6"
-            >
-              {CREDIBILITY.map((f) => (
-                <div key={f.small}>
-                  <div className="text-[24px] font-bold tracking-tight text-white">{f.big}</div>
-                  <div className="mt-2 text-[10.5px] uppercase leading-snug tracking-[1.5px] text-rb-tx-faint">
-                    {f.small}
-                  </div>
-                </div>
-              ))}
-            </div>
-            {/* OWNER TODO: when real numbers are approved, add visible proof
-                here — customer reviews, completed sales, social reach — as
-                CREDIBILITY entries above. No invented claims. */}
-          </div>
 
           {/* CLOSING CHAPTER — Vehicles Worth Representing framing + the
               Sell Your Car action in ONE section (owner 2026-07-08 redo).
