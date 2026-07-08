@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 const PROCESS = [
-  ['Submit your vehicle', 'The details below — five minutes, photos optional.'],
+  ['Submit your vehicle', 'The details below — about five minutes.'],
   ['Valuation & strategy', 'We review the car and current market positioning with you.'],
   ['Preparation & presentation', 'Detailing, paperwork and photography handled.'],
   ['Marketing & buyer management', 'We run the listing, the calls and the negotiations.'],

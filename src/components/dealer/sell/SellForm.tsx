@@ -1,19 +1,10 @@
 'use client';
 
-import { useCallback, useMemo, useRef, useState } from 'react';
-import { submitConsignment, uploadLeadFiles } from '@/lib/leads/client';
-import {
-  UPLOAD_ACCEPT,
-  UPLOAD_LIMITS_TEXT,
-  UPLOAD_MAX_BYTES,
-  UPLOAD_MAX_FILES,
-  validFileType,
-  type UploadCategory,
-} from '@/lib/leads/uploads';
+import { useCallback, useRef, useState } from 'react';
+import { submitConsignment } from '@/lib/leads/client';
 import { TurnstileWidget } from '@/components/site/TurnstileWidget';
 import {
   ChipGroup,
-  FieldError,
   FormFooterNote,
   Honeypot,
   SelectField,
@@ -21,18 +12,18 @@ import {
   TextField,
 } from '@/components/forms/primitives';
 
-// /dealer/sell — multi-step consignment intake (2026-07-07 form system).
-// Six steps with a progress indicator; state lives here in the parent so
-// progress survives moving between steps. Per-step validation mirrors
-// /api/consignments; files upload straight to the private lead-uploads
-// bucket via signed URLs issued by the API after its gates.
+// /dealer/sell — multi-step consignment intake (2026-07-07 form system;
+// the Photos & Docs upload step was removed per owner 2026-07-08 — the API
+// still accepts uploads, so restoring the step is additive). Five steps with
+// a progress indicator; state lives in the parent so progress survives
+// moving between steps. Per-step validation mirrors /api/consignments.
 
 type Group = Record<string, string>;
 type Errors = Record<string, string>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const STEPS = ['Contact', 'Vehicle', 'Ownership', 'Condition', 'Sale', 'Photos & Docs'] as const;
+const STEPS = ['Contact', 'Vehicle', 'Ownership', 'Condition', 'Sale'] as const;
 
 const CONTACT_METHODS = ['Phone call', 'Text', 'Email'] as const;
 const TITLE_STATUSES = ['Clean', 'Rebuilt', 'Bonded', 'Other'] as const;
@@ -46,17 +37,6 @@ const KEY_COUNTS = ['1', '2', '3+'] as const;
 // REPRESENTATIONS set when more options open up.
 const REPRESENTATIONS = ['Consignment'] as const;
 
-const FILE_CATEGORIES: Array<{ key: UploadCategory; label: string; hint?: string }> = [
-  { key: 'exterior', label: 'Exterior photos', hint: 'All four corners in good light' },
-  { key: 'interior', label: 'Interior photos', hint: 'Seats, dash, carpets' },
-  { key: 'odometer', label: 'Odometer', hint: 'Current reading' },
-  { key: 'vin-plate', label: 'VIN plate' },
-  { key: 'engine-bay', label: 'Engine bay' },
-  { key: 'imperfections', label: 'Known imperfections', hint: 'Chips, curb rash, wear' },
-  { key: 'service-records', label: 'Service records' },
-  { key: 'build-sheet', label: 'Build sheet / window sticker' },
-  { key: 'history-report', label: 'CARFAX / AutoCheck', hint: 'If you have one' },
-];
 
 export function SellForm({ phone }: { phone: string | null }) {
   const [contact, setContact] = useState<Group>({
@@ -78,15 +58,11 @@ export function SellForm({ phone }: { phone: string | null }) {
     asking_price: '', minimum: '', timeline: '', reason: '',
     representation: 'Consignment', notes: '',
   });
-  const [files, setFiles] = useState<Partial<Record<UploadCategory, File[]>>>({});
-
   const [step, setStep] = useState(0);
   const [maxVisited, setMaxVisited] = useState(0);
   const [errors, setErrors] = useState<Errors>({});
   const [serverError, setServerError] = useState<string | null>(null);
-  const [phase, setPhase] = useState<'form' | 'submitting' | 'uploading' | 'done'>('form');
-  const [uploadProgress, setUploadProgress] = useState<[number, number] | null>(null);
-  const [uploadNote, setUploadNote] = useState<string | null>(null);
+  const [phase, setPhase] = useState<'form' | 'submitting' | 'done'>('form');
   const [website, setWebsite] = useState(''); // honeypot
 
   const submissionKey = useRef<string>('');
@@ -100,10 +76,6 @@ export function SellForm({ phone }: { phone: string | null }) {
   const topRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef<HTMLDivElement>(null);
 
-  const totalFiles = useMemo(
-    () => Object.values(files).reduce((n, list) => n + (list?.length ?? 0), 0),
-    [files],
-  );
 
   const clearError = (k: string) =>
     setErrors((e) => (e[k] ? { ...e, [k]: undefined as unknown as string } : e));
@@ -182,36 +154,6 @@ export function SellForm({ phone }: { phone: string | null }) {
     goTo(step + 1);
   };
 
-  // —— File selection ————————————————————————————————————————————————
-  const addFiles = (category: UploadCategory, incoming: FileList | null) => {
-    if (!incoming?.length) return;
-    clearError('files');
-    const current = files[category] ?? [];
-    const accepted: File[] = [];
-    let rejected: string | null = null;
-    let count = totalFiles;
-    for (const f of Array.from(incoming)) {
-      if (count + accepted.length >= UPLOAD_MAX_FILES) {
-        rejected = `Up to ${UPLOAD_MAX_FILES} files total.`;
-        break;
-      }
-      if (f.size > UPLOAD_MAX_BYTES) {
-        rejected = `“${f.name}” is over 10 MB.`;
-        continue;
-      }
-      if (!validFileType(f.name, f.type)) {
-        rejected = `“${f.name}” isn’t a supported type (${UPLOAD_LIMITS_TEXT}).`;
-        continue;
-      }
-      accepted.push(f);
-    }
-    if (accepted.length) setFiles((p) => ({ ...p, [category]: [...current, ...accepted] }));
-    setErrors((prev) => ({ ...prev, [`files.${category}`]: rejected as unknown as string }));
-  };
-
-  const removeFile = (category: UploadCategory, idx: number) =>
-    setFiles((p) => ({ ...p, [category]: (p[category] ?? []).filter((_, i) => i !== idx) }));
-
   // —— Submit ————————————————————————————————————————————————————————
   const submit = async () => {
     // Re-validate every step; jump back to the first one with problems.
@@ -223,11 +165,6 @@ export function SellForm({ phone }: { phone: string | null }) {
         scrollToFirstError();
         return;
       }
-    }
-
-    const flat: Array<{ category: UploadCategory; file: File }> = [];
-    for (const { key } of FILE_CATEGORIES) {
-      for (const file of files[key] ?? []) flat.push({ category: key, file });
     }
 
     setServerError(null);
@@ -242,12 +179,7 @@ export function SellForm({ phone }: { phone: string | null }) {
       ownership,
       condition,
       sale,
-      files: flat.map(({ category, file }) => ({
-        category,
-        name: file.name,
-        type: file.type,
-        size: file.size,
-      })),
+      files: [],
     });
 
     if (!result.ok) {
@@ -266,21 +198,6 @@ export function SellForm({ phone }: { phone: string | null }) {
           (result.errors ? null : 'Something went wrong — please try again, or call us directly.'),
       );
       return;
-    }
-
-    if (result.uploads.length) {
-      setPhase('uploading');
-      setUploadProgress([0, result.uploads.length]);
-      const failed = await uploadLeadFiles(
-        result.uploads,
-        flat.map((f) => f.file),
-        (done, total) => setUploadProgress([done, total]),
-      );
-      if (failed > 0) {
-        setUploadNote(
-          `${failed} of ${result.uploads.length} files didn’t finish uploading — no problem, we’ll follow up if we need them.`,
-        );
-      }
     }
 
     setPhase('done');
@@ -308,17 +225,12 @@ export function SellForm({ phone }: { phone: string | null }) {
           information and contact you to discuss the vehicle, current market positioning and next
           steps.
         </p>
-        {uploadNote && (
-          <p className="mb-4 max-w-[520px] border-l-2 border-rb-border-2 pl-4 text-[13px] leading-relaxed text-rb-tx-faint">
-            {uploadNote}
-          </p>
-        )}
         <FormFooterNote phone={phone} />
       </div>
     );
   }
 
-  const busy = phase === 'submitting' || phase === 'uploading';
+  const busy = phase === 'submitting';
   const lastStep = step === STEPS.length - 1;
 
   return (
@@ -518,36 +430,6 @@ export function SellForm({ phone }: { phone: string | null }) {
             </div>
             <TextAreaField id="sf-sale-notes" optional label="Anything else we should know"
               rows={3} {...bind('sale', sale, setSale, 'notes')} />
-          </div>
-        )}
-
-        {/* STEP 6 — Photos & documents */}
-        {step === 5 && (
-          <div className="animate-rb-fade-up">
-            <p className="mb-1 text-[13.5px] leading-relaxed text-rb-tx-mute">
-              Photos and documents help us position the car accurately — add what you have, or
-              submit without them and we&rsquo;ll walk you through it.
-            </p>
-            <p className="mb-5 text-[11px] uppercase tracking-[1.5px] text-rb-tx-faint">
-              {UPLOAD_LIMITS_TEXT}
-              {totalFiles > 0 ? ` · ${totalFiles} selected` : ''}
-            </p>
-            {errors['files'] && <FieldError>{errors['files']}</FieldError>}
-            <div className="grid gap-0.5">
-              {FILE_CATEGORIES.map(({ key, label, hint }) => (
-                <FileRow
-                  key={key}
-                  category={key}
-                  label={label}
-                  hint={hint}
-                  files={files[key] ?? []}
-                  error={errors[`files.${key}`]}
-                  disabled={busy}
-                  onAdd={(list) => addFiles(key, list)}
-                  onRemove={(i) => removeFile(key, i)}
-                />
-              ))}
-            </div>
             <TurnstileWidget onToken={onToken} />
           </div>
         )}
@@ -580,13 +462,7 @@ export function SellForm({ phone }: { phone: string | null }) {
             disabled={busy}
             className="rb-btn-red inline-flex items-center gap-3 whitespace-nowrap bg-rb-red px-9 py-[17px] text-[14.5px] font-semibold tracking-[0.5px] text-white disabled:opacity-60"
           >
-            {phase === 'submitting'
-              ? 'Submitting…'
-              : phase === 'uploading'
-                ? `Uploading files${uploadProgress ? ` (${uploadProgress[0]} of ${uploadProgress[1]})` : ''}…`
-                : lastStep
-                  ? 'Submit My Vehicle'
-                  : 'Continue'}
+            {phase === 'submitting' ? 'Submitting…' : lastStep ? 'Submit My Vehicle' : 'Continue'}
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.4" />
             </svg>
@@ -595,94 +471,6 @@ export function SellForm({ phone }: { phone: string | null }) {
 
         <FormFooterNote phone={phone} />
       </form>
-    </div>
-  );
-}
-
-function FileRow({
-  category,
-  label,
-  hint,
-  files,
-  error,
-  disabled,
-  onAdd,
-  onRemove,
-}: {
-  category: string;
-  label: string;
-  hint?: string;
-  files: File[];
-  error?: string;
-  disabled: boolean;
-  onAdd: (list: FileList | null) => void;
-  onRemove: (index: number) => void;
-}) {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const id = `sf-files-${category}`;
-  return (
-    <div
-      data-field-error={error ? 'true' : undefined}
-      className="border bg-rb-surface-3 px-4 py-3.5 transition-colors duration-150"
-      style={{ borderColor: error ? '#CC0000' : '#1c1c1c' }}
-    >
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <div className="text-[12.5px] font-medium tracking-[0.5px] text-white">
-            {label}
-            {files.length > 0 && (
-              <span className="ml-2 text-[11px] text-rb-tx-faint">{files.length} added</span>
-            )}
-          </div>
-          {hint && <div className="mt-0.5 text-[11px] text-rb-tx-faint">{hint}</div>}
-        </div>
-        <input
-          ref={inputRef}
-          id={id}
-          type="file"
-          multiple
-          accept={UPLOAD_ACCEPT}
-          className="sr-only"
-          disabled={disabled}
-          onChange={(e) => {
-            onAdd(e.target.files);
-            e.target.value = '';
-          }}
-        />
-        <button
-          type="button"
-          disabled={disabled}
-          onClick={() => inputRef.current?.click()}
-          className="rb-btn inline-flex items-center gap-2 border border-rb-border-2 px-4 py-2.5 text-[11.5px] tracking-[1px] text-white transition-colors hover:border-[#444] disabled:opacity-60"
-        >
-          Add files
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
-            <path d="M8 3V13M3 8H13" stroke="#fff" strokeWidth="1.4" />
-          </svg>
-        </button>
-      </div>
-      {files.length > 0 && (
-        <ul className="mt-3 flex flex-wrap gap-2">
-          {files.map((f, i) => (
-            <li
-              key={`${f.name}-${i}`}
-              className="flex items-center gap-2 border border-rb-line-2 bg-rb-surface-2 py-1.5 pl-3 pr-1.5 text-[11.5px] text-rb-tx-mute"
-            >
-              <span className="max-w-[180px] truncate">{f.name}</span>
-              <button
-                type="button"
-                aria-label={`Remove ${f.name}`}
-                disabled={disabled}
-                onClick={() => onRemove(i)}
-                className="px-1.5 py-0.5 text-rb-tx-faint transition-colors hover:text-white"
-              >
-                ×
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-      {error && <div className="mt-2 text-[10px] tracking-[0.5px] text-rb-red">{error}</div>}
     </div>
   );
 }
