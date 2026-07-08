@@ -159,7 +159,9 @@
       "Bash(git commit -q -m 'Restoration: STEK PPF installation photo for the Paint Protection Film section *)",
       "Bash(git commit -q -m 'Homepage: per-side CTAs on End-to-end tracks, Explore Red Box Motors closing chapter \\(adapted from hidden Tell Us section\\); dealer: full-width How Consignment Works with Dino band, single unified VWR + Sell Your Car closing chapter *)",
       "Bash(git commit -q -m 'Dealer: much smaller closing chapter \\(photo height, type scale, padding, buttons\\) *)",
-      "Bash(git commit -q -m 'Dealer: remove photo band under How Consignment Works *)"
+      "Bash(git commit -q -m 'Dealer: remove photo band under How Consignment Works *)",
+      "Bash(git revert *)",
+      "Bash(git commit -q -m 'Homepage: much smaller Explore Red Box Motors closing chapter \\(dealer closing restored to original size\\) *)"
     ]
   }
 }
