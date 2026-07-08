@@ -130,7 +130,15 @@ export default async function DealerPage() {
       <SchemaScript schema={localBusinessSchema(await getSettings())} />
       <SiteNav current="sell" />
 
-      <ScrollShell bg="/assets/dealer-garage.jpeg" bgPosition="center 58%" scrub={false}>
+      {/* Video hero: three Aston Martin Valhallas (owner 2026-07-08).
+          Poster is the clip's first frame; scrub stays off per the earlier
+          owner revert. */}
+      <ScrollShell
+        bg="/assets/dealer-hero-poster.jpg"
+        bgVideo="/assets/dealer-hero.mp4"
+        bgPosition="center 58%"
+        scrub={false}
+      >
         {/* ---------- 1 · HERO (plain photo — no blur/scrub, per owner) ---------- */}
         <HeroSection>
           <HeroBadge>Red Box Motors · Sales &amp; Consignment</HeroBadge>
