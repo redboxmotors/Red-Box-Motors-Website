@@ -10,7 +10,7 @@ import { focalPosition } from '@/lib/public/content';
 export type PreviewVariant = 'forsale' | 'sold' | 'sourced';
 
 const tileCls =
-  'relative z-[1] block aspect-square overflow-hidden bg-rb-surface-4 transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[5] hover:-translate-y-1.5 hover:scale-[1.014] hover:shadow-[0_26px_54px_rgba(0,0,0,0.62)] hover:brightness-[1.16]';
+  'relative z-[1] block aspect-video overflow-hidden bg-rb-surface-4 transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[5] hover:-translate-y-1.5 hover:scale-[1.014] hover:shadow-[0_26px_54px_rgba(0,0,0,0.62)] hover:brightness-[1.16]';
 
 function Badge({ variant, label }: { variant: PreviewVariant; label: string }) {
   if (variant === 'forsale') {
@@ -93,7 +93,7 @@ export function PreviewGrid({ cards, variant }: { cards: SurfaceCard[]; variant:
     >
       {cards.length > 0
         ? cards.map((c) => <PreviewTile key={`${c.type}-${c.id}`} card={c} variant={variant} />)
-        : [0, 1, 2].map((i) => <div key={i} className="rb-stripe aspect-square" aria-hidden />)}
+        : [0, 1, 2].map((i) => <div key={i} className="rb-stripe aspect-video" aria-hidden />)}
     </div>
   );
 }

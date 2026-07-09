@@ -23,7 +23,10 @@ import {
 } from '@/app/admin/(panel)/photos/actions';
 import { ConfirmButton } from './ui';
 
-const MAX_BYTES = 10 * 1024 * 1024;
+// Originals can be full-res (5760×3240 ≈ 5–10 MB+); we accept up to 40 MB
+// and store a 2560px display rendition + 480px thumb, generated client-side.
+const MAX_BYTES = 40 * 1024 * 1024;
+const DISPLAY_WIDTH = 2560;
 const ACCEPTED = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 
 // Per-record photo manager (admin-and-photos.md §4–§5): drag-upload with
@@ -57,7 +60,7 @@ export function PhotoManager({
           continue;
         }
         if (file.size > MAX_BYTES) {
-          setUploads((u) => [...u, { name: file.name, error: 'Over 10 MB.' }]);
+          setUploads((u) => [...u, { name: file.name, error: 'Over 40 MB.' }]);
           continue;
         }
 
@@ -65,14 +68,29 @@ export function PhotoManager({
         try {
           const stamp = Date.now().toString(36);
           const safe = file.name.toLowerCase().replace(/[^a-z0-9.]+/g, '-');
-          const path = `${parentType}/${parentId}/${stamp}-${safe}`;
+          const base = safe.replace(/\.[a-z0-9]+$/, '');
           const thumbBlob = await makeThumb(file, 480);
-          const thumbPath = `${parentType}/${parentId}/${stamp}-thumb-${safe.replace(/\.[a-z0-9]+$/, '')}.jpg`;
+          const thumbPath = `${parentType}/${parentId}/${stamp}-thumb-${base}.jpg`;
 
-          const { error: upErr } = await supabase.storage.from('photos').upload(path, file, {
-            contentType: file.type,
-            cacheControl: '31536000',
-          });
+          // Display rendition: originals are downscaled to ≤2560px wide
+          // (native aspect preserved — 16:9 sources stay exactly 16:9).
+          // If canvas processing fails, fall back to the original when it
+          // fits the bucket's 10 MB cap.
+          const displayBlob = await makeThumb(file, DISPLAY_WIDTH, 0.86);
+          const useOriginal = !displayBlob;
+          if (useOriginal && file.size > 10 * 1024 * 1024) {
+            throw new Error('Could not process this image locally and it exceeds the 10 MB storage cap.');
+          }
+          const path = useOriginal
+            ? `${parentType}/${parentId}/${stamp}-${safe}`
+            : `${parentType}/${parentId}/${stamp}-${base}.jpg`;
+
+          const { error: upErr } = await supabase.storage
+            .from('photos')
+            .upload(path, useOriginal ? file : displayBlob!, {
+              contentType: useOriginal ? file.type : 'image/jpeg',
+              cacheControl: '31536000',
+            });
           if (upErr) throw new Error(upErr.message);
 
           let thumbUrl: string | null = null;
@@ -141,7 +159,7 @@ export function PhotoManager({
       >
         <p className="text-[13px] font-medium text-rb-tx-faint">
           Drop photos here or <span className="text-rb-tx-2 underline underline-offset-4">browse</span>
-          <span className="rb-mono-caption ml-2">jpeg / png / webp · ≤10 MB</span>
+          <span className="rb-mono-caption ml-2">jpeg / png / webp / avif · originals ≤40 MB · stored at 2560px</span>
         </p>
         <input
           ref={inputRef}
@@ -277,7 +295,7 @@ function PhotoCard({
           <img
             src={img.thumb_url ?? img.url}
             alt={img.alt}
-            className="aspect-[3/2] w-full object-cover"
+            className="aspect-video w-full object-cover"
             style={{ objectPosition: `${img.focal_x * 100}% ${img.focal_y * 100}%` }}
           />
         </button>
@@ -376,7 +394,7 @@ function FocalPicker({
 
 // Canvas thumbnail derivative (~480px wide JPEG) generated client-side on
 // upload — keeps list views light without server image infra.
-async function makeThumb(file: File, width: number): Promise<Blob | null> {
+async function makeThumb(file: File, width: number, quality = 0.82): Promise<Blob | null> {
   try {
     const bitmap = await createImageBitmap(file);
     const scale = Math.min(1, width / bitmap.width);
@@ -387,7 +405,7 @@ async function makeThumb(file: File, width: number): Promise<Blob | null> {
     if (!ctx) return null;
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
-    return await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.82));
+    return await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
   } catch {
     return null;
   }

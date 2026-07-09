@@ -207,7 +207,7 @@ function Row({
       {handle}
 
       {/* hero thumb or stripe placeholder */}
-      <div className="h-10 w-16 shrink-0 overflow-hidden bg-rb-surface-3">
+      <div className="aspect-video h-10 w-auto shrink-0 overflow-hidden bg-rb-surface-3">
         {hero ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img

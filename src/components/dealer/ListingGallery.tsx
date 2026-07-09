@@ -83,7 +83,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
                 aria-label={`Photo ${pad2(i)}`}
                 aria-current={active || undefined}
                 onClick={() => setIdx(i)}
-                className={`relative h-[70px] flex-1 cursor-pointer overflow-hidden bg-rb-raised-3 transition-[filter,outline-color,transform,box-shadow] duration-[220ms] ease-rb hover:z-[5] hover:-translate-y-[3px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.55)] hover:brightness-100 ${
+                className={`relative aspect-video flex-1 cursor-pointer overflow-hidden bg-rb-raised-3 transition-[filter,outline-color,transform,box-shadow] duration-[220ms] ease-rb hover:z-[5] hover:-translate-y-[3px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.55)] hover:brightness-100 ${
                   active
                     ? 'outline outline-1 outline-[#555] brightness-100'
                     : 'outline outline-1 outline-transparent brightness-[0.55]'

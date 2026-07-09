@@ -53,7 +53,7 @@ function FeaturedSquare({ card, ariaHidden }: { card: SurfaceCard; ariaHidden?: 
       href={card.href}
       aria-hidden={ariaHidden}
       tabIndex={ariaHidden ? -1 : undefined}
-      className="relative block h-[300px] flex-none basis-[300px] overflow-hidden bg-rb-surface-4 transition-[filter,transform,box-shadow] duration-[240ms] ease-rb hover:z-[5] hover:-translate-y-1.5 hover:shadow-[0_26px_54px_rgba(0,0,0,0.62)] hover:brightness-[1.16]"
+      className="relative block aspect-video h-[300px] w-auto flex-none basis-auto overflow-hidden bg-rb-surface-4 transition-[filter,transform,box-shadow] duration-[240ms] ease-rb hover:z-[5] hover:-translate-y-1.5 hover:shadow-[0_26px_54px_rgba(0,0,0,0.62)] hover:brightness-[1.16]"
     >
       {card.image ? (
         // eslint-disable-next-line @next/next/no-img-element

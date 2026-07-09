@@ -101,7 +101,7 @@ function RosterCard({ listing, image }: { listing: Listing; image: DbImage | nul
   return (
     <Link
       href={listingHref(listing)}
-      className="group relative z-[1] block h-[330px] cursor-pointer overflow-hidden transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.015] hover:shadow-[0_24px_50px_rgba(0,0,0,0.62)] hover:brightness-[1.14] active:translate-y-0 active:scale-[0.992]"
+      className="group relative z-[1] block aspect-video cursor-pointer overflow-hidden transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.015] hover:shadow-[0_24px_50px_rgba(0,0,0,0.62)] hover:brightness-[1.14] active:translate-y-0 active:scale-[0.992]"
       style={{ background: 'linear-gradient(165deg,#131313 0%,#0D0D0D 55%,#090909 100%)' }}
     >
       {image ? (
@@ -162,7 +162,7 @@ function PipelineCard({
   sold?: boolean;
   firstLook?: { vehicle: string; campaign?: string };
 }) {
-  const cls = `relative z-[1] block h-[190px] cursor-pointer overflow-hidden bg-rb-surface transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.02] hover:shadow-[0_22px_44px_rgba(0,0,0,0.6)] active:translate-y-0 active:scale-[0.99] ${
+  const cls = `relative z-[1] block aspect-video cursor-pointer overflow-hidden bg-rb-surface transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.02] hover:shadow-[0_22px_44px_rgba(0,0,0,0.6)] active:translate-y-0 active:scale-[0.99] ${
     sold ? 'hover:brightness-[1.1]' : 'hover:brightness-[1.14]'
   }`;
   const inner = (
