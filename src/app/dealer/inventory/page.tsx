@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     'Browse exceptional cars for sale at Red Box Motors, Austin, TX. Sales and consignment nationwide.',
 };
 
-// Sold pipeline restored (owner 2026-07-09); sourced stays unpublished.
-// Data still flows; only rendering is gated.
+// Sold cars render as full roster-style cards directly below the inventory
+// (owner 2026-07-09 — no separate sold page). Sourced stays unpublished.
 const SHOW_SOLD_PIPELINE = true;
 const SHOW_SOURCED_PIPELINE = false;
 
@@ -137,7 +137,45 @@ function RosterCard({ listing, image }: { listing: Listing; image: DbImage | nul
   );
 }
 
-// —— Small pipeline card (Recently sold / Found for clients / Arriving) ——
+// —— Sold card: identical style/size to RosterCard, but static (no sold
+// page, owner 2026-07-09) with SOLD in place of the price ——
+function SoldCard({ listing, image }: { listing: Listing; image: DbImage | null }) {
+  const meta = [
+    listing.year,
+    listing.mileage != null ? formatMileage(listing.mileage) : null,
+    listing.exterior,
+  ]
+    .filter(Boolean)
+    .join(' · ');
+  return (
+    <div
+      className="relative z-[1] block aspect-video overflow-hidden"
+      style={{ background: 'linear-gradient(165deg,#131313 0%,#0D0D0D 55%,#090909 100%)' }}
+    >
+      {image ? (
+        <CmsImage image={image} className="absolute inset-0 h-full w-full" />
+      ) : (
+        <Stripe tag={tagFor(listing)} faint />
+      )}
+      <div className="absolute inset-0 bg-[rgba(5,5,5,0.25)]" />
+      <div className="absolute inset-x-0 bottom-0 h-[62%] bg-[linear-gradient(transparent,rgba(0,0,0,0.55)_45%,rgba(0,0,0,0.92))]" />
+      <div className="absolute left-[22px] top-5 text-[10px] uppercase tracking-[2.5px] text-rb-tx-mute-2">
+        {listing.make}
+      </div>
+      <div className="absolute right-[22px] top-[18px] border border-[#555] bg-black/40 px-2 py-1 font-mono text-[10px] tracking-[2px] text-[#bbb]">
+        SOLD
+      </div>
+      <div className="absolute inset-x-0 bottom-0 px-[22px] pb-5 pt-[18px]">
+        <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[21px] font-semibold leading-[1.1] tracking-[-0.015em] text-[#dcdcdc]">
+          {listing.model}
+        </div>
+        <div className="mt-2 font-mono text-[11px] tracking-[0.5px] text-[#8a8a8a]">{meta}</div>
+      </div>
+    </div>
+  );
+}
+
+// —— Small pipeline card (Found for clients / Arriving) ——
 function PipelineCard({
   href,
   image,
@@ -262,7 +300,7 @@ export default async function DealerInventoryPage({
   const byMake = (l: { make: string }) => activeMake === 'All' || l.make === activeMake;
 
   const roster = forSale.filter(byMake).sort(SORTERS[sortKey]);
-  const soldShown = sold.filter(byMake).slice(0, 4);
+  const soldShown = sold.filter(byMake);
   const comingShown = coming.filter(byMake).slice(0, 4);
   const sourcedShown: Sourced[] = sourced.slice(0, 4);
 
@@ -277,7 +315,6 @@ export default async function DealerInventoryPage({
   ]);
 
   const hasPipeline =
-    (SHOW_SOLD_PIPELINE && soldShown.length > 0) ||
     (SHOW_SOURCED_PIPELINE && sourcedShown.length > 0) ||
     comingShown.length > 0;
 
@@ -367,7 +404,26 @@ export default async function DealerInventoryPage({
             </div>
           )}
 
-          {/* —— The pipeline: sold, sourced & arriving —— */}
+          {/* —— Recently sold: roster-style cards directly below inventory —— */}
+          {SHOW_SOLD_PIPELINE && soldShown.length > 0 && (
+            <div className="mx-12 mt-10">
+              <div data-reveal className="mb-3 flex flex-wrap items-baseline gap-3.5">
+                <span className="text-[12px] font-bold uppercase tracking-[3px] text-white">
+                  Recently sold
+                </span>
+                <span className="text-[11px] tracking-[0.5px] text-rb-tx-faint">
+                  Placed with the right owners
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-1.5 bg-black p-1.5 md:grid-cols-2 lg:grid-cols-3">
+                {soldShown.map((l) => (
+                  <SoldCard key={l.id} listing={l} image={heroFor(heroes, 'listing', l.id)} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* —— The pipeline: arriving —— */}
           {hasPipeline && (
             <div
               className="mt-14 px-12 py-14"
@@ -395,39 +451,6 @@ export default async function DealerInventoryPage({
                   The floor moves weekly
                 </span>
               </div>
-
-              {SHOW_SOLD_PIPELINE && soldShown.length > 0 && (
-                <>
-                  <SectionHeader
-                    label="Recently sold"
-                    note="Placed with the right owners"
-                    link={
-                      <Link
-                        href="/dealer/sold"
-                        className="inline-flex items-center gap-[7px] text-[12px] tracking-[0.5px] text-rb-tx-mute transition-[gap,color] duration-200 hover:gap-3 hover:text-white"
-                      >
-                        All placements {ARROW}
-                      </Link>
-                    }
-                  />
-                  <div className="mb-10 grid grid-cols-2 gap-1.5 bg-black p-1.5 lg:grid-cols-4">
-                    {soldShown.map((l) => (
-                      <PipelineCard
-                        key={l.id}
-                        href="/dealer/sold"
-                        image={heroFor(heroes, 'listing', l.id)}
-                        tag={tagFor(l)}
-                        chip="SOLD"
-                        chipBorder="#555"
-                        chipColor="#bbb"
-                        make={l.make}
-                        title={l.model}
-                        sold
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
 
               {SHOW_SOURCED_PIPELINE && sourcedShown.length > 0 && (
                 <>
