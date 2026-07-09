@@ -310,8 +310,8 @@ export function HomeShowcase({
           in; the scroll scrub blurs/dims it exactly like the old photo. */}
       <video
         ref={bgRef}
-        src="/assets/hero-brabus.mp4"
-        poster="/assets/hero-brabus-poster.jpg"
+        src="/assets/dealer-hero.mp4"
+        poster="/assets/dealer-hero-poster.jpg"
         autoPlay
         muted
         loop

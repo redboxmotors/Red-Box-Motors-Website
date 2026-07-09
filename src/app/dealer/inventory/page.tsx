@@ -7,6 +7,7 @@ import { SiteNav } from '@/components/site/SiteNav';
 import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
 import { CmsImage } from '@/components/site/PhotoTile';
 import { RandomBackdrop } from '@/components/site/RandomBackdrop';
+import { BgVideo } from '@/components/site/BgVideo';
 import { InventoryToolbar } from '@/components/dealer/InventoryToolbar';
 import { DEFAULT_SORT, makeParam, type SortKey } from '@/components/dealer/inventory-params';
 import {
@@ -292,14 +293,13 @@ export default async function DealerInventoryPage({
         style={{ scrollSnapType: 'y proximity' }}
       >
         <ExpandingScrollBox>
-          {/* —— Photo header —— */}
-          <div className="relative h-[400px] overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/inventory-represented.jpg"
-              alt="Aston Martin Valkyrie pair represented by Red Box Motors, Austin TX"
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 45%' }}
+          {/* —— Video header (Valhalla trio clip, owner 2026-07-09) —— */}
+          <div className="relative h-[500px] overflow-hidden md:h-[540px]">
+            <BgVideo
+              src="/assets/dealer-hero.mp4"
+              poster="/assets/dealer-hero-poster.jpg"
+              className="absolute inset-0 h-full w-full"
+              position="center 45%"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-12 pb-[34px]">

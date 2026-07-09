@@ -130,12 +130,11 @@ export default async function DealerPage() {
       <SchemaScript schema={localBusinessSchema(await getSettings())} />
       <SiteNav current="sell" />
 
-      {/* Video hero: three Aston Martin Valhallas (owner 2026-07-08).
-          Poster is the clip's first frame; scrub stays off per the earlier
-          owner revert. */}
+      {/* Video hero: Brabus clip (swapped with the homepage's Valhalla trio,
+          owner 2026-07-09). Scrub stays off per the earlier owner revert. */}
       <ScrollShell
-        bg="/assets/dealer-hero-poster.jpg"
-        bgVideo="/assets/dealer-hero.mp4"
+        bg="/assets/hero-brabus-poster.jpg"
+        bgVideo="/assets/hero-brabus.mp4"
         bgPosition="center 58%"
         scrub={false}
       >
