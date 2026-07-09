@@ -407,11 +407,14 @@ export default async function DealerInventoryPage({
           {/* —— Recently sold: roster-style cards directly below inventory —— */}
           {SHOW_SOLD_PIPELINE && soldShown.length > 0 && (
             <div className="mx-12 mt-10">
-              <div data-reveal className="mb-3 flex flex-wrap items-baseline gap-3.5">
-                <span className="text-[12px] font-bold uppercase tracking-[3px] text-white">
+              <div data-reveal className="mb-6 flex flex-wrap items-baseline gap-x-5 gap-y-1">
+                <h2
+                  className="m-0 font-bold leading-none text-white"
+                  style={{ fontSize: 'clamp(28px,3.2vw,48px)', letterSpacing: '-0.03em' }}
+                >
                   Recently sold
-                </span>
-                <span className="text-[11px] tracking-[0.5px] text-rb-tx-faint">
+                </h2>
+                <span className="text-[12px] tracking-[0.5px] text-rb-tx-faint">
                   Placed with the right owners
                 </span>
               </div>
