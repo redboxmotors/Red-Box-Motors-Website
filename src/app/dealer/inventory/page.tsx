@@ -293,11 +293,11 @@ export default async function DealerInventoryPage({
         style={{ scrollSnapType: 'y proximity' }}
       >
         <ExpandingScrollBox>
-          {/* —— Video header (Valhalla trio clip, owner 2026-07-09) —— */}
+          {/* —— Video header (Brabus clip, matching the consignment hero) —— */}
           <div className="relative h-[500px] overflow-hidden md:h-[540px]">
             <BgVideo
-              src="/assets/dealer-hero.mp4"
-              poster="/assets/dealer-hero-poster.jpg"
+              src="/assets/hero-brabus.mp4"
+              poster="/assets/hero-brabus-poster.jpg"
               className="absolute inset-0 h-full w-full"
               position="center 45%"
             />

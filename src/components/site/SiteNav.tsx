@@ -46,24 +46,9 @@ const LINKS: {
       { label: 'How Consignment Works', desc: 'The full process, step by step', href: '/dealer' },
     ],
   },
-  {
-    key: 'restoration',
-    label: 'Red Box Restoration',
-    href: '/restoration',
-    // Every service, title case (owner 2026-07-08), linking to the
-    // jump-menu anchors on /restoration.
-    children: [
-      { label: 'Paint Protection Film', href: '/restoration#ppf' },
-      { label: 'Paint Correction', href: '/restoration#correction' },
-      { label: 'Ceramic Coatings', href: '/restoration#coatings' },
-      { label: 'Vinyl Wraps, Graphics And Liveries', href: '/restoration#wraps' },
-      { label: 'Window Tint', href: '/restoration#tint' },
-      { label: 'Detailing And Vehicle Care', href: '/restoration#detailing' },
-      { label: 'Wheels, Tires And Calipers', href: '/restoration#wheels' },
-      { label: 'Specialty Automotive Installations', href: '/restoration#specialty' },
-      { label: 'Request an Estimate', desc: 'Tell us about the project', href: '/restoration/estimate' },
-    ],
-  },
+  // Plain link, no dropdown (owner 2026-07-09) — the sticky jump menu on
+  // /restoration covers per-service navigation.
+  { key: 'restoration', label: 'Red Box Restoration', href: '/restoration' },
   { key: 'work', label: 'Recent Work', href: '/restoration/work' },
   { key: 'about', label: 'About', href: '/about' },
   { key: 'contact', label: 'Contact', href: '/contact' },
