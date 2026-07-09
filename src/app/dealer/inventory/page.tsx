@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     'Browse exceptional cars for sale at Red Box Motors, Austin, TX. Sales and consignment nationwide.',
 };
 
-// Sold/sourced pipeline rows are unpublished (owner revision) — flip to
-// restore. Data still flows; only rendering is gated.
-const SHOW_SOLD_PIPELINE = false;
+// Sold pipeline restored (owner 2026-07-09); sourced stays unpublished.
+// Data still flows; only rendering is gated.
+const SHOW_SOLD_PIPELINE = true;
 const SHOW_SOURCED_PIPELINE = false;
 
 // Inventory-specific questions (owner checklist 2026-07-07) — the general
