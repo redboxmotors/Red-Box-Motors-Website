@@ -139,12 +139,10 @@ export function HomeShowcase({
   const bgRef = useRef<HTMLVideoElement>(null);
   const dimRef = useRef<HTMLDivElement>(null);
   const topbarRef = useRef<HTMLDivElement>(null);
-  const mosaicRef = useRef<HTMLDivElement>(null);
   const boxSectionRef = useRef<HTMLElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const boxProgRef = useRef<HTMLDivElement>(null);
   const boxPctRef = useRef<HTMLSpanElement>(null);
-  const [dashRevealed, setDashRevealed] = useState(false);
   const firstLoad = useFirstDocumentMount();
   // Full loader-synced timing on first load; a quick, tight stagger otherwise.
   const heroDelay = (full: number, quick: number) => (firstLoad ? full : quick);
@@ -196,27 +194,6 @@ export function HomeShowcase({
     };
   }, []);
 
-  // Dashboard tile stagger reveal
-  useEffect(() => {
-    const mosaic = mosaicRef.current;
-    const sc = scrollerRef.current;
-    if (!mosaic) return;
-    let io: IntersectionObserver | null = null;
-    const t = setTimeout(() => setDashRevealed(true), 2600);
-    try {
-      io = new IntersectionObserver(
-        (ents) => ents.forEach((en) => en.isIntersecting && setDashRevealed(true)),
-        { root: sc ?? null, threshold: 0.15 },
-      );
-      io.observe(mosaic);
-    } catch {
-      setDashRevealed(true);
-    }
-    return () => {
-      clearTimeout(t);
-      io?.disconnect();
-    };
-  }, []);
 
   // Boxed-section: internal scroll → expansion + progress + reveals
   useEffect(() => {
@@ -283,14 +260,6 @@ export function HomeShowcase({
   // (not the tile itself) so the tile's own hover lift/brighten isn't clobbered
   // by an inline transform, and the stagger delay never leaks into the hover
   // transition (that leak was the "light-up is delayed" bug).
-  const dashReveal = (i: number): React.CSSProperties =>
-    dashRevealed
-      ? {
-          opacity: 1,
-          transform: 'none',
-          transition: `opacity .5s ${EASE} ${i * 55}ms, transform .5s ${EASE} ${i * 55}ms`,
-        }
-      : { opacity: 0, transform: 'translateY(28px)' };
 
   const marquee = featured.length > 0 ? featured : [];
 
@@ -377,7 +346,7 @@ export function HomeShowcase({
             View Inventory
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden><path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="currentColor" strokeWidth="1.5" /></svg>
           </Link>
-          <Link href="/dealer/sell" className={heroGhost}>
+          <Link href="/dealer" className={heroGhost}>
             Sell Your Vehicle
           </Link>
           <Link
@@ -399,93 +368,6 @@ export function HomeShowcase({
               style={{ animation: 'rbmScrollDot 1.8s ease-in-out infinite' }}
             />
           </div>
-        </div>
-      </section>
-
-      {/* ——— 2 · DIVISION MOSAIC (two divisions) ——— */}
-      <section className="relative z-[1] flex h-screen snap-start items-center justify-center overflow-hidden px-4 pb-[22px] pt-[88px]">
-        <div className="flex h-full w-[92%] flex-col gap-1.5">
-          <div ref={mosaicRef} className="flex min-h-0 flex-1 gap-1.5">
-            {/* SALES & CONSIGNMENT */}
-            <div className="min-h-0 min-w-0 flex-1" style={dashReveal(0)}>
-              <Link href="/dealer" className={`${tileCls} h-full w-full`}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/home-sales-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 62%' }} />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
-                <div className="absolute right-[22px] top-[22px] text-white"><MosaicArrow /></div>
-                <div className="absolute inset-x-0 bottom-0 p-[30px] px-[34px]">
-                  <div className="mb-2.5 text-[32px] font-semibold tracking-tight text-white">Sales &amp; Consignment</div>
-                  <div className="max-w-[420px] text-[15px] leading-relaxed text-[#d6d6d6]">
-                    Curated inventory and professional consignment representation for enthusiast
-                    and collector vehicles.
-                  </div>
-                  <span className="mt-5 inline-flex items-center gap-2.5 bg-rb-red px-5 py-3 text-[12px] font-semibold tracking-[1.5px] text-white">
-                    EXPLORE SALES
-                    <MosaicArrow size={13} />
-                  </span>
-                </div>
-              </Link>
-            </div>
-
-            {/* PROTECTION & CUSTOMIZATION */}
-            <div className="min-h-0 min-w-0 flex-1" style={dashReveal(1)}>
-              <Link href="/restoration" className={`${tileCls} h-full w-full`}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 82%' }} />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
-                <div className="absolute right-[22px] top-[22px] text-white"><MosaicArrow /></div>
-                <div className="absolute inset-x-0 bottom-0 p-[30px] px-[34px]">
-                  <div className="mb-2.5 text-[32px] font-semibold tracking-tight text-white">Protection &amp; Customization</div>
-                  <div className="max-w-[420px] text-[15px] leading-relaxed text-[#d6d6d6]">
-                    Professional vehicle protection, finish restoration and customization,
-                    including PPF, paint correction, ceramic coatings, wraps, tint, detailing,
-                    wheels and specialty installations.
-                  </div>
-                  <span className="mt-5 inline-flex items-center gap-2.5 bg-rb-red px-5 py-3 text-[12px] font-semibold tracking-[1.5px] text-white">
-                    EXPLORE SERVICES
-                    <MosaicArrow size={13} />
-                  </span>
-                </div>
-              </Link>
-            </div>
-
-          </div>
-
-          {/* capabilities — static row (side-scroll marquee removed 2026-07-08) */}
-          <div
-            className="flex-none border-t border-rb-line bg-rb-surface"
-            style={dashReveal(2)}
-          >
-            <div className="flex flex-wrap items-center justify-center">
-              {TICKER.map((cap) => (
-                <Link
-                  key={cap.label}
-                  href={cap.href}
-                  className="inline-flex items-center gap-2.5 px-5 py-[15px] transition-colors duration-150 hover:bg-rb-raised"
-                >
-                  <span className="h-1.5 w-1.5 flex-none bg-rb-red" />
-                  <span className="whitespace-nowrap text-[11.5px] font-semibold uppercase tracking-[2px] text-[#cfcfcf]">
-                    {cap.label}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* side scroll cue */}
-        <div
-          className="pointer-events-none absolute bottom-16 z-[7] flex flex-col items-center gap-3"
-          style={{ right: 'calc(4vw - 20px)', opacity: 0, animation: 'fadeUp 1s ease forwards .4s' }}
-          aria-hidden
-        >
-          <span className="font-mono text-[9.5px] uppercase tracking-[3px] text-[#cfcfcf] [writing-mode:vertical-rl]">Scroll</span>
-          <div className="relative h-10 w-px overflow-hidden bg-white/[0.24]">
-            <div className="absolute left-0 top-0 h-[11px] w-px bg-rb-red motion-reduce:hidden" style={{ animation: 'rbmScrollDot 1.8s ease-in-out infinite' }} />
-          </div>
-          <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
-            <path d="M8 3V13M8 13L3.5 8.5M8 13L12.5 8.5" stroke="#CC0000" strokeWidth="1.4" />
-          </svg>
         </div>
       </section>
 
@@ -540,6 +422,65 @@ export function HomeShowcase({
               collector vehicle for sale, one accountable team can prepare, protect, present,
               represent and deliver your vehicle from start to finish.
             </p>
+
+            {/* DIVISION TILES — moved here from the old full-screen mosaic
+                (owner 2026-07-10): directly below the One Facility paragraph,
+                16:9, sized to the flow. Sales tile leads to the inventory. */}
+            <div data-hreveal className="mt-12 grid gap-1.5 md:grid-cols-2" style={reveal(0.28)}>
+              <Link href="/dealer/inventory" className={`${tileCls} aspect-video w-full`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/home-sales-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 62%' }} />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
+                <div className="absolute right-[20px] top-[20px] text-white"><MosaicArrow /></div>
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-[28px]">
+                  <div className="mb-2 text-[24px] font-semibold tracking-tight text-white md:text-[28px]">Sales &amp; Consignment</div>
+                  <div className="max-w-[420px] text-[13.5px] leading-relaxed text-[#d6d6d6] max-md:hidden">
+                    Curated inventory and professional consignment representation for enthusiast
+                    and collector vehicles.
+                  </div>
+                  <span className="mt-4 inline-flex items-center gap-2.5 bg-rb-red px-4 py-2.5 text-[11.5px] font-semibold tracking-[1.5px] text-white">
+                    VIEW INVENTORY
+                    <MosaicArrow size={12} />
+                  </span>
+                </div>
+              </Link>
+              <Link href="/restoration" className={`${tileCls} aspect-video w-full`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 82%' }} />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
+                <div className="absolute right-[20px] top-[20px] text-white"><MosaicArrow /></div>
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-[28px]">
+                  <div className="mb-2 text-[24px] font-semibold tracking-tight text-white md:text-[28px]">Protection &amp; Customization</div>
+                  <div className="max-w-[420px] text-[13.5px] leading-relaxed text-[#d6d6d6] max-md:hidden">
+                    Professional vehicle protection, finish restoration and customization,
+                    including PPF, paint correction, ceramic coatings, wraps, tint, detailing,
+                    wheels and specialty installations.
+                  </div>
+                  <span className="mt-4 inline-flex items-center gap-2.5 bg-rb-red px-4 py-2.5 text-[11.5px] font-semibold tracking-[1.5px] text-white">
+                    EXPLORE SERVICES
+                    <MosaicArrow size={12} />
+                  </span>
+                </div>
+              </Link>
+            </div>
+
+            {/* quick links row (kept from the old mosaic) */}
+            <div data-hreveal className="mt-1.5 border border-rb-line bg-rb-surface" style={reveal(0.34)}>
+              <div className="flex flex-wrap items-center justify-center">
+                {TICKER.map((cap) => (
+                  <Link
+                    key={cap.label}
+                    href={cap.href}
+                    className="inline-flex items-center gap-2.5 px-5 py-[14px] transition-colors duration-150 hover:bg-rb-raised"
+                  >
+                    <span className="h-1.5 w-1.5 flex-none bg-rb-red" />
+                    <span className="whitespace-nowrap text-[11px] font-semibold uppercase tracking-[2px] text-[#cfcfcf]">
+                      {cap.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
 
             {/* division description columns — red label · paragraph · explore
                 link (Collection Management stays unpublished) */}
@@ -690,7 +631,7 @@ export function HomeShowcase({
                     sub: 'Enthusiast and collector vehicles currently offered through Red Box Motors.',
                   },
                   {
-                    href: '/dealer/sell',
+                    href: '/dealer',
                     label: 'Sell Your Vehicle',
                     sub: 'Professional consignment representation, from first conversation to delivery.',
                   },

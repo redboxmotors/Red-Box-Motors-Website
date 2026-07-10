@@ -42,7 +42,7 @@ export async function VisitAndFAQ({
       <div className="flex w-full animate-rb-panel-in flex-col overflow-hidden bg-rb-surface">
         <div className="flex items-baseline gap-3.5 border-b border-rb-line px-6 py-6 md:px-12">
           <h2 className="text-[13px] font-bold uppercase tracking-[3px] text-white">
-            Questions &amp; Location
+            {faqs.length > 0 ? <>Questions &amp; Location</> : <>Facility &amp; Contact</>}
           </h2>
         </div>
 

@@ -313,6 +313,8 @@ export function Honeypot({
         width: '1px',
         height: '1px',
         overflow: 'hidden',
+        clipPath: 'inset(50%)',
+        pointerEvents: 'none',
       }}
     >
       <label htmlFor={id}>Website</label>

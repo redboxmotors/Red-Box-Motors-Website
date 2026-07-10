@@ -174,7 +174,7 @@ const SERVICES: {
 // Detailed service questions live here (moved off the homepage).
 const RESTORATION_FAQ: Faq[] = [
   { q: 'How do I get an estimate?', a: 'Use the estimate form, tell us the vehicle and what you want to protect or change, and we will walk you through options and put together a written estimate. Photos help; an in-person look is even better.' },
-  { q: 'What PPF coverage do you offer?', a: 'From high-impact front-end packages to full-body coverage, precision-cut per panel with wrapped edges wherever possible, in STEK clear and color films.' },
+  { q: 'What PPF coverage do you offer?', a: 'From high-impact front-end packages to full-body coverage, precision-cut per panel with wrapped edges wherever possible, using premium self-healing films with manufacturer warranty coverage.' },
   { q: 'Does ceramic coating require paint correction?', a: 'Coatings lock in whatever is under them, so where needed we correct the paint to the agreed level first, that is what gives the finish its depth.' },
   { q: 'Are vinyl wraps reversible?', a: 'When installed over suitable paint and removed using proper techniques, vinyl provides a reversible appearance change. Paint condition and prior repairs can affect removal, we assess that before the work starts.' },
 ];
@@ -183,9 +183,9 @@ const RESTORATION_FAQ: Faq[] = [
 const PROCESS = [
   ['Consultation', 'Tell us about the car and what you want to accomplish.'],
   ['Inspection & Scope', 'We assess the vehicle and agree on the exact work in writing.'],
-  ['Preparation', 'Wash, decontamination and the prep the finish demands.'],
+  ['Preparation', 'Washing, decontamination, masking, correction or disassembly as required by the approved scope.'],
   ['Execution', 'The work itself, film, polish, coating, wrap or wheels.'],
-  ['Final Inspection & Delivery', 'Checked panel by panel before the car goes home.'],
+  ['Final Inspection & Delivery', 'Completed with a documented final quality inspection before delivery.'],
 ] as const;
 
 // Sticky jump menu targets (owner checklist: PPF | Correction | Coatings |
@@ -330,7 +330,8 @@ export default async function RestorationPage() {
               <a
                 key={id}
                 href={`#${id}`}
-                className="whitespace-nowrap px-3 py-3.5 text-[11.5px] font-semibold uppercase tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
+                aria-label={`Jump to ${label}`}
+                className="whitespace-nowrap px-3 py-3.5 text-[11.5px] font-semibold uppercase tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white focus-visible:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-rb-red"
               >
                 {label}
               </a>
@@ -338,7 +339,7 @@ export default async function RestorationPage() {
             <span className="flex-1" />
             <Link
               href="/restoration/estimate"
-              className="hidden whitespace-nowrap px-3 py-3.5 text-[11.5px] font-semibold uppercase tracking-[1.5px] text-rb-red transition-colors duration-150 hover:text-white sm:inline"
+              className="hidden whitespace-nowrap px-3 py-3.5 text-[11.5px] font-semibold uppercase tracking-[1.5px] text-rb-red transition-colors duration-150 hover:text-white focus-visible:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-rb-red sm:inline"
             >
               Request an Estimate →
             </Link>

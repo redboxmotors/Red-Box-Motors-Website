@@ -52,7 +52,7 @@ const SHOW_BUYING_TRACK = false;
 const MORE_THAN_A_LISTING = [
   { title: 'Market Positioning', text: 'Pricing informed by current listings, recent sales, specification, condition and market demand.' },
   { title: 'Vehicle Preparation', text: 'Detailing, paint correction, PPF evaluation, mechanical-service coordination and presentation planning.' },
-  { title: 'Professional Media', text: 'Photography, video, written automotive storytelling and organization and presentation of all available vehicle documentation.' },
+  { title: 'Professional Media', text: 'Photography, video, written automotive storytelling, and the organization and presentation of all available vehicle documentation.' },
   { title: 'Qualified Exposure', text: 'Targeted listing placement, direct buyer outreach, social media and enthusiast networks.' },
   { title: 'Transaction Management', text: 'Inquiry handling, buyer qualification, documents, payment coordination and transportation.' },
 ];
@@ -394,7 +394,7 @@ export default async function DealerPage() {
                 <h2
                   data-reveal
                   className="m-0 font-bold leading-none text-white"
-                  style={{ fontSize: 'clamp(26px,3.4vw,46px)', letterSpacing: '-0.03em' }}
+                  style={{ fontSize: 'clamp(32px,4.4vw,64px)', letterSpacing: '-0.035em' }}
                 >
                   Currently represented
                 </h2>

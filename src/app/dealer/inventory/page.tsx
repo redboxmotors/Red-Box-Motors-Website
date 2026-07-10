@@ -530,7 +530,7 @@ export default async function DealerInventoryPage({
 
           {/* —— CTA — clearly separated from the pipeline above —— */}
           <div data-reveal className="mt-20 flex flex-wrap border-t border-rb-line bg-[#101010] md:mt-28">
-            <div className="relative min-h-[480px] min-w-[280px] flex-[1.05] overflow-hidden">
+            <div className="relative min-h-[400px] min-w-[280px] flex-[1.05] overflow-hidden md:min-h-[640px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/keys-handoff.jpg"
@@ -545,31 +545,31 @@ export default async function DealerInventoryPage({
                 </div>
               </div>
             </div>
-            <div className="flex min-w-[300px] flex-1 flex-col justify-center px-6 py-20 md:px-16 md:py-[100px]">
+            <div className="flex min-w-[300px] flex-1 flex-col justify-center px-6 py-20 md:px-16 md:py-[120px]">
               <div className="mb-[22px] font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
                 Don&rsquo;t see it here?
               </div>
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
                 style={{
-                  fontSize: 'clamp(38px,5vw,72px)',
+                  fontSize: 'clamp(42px,5.6vw,84px)',
                   letterSpacing: '-0.04em',
                   lineHeight: 0.96,
                 }}
               >
-                The floor changes weekly.
+                Have a vehicle to consign?
               </h2>
-              <p className="mb-0 mt-7 max-w-[500px] text-[17px] font-medium leading-[1.7] text-rb-tx-mute">
-                Selling a car you care about? We professionally prepare, market and represent
-                vehicles to qualified buyers nationwide, tell us about yours.
+              <p className="mb-0 mt-7 max-w-[520px] text-[18px] font-medium leading-[1.7] text-rb-tx-mute">
+                We professionally prepare, market and represent vehicles to qualified buyers
+                nationwide, managed by one team from the first conversation through delivery.
               </p>
               <div className="mt-11 flex flex-wrap items-center gap-[22px]">
                 <Link
-                  href="/dealer/sell"
-                  className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-9 py-5 text-[15px] font-semibold tracking-[0.5px] text-white"
+                  href="/dealer"
+                  className="rb-btn-red inline-flex items-center gap-3.5 bg-rb-red px-10 py-[22px] text-[16px] font-semibold tracking-[0.5px] text-white"
                 >
                   Sell Your Vehicle
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                  <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden>
                     <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#fff" strokeWidth="1.5" />
                   </svg>
                 </Link>

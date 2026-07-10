@@ -40,10 +40,10 @@ const LINKS: {
   {
     key: 'sell',
     label: 'Sell Your Vehicle',
-    href: '/dealer/sell',
+    href: '/dealer',
     children: [
-      { label: 'Submit Your Vehicle', desc: 'Professional consignment representation', href: '/dealer/sell' },
-      { label: 'How Consignment Works', desc: 'The full process, step by step', href: '/dealer' },
+      { label: 'Consignment', desc: 'Professional consignment representation', href: '/dealer' },
+      { label: 'Sell Your Vehicle', desc: 'Submit your vehicle', href: '/dealer/sell' },
     ],
   },
   // Plain link, no dropdown (owner 2026-07-09) — the sticky jump menu on
@@ -101,7 +101,7 @@ export function SiteNav({ current = '' }: { current?: NavKey }) {
                 }}
               >
                 {(() => {
-                  const cls = `inline-flex items-center gap-2 text-[12.5px] font-medium tracking-[1.5px] transition-colors duration-150 [text-shadow:0_1px_6px_rgba(0,0,0,0.65)] ${
+                  const cls = `inline-flex items-center gap-2 text-[12.5px] font-medium tracking-[1.5px] transition-colors duration-150 [text-shadow:0_1px_6px_rgba(0,0,0,0.65)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rb-red ${
                     active || isOpen ? 'text-white' : 'text-[#d6d6d6] hover:text-white'
                   }`;
                   const inner = (

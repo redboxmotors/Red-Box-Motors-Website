@@ -47,7 +47,7 @@ const STANDARD = [
   { title: 'Inspection & Documentation', text: 'Condition recorded before work begins and after it ends, photographs, notes and paperwork you can keep.' },
   { title: 'Clear Communication', text: 'You hear from us before decisions are made, not after. Scope, timeline and cost in writing.' },
   { title: 'Professional Preparation', text: 'Every service starts with proper prep, decontamination, correction and masking before anything is installed or applied.' },
-  { title: 'Quality Materials & Processes', text: 'STEK films, Carbon Collective coatings and processes we have trained on, no shortcuts on what goes on your car.' },
+  { title: 'Quality Materials & Processes', text: 'Premium films, coatings and processes we have trained and certified on, no shortcuts on what goes on your car.' },
   { title: 'Final Inspection', text: 'Nothing is delivered until it passes the same inspection we would want on our own cars.' },
   { title: 'Follow-Through', text: 'Aftercare guidance and a direct line to the people who did the work, the relationship does not end at delivery.' },
 ];
