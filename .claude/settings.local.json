@@ -170,7 +170,15 @@
       "Bash(git commit *)",
       "Bash(awk -F: '{print $1}')",
       "Bash(grep -rn \" , \\\\| ,$\\\\|,,\" src/app src/components --include='*.tsx' --include='*.ts')",
-      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=30000 --window-size=1440,1200 --screenshot=/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/gallery-169b.png http://localhost:3999/dealer/inventory/2015-porsche-918-spyder-cxx)"
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=30000 --window-size=1440,1200 --screenshot=/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/gallery-169b.png http://localhost:3999/dealer/inventory/2015-porsche-918-spyder-cxx)",
+      "Bash(sips -s format jpeg -s formatOptions 82 --resampleWidth 2400 '/Users/user/Downloads/IMG_5796.jpg' --out public/assets/home-one-facility.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/home-one-facility.jpg)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless --disable-gpu --window-size=1440,900 --hide-scrollbars --virtual-time-budget=9000 --screenshot=/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/dealer-top.png http://localhost:3111/dealer)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless --disable-gpu --window-size=1440,900 --hide-scrollbars --virtual-time-budget=9000 --screenshot=/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/ab46bd64-5f89-46bc-b691-28fd73afcdde/scratchpad/inv-top.png http://localhost:3111/dealer/inventory)",
+      "Bash(sips -g pixelWidth -g pixelHeight -g orientation \"/Users/user/Downloads/RBR 2024 Front_-11.JPG\")",
+      "Bash(sips -s format jpeg -s formatOptions 86 --resampleWidth 2400 \"/Users/user/Downloads/RBR 2024 Front_-11.JPG\" --out public/assets/dealer-trust.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/dealer-trust.jpg)",
+      "Bash(pkill -f \"next start\")"
     ]
   }
 }
