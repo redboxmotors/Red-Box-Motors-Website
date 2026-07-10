@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { ContactLink } from '@/components/contact/ContactModal';
 import { FirstLookLink, FirstLookProvider } from '@/components/dealer/FirstLookModal';
 import { ExpandingScrollBox } from '@/components/site/ExpandingScrollBox';
+import { HeroBadge, HeroSection, HeroSub, HeroTitle } from '@/components/site/Hero';
+import { ScrollShell } from '@/components/site/ScrollShell';
 import { SiteNav } from '@/components/site/SiteNav';
 import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
 import { CmsImage } from '@/components/site/PhotoTile';
-import { RandomBackdrop } from '@/components/site/RandomBackdrop';
-import { BgVideo } from '@/components/site/BgVideo';
 import { InventoryToolbar } from '@/components/dealer/InventoryToolbar';
 import { DEFAULT_SORT, makeParam, type SortKey } from '@/components/dealer/inventory-params';
 import {
@@ -322,45 +322,41 @@ export default async function DealerInventoryPage({
     <FirstLookProvider phone={settings.phone}>
     <main className="relative bg-rb-bg text-white">
       <SchemaScript schema={itemListSchema(forSale)} />
-      <RandomBackdrop />
       <SiteNav current="inventory" />
 
-      <div
-        className="rb-noscrollbar relative z-[1] h-screen overflow-y-auto bg-transparent"
-        style={{ scrollSnapType: 'y proximity' }}
+      {/* Video hero above the scroll box, matching the other pages
+          (owner 2026-07-10); scrub off like the consignment hero. */}
+      <ScrollShell
+        bg="/assets/hero-brabus-poster.jpg"
+        bgVideo="/assets/hero-brabus.mp4"
+        bgPosition="center 58%"
+        scrub={false}
       >
+        <HeroSection>
+          <HeroBadge>Red Box Motors · Sales &amp; Consignment</HeroBadge>
+          <HeroTitle lines={['Currently Represented.']} />
+          <HeroSub>
+            Explore enthusiast and collector vehicles currently offered through Red Box Motors.
+          </HeroSub>
+        </HeroSection>
+
         <ExpandingScrollBox>
-          {/* —— Video header (Brabus clip, matching the consignment hero) —— */}
+          {/* —— Photo header (video moved to the page hero, owner 2026-07-10) —— */}
           <div className="relative h-[500px] overflow-hidden md:h-[540px]">
-            <BgVideo
-              src="/assets/hero-brabus.mp4"
-              poster="/assets/hero-brabus-poster.jpg"
-              className="absolute inset-0 h-full w-full"
-              position="center 45%"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/inventory-represented.jpg"
+              alt="Aston Martin Valkyrie pair represented by Red Box Motors, Austin TX"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: 'center 45%' }}
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
-            <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-12 pb-[34px]">
-              <div>
-                <div className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                  Sales &amp; Consignment · Inventory
-                </div>
-                <h1
-                  className="m-0 font-bold text-white"
-                  style={{
-                    fontSize: 'clamp(36px,4.8vw,66px)',
-                    letterSpacing: '-0.04em',
-                    lineHeight: 0.96,
-                  }}
-                >
-                  Currently represented.
-                </h1>
-                <p className="mb-0 mt-[18px] max-w-[640px] text-[15px] leading-relaxed tracking-[0.2px] text-[#c4c4c4] [text-shadow:0_1px_20px_rgba(0,0,0,0.7)]">
-                  Explore enthusiast and collector vehicles currently offered through Red Box
-                  Motors. Each represented vehicle is presented with available specifications,
-                  history, condition information and supporting documentation so buyers can make
-                  an informed decision.
-                </p>
-              </div>
+            <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-12 pb-[30px]">
+              <p className="mb-0 max-w-[640px] text-[15px] leading-relaxed tracking-[0.2px] text-[#c4c4c4] [text-shadow:0_1px_20px_rgba(0,0,0,0.7)]">
+                Each represented vehicle is presented with available specifications, history,
+                condition information and supporting documentation so buyers can make an
+                informed decision.
+              </p>
               <Link
                 href="/dealer"
                 className="inline-flex items-center gap-[9px] whitespace-nowrap text-[12.5px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
@@ -589,7 +585,7 @@ export default async function DealerInventoryPage({
             <VisitAndFAQ division="dealer" faqs={INVENTORY_FAQ} />
           </div>
         </ExpandingScrollBox>
-      </div>
+      </ScrollShell>
 
       {/* —— Floating contact —— */}
       <ContactLink

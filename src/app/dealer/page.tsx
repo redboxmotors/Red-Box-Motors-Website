@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PreviewGrid } from '@/components/dealer/PreviewTiles';
 import { BUYING_STEPS, CONSIGNMENT_STEPS, StepTrack } from '@/components/dealer/HowItWorksSection';
 import { ExpandingScrollBox } from '@/components/site/ExpandingScrollBox';
-import { HeroBadge, HeroCtas, HeroSection, HeroSub } from '@/components/site/Hero';
+import { BgVideo } from '@/components/site/BgVideo';
 import { ScrollShell } from '@/components/site/ScrollShell';
 import { SiteNav } from '@/components/site/SiteNav';
 import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
@@ -130,71 +130,46 @@ export default async function DealerPage() {
       <SchemaScript schema={localBusinessSchema(await getSettings())} />
       <SiteNav current="sell" />
 
-      {/* Video hero: Brabus clip (swapped with the homepage's Valhalla trio,
-          owner 2026-07-09). Scrub stays off per the earlier owner revert. */}
-      <ScrollShell
-        bg="/assets/hero-brabus-poster.jpg"
-        bgVideo="/assets/hero-brabus.mp4"
-        bgPosition="center 58%"
-        scrub={false}
-      >
+      <ScrollShell bg="/assets/hero-brabus-poster.jpg" bgPosition="center 58%" scrub={false}>
         {/* ---------- 1 · HERO (plain photo — no blur/scrub, per owner) ---------- */}
-        <HeroSection>
-          <HeroBadge>Red Box Motors · Sales &amp; Consignment</HeroBadge>
-          <h1
-            className="relative z-[2] m-0 font-extrabold text-white"
-            style={{
-              fontSize: 'clamp(32px,4.2vw,66px)',
-              letterSpacing: '-0.03em',
-              lineHeight: 0.96,
-              textShadow: '0 1px 3px rgba(0,0,0,0.45)',
-            }}
-          >
-            <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
-              <span
-                className="rb-hero-line block"
-                style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .28s` }}
-              >
-                Exceptional Cars.{' '}
-              </span>
-            </span>
-            <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
-              <span
-                className="rb-hero-line block"
-                style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards .41s` }}
-              >
-                Properly Represented.
-              </span>
-            </span>
-          </h1>
-          <HeroSub>
-            Curated enthusiast and collector vehicles and premium consignment representation from
-            Red Box Motors in Austin, Texas.
-          </HeroSub>
-          <HeroCtas>
-            <Link
-              href="/dealer/inventory"
-              className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-[22px] py-[13px] text-[12.5px] font-semibold tracking-[1px] text-white"
-            >
-              View Inventory
-            </Link>
-            <Link href="/dealer/sell" className={`${ghostRed} px-[22px] py-[13px] text-[12.5px]`}>
-              Sell Your Vehicle
-            </Link>
-          </HeroCtas>
-        </HeroSection>
+        {/* Hero removed (owner 2026-07-10) — the page opens straight into the
+            scroll section; the headline lives on the video band below.
+            Prior hero is in git history. */}
 
         {/* ---------- 2 · OVERVIEW (boxed scroll → fullscreen) ---------- */}
         <ExpandingScrollBox>
-          {/* PHOTO HEADER */}
-          <div className="relative h-[400px] overflow-hidden">
+          {/* VIDEO HEADER — Lambo Rollers clip with the page headline
+              (replaces the removed hero + 918 photo, owner 2026-07-10) */}
+          <div className="relative h-[560px] overflow-hidden md:h-[620px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/dealer-one-team.jpg"
-              alt="Porsche 918 Spyder outside Red Box Motors, Austin TX"
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 68%' }}
+            <BgVideo
+              src="/assets/consign-rollers.mp4"
+              poster="/assets/consign-rollers-poster.jpg"
+              className="absolute inset-0 h-full w-full"
+              position="center 50%"
             />
+            <div className="absolute inset-x-0 bottom-0 z-[2] px-6 pb-[38px] md:px-[52px]">
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
+                Red Box Motors · Sales &amp; Consignment
+              </div>
+              <h1
+                className="m-0 max-w-[16ch] font-extrabold text-white"
+                style={{ fontSize: 'clamp(32px,4.2vw,64px)', letterSpacing: '-0.03em', lineHeight: 0.98, textShadow: '0 2px 30px rgba(0,0,0,0.6)' }}
+              >
+                Exceptional Cars. Properly Represented.
+              </h1>
+              <div className="mt-7 flex flex-wrap items-center gap-3.5">
+                <Link
+                  href="/dealer/inventory"
+                  className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-[22px] py-[13px] text-[12.5px] font-semibold tracking-[1px] text-white"
+                >
+                  View Inventory
+                </Link>
+                <Link href="/dealer/sell" className={`${ghostRed} px-[22px] py-[13px] text-[12.5px]`}>
+                  Sell Your Vehicle
+                </Link>
+              </div>
+            </div>
             {/* fades into More Than a Listing's #131313 below (restored 2026-07-08) */}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(19,19,19,0.10)_0%,rgba(19,19,19,0.04)_40%,rgba(19,19,19,0.55)_74%,rgba(19,19,19,0.92)_92%,#131313_100%)]" />
           </div>
