@@ -400,7 +400,7 @@ export function HomeShowcase({
           {/* photo header */}
           <div className="relative h-[380px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/scroll-header.jpg" alt="Red Box Motors, Austin, Texas" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 72%' }} />
+            <img src="/assets/home-one-facility.jpg" alt="Red Box Motors, Austin, Texas" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 60%' }} />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_42%,rgba(10,10,10,0.55)_76%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
           </div>
 
@@ -427,13 +427,13 @@ export function HomeShowcase({
                 (owner 2026-07-10): directly below the One Facility paragraph,
                 16:9, sized to the flow. Sales tile leads to the inventory. */}
             <div data-hreveal className="mt-12 grid gap-1.5 md:grid-cols-2" style={reveal(0.28)}>
-              <Link href="/dealer/inventory" className={`${tileCls} aspect-video w-full`}>
+              <Link href="/dealer/inventory" className={`${tileCls} aspect-[16/10] w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/assets/home-sales-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 62%' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
                 <div className="absolute right-[20px] top-[20px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-[28px]">
-                  <div className="mb-2 text-[24px] font-semibold tracking-tight text-white md:text-[28px]">Sales &amp; Consignment</div>
+                  <div className="mb-2 text-[24px] font-semibold tracking-tight text-white md:text-[28px]">Our Inventory</div>
                   <div className="max-w-[420px] text-[13.5px] leading-relaxed text-[#d6d6d6] max-md:hidden">
                     Curated inventory and professional consignment representation for enthusiast
                     and collector vehicles.
@@ -444,7 +444,7 @@ export function HomeShowcase({
                   </span>
                 </div>
               </Link>
-              <Link href="/restoration" className={`${tileCls} aspect-video w-full`}>
+              <Link href="/restoration" className={`${tileCls} aspect-[16/10] w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 82%' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
