@@ -314,10 +314,10 @@ export default async function DealerPage() {
           <div className="relative h-[400px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/consignment.jpeg"
-              alt="Consignment vehicle prepared for sale at Red Box Motors"
+              src="/assets/dealer-trust.jpg"
+              alt="Client vehicles lined up outside Red Box Motors, Austin TX"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 52%' }}
+              style={{ objectPosition: 'center 62%' }}
               loading="lazy"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(21,21,21,0.10)_0%,rgba(21,21,21,0.04)_40%,rgba(21,21,21,0.55)_74%,rgba(21,21,21,0.92)_92%,#151515_100%)]" />
