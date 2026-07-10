@@ -123,14 +123,14 @@ function SectionHeader({ eyebrow, title, blurb }: { eyebrow: string; title: stri
 
 
 export default async function DealerPage() {
-  const salePreview = await getSurfaceCards('dealer_forsale_preview', 4);
+  const salePreview = await getSurfaceCards('dealer_forsale_preview', 3);
 
   return (
     <>
       <SchemaScript schema={localBusinessSchema(await getSettings())} />
       <SiteNav current="sell" />
 
-      <ScrollShell bg="/assets/hero-brabus-poster.jpg" bgPosition="center 58%" scrub={false}>
+      <ScrollShell bg="/assets/hero-brabus-poster.jpg" bgPosition="center 58%" scrub={false} blurBg>
         {/* ---------- 1 · HERO (plain photo — no blur/scrub, per owner) ---------- */}
         {/* Hero removed (owner 2026-07-10) — the page opens straight into the
             scroll section; the headline lives on the video band below.
@@ -148,29 +148,8 @@ export default async function DealerPage() {
               className="absolute inset-0 h-full w-full"
               position="center 50%"
             />
-            <div className="absolute inset-x-0 bottom-0 z-[2] px-6 pb-[38px] md:px-[52px]">
-              <div className="mb-3 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
-                Red Box Motors · Sales &amp; Consignment
-              </div>
-              <h1
-                className="m-0 max-w-[16ch] font-extrabold text-white"
-                style={{ fontSize: 'clamp(32px,4.2vw,64px)', letterSpacing: '-0.03em', lineHeight: 0.98, textShadow: '0 2px 30px rgba(0,0,0,0.6)' }}
-              >
-                Exceptional Cars. Properly Represented.
-              </h1>
-              <div className="mt-7 flex flex-wrap items-center gap-3.5">
-                <Link
-                  href="/dealer/inventory"
-                  className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-[22px] py-[13px] text-[12.5px] font-semibold tracking-[1px] text-white"
-                >
-                  View Inventory
-                </Link>
-                <Link href="/dealer/sell" className={`${ghostRed} px-[22px] py-[13px] text-[12.5px]`}>
-                  Sell Your Vehicle
-                </Link>
-              </div>
-            </div>
-            {/* fades into More Than a Listing's #131313 below (restored 2026-07-08) */}
+            {/* fades into the headline section's #131313 below (restored 2026-07-08);
+                the page headline moved below the band (owner 2026-07-10) */}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(19,19,19,0.10)_0%,rgba(19,19,19,0.04)_40%,rgba(19,19,19,0.55)_74%,rgba(19,19,19,0.92)_92%,#131313_100%)]" />
           </div>
 
@@ -216,7 +195,34 @@ export default async function DealerPage() {
               overlaps into the featured-inventory section below, visually
               tying the consignment pitch to the cars it produces. */}
           <div className="bg-[#131313] pt-14 md:pt-16">
-            <div className="grid gap-10 px-6 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:px-[52px]">
+            {/* PAGE HEADLINE — moved down from the video band (owner 2026-07-10) */}
+            <div className="px-6 md:px-[52px]">
+              <div data-reveal className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
+                Red Box Motors · Sales &amp; Consignment
+              </div>
+              <h1
+                data-reveal
+                className="m-0 max-w-[16ch] font-extrabold text-white"
+                style={{ fontSize: 'clamp(36px,4.8vw,72px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
+              >
+                Exceptional Cars. Properly Represented.
+              </h1>
+              <div data-reveal style={{ transitionDelay: '.12s' }} className="mt-8 flex flex-wrap items-center gap-3.5">
+                <Link
+                  href="/dealer/inventory"
+                  className="rb-btn-red inline-flex items-center gap-2.5 bg-rb-red px-[22px] py-[13px] text-[12.5px] font-semibold tracking-[1px] text-white"
+                >
+                  View Inventory
+                </Link>
+                <Link href="/dealer/sell" className={`${ghostRed} px-[22px] py-[13px] text-[12.5px]`}>
+                  Sell Your Vehicle
+                </Link>
+              </div>
+            </div>
+
+            {/* MORE THAN A LISTING — smaller and pushed down under the page
+                headline (owner 2026-07-10) */}
+            <div className="mt-20 grid gap-10 px-6 md:mt-24 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:px-[52px]">
               <div>
                 <div data-reveal className="mb-4 font-mono text-[11px] uppercase tracking-[4px] text-rb-red">
                   Representation
@@ -224,7 +230,7 @@ export default async function DealerPage() {
                 <h2
                   data-reveal
                   className="m-0 font-extrabold text-white"
-                  style={{ fontSize: 'clamp(36px,4.8vw,72px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
+                  style={{ fontSize: 'clamp(26px,3vw,42px)', letterSpacing: '-0.03em', lineHeight: 1.02 }}
                 >
                   More than a listing
                 </h2>

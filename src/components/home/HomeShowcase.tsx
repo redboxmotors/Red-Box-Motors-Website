@@ -36,17 +36,6 @@ function useFirstDocumentMount(): boolean {
   return first;
 }
 
-// Quick links under the division tiles — the site's main pages/sections
-// (owner 2026-07-08: not the full capability list).
-const TICKER: { label: string; href: string }[] = [
-  { label: 'View Inventory', href: '/dealer/inventory' },
-  { label: 'Sell Your Vehicle', href: '/dealer/sell' },
-  { label: 'Restoration Services', href: '/restoration#services' },
-  { label: 'Request an Estimate', href: '/restoration/estimate' },
-  { label: 'Recent Work', href: '/restoration/work' },
-  { label: 'About Red Box', href: '/about' },
-];
-
 function FeaturedSquare({ card, ariaHidden }: { card: SurfaceCard; ariaHidden?: boolean }) {
   return (
     <Link
@@ -430,15 +419,11 @@ export function HomeShowcase({
               <Link href="/dealer/inventory" className={`${tileCls} aspect-[16/10] w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/assets/home-sales-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 62%' }} />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.08)_0%,rgba(10,10,10,0)_46%,rgba(8,8,8,0.38)_76%,rgba(6,6,6,0.82)_100%)]" />
                 <div className="absolute right-[20px] top-[20px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-[28px]">
-                  <div className="mb-2 text-[24px] font-semibold tracking-tight text-white md:text-[28px]">Our Inventory</div>
-                  <div className="max-w-[420px] text-[13.5px] leading-relaxed text-[#d6d6d6] max-md:hidden">
-                    Curated inventory and professional consignment representation for enthusiast
-                    and collector vehicles.
-                  </div>
-                  <span className="mt-4 inline-flex items-center gap-2.5 bg-rb-red px-4 py-2.5 text-[11.5px] font-semibold tracking-[1.5px] text-white">
+                  <div className="text-[24px] font-semibold tracking-tight text-white md:text-[28px]">Our Inventory</div>
+                  <span className="mt-3.5 inline-flex items-center gap-2.5 bg-rb-red px-4 py-2.5 text-[11.5px] font-semibold tracking-[1.5px] text-white">
                     VIEW INVENTORY
                     <MosaicArrow size={12} />
                   </span>
@@ -447,16 +432,11 @@ export function HomeShowcase({
               <Link href="/restoration" className={`${tileCls} aspect-[16/10] w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 82%' }} />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0)_38%,rgba(8,8,8,0.55)_70%,rgba(6,6,6,0.92)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.08)_0%,rgba(10,10,10,0)_46%,rgba(8,8,8,0.38)_76%,rgba(6,6,6,0.82)_100%)]" />
                 <div className="absolute right-[20px] top-[20px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-[28px]">
-                  <div className="mb-2 text-[24px] font-semibold tracking-tight text-white md:text-[28px]">Protection &amp; Customization</div>
-                  <div className="max-w-[420px] text-[13.5px] leading-relaxed text-[#d6d6d6] max-md:hidden">
-                    Professional vehicle protection, finish restoration and customization,
-                    including PPF, paint correction, ceramic coatings, wraps, tint, detailing,
-                    wheels and specialty installations.
-                  </div>
-                  <span className="mt-4 inline-flex items-center gap-2.5 bg-rb-red px-4 py-2.5 text-[11.5px] font-semibold tracking-[1.5px] text-white">
+                  <div className="text-[24px] font-semibold tracking-tight text-white md:text-[28px]">Protection &amp; Customization</div>
+                  <span className="mt-3.5 inline-flex items-center gap-2.5 bg-rb-red px-4 py-2.5 text-[11.5px] font-semibold tracking-[1.5px] text-white">
                     EXPLORE SERVICES
                     <MosaicArrow size={12} />
                   </span>
@@ -464,27 +444,9 @@ export function HomeShowcase({
               </Link>
             </div>
 
-            {/* quick links row (kept from the old mosaic) */}
-            <div data-hreveal className="mt-1.5 border border-rb-line bg-rb-surface" style={reveal(0.34)}>
-              <div className="flex flex-wrap items-center justify-center">
-                {TICKER.map((cap) => (
-                  <Link
-                    key={cap.label}
-                    href={cap.href}
-                    className="inline-flex items-center gap-2.5 px-5 py-[14px] transition-colors duration-150 hover:bg-rb-raised"
-                  >
-                    <span className="h-1.5 w-1.5 flex-none bg-rb-red" />
-                    <span className="whitespace-nowrap text-[11px] font-semibold uppercase tracking-[2px] text-[#cfcfcf]">
-                      {cap.label}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
             {/* division description columns — red label · paragraph · explore
                 link (Collection Management stays unpublished) */}
-            <div data-hreveal className="mt-14 grid gap-12 md:grid-cols-2 md:gap-14" style={reveal(0.3)}>
+            <div data-hreveal className="mt-7 grid gap-12 md:grid-cols-2 md:gap-14" style={reveal(0.3)}>
               {[
                 {
                   label: 'Sales & Consignment',

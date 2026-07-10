@@ -89,11 +89,11 @@ export function PreviewGrid({ cards, variant }: { cards: SurfaceCard[]; variant:
     <div
       data-reveal
       style={{ transitionDelay: '.14s' }}
-      className="grid gap-1.5 px-1.5 pt-8 md:grid-cols-2"
+      className="grid gap-1.5 px-1.5 pt-8 md:grid-cols-3"
     >
       {cards.length > 0
         ? cards.map((c) => <PreviewTile key={`${c.type}-${c.id}`} card={c} variant={variant} />)
-        : [0, 1, 2, 3].map((i) => <div key={i} className="rb-stripe aspect-video" aria-hidden />)}
+        : [0, 1, 2].map((i) => <div key={i} className="rb-stripe aspect-video" aria-hidden />)}
     </div>
   );
 }

@@ -8,17 +8,21 @@ import { useEffect, useRef } from 'react';
 // scrub={false} for a plain static hero photo (Dealer, per owner revert).
 // Pass bgVideo for a muted looping video hero (Restoration, 2026-07-08) —
 // `bg` then serves as the poster and the reduced-motion fallback.
+// blurBg renders the photo statically blurred + dimmed (Dealer, owner
+// 2026-07-10) — the detail-page backdrop treatment without the scroll scrub.
 export function ScrollShell({
   bg,
   bgVideo,
   bgPosition = 'center 58%',
   scrub = true,
+  blurBg = false,
   children,
 }: {
   bg: string;
   bgVideo?: string;
   bgPosition?: string;
   scrub?: boolean;
+  blurBg?: boolean;
   children: React.ReactNode;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,8 +63,10 @@ export function ScrollShell({
 
   const bgStyle = {
     objectPosition: bgPosition,
-    filter: 'blur(0px) brightness(0.9) saturate(1)',
-    transform: 'scale(1)',
+    filter: blurBg
+      ? 'blur(18px) brightness(0.55) saturate(1.05)'
+      : 'blur(0px) brightness(0.9) saturate(1)',
+    transform: blurBg ? 'scale(1.06)' : 'scale(1)',
     transition: 'filter 140ms linear, transform 140ms linear',
     animation: 'heroImgIn 1600ms ease both',
   } as const;
