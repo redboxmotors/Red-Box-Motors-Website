@@ -178,7 +178,9 @@
       "Bash(sips -g pixelWidth -g pixelHeight -g orientation \"/Users/user/Downloads/RBR 2024 Front_-11.JPG\")",
       "Bash(sips -s format jpeg -s formatOptions 86 --resampleWidth 2400 \"/Users/user/Downloads/RBR 2024 Front_-11.JPG\" --out public/assets/dealer-trust.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight public/assets/dealer-trust.jpg)",
-      "Bash(pkill -f \"next start\")"
+      "Bash(pkill -f \"next start\")",
+      "Bash(lsof -nP -iTCP:3111 -sTCP:LISTEN)",
+      "Bash(pkill -f next-server)"
     ]
   }
 }
