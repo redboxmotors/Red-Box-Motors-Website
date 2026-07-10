@@ -123,7 +123,7 @@ function SectionHeader({ eyebrow, title, blurb }: { eyebrow: string; title: stri
 
 
 export default async function DealerPage() {
-  const salePreview = await getSurfaceCards('dealer_forsale_preview', 3);
+  const salePreview = await getSurfaceCards('dealer_forsale_preview', 4);
 
   return (
     <>
