@@ -341,34 +341,8 @@ export default async function DealerInventoryPage({
         </HeroSection>
 
         <ExpandingScrollBox>
-          {/* —— Photo header (video moved to the page hero, owner 2026-07-10) —— */}
-          <div className="relative h-[500px] overflow-hidden md:h-[540px]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/assets/inventory-represented.jpg"
-              alt="Aston Martin Valkyrie pair represented by Red Box Motors, Austin TX"
-              className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 45%' }}
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
-            <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-12 pb-[30px]">
-              <p className="mb-0 max-w-[640px] text-[15px] leading-relaxed tracking-[0.2px] text-[#c4c4c4] [text-shadow:0_1px_20px_rgba(0,0,0,0.7)]">
-                Each represented vehicle is presented with available specifications, history,
-                condition information and supporting documentation so buyers can make an
-                informed decision.
-              </p>
-              <Link
-                href="/dealer"
-                className="inline-flex items-center gap-[9px] whitespace-nowrap text-[12.5px] tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white"
-              >
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-                  <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.3" />
-                </svg>
-                Sales &amp; Consignment overview
-              </Link>
-            </div>
-          </div>
-
+          {/* photo header removed (owner 2026-07-10) — the box opens straight
+              into the inventory; the video hero above carries the page intro */}
           {/* —— Toolbar (functional filter + sort) —— */}
           <InventoryToolbar
             makes={makes}
