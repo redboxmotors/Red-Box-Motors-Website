@@ -69,6 +69,7 @@ export function PhotoManager({
           const stamp = Date.now().toString(36);
           const safe = file.name.toLowerCase().replace(/[^a-z0-9.]+/g, '-');
           const base = safe.replace(/\.[a-z0-9]+$/, '');
+          const dims = await imageDims(file);
           const thumbBlob = await makeThumb(file, 480);
           const thumbPath = `${parentType}/${parentId}/${stamp}-thumb-${base}.jpg`;
 
@@ -110,6 +111,9 @@ export function PhotoManager({
             url,
             thumb_url: thumbUrl,
             alt: defaultAlt,
+            // stored-rendition dims (portrait photos keep height > width)
+            width: dims && !useOriginal ? Math.round(dims.w * Math.min(1, DISPLAY_WIDTH / dims.w)) : dims?.w ?? null,
+            height: dims && !useOriginal ? Math.round(dims.h * Math.min(1, DISPLAY_WIDTH / dims.w)) : dims?.h ?? null,
           });
           setImages((imgs) => [...imgs, record as DbImage]);
           setUploads((u) => u.filter((x) => x.name !== file.name));
@@ -159,7 +163,7 @@ export function PhotoManager({
       >
         <p className="text-[13px] font-medium text-rb-tx-faint">
           Drop photos here or <span className="text-rb-tx-2 underline underline-offset-4">browse</span>
-          <span className="rb-mono-caption ml-2">jpeg / png / webp / avif · originals ≤40 MB · stored at 2560px</span>
+          <span className="rb-mono-caption ml-2">jpeg / png / webp / avif · originals ≤40 MB · stored at 2560px · vertical (9:16) photos welcome</span>
         </p>
         <input
           ref={inputRef}
@@ -295,7 +299,7 @@ function PhotoCard({
           <img
             src={img.thumb_url ?? img.url}
             alt={img.alt}
-            className="aspect-video w-full object-cover"
+            className={`${isPortrait(img) ? 'aspect-[9/16]' : 'aspect-video'} w-full object-cover`}
             style={{ objectPosition: `${img.focal_x * 100}% ${img.focal_y * 100}%` }}
           />
         </button>
@@ -390,6 +394,24 @@ function FocalPicker({
       </div>
     </div>
   );
+}
+
+// Vertical photos (owner 2026-07-13): dims travel with each upload so admin
+// and site can render portrait shots in a 9:16 frame instead of cropping
+// them into 16:9. Pre-patch rows have no dims and stay landscape.
+function isPortrait(img: DbImage) {
+  return img.width != null && img.height != null && img.height > img.width;
+}
+
+async function imageDims(file: File): Promise<{ w: number; h: number } | null> {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const d = { w: bitmap.width, h: bitmap.height };
+    bitmap.close();
+    return d;
+  } catch {
+    return null;
+  }
 }
 
 // Canvas thumbnail derivative (~480px wide JPEG) generated client-side on

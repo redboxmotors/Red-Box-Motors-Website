@@ -106,6 +106,12 @@ const stripeStyle = {
     'repeating-linear-gradient(135deg,#171717 0,#171717 11px,#101010 11px,#101010 22px)',
 };
 
+// Vertical (portrait) uploads carry width/height since the 2026-07-13 patch;
+// older rows have none and are treated as landscape.
+function isPortrait(img: DbImage | null | undefined) {
+  return !!img && img.width != null && img.height != null && img.height > img.width;
+}
+
 function CollagePhoto({ image, alt }: { image: DbImage; alt: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -129,7 +135,10 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
   const hashtags = hashtagsFor(p);
   const paras = storyParas(p);
   const sideShots = Array.from({ length: 4 }, (_, i) => images[i + 1] ?? null);
-  const wideShot = images[5] ?? null;
+  // The closing band is a 21:8 panorama — a vertical photo would lose almost
+  // everything to the crop, so prefer the first unused landscape shot.
+  const wideShot = images.slice(5).find((i) => !isPortrait(i)) ?? images[5] ?? null;
+  const heroPortrait = isPortrait(images[0]);
 
   const facts = [
     { label: 'Finish', value: p.finish },
@@ -203,7 +212,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
               <div className="mt-6 grid grid-cols-1 gap-0.5 md:grid-cols-[1.55fr_1fr]">
                 {/* big hero */}
                 <div
-                  className={`${heroCellCls} flex aspect-[4/3] items-center justify-center`}
+                  className={`${heroCellCls} flex ${heroPortrait ? 'aspect-[3/4]' : 'aspect-[4/3]'} items-center justify-center`}
                   style={images[0] ? undefined : stripeStyle}
                 >
                   {images[0] ? (

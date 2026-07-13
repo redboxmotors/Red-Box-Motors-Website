@@ -119,6 +119,10 @@ export interface DbImage {
   focal_y: number;
   sort_order: number;
   is_hero: boolean;
+  // pixel dims of the stored rendition; null on uploads that predate the
+  // 2026-07-13 patch. height > width marks a vertical (portrait) photo.
+  width?: number | null;
+  height?: number | null;
   created_at: string;
 }
 

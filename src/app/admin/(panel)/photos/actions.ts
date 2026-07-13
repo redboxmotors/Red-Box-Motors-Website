@@ -23,6 +23,8 @@ export async function addImage(input: {
   url: string;
   thumb_url: string | null;
   alt: string;
+  width?: number | null;
+  height?: number | null;
 }) {
   const { supabase } = await requireUser();
   assertStorageUrl(input.url);
@@ -35,17 +37,19 @@ export async function addImage(input: {
     .eq('parent_type', input.parent_type)
     .eq('parent_id', input.parent_id);
 
-  const { data, error } = await supabase
-    .from('images')
-    .insert({
-      ...input,
-      alt: input.alt.slice(0, 300),
-      sort_order: count ?? 0,
-      is_hero: (count ?? 0) === 0,
-    })
-    .select('*')
-    .single();
-
+  const row = {
+    ...input,
+    alt: input.alt.slice(0, 300),
+    sort_order: count ?? 0,
+    is_hero: (count ?? 0) === 0,
+  };
+  let { data, error } = await supabase.from('images').insert(row).select('*').single();
+  if (error && /width|height/.test(error.message)) {
+    // width/height columns missing — 2026-07-13-image-dimensions.sql not run
+    // yet. Insert without them so uploads keep working.
+    const { width: _w, height: _h, ...legacy } = row;
+    ({ data, error } = await supabase.from('images').insert(legacy).select('*').single());
+  }
   if (error) throw new Error(error.message);
   revalidatePublic();
   return data;
