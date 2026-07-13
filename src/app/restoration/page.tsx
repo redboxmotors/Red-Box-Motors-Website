@@ -81,7 +81,7 @@ const SERVICES: {
     paras: [
       'Ceramic coating creates a durable, hydrophobic layer that chemically bonds to the prepared surface. It enhances depth and gloss while helping protect against ultraviolet exposure, road grime, environmental contamination and chemical staining. The slick surface also reduces contamination buildup and makes routine washing and drying considerably easier.',
       'Every coating installation begins with proper surface preparation, including washing, chemical and mechanical decontamination and paint correction where needed. The coating is then carefully applied and leveled in a controlled environment before the vehicle is inspected under specialized lighting to confirm even coverage and finish quality.',
-      'Protection is available for paint, paint protection film, wheels, calipers, exterior glass and interior surfaces. Multiple coating levels are available based on the vehicle, intended use and desired term of protection.',
+      'Protection is available for paint, paint protection film, wheels, exterior glass and interior surfaces. Multiple coating levels are available based on the vehicle, intended use and desired term of protection.',
     ],
     img: {
       src: '/assets/resto-ceramic.jpg',
@@ -106,24 +106,8 @@ const SERVICES: {
     },
   },
   {
-    id: 'tint',
-    num: '05',
-    title: 'Window Tint',
-    tags: ['Heat Rejection', 'UV Protection', 'Clean Installation'],
-    paras: [
-      'Professional window tint improves cabin comfort, reduces glare and helps protect interior materials from damaging ultraviolet exposure. Premium film options provide strong heat rejection and optical clarity without relying on a dark appearance alone.',
-      'Each installation is precision-cut for the vehicle and completed with careful attention to glass preparation, alignment and finished edges. Film shade and performance options are reviewed with the customer to select the appropriate balance of appearance, privacy, heat rejection and legal compliance.',
-      'Existing tint removal, side and rear glass coverage and windshield-film options are available depending on the vehicle and applicable regulations.',
-    ],
-    img: {
-      src: '/assets/placeholders/window-tint.jpg',
-      alt: 'Window tint installation at Red Box Restoration',
-      placeholder: true,
-    },
-  },
-  {
     id: 'detailing',
-    num: '06',
+    num: '05',
     title: 'Detailing and Vehicle Care',
     tags: ['Safe Washing', 'Deep Cleaning', 'Ongoing Preservation'],
     paras: [
@@ -139,12 +123,12 @@ const SERVICES: {
   },
   {
     id: 'wheels',
-    num: '07',
-    title: 'Wheels, Tires and Calipers',
+    num: '06',
+    title: 'Wheels and Tires',
     tags: ['Custom Fitment', 'Refinishing', 'Protection'],
     paras: [
       "The right wheel and tire package can completely change a vehicle's appearance, stance and driving character. Red Box Restoration helps clients select the proper wheel size, offset, finish and tire specification to achieve the desired look while maintaining appropriate clearance, fitment and functionality.",
-      'Services include wheel and tire sourcing, custom fitment consultation, professional mounting and balancing, center-lock handling, wheel repair and refinishing coordination, custom finishes, caliper refinishing and wheels-off ceramic protection.',
+      'Services include wheel and tire sourcing, custom fitment consultation, professional mounting and balancing, center-lock handling, wheel repair and refinishing coordination, custom finishes and wheels-off ceramic protection.',
       "Every installation is completed with attention to vehicle-specific mounting procedures and final fitment. Where specialized repair or finishing is required, Red Box Restoration manages the project through trusted specialty partners and remains the client's point of contact from removal through final installation.",
     ],
     img: {
@@ -155,7 +139,7 @@ const SERVICES: {
   },
   {
     id: 'specialty',
-    num: '08',
+    num: '07',
     title: 'Specialty Automotive Installations',
     tags: ['Aero', 'Appearance Components', 'Vehicle-Specific Upgrades'],
     paras: [
@@ -189,13 +173,12 @@ const PROCESS = [
 ] as const;
 
 // Sticky jump menu targets (owner checklist: PPF | Correction | Coatings |
-// Wraps | Tint | Detailing | Wheels).
+// Wraps | Detailing | Wheels).
 const JUMP = [
   ['ppf', 'PPF'],
   ['correction', 'Correction'],
   ['coatings', 'Coatings'],
   ['wraps', 'Wraps'],
-  ['tint', 'Tint'],
   ['detailing', 'Detailing'],
   ['wheels', 'Wheels'],
   ['specialty', 'Specialty'],
@@ -224,7 +207,7 @@ export default async function RestorationPage() {
       <SchemaScript
         schema={serviceSchema(
           'Protection, Restoration and Customization. Done Right.',
-          'Paint protection film, paint correction, ceramic coatings, vinyl wraps, window tint, detailing and wheel services in Austin, TX.',
+          'Paint protection film, paint correction, ceramic coatings, vinyl wraps, detailing and wheel services in Austin, TX.',
           '/restoration',
         )}
       />
