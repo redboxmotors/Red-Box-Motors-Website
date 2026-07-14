@@ -148,9 +148,9 @@ const SERVICES: {
       'Projects requiring drilling, trimming, custom brackets, wiring, fabrication or correction of manufacturer-related fitment issues are evaluated and approved before additional work is performed.',
     ],
     img: {
-      src: '/assets/placeholders/specialty-install.jpg',
-      alt: 'Carbon-fiber aero component installation at Red Box Restoration',
-      placeholder: true,
+      src: '/assets/resto-specialty.jpg',
+      alt: 'Carbon-fiber grille and front aero installed on a BMW M4 at Red Box Restoration',
+      pos: 'center 48%',
     },
   },
 ];
