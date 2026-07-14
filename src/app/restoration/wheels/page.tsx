@@ -387,7 +387,7 @@ export default function WheelsPage() {
                 src="/assets/get-in-touch.jpeg"
                 alt="Book wheel refinishing"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 64%' }}
+                style={{ objectPosition: 'center 52%' }}
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_55%,rgba(10,10,10,0.55)_82%,rgba(10,10,10,0.95)_100%)]" />

@@ -101,7 +101,7 @@ export function ContactModalProvider({
                 src="/assets/get-in-touch.jpeg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 64%' }}
+                style={{ objectPosition: 'center 52%' }}
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,17,17,0)_55%,rgba(17,17,17,0.45)_84%,#111_100%)]" />
               <div className="absolute bottom-0 left-0 px-7 py-6">

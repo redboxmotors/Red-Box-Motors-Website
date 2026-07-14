@@ -434,7 +434,7 @@ export function ServiceScrollPage({
                 src="/assets/get-in-touch.jpeg"
                 alt={c.cta.photoAlt}
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 64%' }}
+                style={{ objectPosition: 'center 52%' }}
               />
               <div
                 className="absolute inset-0"

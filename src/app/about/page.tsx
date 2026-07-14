@@ -322,7 +322,7 @@ export default function AboutPage() {
                 src="/assets/get-in-touch.jpeg"
                 alt="Red Box Motors facility, Austin TX"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 64%' }}
+                style={{ objectPosition: 'center 52%' }}
                 loading="lazy"
               />
               <div

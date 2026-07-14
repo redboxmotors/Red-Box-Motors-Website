@@ -63,10 +63,10 @@ export default async function RecentWorkPage() {
           <div className="relative h-[400px] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/tell-us-car.jpg"
-              alt="Recent work by Red Box Motors, Austin TX"
+              src="/assets/work-intro.jpg"
+              alt="Kenwood-liveried group C race car restored through Red Box Motors, Austin TX"
               className="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: 'center 54%' }}
+              style={{ objectPosition: 'center 42%' }}
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
             <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-end justify-between gap-6 px-6 pb-[34px] md:px-12">
@@ -113,10 +113,10 @@ export default async function RecentWorkPage() {
               <div className="relative min-h-[480px] min-w-[300px] flex-[1.05] overflow-hidden md:min-h-[620px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/assets/placeholders/detail-bay.jpg"
-                  alt="Start a project with Red Box Motors"
+                  src="/assets/work-bring-us.jpg"
+                  alt="Wrapped F-150 in the Red Box Restoration bay, Austin TX"
                   className="absolute inset-0 h-full w-full object-cover"
-                  style={{ objectPosition: 'center 54%' }}
+                  style={{ objectPosition: '46% center' }}
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,16,16,0.15)_0%,rgba(16,16,16,0.5)_60%,rgba(16,16,16,0.95)_100%)]" />
                 <div className="absolute bottom-0 left-0 px-7 py-6">

@@ -347,7 +347,7 @@ export default function CustomBuildsPage() {
                 src="/assets/get-in-touch.jpeg"
                 alt="Start a custom build"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: 'center 64%' }}
+                style={{ objectPosition: 'center 52%' }}
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,16,16,0)_55%,rgba(16,16,16,0.55)_82%,rgba(16,16,16,0.95)_100%)]" />
