@@ -280,10 +280,10 @@ export default async function RestorationPage() {
         <div className="relative h-[400px] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/assets/resto-intro.jpg"
-            alt="McLaren 765LT in the Red Box Restoration wash bay, Austin TX"
+            src="/assets/resto-bring-us.jpg"
+            alt="Red Box Restoration shop floor, GT3 RS in for paint protection film"
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: 'center 55%' }}
+            style={{ objectPosition: 'center 62%' }}
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.10)_0%,rgba(10,10,10,0.04)_40%,rgba(10,10,10,0.55)_74%,rgba(10,10,10,0.92)_92%,#0A0A0A_100%)]" />
         </div>
@@ -473,10 +473,10 @@ export default async function RestorationPage() {
             <div className="relative min-h-[340px] min-w-0 flex-[1.05] overflow-hidden md:min-h-[600px]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/resto-bring-us.jpg"
-                alt="Red Box Restoration shop floor, GT3 RS in for paint protection film"
+                src="/assets/resto-intro.jpg"
+                alt="McLaren 765LT in the Red Box Restoration wash bay, Austin TX"
                 className="absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: '45% center' }}
+                style={{ objectPosition: '48% center' }}
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0)_55%,rgba(10,10,10,0.55)_82%,rgba(10,10,10,0.95)_100%)]" />
