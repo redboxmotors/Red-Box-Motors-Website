@@ -181,7 +181,15 @@
       "Bash(pkill -f \"next start\")",
       "Bash(lsof -nP -iTCP:3111 -sTCP:LISTEN)",
       "Bash(pkill -f next-server)",
-      "Bash(sips -g pixelWidth -g pixelHeight -g orientation \"/Users/user/Desktop/Screenshot 2026-07-14 at 9.59.13 AM.png\")"
+      "Bash(sips -g pixelWidth -g pixelHeight -g orientation \"/Users/user/Desktop/Screenshot 2026-07-14 at 9.59.13 AM.png\")",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/user/Desktop/PHOTOS/Web Pics/11.jpg\" \"/Users/user/Desktop/PHOTOS/Web Pics/25.jpg\")",
+      "Bash(sips -s format jpeg -s formatOptions 86 --resampleWidth 2400 \"/Users/user/Desktop/PHOTOS/Web Pics/25.jpg\" --out public/assets/work-intro.jpg)",
+      "Bash(sips -s format jpeg -s formatOptions 86 --resampleWidth 2400 \"/Users/user/Desktop/PHOTOS/Web Pics/11.jpg\" --out public/assets/work-bring-us.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight \"/Users/user/Desktop/PHOTOS/red photoes/A015_C078_0629WC.0000063.jpeg\")",
+      "Bash(cp \"/Users/user/Desktop/PHOTOS/red photoes/A015_C078_0629WC.0000063.jpeg\" /tmp/git-contact-src.jpeg)",
+      "Bash(sips -c 4147 3240 --cropOffset 1613 0 \"/Users/user/Desktop/PHOTOS/red photoes/A015_C078_0629WC.0000063.jpeg\" --out public/assets/get-in-touch.jpeg)",
+      "Bash(sips --resampleHeight 2200 -s format jpeg -s formatOptions 86 public/assets/get-in-touch.jpeg --out public/assets/get-in-touch.jpeg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/get-in-touch.jpeg)"
     ]
   }
 }
