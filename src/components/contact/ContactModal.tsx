@@ -72,7 +72,7 @@ export function ContactModalProvider({
       {children}
       {open && (
         <div
-          className="fixed inset-0 z-[900] flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-[900] flex items-center justify-center p-0 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-label="Contact Red Box Motors"
@@ -88,7 +88,7 @@ export function ContactModalProvider({
           <div
             ref={panelRef}
             tabIndex={-1}
-            className="relative z-[1] flex max-h-[92vh] w-full max-w-[960px] animate-rb-panel-in overflow-hidden bg-rb-surface outline-none"
+            className="relative z-[1] flex h-[100dvh] max-h-[100dvh] w-full max-w-[960px] animate-rb-panel-in overflow-hidden bg-rb-surface outline-none sm:h-auto sm:max-h-[92vh]"
             style={{ boxShadow: '0 60px 140px rgba(0,0,0,0.9), 0 10px 40px rgba(0,0,0,0.6)' }}
           >
             {/* red signature strip */}
@@ -114,12 +114,12 @@ export function ContactModalProvider({
             </div>
 
             {/* form column */}
-            <div className="rb-noscrollbar relative min-w-0 flex-1 overflow-y-auto px-6 pb-9 pt-9 sm:px-9 md:px-11 md:pb-11">
+            <div className="rb-noscrollbar relative min-w-0 flex-1 overflow-y-auto px-6 pb-9 sm:px-9 md:px-11 md:pb-11" style={{ paddingTop: 'max(env(safe-area-inset-top), 36px)', paddingBottom: 'max(env(safe-area-inset-bottom), 36px)' }}>
               <button
                 type="button"
                 onClick={close}
                 aria-label="Close"
-                className="rb-btn absolute right-4 top-4 z-[2] flex h-10 w-10 flex-none items-center justify-center bg-rb-raised-3 text-rb-tx-2 hover:bg-rb-raised hover:text-white"
+                className="rb-btn absolute right-3 z-[2] flex h-11 w-11 flex-none items-center justify-center bg-rb-raised-3 text-rb-tx-2 hover:bg-rb-raised hover:text-white sm:right-4 sm:top-4" style={{ top: 'max(env(safe-area-inset-top), 12px)' }}
               >
                 <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden>
                   <path d="M3 3L13 13M13 3L3 13" stroke="currentColor" strokeWidth="1.4" />

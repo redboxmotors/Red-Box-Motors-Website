@@ -257,12 +257,17 @@ export function SellForm({ phone }: { phone: string | null }) {
                 onClick={() => reachable && goTo(i)}
                 aria-label={`${title}${i === step ? ' (current step)' : ''}`}
                 aria-current={i === step ? 'step' : undefined}
-                className="h-[3px] flex-1 transition-colors duration-200 disabled:cursor-default"
-                style={{
-                  background: i < step ? '#CC0000' : i === step ? '#CC0000' : reachable ? '#3a3a3a' : '#1c1c1c',
-                  opacity: i === step ? 1 : i < step ? 0.55 : 1,
-                }}
-              />
+                className="flex h-11 flex-1 items-center transition-colors duration-200 disabled:cursor-default"
+              >
+                {/* thin visual bar inside a 44px-tall tap target */}
+                <span
+                  className="block h-[3px] w-full"
+                  style={{
+                    background: i < step ? '#CC0000' : i === step ? '#CC0000' : reachable ? '#3a3a3a' : '#1c1c1c',
+                    opacity: i === step ? 1 : i < step ? 0.55 : 1,
+                  }}
+                />
+              </button>
             );
           })}
         </div>
@@ -290,9 +295,9 @@ export function SellForm({ phone }: { phone: string | null }) {
                 placeholder="Last name" {...bind('contact', contact, setContact, 'last_name')} />
             </div>
             <div className="grid gap-0.5 sm:grid-cols-2">
-              <TextField id="sf-contact-email" label="Email" type="email" autoComplete="email"
+              <TextField id="sf-contact-email" label="Email" type="email" inputMode="email" autoComplete="email"
                 placeholder="you@email.com" {...bind('contact', contact, setContact, 'email')} />
-              <TextField id="sf-contact-phone" label="Phone" type="tel" autoComplete="tel"
+              <TextField id="sf-contact-phone" label="Phone" type="tel" inputMode="tel" autoComplete="tel"
                 placeholder="(512) 555-0000" {...bind('contact', contact, setContact, 'phone')} />
             </div>
             <ChipGroup label="Preferred contact method" options={CONTACT_METHODS}

@@ -383,3 +383,11 @@ a[data-nav-u][data-active='1'] [data-nav-bar] {
     animation: none;
   }
 }
+
+/* Fixed corner CTAs clear the iOS home indicator (mobile pass 2026-07-17) */
+.rb-corner-cta {
+  bottom: max(env(safe-area-inset-bottom), 18px);
+}
+@media (min-width: 768px) {
+  .rb-corner-cta { bottom: 26px; }
+}

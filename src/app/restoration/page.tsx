@@ -202,6 +202,8 @@ export default async function RestorationPage() {
     <ScrollShell
       bg="/assets/restoration-hero-poster.jpg"
       bgVideo="/assets/restoration-hero.mp4"
+      bgVideoMobile="/assets/restoration-hero-m.mp4"
+      bgMobile="/assets/restoration-hero-poster-m.jpg"
       bgPosition="center 55%"
     >
       <SchemaScript
@@ -314,7 +316,7 @@ export default async function RestorationPage() {
                 key={id}
                 href={`#${id}`}
                 aria-label={`Jump to ${label}`}
-                className="whitespace-nowrap px-3 py-3.5 text-[11.5px] font-semibold uppercase tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white focus-visible:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-rb-red"
+                className="inline-flex min-h-[44px] items-center whitespace-nowrap px-3 py-3.5 text-[11.5px] font-semibold uppercase tracking-[1.5px] text-rb-tx-mute transition-colors duration-150 hover:text-white focus-visible:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-rb-red"
               >
                 {label}
               </a>
@@ -491,7 +493,7 @@ export default async function RestorationPage() {
               <div className={`mb-[22px] ${eyebrowCls}`}>,  Start a project</div>
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
-                style={{ fontSize: 'clamp(40px, 5.4vw, 80px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
+                style={{ fontSize: 'clamp(34px, 5.4vw, 80px)', letterSpacing: '-0.04em', lineHeight: 0.96 }}
               >
                 Bring us the car.
               </h2>

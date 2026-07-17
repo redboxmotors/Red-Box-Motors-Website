@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Archivo } from 'next/font/google';
 import './globals.css';
 import { FilmGrain } from '@/components/motion/FilmGrain';
@@ -36,6 +36,16 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
   },
+};
+
+// viewportFit: 'cover' is required for env(safe-area-inset-*) to resolve to
+// real values on iOS notch/home-indicator devices — the fixed nav, contact
+// modal and floating CTAs all lean on those insets (mobile pass 2026-07-17).
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#050505',
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

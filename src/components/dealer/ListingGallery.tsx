@@ -1,19 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 // Car Detail photo gallery (Car Detail.dc.html): 16/9 main frame with
 // prev/next zones + a thumb strip. Photos come from the CMS
 // (getImagesFor('listing', id)) — with none yet, a striped placeholder
 // with the prototype's mono [ tag ] label renders instead.
 
-export type GalleryImage = { url: string; alt: string; position: string };
+export type GalleryImage = { url: string; alt: string; position: string; thumb?: string | null };
 
 const pad2 = (x: number) => String(x + 1).padStart(2, '0');
 
 export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: string }) {
   const [idx, setIdx] = useState(0);
   const n = images.length;
+  // touch swipe on the main frame (mobile pass 2026-07-17)
+  const touchX = useRef<number | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchX.current == null || n < 2) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    touchX.current = null;
+    if (Math.abs(dx) > 40) setIdx((i) => (dx < 0 ? (i + 1) % n : (i - 1 + n) % n));
+  };
 
   if (n === 0) {
     return (
@@ -36,7 +47,11 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
 
   return (
     <div>
-      <div className="relative flex aspect-video w-full items-center justify-center overflow-hidden bg-[#1A1A1A]">
+      <div
+        className="relative flex aspect-video w-full touch-pan-y items-center justify-center overflow-hidden bg-[#1A1A1A]"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={cur.url}
@@ -50,7 +65,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
               type="button"
               aria-label="Previous photo"
               onClick={() => setIdx((i) => (i - 1 + n) % n)}
-              className="absolute bottom-0 left-0 top-0 flex w-[90px] cursor-pointer items-center justify-center text-rb-tx-faint transition-[color,background] duration-150 hover:bg-[linear-gradient(90deg,rgba(0,0,0,0.4),transparent)] hover:text-white"
+              className="absolute bottom-0 left-0 top-0 flex w-[56px] cursor-pointer md:w-[90px] items-center justify-center text-rb-tx-faint transition-[color,background] duration-150 hover:bg-[linear-gradient(90deg,rgba(0,0,0,0.4),transparent)] hover:text-white"
             >
               <svg width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
                 <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.2" />
@@ -60,7 +75,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
               type="button"
               aria-label="Next photo"
               onClick={() => setIdx((i) => (i + 1) % n)}
-              className="absolute bottom-0 right-0 top-0 flex w-[90px] cursor-pointer items-center justify-center text-rb-tx-faint transition-[color,background] duration-150 hover:bg-[linear-gradient(270deg,rgba(0,0,0,0.4),transparent)] hover:text-white"
+              className="absolute bottom-0 right-0 top-0 flex w-[56px] cursor-pointer md:w-[90px] items-center justify-center text-rb-tx-faint transition-[color,background] duration-150 hover:bg-[linear-gradient(270deg,rgba(0,0,0,0.4),transparent)] hover:text-white"
             >
               <svg width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
                 <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="1.2" />
@@ -73,7 +88,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
         )}
       </div>
       {n > 1 && (
-        <div className="mt-0.5 flex gap-0.5">
+        <div className="rb-noscrollbar mt-0.5 flex gap-0.5 overflow-x-auto">
           {images.map((img, i) => {
             const active = i === ((idx % n) + n) % n;
             return (
@@ -83,7 +98,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
                 aria-label={`Photo ${pad2(i)}`}
                 aria-current={active || undefined}
                 onClick={() => setIdx(i)}
-                className={`relative aspect-video flex-1 cursor-pointer overflow-hidden bg-rb-raised-3 transition-[filter,outline-color,transform,box-shadow] duration-[220ms] ease-rb hover:z-[5] hover:-translate-y-[3px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.55)] hover:brightness-100 ${
+                className={`relative aspect-video w-[78px] flex-none cursor-pointer overflow-hidden bg-rb-raised-3 md:w-auto md:flex-1 transition-[filter,outline-color,transform,box-shadow] duration-[220ms] ease-rb hover:z-[5] hover:-translate-y-[3px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.55)] hover:brightness-100 ${
                   active
                     ? 'outline outline-1 outline-[#555] brightness-100'
                     : 'outline outline-1 outline-transparent brightness-[0.55]'
@@ -91,7 +106,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={img.url}
+                  src={img.thumb ?? img.url}
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover"
                   style={{ objectPosition: img.position }}

@@ -329,6 +329,7 @@ export default async function DealerInventoryPage({
       <ScrollShell
         bg="/assets/hero-brabus-poster.jpg"
         bgVideo="/assets/hero-brabus.mp4"
+        bgMobile="/assets/hero-brabus-poster-m.jpg"
         bgPosition="center 58%"
         scrub={false}
       >
@@ -353,20 +354,20 @@ export default async function DealerInventoryPage({
 
           {/* —— Roster grid —— */}
           {roster.length > 0 ? (
-            <div className="mx-12 grid grid-cols-1 gap-1.5 bg-black p-1.5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mx-3 grid grid-cols-1 gap-1.5 bg-black p-1.5 md:mx-12 md:grid-cols-2 lg:grid-cols-3">
               {roster.map((l) => (
                 <RosterCard key={l.id} listing={l} image={heroFor(heroes, 'listing', l.id)} />
               ))}
             </div>
           ) : forSale.length > 0 ? (
-            <div className="mx-12 bg-black px-6 py-[60px] text-center">
+            <div className="mx-3 bg-black px-6 py-[60px] text-center md:mx-12">
               <div className="mb-1.5 text-[16px] tracking-[0.3px] text-rb-tx-mute-2">
                 No vehicles match this filter.
               </div>
               <div className="text-[13px] text-rb-tx-faint-2">Try a different make.</div>
             </div>
           ) : (
-            <div className="mx-12 bg-black px-6 py-[60px] text-center">
+            <div className="mx-3 bg-black px-6 py-[60px] text-center md:mx-12">
               <div className="mb-1.5 text-[16px] tracking-[0.3px] text-rb-tx-mute-2">
                 No vehicles are listed right now.
               </div>
@@ -376,7 +377,7 @@ export default async function DealerInventoryPage({
 
           {/* —— Recently sold: roster-style cards directly below inventory —— */}
           {SHOW_SOLD_PIPELINE && soldShown.length > 0 && (
-            <div className="mx-12 mt-10">
+            <div className="mx-3 mt-10 md:mx-12">
               <div data-reveal className="mb-6 flex flex-wrap items-baseline gap-x-5 gap-y-1">
                 <h2
                   className="m-0 font-bold leading-none text-white"
@@ -399,7 +400,7 @@ export default async function DealerInventoryPage({
           {/* —— The pipeline: arriving —— */}
           {hasPipeline && (
             <div
-              className="mt-14 px-12 py-14"
+              className="mt-14 px-3 py-14 md:px-12"
               style={{
                 background: 'linear-gradient(180deg,#0A0A0A 0px,#151515 160px)',
                 boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03)',
@@ -522,7 +523,7 @@ export default async function DealerInventoryPage({
               <h2
                 className="m-0 max-w-[14ch] font-extrabold text-white"
                 style={{
-                  fontSize: 'clamp(42px,5.6vw,84px)',
+                  fontSize: 'clamp(34px,5.6vw,84px)',
                   letterSpacing: '-0.04em',
                   lineHeight: 0.96,
                 }}
@@ -563,7 +564,7 @@ export default async function DealerInventoryPage({
 
       {/* —— Floating contact —— */}
       <ContactLink
-        className="fixed bottom-[26px] right-[26px] z-40 flex items-center gap-[11px] border border-rb-border-2 bg-rb-surface px-[18px] py-[13px] transition-[border-color,background,transform,box-shadow] duration-[220ms] ease-rb hover:-translate-y-[3px] hover:border-rb-tx-faint-2 hover:bg-rb-raised hover:shadow-[0_14px_30px_rgba(0,0,0,0.55)] active:translate-y-0 active:scale-[0.98]"
+        className="rb-corner-cta fixed right-[18px] z-40 md:right-[26px] flex items-center gap-[11px] border border-rb-border-2 bg-rb-surface px-[18px] py-[13px] transition-[border-color,background,transform,box-shadow] duration-[220ms] ease-rb hover:-translate-y-[3px] hover:border-rb-tx-faint-2 hover:bg-rb-raised hover:shadow-[0_14px_30px_rgba(0,0,0,0.55)] active:translate-y-0 active:scale-[0.98]"
       >
         <span className="h-[7px] w-[7px] flex-none bg-rb-red" />
         <span className="text-[12px] tracking-[1.5px] text-white">Contact</span>

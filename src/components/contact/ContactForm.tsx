@@ -223,6 +223,7 @@ export function ContactForm({
             id="cf-email"
             name="email"
             type="email"
+            inputMode="email"
             autoComplete="email"
             placeholder="you@email.com"
             value={email}
@@ -257,7 +258,7 @@ export function ContactForm({
                       setInterest(it);
                       clearError('interest');
                     }}
-                    className="whitespace-nowrap px-3.5 py-2 text-[12px] font-medium tracking-[0.5px] active:scale-[0.96]"
+                    className="min-h-[44px] whitespace-nowrap px-3.5 py-2 text-[12px] font-medium tracking-[0.5px] active:scale-[0.96]"
                     style={{
                       border: '1px solid',
                       borderColor: active ? '#CC0000' : '#2a2a2a',
@@ -296,6 +297,7 @@ export function ContactForm({
             id="cf-phone"
             name="phone"
             type="tel"
+            inputMode="tel"
             autoComplete="tel"
             placeholder="Your phone number"
             value={phone}

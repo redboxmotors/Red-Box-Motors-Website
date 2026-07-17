@@ -42,7 +42,7 @@ export function InventoryToolbar({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-5 px-12 pb-5 pt-7">
+    <div className="flex flex-wrap items-center justify-between gap-4 px-3 pb-5 pt-6 md:gap-5 md:px-12 md:pt-7">
       <div className="rb-noscrollbar flex min-w-0 items-center gap-2 overflow-x-auto">
         {['All', ...makes].map((m) => {
           const active = activeMake === m;
@@ -52,7 +52,7 @@ export function InventoryToolbar({
               type="button"
               aria-pressed={active}
               onClick={() => apply(m, sortKey)}
-              className={`flex-none cursor-pointer whitespace-nowrap border px-3.5 py-2 text-[11px] uppercase tracking-[1.5px] transition-colors duration-150 active:scale-[0.96] ${
+              className={`min-h-[44px] flex-none cursor-pointer whitespace-nowrap border px-3.5 py-2 text-[11px] uppercase tracking-[1.5px] transition-colors duration-150 active:scale-[0.96] ${
                 active
                   ? 'border-white bg-rb-raised-3 text-white'
                   : 'border-[#1f1f1f] bg-transparent text-rb-tx-mute-2'

@@ -140,11 +140,13 @@ export default async function DealerPage() {
         <ExpandingScrollBox>
           {/* VIDEO HEADER — Lambo Rollers clip with the page headline
               (replaces the removed hero + 918 photo, owner 2026-07-10) */}
-          <div className="relative h-[560px] overflow-hidden md:h-[620px]">
+          <div className="relative h-[380px] overflow-hidden md:h-[620px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <BgVideo
               src="/assets/consign-rollers.mp4"
               poster="/assets/consign-rollers-poster.jpg"
+              mobileSrc="/assets/consign-rollers-m.mp4"
+              mobilePoster="/assets/consign-rollers-poster-m.jpg"
               className="absolute inset-0 h-full w-full"
               position="center 50%"
             />
@@ -266,7 +268,7 @@ export default async function DealerPage() {
             <div
               data-reveal
               style={{ transitionDelay: '.16s' }}
-              className="relative z-[2] -mb-24 mt-14 grid gap-1.5 px-6 sm:grid-cols-2 md:grid-cols-3 md:px-[52px] xl:grid-cols-5"
+              className="relative z-[2] -mb-10 mt-10 grid gap-1.5 px-4 sm:grid-cols-2 md:-mb-24 md:mt-14 md:grid-cols-3 md:px-[52px] xl:grid-cols-5"
             >
               {MORE_THAN_A_LISTING.map((item) => (
                 <div
@@ -632,7 +634,7 @@ export default async function DealerPage() {
       {/* STICKY INQUIRY CTA */}
       <Link
         href="/dealer/sell"
-        className="rb-btn-red fixed bottom-[26px] right-[26px] z-40 hidden items-center gap-[11px] bg-rb-red px-[22px] py-[15px] sm:flex shadow-[0_12px_30px_rgba(204,0,0,0.34)]"
+        className="rb-btn-red rb-corner-cta fixed right-[18px] z-40 md:right-[26px] hidden items-center gap-[11px] bg-rb-red px-[22px] py-[15px] sm:flex shadow-[0_12px_30px_rgba(204,0,0,0.34)]"
       >
         <span className="h-[7px] w-[7px] flex-none bg-white" />
         <span className="text-[12px] font-semibold tracking-[1.5px] text-white">Sell Your Vehicle</span>

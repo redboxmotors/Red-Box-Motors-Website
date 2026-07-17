@@ -65,8 +65,8 @@ export default async function ContactPage({
 
           <div className="grid gap-0.5 bg-black md:grid-cols-[1fr_1.1fr]">
             {/* LEFT — details */}
-            <div className="flex animate-rb-fade-up flex-col justify-center bg-rb-surface-3 px-8 py-12 md:px-[46px]">
-              <h1 className="mb-[18px] text-[40px] font-semibold leading-[1.05] tracking-tighter text-white">
+            <div className="flex animate-rb-fade-up flex-col justify-center bg-rb-surface-3 px-6 py-12 md:px-[46px]">
+              <h1 className="mb-[18px] text-[32px] font-semibold leading-[1.05] tracking-tighter text-white md:text-[40px]">
                 Let&rsquo;s talk
                 <br />
                 about the car.
@@ -89,7 +89,7 @@ export default async function ContactPage({
             </div>
 
             {/* RIGHT — form */}
-            <div className="flex animate-rb-fade-up flex-col justify-center bg-rb-surface px-8 py-12 [animation-delay:90ms] md:px-[46px]">
+            <div className="flex animate-rb-fade-up flex-col justify-center bg-rb-surface px-6 py-12 [animation-delay:90ms] md:px-[46px]">
               <ContactForm
                 sourcePage="/contact"
                 listingSlug={listing?.slug}

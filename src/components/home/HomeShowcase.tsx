@@ -136,6 +136,25 @@ export function HomeShowcase({
   // Full loader-synced timing on first load; a quick, tight stagger otherwise.
   const heroDelay = (full: number, quick: number) => (firstLoad ? full : quick);
 
+  // Backdrop video is resolved after mount (poster-first LCP). Phones hold the
+  // lighter poster with no heavy video download (mobile pass 2026-07-17).
+  const [bgVideoSrc, setBgVideoSrc] = useState<string | undefined>(undefined);
+  const [bgPoster, setBgPoster] = useState('/assets/dealer-hero-poster.jpg');
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const small = window.matchMedia('(max-width: 767px)').matches;
+    if (small) setBgPoster('/assets/dealer-hero-poster-m.jpg');
+    if (reduced || small) return; // hold the poster
+    setBgVideoSrc('/assets/dealer-hero.mp4');
+  }, []);
+  useEffect(() => {
+    const v = bgRef.current;
+    if (v && bgVideoSrc) {
+      v.muted = true;
+      v.play().catch(() => {});
+    }
+  }, [bgVideoSrc]);
+
   // Background scrub + top progress bar
   useEffect(() => {
     const sc = scrollerRef.current;
@@ -268,13 +287,13 @@ export function HomeShowcase({
           in; the scroll scrub blurs/dims it exactly like the old photo. */}
       <video
         ref={bgRef}
-        src="/assets/dealer-hero.mp4"
-        poster="/assets/dealer-hero-poster.jpg"
+        src={bgVideoSrc}
+        poster={bgPoster}
         autoPlay
         muted
         loop
         playsInline
-        preload="auto"
+        preload={bgVideoSrc ? 'auto' : 'none'}
         aria-hidden
         className="fixed inset-0 z-0 h-full w-full object-cover"
         style={{
@@ -295,11 +314,11 @@ export function HomeShowcase({
       />
 
       {/* ——— 1 · HERO ——— */}
-      <section className="relative z-[1] flex h-screen snap-start flex-col items-start justify-end overflow-hidden pb-[11vh] pl-[7vw]">
+      <section className="relative z-[1] flex h-screen snap-start flex-col items-start justify-end overflow-hidden pb-[11vh] pl-[7vw] pr-6 md:pr-0">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,8,0.30)_0%,rgba(8,8,8,0)_36%,rgba(6,6,6,0.55)_78%,rgba(5,5,5,0.9)_100%)]" />
-        <div className="relative z-[2] mb-6 inline-block overflow-hidden bg-rb-red px-[18px] py-[11px]">
+        <div className="relative z-[2] mb-6 inline-block max-w-full overflow-hidden bg-rb-red px-[14px] py-[10px] md:px-[18px] md:py-[11px]">
           <div
-            className="rb-hero-line whitespace-nowrap text-[13px] font-bold uppercase tracking-[4px] text-white"
+            className="rb-hero-line text-[11px] font-bold uppercase tracking-[2.5px] text-white md:whitespace-nowrap md:text-[13px] md:tracking-[4px]"
             style={{ transform: 'translateY(120%)', animation: `rbmLine .8s ${EASE} forwards ${heroDelay(1.65, 0.06)}s` }}
           >
             Red Box Motors · Austin TX
@@ -307,7 +326,7 @@ export function HomeShowcase({
         </div>
         <h1
           className="relative z-[2] m-0 font-extrabold text-white"
-          style={{ fontSize: 'clamp(38px,4.6vw,70px)', letterSpacing: '-0.04em', lineHeight: 0.96, textShadow: '0 1px 3px rgba(0,0,0,0.45)' }}
+          style={{ fontSize: 'clamp(32px,4.6vw,70px)', letterSpacing: '-0.04em', lineHeight: 0.96, textShadow: '0 1px 3px rgba(0,0,0,0.45)' }}
         >
           <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
             <span className="rb-hero-line block" style={{ transform: 'translateY(120%)', animation: `rbmLine .95s ${EASE} forwards ${heroDelay(1.75, 0.14)}s` }}>
@@ -346,7 +365,7 @@ export function HomeShowcase({
           </Link>
         </div>
         <div
-          className="rb-hero-in absolute bottom-[7vh] right-[7vw] z-[2] flex flex-col items-center gap-3"
+          className="rb-hero-in absolute bottom-[7vh] right-[7vw] z-[2] hidden flex-col items-center gap-3 md:flex"
           style={{ opacity: 0, animation: `fadeUp 1s ease forwards ${heroDelay(2.7, 0.5)}s` }}
           aria-hidden
         >
@@ -365,9 +384,10 @@ export function HomeShowcase({
         ref={boxSectionRef}
         className="relative z-[1] flex h-screen snap-start items-center justify-center overflow-hidden px-4 pb-[22px] pt-[88px] transition-[padding] duration-200 ease-rb"
       >
-        {/* side scroll-progress rail */}
+        {/* side scroll-progress rail (desktop only — on phones it overlaps the
+            near-full-width card) */}
         <div
-          className="pointer-events-none absolute top-1/2 z-[5] flex -translate-y-1/2 flex-col items-center gap-3.5"
+          className="pointer-events-none absolute top-1/2 z-[5] hidden -translate-y-1/2 flex-col items-center gap-3.5 md:flex"
           style={{ right: 'calc(4vw - 18px)' }}
           aria-hidden
         >
@@ -400,7 +420,7 @@ export function HomeShowcase({
             <div data-hreveal className="mb-8 font-mono text-[11px] uppercase tracking-[4px] text-rb-red" style={reveal()}>
               What we do
             </div>
-            <h2 className="m-0 max-w-[16ch] font-extrabold text-white" style={{ fontSize: 'clamp(38px,5.4vw,84px)', letterSpacing: '-0.04em', lineHeight: 0.98 }}>
+            <h2 className="m-0 max-w-[16ch] font-extrabold text-white" style={{ fontSize: 'clamp(33px,5.4vw,84px)', letterSpacing: '-0.04em', lineHeight: 0.98 }}>
               <span data-hreveal className="block" style={reveal()}>One Facility.{' '}</span>
               <span data-hreveal className="block text-rb-tx-faint" style={reveal(0.12)}>Every Discipline.</span>
             </h2>

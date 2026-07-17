@@ -8,8 +8,10 @@ import { forwardRef } from 'react';
 // uppercase label, borderless input, inline red error text — never an alert
 // box. Required is implicit; optional fields are explicitly labeled.
 
+// 16px on touch widths — anything smaller makes iOS Safari zoom the page
+// when an input is focused.
 export const inputCls =
-  'w-full border-none bg-transparent p-0 text-[14.5px] tracking-[0.2px] text-white caret-rb-red outline-none placeholder:text-rb-tx-ghost';
+  'w-full border-none bg-transparent p-0 text-[16px] tracking-[0.2px] text-white caret-rb-red outline-none placeholder:text-rb-tx-ghost md:text-[14.5px]';
 
 export function FieldBox({
   hasErr,
@@ -167,7 +169,7 @@ export const ChipGroup = forwardRef<HTMLButtonElement, {
                 type="button"
                 aria-pressed={active}
                 onClick={() => onChange(opt)}
-                className="whitespace-nowrap px-3.5 py-2 text-[12px] font-medium tracking-[0.5px] active:scale-[0.96]"
+                className="min-h-[44px] whitespace-nowrap px-3.5 py-2 text-[12px] font-medium tracking-[0.5px] active:scale-[0.96]"
                 style={{
                   border: '1px solid',
                   borderColor: active ? '#CC0000' : '#2a2a2a',
@@ -222,7 +224,7 @@ export function MultiChipGroup({
                 onClick={() =>
                   onChange(active ? value.filter((v) => v !== opt) : [...value, opt])
                 }
-                className="whitespace-nowrap px-3.5 py-2 text-[12px] font-medium tracking-[0.5px] active:scale-[0.96]"
+                className="min-h-[44px] whitespace-nowrap px-3.5 py-2 text-[12px] font-medium tracking-[0.5px] active:scale-[0.96]"
                 style={{
                   border: '1px solid',
                   borderColor: active ? '#CC0000' : '#2a2a2a',

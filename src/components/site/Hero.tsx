@@ -6,9 +6,9 @@ import { ContactLink } from '@/components/contact/ContactModal';
 
 export function HeroBadge({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative z-[2] mb-6 inline-block overflow-hidden bg-rb-red px-[18px] py-[11px]">
+    <div className="relative z-[2] mb-6 inline-block max-w-full overflow-hidden bg-rb-red px-[14px] py-[10px] md:px-[18px] md:py-[11px]">
       <div
-        className="rb-hero-line whitespace-nowrap text-[13px] font-bold uppercase tracking-[4px] text-white"
+        className="rb-hero-line text-[11px] font-bold uppercase tracking-[2.5px] text-white md:whitespace-nowrap md:text-[13px] md:tracking-[4px]"
         style={{ transform: 'translateY(120%)', animation: 'rbmLine .8s cubic-bezier(.2,.8,.2,1) forwards .18s' }}
       >
         {children}
@@ -22,7 +22,7 @@ export function HeroTitle({ lines }: { lines: string[] }) {
     <h1
       className="relative z-[2] m-0 font-extrabold text-white"
       style={{
-        fontSize: 'clamp(40px, 5vw, 76px)',
+        fontSize: 'clamp(34px, 5vw, 76px)',
         letterSpacing: '-0.04em',
         lineHeight: 0.94,
         textShadow: '0 1px 3px rgba(0,0,0,0.45)',
@@ -59,7 +59,7 @@ export function HeroSub({ children }: { children: React.ReactNode }) {
 export function HeroCtas({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="rb-hero-in relative z-[2] mt-[38px] flex items-center gap-3.5"
+      className="rb-hero-in relative z-[2] mt-[38px] flex flex-wrap items-center gap-3.5"
       style={{ opacity: 0, animation: 'fadeUp .9s cubic-bezier(.2,.8,.2,1) forwards 1.05s' }}
     >
       {children}
@@ -102,7 +102,7 @@ export function HeroCtaGhost({ href, children }: { href: string; children: React
 export function ScrollCue() {
   return (
     <div
-      className="rb-hero-in pointer-events-none absolute bottom-[30px] right-6 flex flex-col items-center gap-[11px] md:right-11"
+      className="rb-hero-in pointer-events-none absolute bottom-[30px] right-6 hidden flex-col items-center gap-[11px] md:flex md:right-11"
       style={{ animation: 'fadeUp 900ms ease both 900ms' }}
       aria-hidden
     >

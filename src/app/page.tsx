@@ -20,10 +20,11 @@ export default async function HomePage() {
   const settings = await getSettings();
   return (
     <>
-      {/* Preload the hero video's poster frame so the backdrop paints with the
-          first frame while the video streams in (Next hoists this into
-          <head>). */}
-      <link rel="preload" as="image" href="/assets/hero-brabus-poster.jpg" fetchPriority="high" />
+      {/* Preload the backdrop poster frame so it paints as the LCP element while
+          the video streams in (Next hoists these into <head>). Per-viewport so
+          phones fetch the lighter mobile rendition, not the desktop poster. */}
+      <link rel="preload" as="image" href="/assets/dealer-hero-poster-m.jpg" media="(max-width: 767px)" fetchPriority="high" />
+      <link rel="preload" as="image" href="/assets/dealer-hero-poster.jpg" media="(min-width: 768px)" fetchPriority="high" />
       <SchemaScript schema={localBusinessSchema(settings)} />
       <HomeShowcase featured={featured} visitAndFaq={<VisitAndFAQ division="all" />} />
     </>

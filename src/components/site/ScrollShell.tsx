@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // Outer scroll-snap shell shared by the division pages (Dealer / Cosmetics /
 // Collection prototypes): full-viewport snap sections over a fixed background
@@ -10,9 +10,16 @@ import { useEffect, useRef } from 'react';
 // `bg` then serves as the poster and the reduced-motion fallback.
 // blurBg renders the photo statically blurred + dimmed (Dealer, owner
 // 2026-07-10) — the detail-page backdrop treatment without the scroll scrub.
+//
+// Mobile pass 2026-07-17: like BgVideo, the video src is resolved AFTER mount
+// so the poster paints as the LCP frame. On phones we serve `bgVideoMobile`
+// (a lighter encode) when supplied, else hold on the poster with no video
+// download; `bgMobile` swaps in a smaller poster rendition.
 export function ScrollShell({
   bg,
   bgVideo,
+  bgVideoMobile,
+  bgMobile,
   bgPosition = 'center 58%',
   scrub = true,
   blurBg = false,
@@ -20,6 +27,8 @@ export function ScrollShell({
 }: {
   bg: string;
   bgVideo?: string;
+  bgVideoMobile?: string;
+  bgMobile?: string;
   bgPosition?: string;
   scrub?: boolean;
   blurBg?: boolean;
@@ -28,24 +37,33 @@ export function ScrollShell({
   const containerRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLElement>(null);
   const dimRef = useRef<HTMLDivElement>(null);
+  // Video src resolved after mount (poster-first LCP); poster may swap to the
+  // lighter mobile rendition.
+  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
+  const [posterSrc, setPosterSrc] = useState<string>(bg);
+
+  useEffect(() => {
+    if (!bgVideo) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const small = window.matchMedia('(max-width: 767px)').matches;
+    if (small && bgMobile) setPosterSrc(bgMobile);
+    if (reduced) return; // hold the poster, no video
+    const chosen = small ? bgVideoMobile : bgVideo;
+    if (chosen) setVideoSrc(chosen);
+  }, [bgVideo, bgVideoMobile, bgMobile]);
+
+  useEffect(() => {
+    const v = bgRef.current;
+    if (v instanceof HTMLVideoElement && videoSrc) {
+      v.muted = true;
+      v.play().catch(() => {});
+    }
+  }, [videoSrc]);
 
   useEffect(() => {
     const c = containerRef.current;
     if (!c) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Muted autoplay can be dropped from SSR markup (same fix as the
-    // homepage video hero) — re-assert and kick playback; hold the poster
-    // for reduced-motion users.
-    const v = bgRef.current;
-    if (bgVideo && v instanceof HTMLVideoElement) {
-      if (reduced) {
-        v.pause();
-      } else {
-        v.muted = true;
-        v.play().catch(() => {});
-      }
-    }
 
     if (!scrub || reduced) return;
     const onScroll = () => {
@@ -86,13 +104,13 @@ export function ScrollShell({
           ref={bgRef as React.RefObject<HTMLVideoElement>}
           className="rb-hero-img fixed inset-0 z-0 h-full w-full object-cover"
           style={bgStyle}
-          src={bgVideo}
-          poster={bg}
+          src={videoSrc}
+          poster={posterSrc}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload={videoSrc ? 'metadata' : 'none'}
           aria-hidden
         />
       ) : (

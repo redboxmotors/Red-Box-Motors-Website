@@ -101,6 +101,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
     url: img.url,
     alt: img.alt || listingTitle(listing),
     position: focalPosition(img),
+    thumb: img.thumb_url,
   }));
 
   const makeModel = [listing.make, dedupeModel(listing.make, listing.model)]

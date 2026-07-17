@@ -189,7 +189,16 @@
       "Bash(cp \"/Users/user/Desktop/PHOTOS/red photoes/A015_C078_0629WC.0000063.jpeg\" /tmp/git-contact-src.jpeg)",
       "Bash(sips -c 4147 3240 --cropOffset 1613 0 \"/Users/user/Desktop/PHOTOS/red photoes/A015_C078_0629WC.0000063.jpeg\" --out public/assets/get-in-touch.jpeg)",
       "Bash(sips --resampleHeight 2200 -s format jpeg -s formatOptions 86 public/assets/get-in-touch.jpeg --out public/assets/get-in-touch.jpeg)",
-      "Bash(sips -g pixelWidth -g pixelHeight public/assets/get-in-touch.jpeg)"
+      "Bash(sips -g pixelWidth -g pixelHeight public/assets/get-in-touch.jpeg)",
+      "Bash(CHROME_PATH=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" npx --yes lighthouse@11 http://localhost:3111/ --quiet --chrome-flags=\"--headless=new\" --only-categories=performance --form-factor=mobile --screenEmulation.mobile --output=json --output-path=lh-before-home.json)",
+      "Bash(awk '{print $5, $NF}')",
+      "Bash(grep -n \"fixed \\\\|fixed$\\\\|EstimateButton\\\\|floating\\\\|bottom-\\\\[\" src/app/restoration/page.tsx)",
+      "Bash(npx --no-install lighthouse --version)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(npm init *)",
+      "Bash(ls node_modules/puppeteer-core)",
+      "Bash(W=360 node measure.js)",
+      "Bash(W=360 OUT=/tmp/mshots node shoot.js)"
     ]
   }
 }
