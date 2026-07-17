@@ -20,6 +20,9 @@ export function ExpandingScrollBox({ children }: { children: React.ReactNode }) 
     const b = boxRef.current;
     if (!b) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Mobile: the box is a normal full-width block (no internal scroll, no
+    // expand, no progress rail) — nothing to wire up.
+    if (!window.matchMedia('(min-width: 768px)').matches) return;
 
     const onBoxScroll = () => {
       const max = b.scrollHeight - b.clientHeight;
@@ -49,11 +52,11 @@ export function ExpandingScrollBox({ children }: { children: React.ReactNode }) 
   return (
     <section
       ref={sectionRef}
-      className="relative z-[1] flex h-screen snap-start items-center justify-center overflow-hidden bg-transparent p-4 transition-[padding] duration-200 ease-rb"
+      className="relative z-[1] bg-transparent md:flex md:h-screen md:snap-start md:items-center md:justify-center md:overflow-hidden md:p-4 md:transition-[padding] md:duration-200 md:ease-rb"
     >
-      {/* side scroll-progress rail */}
+      {/* side scroll-progress rail (desktop only) */}
       <div
-        className="pointer-events-none absolute top-1/2 z-[5] flex -translate-y-1/2 flex-col items-center gap-3.5"
+        className="pointer-events-none absolute top-1/2 z-[5] hidden -translate-y-1/2 flex-col items-center gap-3.5 md:flex"
         style={{ right: 'calc(4vw - 18px)' }}
         aria-hidden
       >
@@ -74,7 +77,7 @@ export function ExpandingScrollBox({ children }: { children: React.ReactNode }) 
 
       <div
         ref={boxRef}
-        className="rb-noscrollbar h-[90%] w-[90%] overflow-y-auto overflow-x-hidden bg-rb-surface motion-reduce:h-full motion-reduce:w-full"
+        className="rb-noscrollbar w-full bg-rb-surface md:h-[90%] md:w-[90%] md:overflow-y-auto md:overflow-x-hidden motion-reduce:h-full motion-reduce:w-full"
         style={{ boxShadow: '0 40px 90px rgba(0,0,0,0.7), 0 8px 30px rgba(0,0,0,0.55)' }}
       >
         {children}

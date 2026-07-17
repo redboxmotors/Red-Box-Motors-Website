@@ -143,7 +143,7 @@ export function ServiceScrollPage({
 
       <SiteNav current="cosmetics" />
 
-      <div className="rb-noscrollbar relative z-[1] h-screen snap-y snap-proximity overflow-y-auto bg-transparent">
+      <div className="rb-noscrollbar relative z-[1] bg-transparent md:h-screen md:snap-y md:snap-proximity md:overflow-y-auto">
         <ExpandingScrollBox>
           {/* ——— MINI-HERO with spec ribbon ——— */}
           <div className="relative h-[480px] overflow-hidden">

@@ -159,6 +159,9 @@ export function HomeShowcase({
   useEffect(() => {
     const sc = scrollerRef.current;
     if (!sc) return;
+    // Mobile is a normal-flow document — no internal scroller to scrub, and the
+    // backdrop holds the poster (no video). Skip the whole scrub setup.
+    if (!window.matchMedia('(min-width: 768px)').matches) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let raf: number | null = null;
 
@@ -207,6 +210,9 @@ export function HomeShowcase({
   useEffect(() => {
     const b = boxRef.current;
     if (!b) return;
+    // Mobile: the box is a normal full-width block (no internal scroll, expand
+    // or progress rail); reveals are forced visible via CSS. Nothing to wire.
+    if (!window.matchMedia('(min-width: 768px)').matches) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let lastE: number | undefined;
 
@@ -274,7 +280,7 @@ export function HomeShowcase({
   return (
     <div
       ref={scrollerRef}
-      className="rb-noscrollbar relative h-screen w-full snap-y snap-mandatory overflow-y-auto bg-black text-white"
+      className="rb-noscrollbar relative w-full bg-black text-white md:h-screen md:snap-y md:snap-mandatory md:overflow-y-auto"
     >
       {/* top progress + site nav */}
       <div className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-0.5">
@@ -295,7 +301,7 @@ export function HomeShowcase({
         playsInline
         preload={bgVideoSrc ? 'auto' : 'none'}
         aria-hidden
-        className="fixed inset-0 z-0 h-full w-full object-cover"
+        className="absolute inset-x-0 top-0 z-0 h-[100svh] w-full object-cover md:fixed md:inset-0 md:h-full"
         style={{
           objectPosition: 'center 50%',
           filter: 'brightness(1.04) saturate(1.02)',
@@ -309,12 +315,12 @@ export function HomeShowcase({
       />
       <div
         ref={dimRef}
-        className="pointer-events-none fixed inset-0 z-0 bg-[#060606]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[100svh] bg-[#060606] md:fixed md:inset-0 md:h-full"
         style={{ opacity: 0.04, transition: 'opacity 140ms linear' }}
       />
 
       {/* ——— 1 · HERO ——— */}
-      <section className="relative z-[1] flex h-screen snap-start flex-col items-start justify-end overflow-hidden pb-[11vh] pl-[7vw] pr-6 md:pr-0">
+      <section className="relative z-[1] flex h-screen flex-col items-start justify-end overflow-hidden pb-[11vh] pl-[7vw] pr-6 md:snap-start md:pr-0">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,8,0.30)_0%,rgba(8,8,8,0)_36%,rgba(6,6,6,0.55)_78%,rgba(5,5,5,0.9)_100%)]" />
         <div className="relative z-[2] mb-6 inline-block max-w-full overflow-hidden bg-rb-red px-[14px] py-[10px] md:px-[18px] md:py-[11px]">
           <div
@@ -382,7 +388,7 @@ export function HomeShowcase({
       {/* ——— 3 · BOXED OVERVIEW ——— */}
       <section
         ref={boxSectionRef}
-        className="relative z-[1] flex h-screen snap-start items-center justify-center overflow-hidden px-4 pb-[22px] pt-[88px] transition-[padding] duration-200 ease-rb"
+        className="relative z-[1] md:flex md:h-screen md:snap-start md:items-center md:justify-center md:overflow-hidden md:px-4 md:pb-[22px] md:pt-[88px] md:transition-[padding] md:duration-200 md:ease-rb"
       >
         {/* side scroll-progress rail (desktop only — on phones it overlaps the
             near-full-width card) */}
@@ -400,7 +406,7 @@ export function HomeShowcase({
 
         <div
           ref={boxRef}
-          className="rb-noscrollbar relative z-[1] h-full w-[92%] overflow-y-auto overflow-x-hidden bg-rb-surface"
+          className="rb-noscrollbar relative z-[1] w-full bg-rb-surface md:h-full md:w-[92%] md:overflow-y-auto md:overflow-x-hidden"
           style={{
             boxShadow: '0 40px 90px rgba(0,0,0,0.7), 0 8px 30px rgba(0,0,0,0.55)',
             transition: `width 200ms ${EASE}, box-shadow 200ms ease`,

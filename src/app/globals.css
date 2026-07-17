@@ -391,3 +391,20 @@ a[data-nav-u][data-active='1'] [data-nav-bar] {
 @media (min-width: 768px) {
   .rb-corner-cta { bottom: 26px; }
 }
+
+/* ============================================================
+   Mobile rework (2026-07-17) — below md the site is a normal,
+   vertically-scrolling document. All scroll-driven scale/expand/scrub
+   effects are disabled in JS on touch widths (matchMedia min-width:768).
+   Here we force every enter-reveal to its final state so nothing is hidden
+   or animates on scroll — content is simply present at full size. !important
+   beats the inline hidden states used by the box-rooted reveals.
+   ============================================================ */
+@media (max-width: 767px) {
+  [data-reveal],
+  [data-hreveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

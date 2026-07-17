@@ -123,13 +123,20 @@ export function ScrollCue() {
 // The hero snap section wrapper: bottom-left content over a soft gradient.
 export function HeroSection({ children }: { children: React.ReactNode }) {
   return (
-    <section className="relative z-[1] flex h-screen snap-start flex-col items-start justify-end overflow-hidden bg-transparent pb-[8vh] pl-[7vw] pr-6 text-left">
+    <section className="relative z-[1] flex h-screen flex-col items-start justify-end overflow-hidden bg-transparent pb-[8vh] pl-[7vw] pr-6 text-left md:snap-start">
       <div
         className="absolute inset-0"
         style={{
           background:
             'linear-gradient(180deg, rgba(10,10,10,0.20) 0%, rgba(10,10,10,0.00) 34%, rgba(10,10,10,0.06) 60%, rgba(8,8,8,0.80) 100%)',
         }}
+      />
+      {/* mobile: deepen the bottom fade so the hero blends into the dark
+          section below and the headline/CTAs sit over more contrast (§3) */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] md:hidden"
+        style={{ background: 'linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0.75) 62%, #0A0A0A 100%)' }}
+        aria-hidden
       />
       {children}
       <ScrollCue />

@@ -64,8 +64,11 @@ export function ScrollShell({
     const c = containerRef.current;
     if (!c) return;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const desktop = window.matchMedia('(min-width: 768px)').matches;
 
-    if (!scrub || reduced) return;
+    // Mobile is a normal-flow document (the container isn't the scroller), so
+    // there's nothing to scrub — skip entirely.
+    if (!scrub || reduced || !desktop) return;
     const onScroll = () => {
       const p = Math.max(0, Math.min(1, c.scrollTop / Math.max(1, c.clientHeight)));
       if (bgRef.current) {
@@ -93,7 +96,7 @@ export function ScrollShell({
     <div
       ref={containerRef}
       data-scroll-container
-      className="rb-noscrollbar h-screen snap-y snap-mandatory overflow-y-auto"
+      className="rb-noscrollbar relative md:h-screen md:snap-y md:snap-mandatory md:overflow-y-auto"
       style={{
         background:
           'radial-gradient(135% 95% at 50% 0%, #1d1d1d 0%, #121212 38%, #080808 72%, #050505 100%)',
@@ -102,7 +105,7 @@ export function ScrollShell({
       {bgVideo ? (
         <video
           ref={bgRef as React.RefObject<HTMLVideoElement>}
-          className="rb-hero-img fixed inset-0 z-0 h-full w-full object-cover"
+          className="rb-hero-img absolute inset-x-0 top-0 z-0 h-[100svh] w-full object-cover md:fixed md:inset-0 md:h-full"
           style={bgStyle}
           src={videoSrc}
           poster={posterSrc}
@@ -119,13 +122,13 @@ export function ScrollShell({
           ref={bgRef as React.RefObject<HTMLImageElement>}
           src={bg}
           alt=""
-          className="rb-hero-img fixed inset-0 z-0 h-full w-full object-cover"
+          className="rb-hero-img absolute inset-x-0 top-0 z-0 h-[100svh] w-full object-cover md:fixed md:inset-0 md:h-full"
           style={bgStyle}
         />
       )}
       <div
         ref={dimRef}
-        className="pointer-events-none fixed inset-0 z-0 bg-[#070707]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[100svh] bg-[#070707] md:fixed md:inset-0 md:h-full"
         style={{ opacity: 0.12, transition: 'opacity 140ms linear' }}
       />
       {children}

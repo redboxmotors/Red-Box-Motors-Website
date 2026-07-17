@@ -83,8 +83,7 @@ export default function AboutPage() {
 
       <main
         data-scroll-container
-        className="rb-noscrollbar relative z-[1] h-screen overflow-y-auto bg-transparent"
-        style={{ scrollSnapType: 'y proximity' }}
+        className="rb-noscrollbar relative z-[1] bg-transparent md:h-screen md:overflow-y-auto md:snap-y md:snap-proximity"
       >
         <ExpandingScrollBox>
           {/* 1 · HERO — evolution from Red Box Restoration to Red Box Motors */}

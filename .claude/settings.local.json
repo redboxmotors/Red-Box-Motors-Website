@@ -198,7 +198,10 @@
       "Bash(npm init *)",
       "Bash(ls node_modules/puppeteer-core)",
       "Bash(W=360 node measure.js)",
-      "Bash(W=360 OUT=/tmp/mshots node shoot.js)"
+      "Bash(W=360 OUT=/tmp/mshots node shoot.js)",
+      "Bash(W=360 node sections.js)",
+      "Bash(W=390 node scrolltest.js)",
+      "Bash(W=430 node scrolltest.js)"
     ]
   }
 }

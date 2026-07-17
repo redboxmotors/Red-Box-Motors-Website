@@ -38,8 +38,7 @@ export default async function SourcedPage() {
 
       <div
         data-scroll-container
-        className="rb-noscrollbar relative z-[1] h-screen overflow-y-auto bg-transparent"
-        style={{ scrollSnapType: 'y proximity' }}
+        className="rb-noscrollbar relative z-[1] bg-transparent md:h-screen md:overflow-y-auto md:snap-y md:snap-proximity"
       >
         <ExpandingScrollBox>
           {/* PHOTO HEADER */}
