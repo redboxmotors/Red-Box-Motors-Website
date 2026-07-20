@@ -232,10 +232,11 @@ export function SiteNav({ current = '' }: { current?: NavKey }) {
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-[#070707]/[0.985] transition-[opacity,visibility] duration-200 md:hidden"
+            className="rb-drawer pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-[#070707]/[0.985] transition-[opacity,visibility,transform] duration-300 ease-rb md:hidden"
         style={{
           opacity: drawer ? 1 : 0,
           visibility: drawer ? 'visible' : 'hidden',
+          transform: drawer ? 'none' : 'translateY(-10px)',
           paddingTop: 'max(env(safe-area-inset-top), 12px)',
           paddingBottom: 'max(env(safe-area-inset-bottom), 20px)',
         }}

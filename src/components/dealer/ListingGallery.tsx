@@ -13,7 +13,15 @@ const pad2 = (x: number) => String(x + 1).padStart(2, '0');
 
 export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: string }) {
   const [idx, setIdx] = useState(0);
+  // previous frame index — stays mounted beneath the incoming photo so the
+  // change crossfades (motion pass 2026-07-20)
+  const [prevIdx, setPrevIdx] = useState<number | null>(null);
   const n = images.length;
+  const goTo = (target: number) => {
+    if (target === idx) return;
+    setPrevIdx(idx);
+    setIdx(target);
+  };
   // touch swipe on the main frame (mobile pass 2026-07-17)
   const touchX = useRef<number | null>(null);
   const onTouchStart = (e: React.TouchEvent) => {
@@ -23,7 +31,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
     if (touchX.current == null || n < 2) return;
     const dx = e.changedTouches[0].clientX - touchX.current;
     touchX.current = null;
-    if (Math.abs(dx) > 40) setIdx((i) => (dx < 0 ? (i + 1) % n : (i - 1 + n) % n));
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? (idx + 1) % n : (idx - 1 + n) % n);
   };
 
   if (n === 0) {
@@ -52,11 +60,23 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
+        {prevIdx != null && images[prevIdx] && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={`prev-${prevIdx}`}
+            src={images[prevIdx].url}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: images[prevIdx].position }}
+          />
+        )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
+          key={`cur-${((idx % n) + n) % n}`}
           src={cur.url}
           alt={cur.alt}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="rb-xfade absolute inset-0 h-full w-full object-cover"
           style={{ objectPosition: cur.position }}
         />
         {n > 1 && (
@@ -64,7 +84,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
             <button
               type="button"
               aria-label="Previous photo"
-              onClick={() => setIdx((i) => (i - 1 + n) % n)}
+              onClick={() => goTo((idx - 1 + n) % n)}
               className="absolute bottom-0 left-0 top-0 flex w-[56px] cursor-pointer md:w-[90px] items-center justify-center text-rb-tx-faint transition-[color,background] duration-150 hover:bg-[linear-gradient(90deg,rgba(0,0,0,0.4),transparent)] hover:text-white"
             >
               <svg width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -74,7 +94,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
             <button
               type="button"
               aria-label="Next photo"
-              onClick={() => setIdx((i) => (i + 1) % n)}
+              onClick={() => goTo((idx + 1) % n)}
               className="absolute bottom-0 right-0 top-0 flex w-[56px] cursor-pointer md:w-[90px] items-center justify-center text-rb-tx-faint transition-[color,background] duration-150 hover:bg-[linear-gradient(270deg,rgba(0,0,0,0.4),transparent)] hover:text-white"
             >
               <svg width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -97,7 +117,7 @@ export function ListingGallery({ images, tag }: { images: GalleryImage[]; tag: s
                 type="button"
                 aria-label={`Photo ${pad2(i)}`}
                 aria-current={active || undefined}
-                onClick={() => setIdx(i)}
+                onClick={() => goTo(i)}
                 className={`relative aspect-video w-[78px] flex-none cursor-pointer overflow-hidden bg-rb-raised-3 md:w-auto md:flex-1 transition-[filter,outline-color,transform,box-shadow] duration-[220ms] ease-rb hover:z-[5] hover:-translate-y-[3px] hover:shadow-[0_12px_24px_rgba(0,0,0,0.55)] hover:brightness-100 ${
                   active
                     ? 'outline outline-1 outline-[#555] brightness-100'

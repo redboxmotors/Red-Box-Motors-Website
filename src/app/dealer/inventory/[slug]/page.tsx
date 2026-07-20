@@ -215,7 +215,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
         </section>
 
         {/* Specifications */}
-        <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+        <section data-reveal className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
           <div className={mLabel}>SPECIFICATIONS</div>
           <div className="grid grid-cols-2 gap-x-5">
             {specs.map((spec) => (
@@ -237,7 +237,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
 
         {/* Overview — owner-written only, first two paragraphs + expander */}
         {overviewParas.length > 0 && (
-          <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+          <section data-reveal className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
             <div className={mLabel}>OVERVIEW</div>
             {overviewParas.slice(0, 2).map((p) => (
               <p
@@ -254,7 +254,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
 
         {/* Highlights (owner-authored) */}
         {highlights.length > 0 && (
-          <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+          <section data-reveal className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
             <div className={mLabel}>VEHICLE HIGHLIGHTS</div>
             <div className="flex flex-col">
               {highlights.map((h) => (
@@ -273,7 +273,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
         )}
 
         {/* Available through */}
-        <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+        <section data-reveal className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
           <div className={mLabel}>AVAILABLE THROUGH RED BOX MOTORS</div>
           <div className="flex flex-col">
             {[

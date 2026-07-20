@@ -133,7 +133,7 @@ export function WorkGallery({ items }: { items: WorkItem[] }) {
                 <img
                   src={p.image.url}
                   alt={p.image.alt || `${p.title}, ${p.vehicle}`}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1100ms] ease-rb group-hover:scale-[1.05] motion-reduce:transform-none"
                   style={{ objectPosition: focalPosition(p.image) }}
                   loading="lazy"
                 />

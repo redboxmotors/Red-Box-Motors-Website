@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { Reveal } from '@/components/motion/Reveal';
 import { chipCls } from './InventoryMobileList';
 
 // Recent Work Mobile: category chips (functional) + count + Year↓/A–Z sort
@@ -40,7 +41,7 @@ export function WorkMobileList({ projects }: { projects: MProjectCard[] }) {
         type="button"
         aria-pressed={active}
         onClick={() => setSortKey(key)}
-        className="px-3 py-[9px] font-plex text-[10px] tracking-[0.1em]"
+        className="px-3 py-[9px] font-plex text-[10px] tracking-[0.1em] transition-[border-color,color,transform] duration-150 active:scale-[0.96] motion-reduce:transform-none"
         style={{
           border: `1px solid ${active ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.08)'}`,
           color: active ? '#FFFFFF' : 'rgba(237,237,237,0.45)',
@@ -81,7 +82,8 @@ export function WorkMobileList({ projects }: { projects: MProjectCard[] }) {
       </div>
       <div className="flex flex-col gap-4 px-5 pt-1">
         {shown.map((p) => (
-          <Link key={p.id} href={p.href} className="relative block border border-white/[0.06]">
+          <Reveal key={p.id}>
+          <Link href={p.href} className="relative block border border-white/[0.06]">
             <div className="relative h-[250px] w-full">
               {p.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -120,6 +122,7 @@ export function WorkMobileList({ projects }: { projects: MProjectCard[] }) {
               </div>
             </div>
           </Link>
+          </Reveal>
         ))}
         {shown.length === 0 && (
           <div className="py-14 text-center">

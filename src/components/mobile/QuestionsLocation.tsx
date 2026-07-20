@@ -19,7 +19,7 @@ export function QuestionsLocation({
       className="flex flex-col gap-7 border-t border-white/[0.06] px-5 pb-14 pt-11"
     >
       <div className="font-plex text-[11px] tracking-[0.35em] text-white">{heading}</div>
-      <div className="flex flex-col gap-4">
+      <div data-reveal className="flex flex-col gap-4">
         <div className="flex items-center gap-2.5">
           <div className="h-2 w-2 bg-rb-red" />
           <div className="font-plex text-[10px] tracking-[0.3em] text-rb-red">LOCATION</div>

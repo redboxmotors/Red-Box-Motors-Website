@@ -229,6 +229,7 @@ export default async function RestorationPage() {
           overlap={210}
           padBottom={48}
           position="center 55%"
+          video="/assets/restoration-hero-m.mp4"
         >
           <MBadge>RED BOX RESTORATION</MBadge>
           <h1
@@ -257,7 +258,7 @@ export default async function RestorationPage() {
             position="center 62%"
             gradient="linear-gradient(180deg, rgba(10,10,10,0) 50%, rgba(10,10,10,0.9) 92%, #0A0A0A 100%)"
           />
-          <div className="flex flex-col gap-4 px-5 pb-7 pt-[30px]">
+          <div data-reveal className="flex flex-col gap-4 px-5 pb-7 pt-[30px]">
             <div className={mEyebrowTightCls}>RED BOX RESTORATION · AUSTIN, TEXAS</div>
             <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.8) }}>
               Whether the goal is preserving a new delivery, restoring depth and clarity to an
@@ -308,7 +309,7 @@ export default async function RestorationPage() {
                   {svc.num}
                 </div>
               </div>
-              <div className="flex flex-col gap-4 px-5 pt-6">
+              <div data-reveal className="flex flex-col gap-4 px-5 pt-6">
                 <h2
                   className="m-0 text-[30px] font-extrabold tracking-tight text-white"
                   style={{ lineHeight: 1.08 }}
@@ -348,6 +349,7 @@ export default async function RestorationPage() {
             {PROCESS.map(([title, detail], i) => (
               <div
                 key={title}
+                data-reveal
                 className="flex flex-col gap-2 border border-white/5 bg-[#151515] p-5"
               >
                 <div className="font-plex text-[10px] tracking-[0.25em] text-rb-red">
@@ -377,6 +379,7 @@ export default async function RestorationPage() {
             {builds.slice(0, 2).map((card) => (
               <Link
                 key={`${card.type}-${card.id}`}
+                data-reveal
                 href={card.href}
                 className="relative block border border-white/[0.06]"
               >
@@ -434,7 +437,7 @@ export default async function RestorationPage() {
             caption="AUSTIN, TX"
             gradient="linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.9) 90%, #0A0A0A 100%)"
           />
-          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+          <div data-reveal className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
             <div className={mEyebrowCls}>START A PROJECT</div>
             <h2
               className="m-0 text-[40px] font-extrabold tracking-tight text-white"

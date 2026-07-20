@@ -154,6 +154,7 @@ export default async function DealerPage() {
           overlap={190}
           padBottom={52}
           position="center 50%"
+          video="/assets/consign-rollers-m.mp4"
         >
           <div className={mEyebrowCls} style={{ letterSpacing: '0.3em' }}>
             RED BOX MOTORS · SALES &amp; CONSIGNMENT
@@ -188,6 +189,7 @@ export default async function DealerPage() {
             {MORE_THAN_A_LISTING.map((p) => (
               <div
                 key={p.title}
+                data-reveal
                 className="flex flex-col gap-2.5 border border-white/5 bg-[#151515] px-5 py-[22px]"
               >
                 <div className="text-[14px] font-bold uppercase tracking-[0.12em] text-rb-red">
@@ -256,7 +258,7 @@ export default async function DealerPage() {
                 </div>
               ))}
             </div>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-[22px] border-t border-white/[0.08] pt-6">
+            <div data-reveal className="grid grid-cols-2 gap-x-4 gap-y-[22px] border-t border-white/[0.08] pt-6">
               {CREDIBILITY.map((c) => (
                 <div key={c.small} className="flex flex-col gap-1.5">
                   <div className="text-[19px] font-extrabold tracking-[-0.01em] text-white">
@@ -284,6 +286,7 @@ export default async function DealerPage() {
             {salePreview.map((card) => (
               <Link
                 key={`${card.type}-${card.id}`}
+                data-reveal
                 href={card.href}
                 className="relative block border border-white/[0.06]"
               >
@@ -348,7 +351,7 @@ export default async function DealerPage() {
             caption="AUSTIN, TX · NATIONWIDE"
             gradient="linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.9) 90%, #0A0A0A 100%)"
           />
-          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+          <div data-reveal className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
             <div className={mEyebrowCls}>WHAT WE REPRESENT</div>
             <MH2>Vehicles Worth Representing</MH2>
             <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.75) }}>

@@ -27,20 +27,37 @@ export function MGallery({
   placeholderTag?: string;
   padThumbs?: boolean;
 }) {
-  const [index, setIndex] = useState(0);
+  // prev stays mounted beneath the incoming frame so photo changes crossfade
+  // (motion pass 2026-07-20) instead of hard-cutting.
+  const [frame, setFrame] = useState({ index: 0, prev: -1 });
+  const index = frame.index;
   const n = images.length;
   const current = images[index];
-  const go = (d: number) => setIndex((i) => (i + d + n) % n);
+  const prev = frame.prev >= 0 ? images[frame.prev] : null;
+  const show = (i: number) => setFrame((f) => (i === f.index ? f : { index: i, prev: f.index }));
+  const go = (d: number) => show((index + d + n) % n);
 
   return (
     <div className="flex flex-col gap-2.5">
       <div className="relative h-[290px] w-full overflow-hidden">
+        {prev && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={`prev-${frame.prev}`}
+            src={prev.url}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: prev.position ?? 'center' }}
+          />
+        )}
         {current ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
+            key={`cur-${index}`}
             src={current.url}
             alt={current.alt}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="rb-xfade absolute inset-0 h-full w-full object-cover"
             style={{ objectPosition: current.position ?? 'center' }}
           />
         ) : (
@@ -93,7 +110,7 @@ export function MGallery({
               type="button"
               aria-label={`Photo ${i + 1}`}
               aria-current={i === index}
-              onClick={() => setIndex(i)}
+              onClick={() => show(i)}
               className="relative h-[54px] w-[76px] flex-none overflow-hidden border"
               style={{ borderColor: i === index ? '#CC0000' : 'rgba(255,255,255,0.12)' }}
             >

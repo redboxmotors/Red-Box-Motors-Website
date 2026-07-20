@@ -98,7 +98,11 @@ function MosaicArrow({ size = 20 }: { size?: number }) {
 }
 
 const tileCls =
-  'relative block overflow-hidden bg-rb-surface cursor-pointer z-[1] transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.014] hover:shadow-[0_24px_50px_rgba(0,0,0,0.62)] hover:brightness-[1.16] active:translate-y-0 active:scale-[0.992]';
+  'group relative block overflow-hidden bg-rb-surface cursor-pointer z-[1] transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[6] hover:-translate-y-[5px] hover:scale-[1.014] hover:shadow-[0_24px_50px_rgba(0,0,0,0.62)] hover:brightness-[1.16] active:translate-y-0 active:scale-[0.992]';
+
+// slow inner-image zoom on tile hover (motion pass 2026-07-20)
+const tileImgCls =
+  'absolute inset-0 h-full w-full object-cover transition-transform duration-[1100ms] ease-rb group-hover:scale-[1.05] motion-reduce:transform-none';
 
 // Gradient link tiles under the "One Facility. Every Discipline." division
 // columns (the old mosaic quick-link column is in git history). Borderless
@@ -444,7 +448,7 @@ export function HomeShowcase({
             <div data-hreveal className="mt-12 grid gap-1.5 md:grid-cols-2" style={reveal(0.28)}>
               <Link href="/dealer/inventory" className={`${tileCls} aspect-[16/10] w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/home-sales-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 62%' }} />
+                <img src="/assets/home-sales-tile.jpg" alt="" className={tileImgCls} style={{ objectPosition: 'center 62%' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.08)_0%,rgba(10,10,10,0)_46%,rgba(8,8,8,0.38)_76%,rgba(6,6,6,0.82)_100%)]" />
                 <div className="absolute right-[20px] top-[20px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-[28px]">
@@ -457,7 +461,7 @@ export function HomeShowcase({
               </Link>
               <Link href="/restoration" className={`${tileCls} aspect-[16/10] w-full`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/home-protection-tile.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: 'center 82%' }} />
+                <img src="/assets/home-protection-tile.jpg" alt="" className={tileImgCls} style={{ objectPosition: 'center 82%' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.08)_0%,rgba(10,10,10,0)_46%,rgba(8,8,8,0.38)_76%,rgba(6,6,6,0.82)_100%)]" />
                 <div className="absolute right-[20px] top-[20px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-[28px]">

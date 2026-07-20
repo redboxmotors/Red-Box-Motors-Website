@@ -113,7 +113,10 @@ function RosterCard({ listing, image }: { listing: Listing; image: DbImage | nul
       style={{ background: 'linear-gradient(165deg,#131313 0%,#0D0D0D 55%,#090909 100%)' }}
     >
       {image ? (
-        <CmsImage image={image} className="absolute inset-0 h-full w-full" />
+        <CmsImage
+          image={image}
+          className="absolute inset-0 h-full w-full transition-transform duration-[1100ms] ease-rb group-hover:scale-[1.05] motion-reduce:transform-none"
+        />
       ) : (
         <Stripe tag={tagFor(listing)} />
       )}
@@ -360,6 +363,7 @@ export default async function DealerInventoryPage({
           overlap={170}
           padBottom={40}
           position="center 58%"
+          video="/assets/hero-brabus-m.mp4"
         >
           <MBadge>SALES &amp; CONSIGNMENT</MBadge>
           <h1
@@ -385,7 +389,7 @@ export default async function DealerInventoryPage({
             caption="BUY · SELL · CONSIGN · NATIONWIDE"
             gradient="linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.9) 90%, #0A0A0A 100%)"
           />
-          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+          <div data-reveal className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
             <div className={mEyebrowCls}>DON&rsquo;T SEE IT HERE?</div>
             <MH2>Have a vehicle to consign?</MH2>
             <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.75) }}>

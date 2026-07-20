@@ -27,11 +27,22 @@ export function MFaq({ faqs }: { faqs: Faq[] }) {
                 {isOpen ? '−' : '+'}
               </span>
             </button>
-            {isOpen && (
-              <div className="pb-5 pr-6 text-[14px] leading-[1.65] text-[rgba(237,237,237,0.65)]">
-                {faq.a}
+            {/* grid-rows 0fr→1fr keeps the open/close smooth; content stays in
+                the DOM (motion pass 2026-07-20) */}
+            <div
+              className="grid transition-[grid-template-rows] duration-300 ease-rb motion-reduce:transition-none"
+              style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
+            >
+              <div className="overflow-hidden">
+                <div
+                  className="pb-5 pr-6 text-[14px] leading-[1.65] text-[rgba(237,237,237,0.65)] transition-opacity duration-300 ease-rb motion-reduce:transition-none"
+                  style={{ opacity: isOpen ? 1 : 0 }}
+                  aria-hidden={!isOpen}
+                >
+                  {faq.a}
+                </div>
               </div>
-            )}
+            </div>
           </div>
         );
       })}

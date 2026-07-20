@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { Reveal } from '@/components/motion/Reveal';
 
 // Inventory Mobile: horizontally scrollable brand chips (functional — filter
 // the card list, count label updates), Price sort pill (toggles ↓/↑),
@@ -22,7 +23,7 @@ export type MVehicleCard = {
 export function chipCls(active: boolean): { className: string; style: React.CSSProperties } {
   return {
     className:
-      'flex min-h-[44px] flex-none items-center px-4 py-[13px] font-plex text-[10px] tracking-[0.18em] transition-colors duration-150',
+      'flex min-h-[44px] flex-none items-center px-4 py-[13px] font-plex text-[10px] tracking-[0.18em] transition-[border-color,color,background-color,transform] duration-150 active:scale-[0.96] motion-reduce:transform-none',
     style: {
       border: `1px solid ${active ? '#FFFFFF' : 'rgba(255,255,255,0.15)'}`,
       color: active ? '#FFFFFF' : 'rgba(237,237,237,0.55)',
@@ -108,8 +109,8 @@ export function InventoryMobileList({
       {/* —— Vehicle grid —— */}
       <section className="flex flex-col gap-4 px-5 pb-14">
         {shown.map((v) => (
+          <Reveal key={v.id}>
           <Link
-            key={v.id}
             href={v.href ?? '/dealer/inventory'}
             className="relative block border border-white/[0.06]"
           >
@@ -134,6 +135,7 @@ export function InventoryMobileList({
               </div>
             </div>
           </Link>
+          </Reveal>
         ))}
         {shown.length === 0 && (
           <div className="px-5 py-14 text-center">
@@ -158,7 +160,8 @@ export function InventoryMobileList({
           </div>
           <div className="flex flex-col gap-4">
             {soldShown.map((v) => (
-              <div key={v.id} className="relative border border-white/[0.06]">
+              <Reveal key={v.id}>
+              <div className="relative border border-white/[0.06]">
                 <div className="relative h-[210px] w-full">
                   <CardMedia card={v} height={210} />
                   <div
@@ -184,6 +187,7 @@ export function InventoryMobileList({
                   </div>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </section>

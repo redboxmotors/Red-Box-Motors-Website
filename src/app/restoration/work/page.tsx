@@ -132,7 +132,7 @@ export default async function RecentWorkPage() {
             caption="STEK · CARBON COLLECTIVE · AUSTIN, TX"
             gradient="linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.9) 90%, #0A0A0A 100%)"
           />
-          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+          <div data-reveal className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
             <div className="font-plex text-[10px] tracking-[0.35em] text-rb-red">
               START A PROJECT
             </div>

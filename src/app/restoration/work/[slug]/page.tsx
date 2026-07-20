@@ -238,7 +238,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
 
         {/* Want this for your car? */}
         <section className="px-5 pt-6">
-          <div className="flex flex-col gap-3 border border-white/[0.08] bg-[#151515] px-5 py-6">
+          <div data-reveal className="flex flex-col gap-3 border border-white/[0.08] bg-[#151515] px-5 py-6">
             <div className="text-[19px] font-bold text-white">Want this for your car?</div>
             <div className="text-[14px] leading-[1.6]" style={{ color: ED(0.65) }}>
               Tell us what you have in mind — we will scope it and quote it.
@@ -251,7 +251,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
         </section>
 
         {/* About this build */}
-        <section className="flex flex-col gap-4 px-5 pb-12 pt-9">
+        <section data-reveal className="flex flex-col gap-4 px-5 pb-12 pt-9">
           {detailShot && (
             <div className="relative h-[220px] w-full overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -148,7 +148,7 @@ export default async function AboutPage() {
             position="center 52%"
             gradient="linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.9) 92%, #0A0A0A 100%)"
           />
-          <div className="flex flex-col gap-4 px-5 pb-12 pt-[30px]">
+          <div data-reveal className="flex flex-col gap-4 px-5 pb-12 pt-[30px]">
             <div className={mEyebrowCls}>THE ORIGIN</div>
             <h2
               className="m-0 text-[34px] font-extrabold tracking-tight text-white"
@@ -172,7 +172,7 @@ export default async function AboutPage() {
             height={320}
             gradient="linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.9) 92%, #0A0A0A 100%)"
           />
-          <div className="flex flex-col gap-4 px-5 pb-12 pt-[30px]">
+          <div data-reveal className="flex flex-col gap-4 px-5 pb-12 pt-[30px]">
             <div className={mEyebrowCls}>THE FOUNDER</div>
             <h2
               className="m-0 text-[36px] font-extrabold tracking-tight text-white"
@@ -189,7 +189,7 @@ export default async function AboutPage() {
         </section>
 
         {/* Evolution */}
-        <section className="flex flex-col gap-4 border-t border-white/[0.06] px-5 pb-12 pt-10">
+        <section data-reveal className="flex flex-col gap-4 border-t border-white/[0.06] px-5 pb-12 pt-10">
           <div className={mEyebrowCls}>THE EVOLUTION</div>
           <div className="flex flex-col gap-1">
             <div className="text-[27px] font-extrabold tracking-tight text-[#6E6E6E]">
@@ -210,7 +210,7 @@ export default async function AboutPage() {
         </section>
 
         {/* Lifecycle */}
-        <section className="flex flex-col gap-[18px] border-t border-white/[0.06] px-5 pb-12 pt-10">
+        <section data-reveal className="flex flex-col gap-[18px] border-t border-white/[0.06] px-5 pb-12 pt-10">
           <div className={mEyebrowCls}>ONE RELATIONSHIP, EVERY STAGE</div>
           <LifecycleHeadline className="text-[32px]" style={{ lineHeight: 1.15 }} />
           <div className="flex flex-col">
@@ -237,7 +237,7 @@ export default async function AboutPage() {
         </section>
 
         {/* The Red Box Standard */}
-        <section className="flex flex-col gap-[18px] border-t border-white/[0.06] px-5 pb-12 pt-10">
+        <section data-reveal className="flex flex-col gap-[18px] border-t border-white/[0.06] px-5 pb-12 pt-10">
           <div className={mEyebrowCls}>THE RED BOX STANDARD</div>
           <h2
             className="m-0 text-[34px] font-extrabold tracking-tight text-white"
@@ -258,7 +258,7 @@ export default async function AboutPage() {
         </section>
 
         {/* Credentials */}
-        <section className="flex flex-col gap-5 border-t border-white/[0.06] px-5 pb-12 pt-10">
+        <section data-reveal className="flex flex-col gap-5 border-t border-white/[0.06] px-5 pb-12 pt-10">
           <div className={mEyebrowCls}>CREDENTIALS &amp; PARTNERSHIPS</div>
           <div className="grid grid-cols-2 gap-x-4 gap-y-[22px]">
             {CREDENTIALS.map((c) => (
@@ -285,7 +285,7 @@ export default async function AboutPage() {
             height={280}
             position="center 52%"
           />
-          <div className="flex flex-col gap-4 px-5 pb-12 pt-[30px]">
+          <div data-reveal className="flex flex-col gap-4 px-5 pb-12 pt-[30px]">
             <div className={mEyebrowCls}>FACILITY &amp; LOCATION</div>
             <h2
               className="m-0 text-[36px] font-extrabold tracking-tight text-white"
@@ -300,7 +300,7 @@ export default async function AboutPage() {
         </section>
 
         {/* Closing CTA */}
-        <section className="flex flex-col items-center gap-[18px] border-t border-white/[0.06] px-5 pb-14 pt-[52px] text-center">
+        <section data-reveal className="flex flex-col items-center gap-[18px] border-t border-white/[0.06] px-5 pb-14 pt-[52px] text-center">
           <h2
             className="m-0 text-[36px] font-extrabold tracking-tight text-white"
             style={{ lineHeight: 1.08, textWrap: 'balance' }}
@@ -411,7 +411,7 @@ export default async function AboutPage() {
 
         {/* ORIGIN — text left / image right */}
         <section className="grid grid-cols-2 items-center gap-12 border-t border-white/[0.06] px-8 py-24 xl:gap-[72px] xl:px-14">
-          <div className="flex max-w-[560px] flex-col gap-[22px]">
+          <div data-reveal className="flex max-w-[560px] flex-col gap-[22px]">
             <div className={dEyebrowCls}>THE ORIGIN</div>
             <h2
               className="m-0 font-extrabold tracking-tight text-white"
@@ -448,7 +448,7 @@ export default async function AboutPage() {
               loading="lazy"
             />
           </div>
-          <div className="flex max-w-[620px] flex-col gap-[22px]">
+          <div data-reveal className="flex max-w-[620px] flex-col gap-[22px]">
             <div className={dEyebrowCls}>THE FOUNDER</div>
             <h2
               className="m-0 font-extrabold tracking-tight text-white"
@@ -466,7 +466,7 @@ export default async function AboutPage() {
 
         {/* EVOLUTION — statement left / red-rule paragraph right */}
         <section className="grid grid-cols-[7fr_5fr] items-center gap-12 border-t border-white/[0.06] px-8 py-[88px] xl:gap-[72px] xl:px-14">
-          <div className="flex flex-col gap-5">
+          <div data-reveal className="flex flex-col gap-5">
             <div className={dEyebrowCls}>THE EVOLUTION</div>
             <div className="flex flex-wrap items-baseline gap-[22px]">
               <div
@@ -487,6 +487,7 @@ export default async function AboutPage() {
             </div>
           </div>
           <p
+            data-reveal
             className="m-0 border-l-2 border-rb-red pl-7 text-[15px] leading-[1.75]"
             style={{ color: ED(0.72) }}
           >
@@ -502,7 +503,7 @@ export default async function AboutPage() {
               style={{ fontSize: 'clamp(38px, 3.9vw, 56px)', lineHeight: 1.04 }}
             />
           </div>
-          <div className="grid grid-cols-5 gap-8 max-lg:grid-cols-2">
+          <div data-reveal className="grid grid-cols-5 gap-8 max-lg:grid-cols-2">
             {LIFECYCLE.map((s, i) => (
               <div
                 key={s.stage}
@@ -539,7 +540,7 @@ export default async function AboutPage() {
             </div>
             <div />
           </div>
-          <div className="grid grid-cols-3 gap-px border border-white/[0.08] bg-white/[0.08] max-lg:grid-cols-2">
+          <div data-reveal className="grid grid-cols-3 gap-px border border-white/[0.08] bg-white/[0.08] max-lg:grid-cols-2">
             {STANDARD.map((s) => (
               <div
                 key={s.title}
@@ -566,7 +567,7 @@ export default async function AboutPage() {
         {/* CREDENTIALS — 5-across */}
         <section className="flex flex-col gap-9 border-t border-white/[0.06] px-8 py-20 xl:px-14">
           <div className={dEyebrowCls}>CREDENTIALS &amp; PARTNERSHIPS</div>
-          <div className="grid grid-cols-5 gap-x-9 gap-y-10 max-lg:grid-cols-3">
+          <div data-reveal className="grid grid-cols-5 gap-x-9 gap-y-10 max-lg:grid-cols-3">
             {CREDENTIALS.map((c) => (
               <div key={c.name} className="flex flex-col gap-2 border-t border-white/[0.12] pt-3.5">
                 <div className="text-[17px] font-extrabold tracking-[-0.01em] text-white">
@@ -595,7 +596,7 @@ export default async function AboutPage() {
               loading="lazy"
             />
           </div>
-          <div className="flex flex-col justify-center gap-5 bg-rb-surface-3 px-10 py-[88px] xl:px-[72px]">
+          <div data-reveal className="flex flex-col justify-center gap-5 bg-rb-surface-3 px-10 py-[88px] xl:px-[72px]">
             <div className={dEyebrowCls}>FACILITY &amp; LOCATION</div>
             <h2
               className="m-0 font-extrabold tracking-tight text-white"
@@ -610,7 +611,7 @@ export default async function AboutPage() {
         </section>
 
         {/* CTA — centered */}
-        <section className="flex flex-col items-center gap-[22px] border-t border-white/[0.06] px-8 py-[110px] text-center xl:px-14">
+        <section data-reveal className="flex flex-col items-center gap-[22px] border-t border-white/[0.06] px-8 py-[110px] text-center xl:px-14">
           <h2
             className="m-0 max-w-[720px] font-extrabold tracking-tight text-white"
             style={{ fontSize: 'clamp(44px, 4.2vw, 60px)', lineHeight: 1.05, textWrap: 'balance' }}

@@ -74,7 +74,7 @@ function Pillar({
   cta: string;
 }) {
   return (
-    <div className="flex flex-col">
+    <div data-reveal className="flex flex-col">
       <Link href={href} className="relative block h-[280px] w-full">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -159,6 +159,7 @@ export function HomeMobile({ phone, email }: { phone: string | null; email: stri
         overlap={230}
         padBottom={56}
         position="center 50%"
+        video="/assets/dealer-hero-m.mp4"
       >
         <MBadge>RED BOX MOTORS · AUSTIN TX</MBadge>
         <h1
@@ -192,7 +193,7 @@ export function HomeMobile({ phone, email }: { phone: string | null; email: stri
           position="center 60%"
           gradient="linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.9) 92%, #0A0A0A 100%)"
         />
-        <div className="flex flex-col gap-[18px] px-5 pb-14 pt-9">
+        <div data-reveal className="flex flex-col gap-[18px] px-5 pb-14 pt-9">
           <div className={mEyebrowCls}>WHAT WE DO</div>
           <MH2>
             <span className="text-white">One Facility.</span>
@@ -231,7 +232,7 @@ export function HomeMobile({ phone, email }: { phone: string | null; email: stri
       </section>
 
       {/* ===== QUICK LINKS ===== */}
-      <section className="flex flex-col gap-3 px-5 pb-14">
+      <section data-reveal className="flex flex-col gap-3 px-5 pb-14">
         {QUICK_LINKS.map((q) => {
           const inner = (
             <>
@@ -273,7 +274,7 @@ export function HomeMobile({ phone, email }: { phone: string | null; email: stri
             position="center 45%"
             gradient="linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0) 35%, rgba(10,10,10,0.6) 68%, #0A0A0A 100%)"
           />
-          <div className="relative -mt-[140px] flex flex-col gap-3.5 px-5 pb-10">
+          <div data-reveal className="relative -mt-[140px] flex flex-col gap-3.5 px-5 pb-10">
             <div className={mEyebrowCls}>HOW IT WORKS</div>
             <MH2>End to end, either direction</MH2>
           </div>
@@ -303,7 +304,7 @@ export function HomeMobile({ phone, email }: { phone: string | null; email: stri
           position="36% center"
         />
         <div className="flex flex-col gap-[22px] px-5 pb-14 pt-9">
-          <div className="flex flex-col gap-3.5">
+          <div data-reveal className="flex flex-col gap-3.5">
             <div className={mEyebrowCls}>WHERE TO NEXT</div>
             <MH2>Explore Red Box Motors.</MH2>
           </div>

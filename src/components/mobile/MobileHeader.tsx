@@ -79,10 +79,13 @@ export function MobileHeader({ current = '' }: { current?: MobileNavKey }) {
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
-            className="fixed inset-0 z-[60] flex flex-col bg-[#070707]/[0.985] transition-[opacity,visibility] duration-200 md:hidden"
+            className="rb-drawer fixed inset-0 z-[60] flex flex-col bg-[#070707]/[0.985] md:hidden"
             style={{
               opacity: open ? 1 : 0,
               visibility: open ? 'visible' : 'hidden',
+              transform: open ? 'none' : 'translateY(-10px)',
+              transition:
+                'opacity 320ms cubic-bezier(.2,.8,.2,1), transform 320ms cubic-bezier(.2,.8,.2,1), visibility 320ms',
               paddingTop: 'max(env(safe-area-inset-top), 12px)',
               paddingBottom: 'max(env(safe-area-inset-bottom), 20px)',
             }}
@@ -106,16 +109,21 @@ export function MobileHeader({ current = '' }: { current?: MobileNavKey }) {
               </button>
             </div>
             <nav aria-label="Site, mobile" className="mt-2 flex-1 overflow-y-auto px-5">
-              {LINKS.map((link) => {
+              {LINKS.map((link, i) => {
                 const active = link.key === current;
                 return (
                   <Link
                     key={link.key}
                     href={link.href}
                     aria-current={active ? 'page' : undefined}
-                    className={`flex min-h-[52px] items-center gap-3.5 border-b border-rb-line py-3 text-[17px] font-medium tracking-[0.6px] ${
+                    className={`rb-drawer-item flex min-h-[52px] items-center gap-3.5 border-b border-rb-line py-3 text-[17px] font-medium tracking-[0.6px] ${
                       active ? 'text-white' : 'text-[#d6d6d6]'
                     }`}
+                    style={{
+                      opacity: open ? 1 : 0,
+                      transform: open ? 'none' : 'translateY(8px)',
+                      transition: `opacity 380ms cubic-bezier(.2,.8,.2,1) ${open ? 60 + i * 40 : 0}ms, transform 380ms cubic-bezier(.2,.8,.2,1) ${open ? 60 + i * 40 : 0}ms`,
+                    }}
                   >
                     <span
                       className="h-[6px] w-[6px] flex-none"
@@ -126,9 +134,14 @@ export function MobileHeader({ current = '' }: { current?: MobileNavKey }) {
                 );
               })}
               <ContactLink
-                className={`flex min-h-[52px] w-full items-center gap-3.5 border-b border-rb-line py-3 text-left text-[17px] font-medium tracking-[0.6px] ${
+                className={`rb-drawer-item flex min-h-[52px] w-full items-center gap-3.5 border-b border-rb-line py-3 text-left text-[17px] font-medium tracking-[0.6px] ${
                   current === 'contact' ? 'text-white' : 'text-[#d6d6d6]'
                 }`}
+                style={{
+                  opacity: open ? 1 : 0,
+                  transform: open ? 'none' : 'translateY(8px)',
+                  transition: `opacity 380ms cubic-bezier(.2,.8,.2,1) ${open ? 60 + LINKS.length * 40 : 0}ms, transform 380ms cubic-bezier(.2,.8,.2,1) ${open ? 60 + LINKS.length * 40 : 0}ms`,
+                }}
               >
                 <span
                   className="h-[6px] w-[6px] flex-none"

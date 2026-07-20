@@ -393,18 +393,64 @@ a[data-nav-u][data-active='1'] [data-nav-bar] {
 }
 
 /* ============================================================
-   Mobile rework (2026-07-17) — below md the site is a normal,
-   vertically-scrolling document. All scroll-driven scale/expand/scrub
-   effects are disabled in JS on touch widths (matchMedia min-width:768).
-   Here we force every enter-reveal to its final state so nothing is hidden
-   or animates on scroll — content is simply present at full size. !important
-   beats the inline hidden states used by the box-rooted reveals.
+   Mobile rework (2026-07-17, relaxed 2026-07-20) — below md the site is a
+   normal, vertically-scrolling document. Scroll-driven scale/expand/scrub
+   effects stay disabled, and the box-rooted [data-hreveal] states are forced
+   visible (their observer never runs on phones). [data-reveal] is allowed
+   again on mobile since the motion pass: it is a fire-once viewport reveal
+   (RevealObserver), not scroll-linked motion — with a gentler travel.
    ============================================================ */
 @media (max-width: 767px) {
-  [data-reveal],
   [data-hreveal] {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+  [data-reveal] {
+    transform: translateY(12px);
+  }
+  [data-reveal][data-revealed] {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   Motion pass (2026-07-20) — page enter + gallery crossfade
+   ============================================================ */
+
+@keyframes rbFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Route-level fade (src/app/template.tsx). Opacity-only: a transform here
+   would become the containing block for the fixed nav / corner CTAs. */
+.rb-page-enter {
+  animation: rbFadeIn 420ms ease both;
+}
+
+/* Incoming gallery frame — quick crossfade over the previous photo, which
+   stays mounted underneath until the next swap. */
+.rb-xfade {
+  animation: rbFadeIn 400ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-page-enter,
+  .rb-xfade {
+    animation: none;
+  }
+  /* drawer + items: inline transitions can't be beaten by utility variants */
+  .rb-drawer,
+  .rb-drawer-item {
+    transform: none !important;
+    transition: opacity 1ms linear !important;
+  }
+  .rb-drawer-item {
+    opacity: 1 !important;
   }
 }

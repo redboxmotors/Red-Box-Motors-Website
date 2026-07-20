@@ -10,7 +10,7 @@ import { focalPosition } from '@/lib/public/content';
 export type PreviewVariant = 'forsale' | 'sold' | 'sourced';
 
 const tileCls =
-  'relative z-[1] block aspect-video overflow-hidden bg-rb-surface-4 transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[5] hover:-translate-y-1.5 hover:scale-[1.014] hover:shadow-[0_26px_54px_rgba(0,0,0,0.62)] hover:brightness-[1.16]';
+  'group relative z-[1] block aspect-video overflow-hidden bg-rb-surface-4 transition-[filter,transform,box-shadow] duration-[260ms] ease-rb hover:z-[5] hover:-translate-y-1.5 hover:scale-[1.014] hover:shadow-[0_26px_54px_rgba(0,0,0,0.62)] hover:brightness-[1.16]';
 
 function Badge({ variant, label }: { variant: PreviewVariant; label: string }) {
   if (variant === 'forsale') {
@@ -43,7 +43,7 @@ function PreviewTile({ card, variant }: { card: SurfaceCard; variant: PreviewVar
         <img
           src={card.image.url}
           alt={card.image.alt || card.title}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1100ms] ease-rb group-hover:scale-[1.05] motion-reduce:transform-none"
           style={{ objectPosition: focalPosition(card.image) }}
           loading="lazy"
         />

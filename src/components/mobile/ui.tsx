@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { MHeroVideo } from './MHeroVideo';
 
 // ————————————————————————————————————————————————————————————————
 // Mobile design kit (design_handoff_red_box_motors, 390px screens).
@@ -27,9 +28,9 @@ export function MArrow({ className = '' }: { className?: string }) {
 // —— Buttons — full-width, label left / ↗ right, square corners ——
 
 const redBtnCls =
-  'flex w-full items-center justify-between bg-rb-red px-5 py-[17px] text-[15px] font-bold tracking-[0.01em] text-white transition-colors duration-150 hover:bg-[#E00000] active:bg-[#E00000]';
+  'flex w-full items-center justify-between bg-rb-red px-5 py-[17px] text-[15px] font-bold tracking-[0.01em] text-white transition-[background-color,transform,box-shadow] duration-btn ease-rb hover:bg-[#E00000] hover:shadow-[0_10px_26px_rgba(204,0,0,0.28)] active:bg-[#E00000] active:scale-[0.985] motion-reduce:transform-none motion-reduce:transition-none';
 const outlineBtnCls =
-  'flex w-full items-center justify-between border border-rb-red px-5 py-4 text-[15px] font-bold text-[#FF6B6B] transition-colors duration-150 hover:bg-[rgba(204,0,0,0.12)] hover:text-[#FF8888]';
+  'flex w-full items-center justify-between border border-rb-red px-5 py-4 text-[15px] font-bold text-[#FF6B6B] transition-[background-color,color,transform] duration-btn ease-rb hover:bg-[rgba(204,0,0,0.12)] hover:text-[#FF8888] active:scale-[0.985] motion-reduce:transform-none motion-reduce:transition-none';
 
 export function MBtnRed({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -95,6 +96,7 @@ export function MHero({
   overlap,
   position = 'center',
   padBottom = 48,
+  video,
   children,
 }: {
   src: string;
@@ -103,18 +105,24 @@ export function MHero({
   overlap: number;
   position?: string;
   padBottom?: number;
+  /** Light mobile encode — poster paints first, video fades in when playing. */
+  video?: string;
   children: React.ReactNode;
 }) {
   return (
     <section className="relative">
-      <div className="relative w-full" style={{ height }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt={alt}
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: position }}
-        />
+      <div className="relative w-full overflow-hidden" style={{ height }}>
+        {video ? (
+          <MHeroVideo video={video} poster={src} alt={alt} position={position} />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={src}
+            alt={alt}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: position }}
+          />
+        )}
         <div
           className="pointer-events-none absolute inset-0"
           style={{ background: M_HERO_GRADIENT }}

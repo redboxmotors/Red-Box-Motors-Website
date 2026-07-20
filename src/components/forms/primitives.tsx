@@ -24,11 +24,17 @@ export function FieldBox({
   className?: string;
   children: React.ReactNode;
 }) {
+  // Focus micro-interaction (motion pass 2026-07-20): the hairline warms to
+  // the red accent while a field inside has focus; errors still win.
   return (
     <div
       data-field-error={hasErr ? 'true' : undefined}
-      className={`border bg-rb-surface-3 px-4 py-3.5 transition-colors duration-150 ${className}`}
-      style={{ borderColor: hasErr ? '#CC0000' : '#1c1c1c', minHeight }}
+      className={`border bg-rb-surface-3 px-4 py-3.5 transition-[border-color,box-shadow] duration-btn ease-rb ${
+        hasErr
+          ? 'border-rb-red'
+          : 'border-[#1c1c1c] focus-within:border-[rgba(204,0,0,0.55)] focus-within:shadow-[0_0_0_1px_rgba(204,0,0,0.12)]'
+      } ${className}`}
+      style={{ minHeight }}
     >
       {children}
     </div>
