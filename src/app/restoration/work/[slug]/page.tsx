@@ -5,10 +5,16 @@ import { ContactLink } from '@/components/contact/ContactModal';
 import { RandomBackdrop } from '@/components/site/RandomBackdrop';
 import { SiteNav } from '@/components/site/SiteNav';
 import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
-import { focalPosition, getImagesFor, getProjectBySlug } from '@/lib/public/content';
+import { focalPosition, getImagesFor, getProjectBySlug, getSettings } from '@/lib/public/content';
 import type { DbImage, Project } from '@/lib/db/types';
 import { SchemaScript } from '@/components/site/SchemaScript';
 import { projectArticleSchema } from '@/lib/seo/schema';
+import { MobileShell } from '@/components/mobile/MobileShell';
+import { MobileFooter } from '@/components/mobile/MobileFooter';
+import { QuestionsLocation } from '@/components/mobile/QuestionsLocation';
+import { MGallery, type MGalleryImage } from '@/components/mobile/MGallery';
+import { RESTORATION_FAQ } from '@/components/restoration/faq';
+import { ED, MArrow, mBtnRedCls } from '@/components/mobile/ui';
 
 // Project Detail.dc.html → /cosmetics/work/[slug] — social-post-style project
 // page: author row, headline, photo collage, action bar, narrative + details,
@@ -147,9 +153,143 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
     { label: 'Completed', value: p.year != null ? String(p.year) : null },
   ].filter((f): f is { label: string; value: string } => Boolean(f.value));
 
+  const settings = await getSettings();
+  const galleryImages: MGalleryImage[] = images.map((img, i) => ({
+    url: img.url,
+    alt: img.alt || `${p.title}, photo ${i + 1}`,
+    position: focalPosition(img),
+    thumb: img.thumb_url,
+  }));
+  const detailShot = wideShot ?? images[1] ?? null;
+  const location = (p.location ?? 'Austin, TX').toUpperCase();
+
   return (
-    <main className="relative min-h-screen w-full bg-rb-bg text-white">
+    <>
       <SchemaScript schema={projectArticleSchema(p, images.map((img) => img.url))} />
+
+      {/* ===== MOBILE (design_handoff Work Detail Mobile) ===== */}
+      <MobileShell current="work">
+        {/* Back + post meta */}
+        <section className="flex flex-col gap-5 px-5 pt-3.5">
+          <Link
+            href="/restoration/work"
+            className="flex items-center gap-2 py-2 font-plex text-[10px] tracking-[0.25em]"
+            style={{ color: ED(0.55) }}
+          >
+            <span className="text-rb-red" aria-hidden>
+              ←
+            </span>{' '}
+            ALL WORK
+          </Link>
+          <div className="flex items-center justify-between gap-3 border-b border-white/[0.08] pb-[18px]">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 flex-none items-center justify-center bg-rb-red font-plex text-[10px] font-medium tracking-[0.1em] text-white">
+                RBM
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <div className="flex items-center gap-2">
+                  <div className="text-[14px] font-bold text-white">Red Box Motors</div>
+                  <div className="h-1.5 w-1.5 bg-rb-red" />
+                </div>
+                <div className="text-[12px]" style={{ color: ED(0.5) }}>
+                  @redboxmotors · Red Box Restoration
+                </div>
+              </div>
+            </div>
+            <div className="font-plex text-[9px] tracking-[0.15em]" style={{ color: ED(0.45) }}>
+              {location}
+            </div>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <h1
+              className="m-0 text-[34px] font-extrabold tracking-tight text-white"
+              style={{ lineHeight: 1.06 }}
+            >
+              {p.title}
+            </h1>
+            <div className="text-[14px]" style={{ color: ED(0.55) }}>
+              {p.vehicle} · {p.category}
+            </div>
+          </div>
+        </section>
+
+        {/* Gallery */}
+        <section className="flex flex-col gap-2.5 px-5 pt-5">
+          <MGallery
+            images={galleryImages}
+            chip={p.category.toUpperCase()}
+            placeholderTag={tag}
+          />
+          {hashtags.length > 0 && (
+            <div className="flex flex-wrap gap-3 pt-2.5">
+              {hashtags.map((t) => (
+                <Link
+                  key={t}
+                  href="/restoration/work"
+                  className="font-plex text-[11px] tracking-[0.06em]"
+                  style={{ color: ED(0.5) }}
+                >
+                  {t}
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Want this for your car? */}
+        <section className="px-5 pt-6">
+          <div className="flex flex-col gap-3 border border-white/[0.08] bg-[#151515] px-5 py-6">
+            <div className="text-[19px] font-bold text-white">Want this for your car?</div>
+            <div className="text-[14px] leading-[1.6]" style={{ color: ED(0.65) }}>
+              Tell us what you have in mind — we will scope it and quote it.
+            </div>
+            <Link href="/restoration/estimate" className={`${mBtnRedCls} mt-1.5`}>
+              <span>Request an Estimate</span>
+              <MArrow />
+            </Link>
+          </div>
+        </section>
+
+        {/* About this build */}
+        <section className="flex flex-col gap-4 px-5 pb-12 pt-9">
+          {detailShot && (
+            <div className="relative h-[220px] w-full overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={detailShot.url}
+                alt={detailShot.alt || `${p.title}, detail`}
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: focalPosition(detailShot) }}
+                loading="lazy"
+              />
+            </div>
+          )}
+          <div className="mt-2 font-plex text-[10px] tracking-[0.3em] text-rb-red">
+            ABOUT THIS BUILD
+          </div>
+          {paras.map((para) => (
+            <p
+              key={para.slice(0, 40)}
+              className="m-0 text-[14px] leading-[1.7]"
+              style={{ color: ED(0.72) }}
+            >
+              {para}
+            </p>
+          ))}
+          <Link
+            href="/restoration/work"
+            className="mt-2 flex items-center justify-center gap-2.5 border border-white/20 px-5 py-[15px] text-[14px] font-bold text-[#EDEDED] transition-colors duration-150 hover:border-rb-red hover:text-white"
+          >
+            See more work <MArrow className="text-rb-red" />
+          </Link>
+        </section>
+
+        <QuestionsLocation faqs={RESTORATION_FAQ} />
+        <MobileFooter phone={settings.phone} email={settings.email} />
+      </MobileShell>
+
+      {/* ===== DESKTOP (unchanged) ===== */}
+      <main className="relative hidden min-h-screen w-full bg-rb-bg text-white md:block">
       <RandomBackdrop />
 
       <div className="relative z-[1]">
@@ -423,6 +563,7 @@ export default async function ProjectDetailPage({ params }: { params: { slug: st
         {/* ===== VISIT & FAQ ===== */}
         <VisitAndFAQ division="cosmetics" />
       </div>
-    </main>
+      </main>
+    </>
   );
 }

@@ -10,7 +10,8 @@ import { FaqAccordion, type Faq } from './FaqAccordion';
 type Division = 'all' | 'dealer' | 'cosmetics' | 'collection';
 
 // Broad questions only — detailed sales/service FAQs live on their own pages.
-const DEFAULT_FAQ: Faq[] = [
+// Exported for the mobile homepage (same four questions, mobile accordion).
+export const DEFAULT_FAQ: Faq[] = [
   {
     q: 'What services does Red Box Motors provide?',
     a: 'Two divisions under one roof: Sales & Consignment, curated inventory and professional consignment representation for enthusiast and collector vehicles, and Red Box Restoration, paint protection film, ceramic coatings, paint correction, vinyl wraps, tint, detailing, wheels and specialty automotive installations.',

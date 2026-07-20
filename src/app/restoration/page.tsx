@@ -6,10 +6,26 @@ import { HeroSection, HeroBadge } from '@/components/site/Hero';
 import { ExpandingScrollBox } from '@/components/site/ExpandingScrollBox';
 import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
 import { BuildsGrid } from '@/components/cosmetics/BuildsGrid';
-import { getSurfaceCards } from '@/lib/public/content';
+import { getSettings, getSurfaceCards } from '@/lib/public/content';
 import { SchemaScript } from '@/components/site/SchemaScript';
 import { serviceSchema } from '@/lib/seo/schema';
-import type { Faq } from '@/components/site/FaqAccordion';
+import { RESTORATION_FAQ } from '@/components/restoration/faq';
+import { MobileShell } from '@/components/mobile/MobileShell';
+import { MobileFooter } from '@/components/mobile/MobileFooter';
+import { QuestionsLocation } from '@/components/mobile/QuestionsLocation';
+import { focalPosition } from '@/lib/public/cards';
+import {
+  ED,
+  MBadge,
+  MBrandRow,
+  MBtnOutline,
+  MBtnRed,
+  MH2,
+  MHero,
+  MPhotoBand,
+  mEyebrowCls,
+  mEyebrowTightCls,
+} from '@/components/mobile/ui';
 
 // Red Box Restoration — the consolidated protection/restoration/customization
 // page (formerly "Cosmetics"; /cosmetics now 301s here). All services live
@@ -155,13 +171,8 @@ const SERVICES: {
   },
 ];
 
-// Detailed service questions live here (moved off the homepage).
-const RESTORATION_FAQ: Faq[] = [
-  { q: 'How do I get an estimate?', a: 'Use the estimate form, tell us the vehicle and what you want to protect or change, and we will walk you through options and put together a written estimate. Photos help; an in-person look is even better.' },
-  { q: 'What PPF coverage do you offer?', a: 'From high-impact front-end packages to full-body coverage, precision-cut per panel with wrapped edges wherever possible, using premium self-healing films with manufacturer warranty coverage.' },
-  { q: 'Does ceramic coating require paint correction?', a: 'Coatings lock in whatever is under them, so where needed we correct the paint to the agreed level first, that is what gives the finish its depth.' },
-  { q: 'Are vinyl wraps reversible?', a: 'When installed over suitable paint and removed using proper techniques, vinyl provides a reversible appearance change. Paint condition and prior repairs can affect removal, we assess that before the work starts.' },
-];
+// Detailed service questions live in components/restoration/faq — shared
+// with the mobile Recent Work / Work Detail screens.
 
 // Shared process — one section for every service (owner checklist).
 const PROCESS = [
@@ -194,18 +205,13 @@ function Arrow({ size = 14, width = 1.5 }: { size?: number; width?: number }) {
 
 export default async function RestorationPage() {
   const builds = await getSurfaceCards('cosmetics_builds_preview', 8);
+  const settings = await getSettings();
 
   // Video hero — 1080p encode of the owner's original 4K export
   // (2026-07-08). Poster is the video's own first frame, so playback takes
   // over seamlessly; it also serves as the reduced-motion fallback.
   return (
-    <ScrollShell
-      bg="/assets/restoration-hero-poster.jpg"
-      bgVideo="/assets/restoration-hero.mp4"
-      bgVideoMobile="/assets/restoration-hero-m.mp4"
-      bgMobile="/assets/restoration-hero-poster-m.jpg"
-      bgPosition="center 55%"
-    >
+    <>
       <SchemaScript
         schema={serviceSchema(
           'Protection, Restoration and Customization. Done Right.',
@@ -213,6 +219,256 @@ export default async function RestorationPage() {
           '/restoration',
         )}
       />
+
+      {/* ===== MOBILE (design_handoff Restoration Mobile) ===== */}
+      <MobileShell current="restoration">
+        <MHero
+          src="/assets/restoration-hero-poster-m.jpg"
+          alt="Red Box Restoration wash bay, Austin TX"
+          height={600}
+          overlap={210}
+          padBottom={48}
+          position="center 55%"
+        >
+          <MBadge>RED BOX RESTORATION</MBadge>
+          <h1
+            className="m-0 text-[40px] font-extrabold tracking-tight text-white"
+            style={{ lineHeight: 1.04, textWrap: 'balance' }}
+          >
+            Protection, Restoration and Customization. Done Right.
+          </h1>
+          <p className="m-0 text-[15px] leading-[1.65]" style={{ color: ED(0.8) }}>
+            Red Box Restoration is where our company began. From our climate-controlled Austin
+            facility, we protect, restore and transform enthusiast, exotic and collector vehicles
+            using premium materials, professional equipment and vehicle-specific processes.
+          </p>
+          <div className="mt-1.5 flex w-full flex-col gap-3">
+            <MBtnRed href="/restoration/estimate">Request an Estimate</MBtnRed>
+            <MBtnOutline href="/restoration/work">See Recent Work</MBtnOutline>
+          </div>
+        </MHero>
+
+        {/* —— Intro + service jump chips —— */}
+        <section className="border-t border-white/[0.06]">
+          <MPhotoBand
+            src="/assets/resto-bring-us-m.jpg"
+            alt="Red Box Restoration shop floor, Austin TX"
+            height={280}
+            position="center 62%"
+            gradient="linear-gradient(180deg, rgba(10,10,10,0) 50%, rgba(10,10,10,0.9) 92%, #0A0A0A 100%)"
+          />
+          <div className="flex flex-col gap-4 px-5 pb-7 pt-[30px]">
+            <div className={mEyebrowTightCls}>RED BOX RESTORATION · AUSTIN, TEXAS</div>
+            <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.8) }}>
+              Whether the goal is preserving a new delivery, restoring depth and clarity to an
+              existing finish or creating a complete visual transformation, every project receives
+              the same careful preparation, clear communication and final quality inspection.
+            </p>
+          </div>
+          <div className="rb-noscrollbar flex gap-2 overflow-x-auto border-b border-white/[0.06] px-5 pb-6 pt-1">
+            {JUMP.map(([id, label]) => (
+              <a
+                key={id}
+                href={`#m-${id}`}
+                className="flex min-h-[44px] flex-none items-center border border-white/[0.15] px-4 py-[13px] font-plex text-[10px] uppercase tracking-[0.18em] transition-colors duration-150 hover:border-[rgba(204,0,0,0.6)] hover:text-white"
+                style={{ color: ED(0.65) }}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* —— Services 01–07 —— */}
+        <section className="flex flex-col">
+          {SERVICES.map((svc) => (
+            <div
+              key={svc.id}
+              id={`m-${svc.id}`}
+              className="border-b border-white/[0.06] pb-11"
+              style={{ scrollMarginTop: '12px' }}
+            >
+              <div className="relative h-[260px] w-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={svc.img.src}
+                  alt={svc.img.alt}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  style={{ objectPosition: svc.img.pos ?? 'center' }}
+                  loading="lazy"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, rgba(10,10,10,0) 55%, rgba(10,10,10,0.85) 100%)',
+                  }}
+                />
+                <div className="pointer-events-none absolute bottom-4 left-5 text-[34px] font-extrabold tracking-tight text-rb-red">
+                  {svc.num}
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 px-5 pt-6">
+                <h2
+                  className="m-0 text-[30px] font-extrabold tracking-tight text-white"
+                  style={{ lineHeight: 1.08 }}
+                >
+                  {svc.title}
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {svc.tags.map((t) => (
+                    <div
+                      key={t}
+                      className="border border-white/[0.18] px-2.5 py-[7px] font-plex text-[9px] uppercase tracking-[0.14em]"
+                      style={{ color: ED(0.6) }}
+                    >
+                      {t}
+                    </div>
+                  ))}
+                </div>
+                {svc.paras.map((p) => (
+                  <p
+                    key={p.slice(0, 24)}
+                    className="m-0 text-[14px] leading-[1.7]"
+                    style={{ color: ED(0.72) }}
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
+
+        {/* —— One process, every service —— */}
+        <section className="flex flex-col gap-[18px] px-5 pb-[52px] pt-11">
+          <div className={mEyebrowCls}>HOW EVERY PROJECT RUNS</div>
+          <MH2 size={36}>One process, every service</MH2>
+          <div className="mt-1.5 flex flex-col gap-3">
+            {PROCESS.map(([title, detail], i) => (
+              <div
+                key={title}
+                className="flex flex-col gap-2 border border-white/5 bg-[#151515] p-5"
+              >
+                <div className="font-plex text-[10px] tracking-[0.25em] text-rb-red">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div className="text-[16px] font-bold text-white">{title}</div>
+                <div className="text-[13px] leading-[1.6]" style={{ color: ED(0.6) }}>
+                  {detail}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* —— Recent work teaser —— */}
+        <section className="flex flex-col gap-5 border-t border-white/[0.06] px-5 pb-[52px] pt-11">
+          <div className="flex flex-col gap-3.5">
+            <div className={mEyebrowCls}>RECENT WORK</div>
+            <MH2 size={36}>From the shop floor</MH2>
+            <p className="m-0 text-[14px] leading-[1.65]" style={{ color: ED(0.65) }}>
+              Recent paint protection, correction, coating, wrap and wheel projects, documented
+              panel by panel so you can see exactly the finish and standard you can expect on your
+              own car.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4">
+            {builds.slice(0, 2).map((card) => (
+              <Link
+                key={`${card.type}-${card.id}`}
+                href={card.href}
+                className="relative block border border-white/[0.06]"
+              >
+                <div className="relative h-[240px] w-full">
+                  {card.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={card.image.url}
+                      alt={card.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      style={{ objectPosition: focalPosition(card.image) }}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="rb-stripe absolute inset-0" />
+                  )}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        'linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0) 35%, rgba(10,10,10,0.85) 100%)',
+                    }}
+                  />
+                  <div className="pointer-events-none absolute right-4 top-3.5 text-[15px] text-white" aria-hidden>
+                    ↗
+                  </div>
+                  <div className="pointer-events-none absolute bottom-3.5 left-4 right-4 flex flex-col gap-1">
+                    <div
+                      className="font-plex text-[9px] tracking-[0.25em]"
+                      style={{ color: ED(0.6) }}
+                    >
+                      RECENT WORK
+                    </div>
+                    <div className="text-[21px] font-bold tracking-[-0.01em] text-white">
+                      {card.name}
+                    </div>
+                    <div className="font-plex text-[11px]" style={{ color: ED(0.6) }}>
+                      {card.spec}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <MBtnOutline href="/restoration/work">View all work</MBtnOutline>
+        </section>
+
+        {/* —— Bring us the car —— */}
+        <section className="border-t border-white/[0.06]">
+          <MPhotoBand
+            src="/assets/resto-intro-m.jpg"
+            alt="McLaren 765LT in the Red Box Restoration wash bay, Austin TX"
+            height={320}
+            position="48% center"
+            caption="AUSTIN, TX"
+            gradient="linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.9) 90%, #0A0A0A 100%)"
+          />
+          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+            <div className={mEyebrowCls}>START A PROJECT</div>
+            <h2
+              className="m-0 text-[40px] font-extrabold tracking-tight text-white"
+              style={{ lineHeight: 1.02 }}
+            >
+              Bring us the car.
+            </h2>
+            <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.75) }}>
+              Tell us what you&rsquo;re protecting or transforming and we&rsquo;ll walk you through
+              the right approach for your car.
+            </p>
+            <div className="mt-1 flex flex-col gap-3">
+              <MBtnRed href="/restoration/estimate">Request an Estimate</MBtnRed>
+              <MBtnOutline href="/restoration/work">See recent work</MBtnOutline>
+            </div>
+            <div className="mt-2">
+              <MBrandRow label="RED BOX MOTORS · RED BOX RESTORATION" />
+            </div>
+          </div>
+        </section>
+
+        <QuestionsLocation faqs={RESTORATION_FAQ} />
+        <MobileFooter phone={settings.phone} email={settings.email} />
+      </MobileShell>
+
+      {/* ===== DESKTOP (unchanged) ===== */}
+      <div className="hidden md:block">
+    <ScrollShell
+      bg="/assets/restoration-hero-poster.jpg"
+      bgVideo="/assets/restoration-hero.mp4"
+      bgVideoMobile="/assets/restoration-hero-m.mp4"
+      bgMobile="/assets/restoration-hero-poster-m.jpg"
+      bgPosition="center 55%"
+    >
       <SiteNav current="cosmetics" />
 
       {/* ——— 1 · HERO ——— */}
@@ -536,5 +792,7 @@ export default async function RestorationPage() {
       </ExpandingScrollBox>
 
     </ScrollShell>
+      </div>
+    </>
   );
 }

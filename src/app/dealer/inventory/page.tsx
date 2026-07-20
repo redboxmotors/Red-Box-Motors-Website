@@ -22,6 +22,13 @@ import type { DbImage, Listing, Sourced } from '@/lib/db/types';
 import { formatMileage, formatPrice } from '@/lib/db/types';
 import { SchemaScript } from '@/components/site/SchemaScript';
 import { itemListSchema } from '@/lib/seo/schema';
+import { MobileShell } from '@/components/mobile/MobileShell';
+import { MobileFooter } from '@/components/mobile/MobileFooter';
+import { QuestionsLocation } from '@/components/mobile/QuestionsLocation';
+import { InventoryMobileList, type MVehicleCard } from '@/components/mobile/InventoryMobileList';
+import { MBadge, MBtnRed, MH2, MHero, MPhotoBand, ED, mEyebrowCls } from '@/components/mobile/ui';
+import { focalPosition } from '@/lib/public/cards';
+import { dedupeModel } from '@/lib/db/types';
 
 // /dealer/inventory — Dealer Inventory.dc.html. For-sale roster with the
 // functional make-filter + sort toolbar (URL-query-driven so views are
@@ -309,8 +316,10 @@ export default async function DealerInventoryPage({
       ? `${forSale.length} vehicles`
       : `${roster.length} of ${forSale.length} vehicles`;
 
+  // Full rosters (not the URL-filtered desktop subsets) so the mobile cards
+  // always have their photos regardless of ?make= in the URL.
   const heroes = await getHeroImages([
-    ...[...roster, ...soldShown, ...comingShown].map((l) => ({ type: 'listing' as const, id: l.id })),
+    ...[...forSale, ...sold, ...comingShown].map((l) => ({ type: 'listing' as const, id: l.id })),
     ...sourcedShown.map((s) => ({ type: 'sourced' as const, id: s.id })),
   ]);
 
@@ -318,10 +327,94 @@ export default async function DealerInventoryPage({
     (SHOW_SOURCED_PIPELINE && sourcedShown.length > 0) ||
     comingShown.length > 0;
 
+  // —— Mobile cards (Inventory Mobile.dc.html) ——
+  const toMobileCard = (l: Listing, linked: boolean): MVehicleCard => {
+    const img = heroFor(heroes, 'listing', l.id);
+    return {
+      id: l.id,
+      href: linked ? listingHref(l) : null,
+      brand: l.make.toUpperCase(),
+      name: dedupeModel(l.make, l.model),
+      price: l.price != null ? formatPrice(l.price) : null,
+      priceValue: l.price,
+      meta: [l.year, l.mileage != null ? formatMileage(l.mileage) : null, l.exterior]
+        .filter(Boolean)
+        .join(' · '),
+      image: img ? { url: img.url, position: focalPosition(img) } : null,
+      tag: tagFor(l),
+    };
+  };
+  const mobileForSale = [...forSale].sort(SORTERS['price-desc']).map((l) => toMobileCard(l, true));
+  const mobileSold = sold.map((l) => toMobileCard(l, false));
+
   return (
     <FirstLookProvider phone={settings.phone}>
-    <main className="relative bg-rb-bg text-white">
       <SchemaScript schema={itemListSchema(forSale)} />
+
+      {/* ===== MOBILE (design_handoff Inventory Mobile) ===== */}
+      <MobileShell current="inventory">
+        <MHero
+          src="/assets/hero-brabus-poster-m.jpg"
+          alt="Vehicles at the Red Box Motors facility, Austin TX"
+          height={480}
+          overlap={170}
+          padBottom={40}
+          position="center 58%"
+        >
+          <MBadge>SALES &amp; CONSIGNMENT</MBadge>
+          <h1
+            className="m-0 text-[42px] font-extrabold tracking-tight text-white"
+            style={{ lineHeight: 1.02 }}
+          >
+            Currently Represented.
+          </h1>
+          <p className="m-0 text-[15px] leading-[1.65]" style={{ color: ED(0.78) }}>
+            Explore enthusiast and collector vehicles currently offered through Red Box Motors.
+          </p>
+        </MHero>
+
+        <InventoryMobileList vehicles={mobileForSale} sold={mobileSold} />
+
+        {/* —— Consign CTA —— */}
+        <section className="border-t border-white/[0.06]">
+          <MPhotoBand
+            src="/assets/keys-handoff.jpg"
+            alt="Consign your car with Red Box Motors"
+            height={320}
+            position="center 54%"
+            caption="BUY · SELL · CONSIGN · NATIONWIDE"
+            gradient="linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.9) 90%, #0A0A0A 100%)"
+          />
+          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+            <div className={mEyebrowCls}>DON&rsquo;T SEE IT HERE?</div>
+            <MH2>Have a vehicle to consign?</MH2>
+            <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.75) }}>
+              We professionally prepare, market and represent vehicles to qualified buyers
+              nationwide, managed by one team from the first conversation through delivery.
+            </p>
+            <div className="mt-1">
+              <MBtnRed href="/dealer">Sell Your Vehicle</MBtnRed>
+            </div>
+            <div className="mt-2 flex items-center gap-3">
+              <div className="bg-rb-red px-2.5 py-[7px] font-plex text-[10px] font-medium tracking-[0.2em] text-white">
+                RBM
+              </div>
+              <div
+                className="font-plex text-[9px] leading-[1.6] tracking-[0.22em]"
+                style={{ color: ED(0.45) }}
+              >
+                RED BOX MOTORS · SALES &amp; CONSIGNMENT · AUSTIN, TEXAS
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <QuestionsLocation faqs={INVENTORY_FAQ} />
+        <MobileFooter phone={settings.phone} email={settings.email} />
+      </MobileShell>
+
+      {/* ===== DESKTOP (unchanged) ===== */}
+      <main className="relative hidden bg-rb-bg text-white md:block">
       <SiteNav current="inventory" />
 
       {/* Video hero above the scroll box, matching the other pages

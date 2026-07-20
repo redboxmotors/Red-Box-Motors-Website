@@ -19,6 +19,12 @@ import {
 import { dedupeModel, formatMileage, formatPrice, listingTitle } from '@/lib/db/types';
 import { SchemaScript } from '@/components/site/SchemaScript';
 import { carSchema } from '@/lib/seo/schema';
+import { MobileShell } from '@/components/mobile/MobileShell';
+import { MobileFooter } from '@/components/mobile/MobileFooter';
+import { MFaq } from '@/components/mobile/MFaq';
+import { MGallery } from '@/components/mobile/MGallery';
+import { OverviewExpander } from '@/components/mobile/OverviewExpander';
+import { ED, MBtnOutline } from '@/components/mobile/ui';
 
 // /dealer/inventory/[slug] — single listing (2026-07-08 owner rework).
 // Section order: gallery → name/mileage/price → primary specifications →
@@ -149,9 +155,201 @@ export default async function CarDetailPage({ params }: { params: { slug: string
   const prefill = `I'm interested in the ${listingTitle(listing)}. Please contact me with additional information.`;
   const tel = (settings.phone ?? '').replace(/[^+\d]/g, '');
 
+  const mLabel = 'font-plex text-[11px] tracking-[0.3em] text-white';
+  const mFieldLabel = { color: ED(0.45) };
+
   return (
-    <main className="relative min-h-screen bg-rb-bg text-white">
+    <>
       <SchemaScript schema={carSchema(listing, dbImages.map((img) => img.url))} />
+
+      {/* ===== MOBILE (design_handoff Vehicle Detail Mobile) ===== */}
+      <MobileShell current="inventory">
+        <div className="px-5 pb-1.5 pt-3.5">
+          <Link
+            href="/dealer/inventory"
+            className="flex items-center gap-2 py-2 font-plex text-[10px] tracking-[0.25em]"
+            style={{ color: ED(0.55) }}
+          >
+            <span className="text-rb-red" aria-hidden>
+              ←
+            </span>{' '}
+            ALL INVENTORY
+          </Link>
+        </div>
+
+        {/* Gallery */}
+        <MGallery
+          images={images}
+          padThumbs
+          placeholderTag={makeModel.toLowerCase()}
+        />
+
+        {/* Title + price */}
+        <section className="flex flex-col gap-3.5 border-b border-white/[0.08] px-5 pb-7 pt-6">
+          <div className="flex flex-col gap-1.5">
+            {listing.year != null && (
+              <div className="font-plex text-[11px] tracking-[0.2em]" style={{ color: ED(0.5) }}>
+                {listing.year}
+              </div>
+            )}
+            <h1
+              className="m-0 text-[32px] font-extrabold tracking-tight text-white"
+              style={{ lineHeight: 1.08 }}
+            >
+              {makeModel}
+            </h1>
+            {mileage && (
+              <div className="text-[14px]" style={{ color: ED(0.55) }}>
+                {mileage}
+              </div>
+            )}
+          </div>
+          {listing.price != null && (
+            <div className="flex items-baseline justify-between gap-3 border border-white/[0.06] bg-[#151515] px-[18px] py-4">
+              <div className="font-plex text-[9px] tracking-[0.25em]" style={mFieldLabel}>
+                ASKING PRICE
+              </div>
+              <div className="text-[26px] font-extrabold tracking-[-0.01em] text-white">{price}</div>
+            </div>
+          )}
+        </section>
+
+        {/* Specifications */}
+        <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+          <div className={mLabel}>SPECIFICATIONS</div>
+          <div className="grid grid-cols-2 gap-x-5">
+            {specs.map((spec) => (
+              <div
+                key={spec.label}
+                className="flex flex-col gap-1 border-b border-white/[0.07] py-[13px]"
+              >
+                <div
+                  className="font-plex text-[9px] uppercase tracking-[0.2em]"
+                  style={mFieldLabel}
+                >
+                  {spec.label}
+                </div>
+                <div className="break-words text-[14px] font-semibold text-white">{spec.value}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Overview — owner-written only, first two paragraphs + expander */}
+        {overviewParas.length > 0 && (
+          <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+            <div className={mLabel}>OVERVIEW</div>
+            {overviewParas.slice(0, 2).map((p) => (
+              <p
+                key={p.slice(0, 40)}
+                className="m-0 text-[14px] leading-[1.7]"
+                style={{ color: ED(0.72) }}
+              >
+                {p}
+              </p>
+            ))}
+            <OverviewExpander moreParas={overviewParas.slice(2)} />
+          </section>
+        )}
+
+        {/* Highlights (owner-authored) */}
+        {highlights.length > 0 && (
+          <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+            <div className={mLabel}>VEHICLE HIGHLIGHTS</div>
+            <div className="flex flex-col">
+              {highlights.map((h) => (
+                <div
+                  key={h}
+                  className="flex items-start gap-3 border-b border-white/[0.07] py-3.5"
+                >
+                  <div className="mt-1.5 h-[7px] w-[7px] flex-none bg-rb-red" />
+                  <div className="text-[14px] leading-[1.55]" style={{ color: ED(0.8) }}>
+                    {h}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Available through */}
+        <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+          <div className={mLabel}>AVAILABLE THROUGH RED BOX MOTORS</div>
+          <div className="flex flex-col">
+            {[
+              'Available vehicle history and supporting documentation',
+              'Additional inspection coordination upon request',
+              'Optional PPF, ceramic coating, tint and delivery preparation',
+              'Enclosed transportation coordination nationwide',
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3 border-b border-white/[0.07] py-3.5">
+                <div className="mt-1.5 h-[7px] w-[7px] flex-none bg-rb-red" />
+                <div className="text-[14px] leading-[1.55]" style={{ color: ED(0.8) }}>
+                  {item}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Inquire */}
+        <section className="flex flex-col gap-[18px] border-b border-white/[0.08] px-5 pb-11 pt-8">
+          <div className={mLabel}>INQUIRE ABOUT THIS VEHICLE</div>
+          <InquiryPanel
+            makeModel={makeModel}
+            price={price}
+            prefill={prefill}
+            listingSlug={listing.slug}
+            listingTitle={listingTitle(listing)}
+            phone={settings.phone}
+          />
+          <div className="flex flex-col gap-2.5 border border-white/10 bg-[#151515] p-[18px]">
+            <div className="font-plex text-[9px] tracking-[0.25em]" style={{ color: ED(0.5) }}>
+              PREFER TO SPEAK DIRECTLY?
+            </div>
+            <div className="flex items-baseline justify-between gap-2.5">
+              <div className="text-[14px] text-white">
+                Call Red Box Motors at{' '}
+                <a href={`tel:${tel}`} className="font-bold text-white">
+                  {settings.phone}
+                </a>
+              </div>
+              <div className="font-plex text-[9px] tracking-[0.2em]" style={{ color: ED(0.4) }}>
+                CALL
+              </div>
+            </div>
+            <div className="flex items-baseline justify-between gap-2.5">
+              <div className="text-[14px]" style={{ color: ED(0.7) }}>
+                Austin, TX · by appointment
+              </div>
+              <div className="font-plex text-[9px] tracking-[0.2em]" style={{ color: ED(0.4) }}>
+                MON–SAT
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Vehicle FAQ */}
+        <section className="flex flex-col gap-4 border-b border-white/[0.08] px-5 pb-10 pt-8">
+          {faq.length > 0 && (
+            <>
+              <div className={mLabel}>QUESTIONS ABOUT THIS VEHICLE</div>
+              <MFaq faqs={faq} />
+            </>
+          )}
+          <div className="flex flex-col gap-3.5 pt-2.5">
+            <div className="text-[16px] font-semibold" style={{ color: ED(0.8) }}>
+              Looking for another vehicle?
+            </div>
+            <MBtnOutline href="/dealer/inventory">View All Inventory</MBtnOutline>
+          </div>
+        </section>
+
+        <MobileFooter phone={settings.phone} email={settings.email} />
+      </MobileShell>
+
+      {/* ===== DESKTOP (unchanged) ===== */}
+      <main className="relative hidden min-h-screen bg-rb-bg text-white md:block">
       <RandomBackdrop />
 
       <div className="relative z-[1]">
@@ -370,6 +568,7 @@ export default async function CarDetailPage({ params }: { params: { slug: string
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

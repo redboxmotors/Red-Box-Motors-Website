@@ -5,10 +5,23 @@ import { RandomBackdrop } from '@/components/site/RandomBackdrop';
 import { WorkGallery, type WorkItem } from '@/components/cosmetics/WorkGallery';
 import { ExpandingScrollBox } from '@/components/site/ExpandingScrollBox';
 import { SiteNav } from '@/components/site/SiteNav';
-import { getHeroImages, getProjects, heroFor } from '@/lib/public/content';
+import { focalPosition, getHeroImages, getProjects, getSettings, heroFor } from '@/lib/public/content';
 import type { Project } from '@/lib/db/types';
 import { SchemaScript } from '@/components/site/SchemaScript';
 import { collectionPageSchema } from '@/lib/seo/schema';
+import { MobileShell } from '@/components/mobile/MobileShell';
+import { MobileFooter } from '@/components/mobile/MobileFooter';
+import { QuestionsLocation } from '@/components/mobile/QuestionsLocation';
+import { WorkMobileList, type MProjectCard } from '@/components/mobile/WorkMobileList';
+import { RESTORATION_FAQ } from '@/components/restoration/faq';
+import {
+  ED,
+  MBtnRed,
+  MHero,
+  MPhotoBand,
+  MTextLink,
+  mEyebrowTightCls,
+} from '@/components/mobile/ui';
 
 // Recent Work.dc.html → /cosmetics/work — mini photo header + filterable
 // 3-across gallery of cosmetics projects + rich CTA + Visit & FAQ, all inside
@@ -46,9 +59,119 @@ export default async function RecentWorkPage() {
     image: heroFor(heroes, 'project', p.id),
   }));
 
+  const settings = await getSettings();
+
+  const mobileProjects: MProjectCard[] = projects.map((p) => {
+    const img = heroFor(heroes, 'project', p.id);
+    return {
+      id: p.id,
+      href: `/restoration/work/${p.slug}`,
+      tag: p.category.toUpperCase(),
+      kicker: p.vehicle.toUpperCase(),
+      name: p.title,
+      year: p.year,
+      image: img ? { url: img.url, position: focalPosition(img) } : null,
+      stripeTag: tagFor(p),
+    };
+  });
+
+  const CAPABILITIES = [
+    { h: 'Protection', d: 'STEK self-healing PPF, front-end to full-body coverage.' },
+    { h: 'Finish', d: 'Carbon Collective ceramics over a proper paint correction.' },
+    { h: 'Transformation', d: 'Color-change wraps, wheel refinishing and custom finishes.' },
+    { h: 'Specialty', d: 'Wheels, tint, detailing and one-off specialty projects.' },
+  ];
+
   return (
-    <main className="relative bg-rb-bg text-white">
+    <>
       <SchemaScript schema={collectionPageSchema('Recent Work', 'Recent paint protection film, ceramic coating, paint correction, wrap and wheel projects from Red Box Restoration, Austin, TX.', '/restoration/work')} />
+
+      {/* ===== MOBILE (design_handoff Recent Work Mobile) ===== */}
+      <MobileShell current="work">
+        <MHero
+          src="/assets/work-intro-m.jpg"
+          alt="Kenwood-liveried group C race car restored through Red Box Motors, Austin TX"
+          height={480}
+          overlap={175}
+          padBottom={36}
+          position="center 42%"
+        >
+          <div className={mEyebrowTightCls}>RED BOX RESTORATION · RECENT WORK</div>
+          <h1
+            className="m-0 text-[38px] font-extrabold tracking-tight text-white"
+            style={{ lineHeight: 1.06 }}
+          >
+            Protection. Correction. Transformation.
+          </h1>
+          <p className="m-0 text-[15px] leading-[1.65]" style={{ color: ED(0.78) }}>
+            Every project here came through our Austin shop, paint protection, ceramic, correction,
+            wraps and wheels. Documented panel by panel so you can judge the standard before you
+            drop a car off.
+          </p>
+          <Link
+            href="/restoration"
+            className="flex items-center gap-2 py-2.5 text-[14px] font-semibold"
+            style={{ color: ED(0.7) }}
+          >
+            <span className="text-rb-red" aria-hidden>
+              ←
+            </span>{' '}
+            Restoration overview
+          </Link>
+        </MHero>
+
+        <WorkMobileList projects={mobileProjects} />
+
+        {/* —— Bring us the car —— */}
+        <section className="border-t border-white/[0.06]">
+          <MPhotoBand
+            src="/assets/work-bring-us-m.jpg"
+            alt="Wrapped F-150 in the Red Box Restoration bay, Austin TX"
+            height={300}
+            position="46% center"
+            caption="STEK · CARBON COLLECTIVE · AUSTIN, TX"
+            gradient="linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.9) 90%, #0A0A0A 100%)"
+          />
+          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+            <div className="font-plex text-[10px] tracking-[0.35em] text-rb-red">
+              START A PROJECT
+            </div>
+            <h2
+              className="m-0 text-[40px] font-extrabold tracking-tight text-white"
+              style={{ lineHeight: 1.02 }}
+            >
+              Bring us the car.
+            </h2>
+            <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.75) }}>
+              Tell us what you&rsquo;re protecting or transforming — paint protection, ceramic,
+              correction, wrap, wheels or specialty installations. We&rsquo;ll walk you through
+              the right approach for your car and handle it under one roof in Austin.
+            </p>
+            <div
+              className="mt-1 grid grid-cols-1 gap-px border border-white/[0.08] bg-white/[0.08]"
+            >
+              {CAPABILITIES.map((c) => (
+                <div key={c.h} className="flex flex-col gap-1.5 bg-rb-raised px-[18px] py-[18px]">
+                  <div className="text-[15px] font-bold text-white">{c.h}</div>
+                  <div className="text-[13px] leading-[1.6]" style={{ color: ED(0.6) }}>
+                    {c.d}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-1 flex flex-col gap-3">
+              <MBtnRed href="/restoration/estimate">Request an Estimate</MBtnRed>
+              <MTextLink href="/restoration">Explore Restoration</MTextLink>
+            </div>
+          </div>
+        </section>
+
+        <QuestionsLocation faqs={RESTORATION_FAQ} />
+        <MobileFooter phone={settings.phone} email={settings.email} />
+      </MobileShell>
+
+      {/* ===== DESKTOP (unchanged) ===== */}
+      <main className="relative hidden bg-rb-bg text-white md:block">
       <RandomBackdrop />
       <SiteNav current="work" />
 
@@ -192,6 +315,7 @@ export default async function RecentWorkPage() {
           <path d="M4 12L12 4M12 4H5.2M12 4V10.8" stroke="#888" strokeWidth="1.3" />
         </svg>
       </ContactLink>
-    </main>
+      </main>
+    </>
   );
 }

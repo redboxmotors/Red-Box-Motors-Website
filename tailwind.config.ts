@@ -38,6 +38,8 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
         mono: ['ui-monospace', 'SF Mono', 'Menlo', 'monospace'],
+        // IBM Plex Mono — mobile handoff eyebrows/labels/metadata
+        plex: ['var(--font-plex)', 'IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {
         tightest: '-0.035em',

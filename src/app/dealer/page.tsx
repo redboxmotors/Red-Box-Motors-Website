@@ -12,6 +12,21 @@ import { SchemaScript } from '@/components/site/SchemaScript';
 import { localBusinessSchema } from '@/lib/seo/schema';
 import { getSettings } from '@/lib/public/content';
 import type { Faq } from '@/components/site/FaqAccordion';
+import { MobileShell } from '@/components/mobile/MobileShell';
+import { MobileFooter } from '@/components/mobile/MobileFooter';
+import { QuestionsLocation } from '@/components/mobile/QuestionsLocation';
+import {
+  ED,
+  MBrandRow,
+  MBtnOutline,
+  MBtnRed,
+  MH2,
+  MHero,
+  MPhotoBand,
+  MStepRow,
+  mEyebrowCls,
+} from '@/components/mobile/ui';
+import { focalPosition } from '@/lib/public/cards';
 
 // Sales & Consignment landing (customer-facing rename of "Dealer" — the
 // /dealer URL is kept to avoid routing churn). Owner-approved copy, verbatim.
@@ -124,10 +139,242 @@ function SectionHeader({ eyebrow, title, blurb }: { eyebrow: string; title: stri
 
 export default async function DealerPage() {
   const salePreview = await getSurfaceCards('dealer_forsale_preview', 3);
+  const settings = await getSettings();
 
   return (
     <>
-      <SchemaScript schema={localBusinessSchema(await getSettings())} />
+      <SchemaScript schema={localBusinessSchema(settings)} />
+
+      {/* ===== MOBILE (design_handoff Sell Your Vehicle Mobile) ===== */}
+      <MobileShell current="sell">
+        <MHero
+          src="/assets/consign-rollers-poster-m.jpg"
+          alt="Consigned vehicle represented by Red Box Motors"
+          height={560}
+          overlap={190}
+          padBottom={52}
+          position="center 50%"
+        >
+          <div className={mEyebrowCls} style={{ letterSpacing: '0.3em' }}>
+            RED BOX MOTORS · SALES &amp; CONSIGNMENT
+          </div>
+          <h1
+            className="m-0 text-[42px] font-extrabold tracking-tight text-white"
+            style={{ lineHeight: 1.02 }}
+          >
+            Exceptional Cars. Properly Represented.
+          </h1>
+          <div className="mt-2 flex w-full flex-col gap-3">
+            <MBtnRed href="/dealer/sell">Sell Your Vehicle</MBtnRed>
+            <MBtnOutline href="/dealer/inventory">View Inventory</MBtnOutline>
+          </div>
+        </MHero>
+
+        {/* —— Representation —— */}
+        <section className="flex flex-col gap-[18px] border-t border-white/[0.06] px-5 pb-[52px] pt-11">
+          <div className={mEyebrowCls}>REPRESENTATION</div>
+          <MH2>More than a listing</MH2>
+          <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.75) }}>
+            Every consigned vehicle receives an agreed preparation, presentation and marketing
+            plan.
+          </p>
+          <div
+            className="font-plex text-[9px] tracking-[0.22em]"
+            style={{ color: ED(0.45), lineHeight: 2 }}
+          >
+            PHOTOGRAPHY · DETAILING · INSPECTION · VIDEO · SHOWROOM · TRANSPORT
+          </div>
+          <div className="mt-2 flex flex-col gap-3">
+            {MORE_THAN_A_LISTING.map((p) => (
+              <div
+                key={p.title}
+                className="flex flex-col gap-2.5 border border-white/5 bg-[#151515] px-5 py-[22px]"
+              >
+                <div className="text-[14px] font-bold uppercase tracking-[0.12em] text-rb-red">
+                  {p.title}
+                </div>
+                <div className="text-[14px] leading-[1.65]" style={{ color: ED(0.7) }}>
+                  {p.text}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* —— How Consignment Works —— */}
+        <section className="flex flex-col gap-2 border-t border-white/[0.06] px-5 pb-[52px] pt-11">
+          <div className={`${mEyebrowCls} pb-2.5`}>HOW IT WORKS</div>
+          <h2
+            className="m-0 mb-3.5 text-[38px] font-extrabold tracking-tight text-white"
+            style={{ lineHeight: 1.04 }}
+          >
+            How Consignment Works
+          </h2>
+          <div className="flex items-baseline justify-between gap-3 pb-3">
+            <div className="text-[15px] font-extrabold tracking-[0.14em] text-white">
+              CONSIGNMENT
+            </div>
+            <div className="font-plex text-[9px] tracking-[0.25em]" style={{ color: ED(0.45) }}>
+              FIVE STEPS
+            </div>
+          </div>
+          {CONSIGNMENT_STEPS.map((s) => (
+            <MStepRow key={s.num} num={s.num} title={s.title} body={s.desc} />
+          ))}
+          <div className="mt-2.5">
+            <MBtnRed href="/dealer/sell">Sell Your Vehicle</MBtnRed>
+          </div>
+        </section>
+
+        {/* —— Why Red Box —— */}
+        <section className="border-t border-white/[0.06]">
+          <MPhotoBand
+            src="/assets/dealer-trust-m.jpg"
+            alt="Client vehicles lined up outside Red Box Motors, Austin TX"
+            height={300}
+            position="center 62%"
+          />
+          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+            <div className={mEyebrowCls}>WHY RED BOX</div>
+            <MH2 size={34}>Why buyers and owners trust Red Box Motors</MH2>
+            <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.75) }}>
+              Whether you are buying one of our vehicles or consigning your own, the same team,
+              facility and standard stand behind the transaction.
+            </p>
+            <div className="mt-1.5 flex flex-col">
+              {WHY_BUY.map((t) => (
+                <div
+                  key={t.title}
+                  className="flex flex-col gap-2 border-t border-white/[0.08] py-5"
+                >
+                  <div className="text-[15px] font-bold uppercase tracking-[0.1em] text-white">
+                    {t.title}
+                  </div>
+                  <div className="text-[14px] leading-[1.6]" style={{ color: ED(0.65) }}>
+                    {t.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-[22px] border-t border-white/[0.08] pt-6">
+              {CREDIBILITY.map((c) => (
+                <div key={c.small} className="flex flex-col gap-1.5">
+                  <div className="text-[19px] font-extrabold tracking-[-0.01em] text-white">
+                    {c.big}
+                  </div>
+                  <div
+                    className="font-plex text-[9px] uppercase tracking-[0.14em]"
+                    style={{ color: ED(0.45), lineHeight: 1.6 }}
+                  >
+                    {c.small}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* —— Featured inventory —— */}
+        <section className="flex flex-col gap-5 border-t border-white/[0.06] px-5 pb-[52px] pt-11">
+          <div className="flex flex-col gap-3">
+            <div className={mEyebrowCls}>FEATURED INVENTORY</div>
+            <MH2 size={34}>Currently represented</MH2>
+          </div>
+          <div className="flex flex-col gap-4">
+            {salePreview.map((card) => (
+              <Link
+                key={`${card.type}-${card.id}`}
+                href={card.href}
+                className="relative block border border-white/[0.06]"
+              >
+                <div className="relative h-[230px] w-full">
+                  {card.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={card.image.url}
+                      alt={card.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      style={{ objectPosition: focalPosition(card.image) }}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="rb-stripe absolute inset-0" />
+                  )}
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        'linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0) 30%, rgba(10,10,10,0) 50%, rgba(10,10,10,0.85) 100%)',
+                    }}
+                  />
+                  <div className="pointer-events-none absolute left-4 top-3.5 bg-rb-red px-2.5 py-1.5 font-plex text-[9px] tracking-[0.25em] text-white">
+                    {card.label}
+                  </div>
+                  <div className="pointer-events-none absolute right-4 top-3.5 text-[15px] text-white" aria-hidden>
+                    ↗
+                  </div>
+                  <div className="pointer-events-none absolute bottom-3.5 left-4 right-4 flex flex-col gap-1">
+                    {card.eyebrow && (
+                      <div
+                        className="font-plex text-[10px] uppercase tracking-[0.25em]"
+                        style={{ color: ED(0.6) }}
+                      >
+                        {card.eyebrow}
+                      </div>
+                    )}
+                    <div className="text-[22px] font-bold tracking-[-0.01em] text-white">
+                      {card.name}
+                    </div>
+                    {card.meta && (
+                      <div className="font-plex text-[11px]" style={{ color: ED(0.65) }}>
+                        {card.meta}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <MBtnOutline href="/dealer/inventory">View Inventory</MBtnOutline>
+        </section>
+
+        {/* —— What we represent —— */}
+        <section className="border-t border-white/[0.06]">
+          <MPhotoBand
+            src="/assets/dealer-buying-selling.jpg"
+            alt="Race car cockpit, consign your vehicle with Red Box Motors"
+            height={320}
+            position="center 50%"
+            caption="AUSTIN, TX · NATIONWIDE"
+            gradient="linear-gradient(180deg, rgba(10,10,10,0) 45%, rgba(10,10,10,0.9) 90%, #0A0A0A 100%)"
+          />
+          <div className="flex flex-col gap-[18px] px-5 pb-[52px] pt-[34px]">
+            <div className={mEyebrowCls}>WHAT WE REPRESENT</div>
+            <MH2>Vehicles Worth Representing</MH2>
+            <p className="m-0 text-[15px] leading-[1.7]" style={{ color: ED(0.75) }}>
+              We represent vehicles with enthusiast value, compelling specification and a story
+              worth presenting, from modern exotics and limited-production performance cars to
+              significant classics, restomods and specialty vehicles.
+            </p>
+            <p className="m-0 text-[14px] leading-[1.6]" style={{ color: ED(0.55) }}>
+              Tell us about the car you would like us to represent.
+            </p>
+            <div className="mt-1 flex flex-col gap-3">
+              <MBtnRed href="/dealer/sell">Sell Your Vehicle</MBtnRed>
+              <MBtnOutline href="/dealer/inventory">View Inventory</MBtnOutline>
+            </div>
+            <div className="mt-2">
+              <MBrandRow label="RED BOX MOTORS · SALES & CONSIGNMENT" />
+            </div>
+          </div>
+        </section>
+
+        <QuestionsLocation faqs={DEALER_FAQ} />
+        <MobileFooter phone={settings.phone} email={settings.email} />
+      </MobileShell>
+
+      {/* ===== DESKTOP (unchanged) ===== */}
+      <div className="hidden md:block">
       <SiteNav current="sell" />
 
       <ScrollShell bg="/assets/hero-brabus-poster.jpg" bgPosition="center 58%" scrub={false} blurBg>
@@ -640,6 +887,7 @@ export default async function DealerPage() {
         <span className="text-[12px] font-semibold tracking-[1.5px] text-white">Sell Your Vehicle</span>
         <ArrowIcon size={13} stroke={1.5} />
       </Link>
+      </div>
     </>
   );
 }

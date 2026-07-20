@@ -201,7 +201,12 @@
       "Bash(W=360 OUT=/tmp/mshots node shoot.js)",
       "Bash(W=360 node sections.js)",
       "Bash(W=390 node scrolltest.js)",
-      "Bash(W=430 node scrolltest.js)"
+      "Bash(W=430 node scrolltest.js)",
+      "Skill(claude-in-chrome)",
+      "Bash(sips -c 1200 390 --cropOffset 0 0 home-m.png --out home-seg0.png)",
+      "Bash(sips -g pixelHeight home-seg0.png)",
+      "Bash(pip3 install *)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=20000 --window-size=1440,9000 --screenshot=\"shots/about-d.png\" \"http://localhost:3000/about\")"
     ]
   }
 }

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Archivo } from 'next/font/google';
+import { Archivo, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import { FilmGrain } from '@/components/motion/FilmGrain';
 import { RevealObserver } from '@/components/motion/RevealObserver';
@@ -13,6 +13,15 @@ const archivo = Archivo({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-sans',
+});
+
+// IBM Plex Mono — the mobile handoff's eyebrow/label/metadata face
+// (design_handoff README "Typography"). Exposed as font-plex; the desktop
+// prototypes keep the system mono stack (font-mono).
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-plex',
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
@@ -52,7 +61,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // Shop phone for the urgent/high-value line under every form (forms spec).
   const settings = await getSettings();
   return (
-    <html lang="en" className={archivo.variable}>
+    <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
       <body className="bg-rb-bg font-sans text-rb-tx">
         <IntroLoader />
         <ContactModalProvider phone={settings.phone}>{children}</ContactModalProvider>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { HomeShowcase } from '@/components/home/HomeShowcase';
+import { HomeMobile } from '@/components/home/HomeMobile';
 import { VisitAndFAQ } from '@/components/site/VisitAndFAQ';
 import { getSurfaceCards } from '@/lib/public/content';
 import { SchemaScript } from '@/components/site/SchemaScript';
@@ -26,7 +27,12 @@ export default async function HomePage() {
       <link rel="preload" as="image" href="/assets/dealer-hero-poster-m.jpg" media="(max-width: 767px)" fetchPriority="high" />
       <link rel="preload" as="image" href="/assets/dealer-hero-poster.jpg" media="(min-width: 768px)" fetchPriority="high" />
       <SchemaScript schema={localBusinessSchema(settings)} />
-      <HomeShowcase featured={featured} visitAndFaq={<VisitAndFAQ division="all" />} />
+      {/* Mobile-native homepage below md (design_handoff 2026-07-20); the
+          desktop showcase is untouched above md. */}
+      <HomeMobile phone={settings.phone} email={settings.email} />
+      <div className="hidden md:block">
+        <HomeShowcase featured={featured} visitAndFaq={<VisitAndFAQ division="all" />} />
+      </div>
     </>
   );
 }
