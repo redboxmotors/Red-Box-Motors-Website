@@ -223,7 +223,7 @@ export function HomeMobile({ phone, email }: { phone: string | null; email: stri
         <Pillar
           href="/restoration"
           img="/assets/home-protection-tile-m.jpg"
-          imgPos="center 82%"
+          imgPos="center"
           overlayTitle="Protection & Customization"
           eyebrow="RED BOX RESTORATION"
           body="Paint protection film, ceramic coatings, paint correction, vinyl wraps, window tint, detailing, wheels and specialty automotive installations, completed to one exacting standard."

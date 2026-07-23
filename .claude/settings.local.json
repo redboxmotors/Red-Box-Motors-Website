@@ -211,7 +211,8 @@
       "Bash(/private/tmp/claude-501/-Users-user-Red-Box-Motors-App/5de2ada3-28e5-4740-9de7-dc26083898f9/scratchpad/ffm/node_modules/ffmpeg-static/ffmpeg -y -i /Users/user/Red-Box-Motors-App/public/assets/restoration-hero.mp4 -t 21 -vf scale=-2:720,fps=24 -an -c:v libx264 -preset medium -crf 30 -movflags +faststart /Users/user/Red-Box-Motors-App/public/assets/restoration-hero-m.new.mp4 -loglevel error)",
       "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --virtual-time-budget=15000 --window-size=1440,6000 --dump-dom http://localhost:3000/about)",
       "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --hide-scrollbars --run-all-compositor-stages-before-draw --virtual-time-budget=20000 --window-size=1440,6000 --screenshot=shots/about-motion2.png \"http://localhost:3000/about\")",
-      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --hide-scrollbars --force-prefers-reduced-motion --virtual-time-budget=15000 --window-size=1440,6000 --screenshot=shots/about-rm.png \"http://localhost:3000/about\")"
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --hide-scrollbars --force-prefers-reduced-motion --virtual-time-budget=15000 --window-size=1440,6000 --screenshot=shots/about-rm.png \"http://localhost:3000/about\")",
+      "Bash(sips *)"
     ]
   }
 }
