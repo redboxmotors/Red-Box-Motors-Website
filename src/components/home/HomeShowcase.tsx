@@ -463,7 +463,8 @@ export function HomeShowcase({
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {/* Hoonitruck rendition (owner 2026-07-23) — pre-cropped 16:10
                     around the truck, so plain center keeps it centered */}
-                <img src="/assets/home-protection-tile.jpg" alt="" className={tileImgCls} style={{ objectPosition: 'center' }} />
+                {/* ?v=2 busts browser caches from the pre-Hoonitruck art */}
+                <img src="/assets/home-protection-tile.jpg?v=2" alt="" className={tileImgCls} style={{ objectPosition: 'center' }} />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.08)_0%,rgba(10,10,10,0)_46%,rgba(8,8,8,0.38)_76%,rgba(6,6,6,0.82)_100%)]" />
                 <div className="absolute right-[20px] top-[20px] text-white"><MosaicArrow /></div>
                 <div className="absolute inset-x-0 bottom-0 p-6 md:p-[28px]">

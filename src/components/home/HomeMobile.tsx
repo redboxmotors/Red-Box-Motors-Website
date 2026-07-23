@@ -222,7 +222,7 @@ export function HomeMobile({ phone, email }: { phone: string | null; email: stri
         />
         <Pillar
           href="/restoration"
-          img="/assets/home-protection-tile-m.jpg"
+          img="/assets/home-protection-tile-m.jpg?v=2"
           imgPos="center"
           overlayTitle="Protection & Customization"
           eyebrow="RED BOX RESTORATION"
